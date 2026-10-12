@@ -1,5 +1,6 @@
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
+using OpenTK.Windowing.GraphicsLibraryFramework;
 
 namespace Engine;
 
@@ -34,7 +35,7 @@ public abstract class Application : GameWindow
     protected virtual void FixedUpdate(float fixedDeltaTime) { }
 
     // Runs once per frame. deltaTime is the time since the last frame in seconds.
-    protected virtual void Update(float deltaTime) { }
+    protected virtual void Update(float deltaTime, KeyboardState keyboardState) { }
 
     // Draws the current state. Does not change any state and therefore knows no time.
     protected abstract void Render();
@@ -73,7 +74,7 @@ public abstract class Application : GameWindow
         if (_fixedTimeAccumulator >= _fixedDeltaTime)
             _fixedTimeAccumulator = 0;
 
-        Update((float)e.Time);
+        Update((float)e.Time, KeyboardState);
     }
 
     protected sealed override void OnRenderFrame(FrameEventArgs e)
