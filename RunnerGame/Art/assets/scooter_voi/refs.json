@@ -1,0 +1,214 @@
+{
+ "photos": [
+  {
+   "file": "ref/01.jpg",
+   "title": "VOI.Hannover-2022.jpg",
+   "author": "Michał Beim",
+   "licence": "CC BY-SA 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:VOI.Hannover-2022.jpg",
+   "size": [
+    1600,
+    1200
+   ],
+   "view": "front_34",
+   "key": false,
+   "landmarks": {},
+   "camera": null
+  },
+  {
+   "file": "ref/02.jpg",
+   "title": "VOI.in-Hannover-2022.jpg",
+   "author": "Michał Beim",
+   "licence": "CC BY-SA 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:VOI.in-Hannover-2022.jpg",
+   "size": [
+    1600,
+    1200
+   ],
+   "view": "front_34",
+   "key": false,
+   "landmarks": {},
+   "camera": null
+  },
+  {
+   "file": "ref/04.jpg",
+   "title": "Voi scooter in Liverpool 20221101 085614.jpg",
+   "author": "Darrelljon",
+   "licence": "CC BY-SA 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Voi_scooter_in_Liverpool_20221101_085614.jpg",
+   "size": [
+    900,
+    1600
+   ],
+   "view": "side_left",
+   "key": true,
+   "landmarks": {},
+   "camera": null
+  },
+  {
+   "file": "ref/05.jpg",
+   "title": "Voi scooter in Liverpool 20221101 085618.jpg",
+   "author": "Darrelljon",
+   "licence": "CC BY-SA 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Voi_scooter_in_Liverpool_20221101_085618.jpg",
+   "size": [
+    900,
+    1600
+   ],
+   "view": "side_left",
+   "key": false,
+   "landmarks": {},
+   "camera": null
+  },
+  {
+   "file": "ref/06.jpg",
+   "title": "Voi scooter in Liverpool 20221101 085924.jpg",
+   "author": "Darrelljon",
+   "licence": "CC BY-SA 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Voi_scooter_in_Liverpool_20221101_085924.jpg",
+   "size": [
+    1600,
+    900
+   ],
+   "view": "front_34",
+   "key": false,
+   "landmarks": {},
+   "camera": null
+  },
+  {
+   "file": "ref/07.jpg",
+   "title": "Voi scooter in Liverpool 20221101 085926.jpg",
+   "author": "Darrelljon",
+   "licence": "CC BY-SA 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Voi_scooter_in_Liverpool_20221101_085926.jpg",
+   "size": [
+    1600,
+    900
+   ],
+   "view": "front_34",
+   "key": false,
+   "landmarks": {},
+   "camera": null
+  },
+  {
+   "file": "ref/08.jpg",
+   "title": "Voi scooter in Liverpool 20221101 124530.jpg",
+   "author": "Darrelljon",
+   "licence": "CC BY-SA 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Voi_scooter_in_Liverpool_20221101_124530.jpg",
+   "size": [
+    900,
+    1600
+   ],
+   "view": "side_left",
+   "key": false,
+   "landmarks": {},
+   "camera": null
+  },
+  {
+   "file": "ref/10.jpg",
+   "title": "Voi. Scooter.jpg",
+   "author": "This image is a work by Wikipedia and Wikimedia Commons user C.Suthorn. When reusing, credit me as described in the Licensing information below.  I would appreciate being notified (wikimail, talk page, email, Social Media) if you use my work outside Wikimedia.\nDo not copy this image illegally by ignoring the terms of the license below, as it is not in the public domain. If you would like special permission to use, license, or purchase the image please contact me to negotiate terms.\n\nMore of my work can be found in my personal gallery or at my Peertube channel.\n\n\n\n\nA prepared attribution especially for use in Social Media and Print (newspapers, flyers, books, murals, mousepads, mugs, posters, t-shirts) can be copied here",
+   "licence": "CC BY-SA 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Voi._Scooter.jpg",
+   "size": [
+    899,
+    1600
+   ],
+   "view": "front_34",
+   "key": false,
+   "landmarks": {},
+   "camera": null
+  },
+  {
+   "file": "ref/11.jpg",
+   "title": "Frankfurt, Germany - Electric rental kick scooter handlebars.jpg",
+   "author": "Alexis Jazz",
+   "licence": "CC BY 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Frankfurt,_Germany_-_Electric_rental_kick_scooter_handlebars.jpg",
+   "size": [
+    1600,
+    1076
+   ],
+   "view": "detail_handlebar",
+   "key": false,
+   "landmarks": {},
+   "camera": null
+  },
+  {
+   "file": "ref/12.jpg",
+   "title": "Frankfurt, Germany - Electric rental kick scooter rear.jpg",
+   "author": "Alexis Jazz",
+   "licence": "CC BY 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Frankfurt,_Germany_-_Electric_rental_kick_scooter_rear.jpg",
+   "size": [
+    728,
+    1600
+   ],
+   "view": "rear_34",
+   "key": false,
+   "landmarks": {},
+   "camera": null
+  },
+  {
+   "file": "ref/13.jpg",
+   "title": "Frankfurt, Germany - Electric rental kick scooters.jpg",
+   "author": "Alexis Jazz",
+   "licence": "CC BY 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Frankfurt,_Germany_-_Electric_rental_kick_scooters.jpg",
+   "size": [
+    1485,
+    1600
+   ],
+   "view": "top",
+   "key": false,
+   "landmarks": {},
+   "camera": null
+  },
+  {
+   "file": "ref/14.jpg",
+   "title": "E-Scooter HL Germany.jpg",
+   "author": "Jochen64",
+   "licence": "CC BY-SA 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:E-Scooter_HL_Germany.jpg",
+   "size": [
+    780,
+    1600
+   ],
+   "view": "detail_rear",
+   "key": false,
+   "landmarks": {},
+   "camera": null
+  },
+  {
+   "file": "ref/15.jpg",
+   "title": "Voi e-scooter used as part of the Portsmouth official 2021 Voi rental trial.jpg",
+   "author": "Djm-leighpark",
+   "licence": "CC BY-SA 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Voi_e-scooter_used_as_part_of_the_Portsmouth_official_2021_Voi_rental_trial.jpg",
+   "size": [
+    1281,
+    1600
+   ],
+   "view": "rear_34",
+   "key": true,
+   "landmarks": {},
+   "camera": null
+  },
+  {
+   "file": "ref/16.jpg",
+   "title": "Electric scooter controls (Voi Portsmoiuth 2021).jpg",
+   "author": "Djm-leighpark",
+   "licence": "CC BY-SA 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Electric_scooter_controls_(Voi_Portsmoiuth_2021).jpg",
+   "size": [
+    1600,
+    1200
+   ],
+   "view": "detail_handlebar",
+   "key": false,
+   "landmarks": {},
+   "camera": null
+  }
+ ]
+}

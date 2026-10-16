@@ -1,0 +1,170 @@
+"""Photo helpers for the photo-to-model workflow (system Python + Pillow, never inside Blender).
+
+Reference packs: fetch free-licensed photos from Wikimedia Commons into <asset_dir>/ref/ and keep their
+licence data in <asset_dir>/refs.json. Downloads use curl because the system Python's certificate store
+is outdated.
+
+CLI (from the repo root):
+    python RunnerGame/Art/lib/photo_tools.py fetch <asset_dir> <titles.txt>
+    python RunnerGame/Art/lib/photo_tools.py sheet <asset_dir>
+"""
+import html
+import json
+import re
+import subprocess
+import sys
+import time
+import unicodedata
+import urllib.parse
+from pathlib import Path
+
+from PIL import Image, ImageDraw, ImageOps
+
+API = "https://commons.wikimedia.org/w/api.php"
+UA = "HannoverRushHour-student-project/0.1 (university course; low-volume reference lookup)"
+KEEP_KEYS = ("view", "key", "landmarks", "camera")   # hand-made values that survive a re-fetch
+
+
+class RateLimited(Exception):
+    """Wikimedia answered with something other than an API result (usually a rate-limit page)."""
+
+
+# ---------------------------------------------------------------- reference packs
+
+def _norm_title(title):
+    t = title[5:] if title.startswith("File:") else title
+    return unicodedata.normalize("NFC", t.replace("_", " "))
+
+
+def parse_imageinfo(api):
+    """Turn an imageinfo API reply into one dict per photo (title without 'File:', HTML-free author)."""
+    if "query" not in api:
+        raise RateLimited(str(api)[:200])
+    photos = []
+    for page in api["query"].get("pages", {}).values():
+        if "imageinfo" not in page:
+            continue
+        ii = page["imageinfo"][0]
+        meta = ii.get("extmetadata", {})
+        author = html.unescape(re.sub(r"<[^>]+>", "", meta.get("Artist", {}).get("value", "unknown"))).strip()
+        photos.append({
+            "title": _norm_title(page["title"]),
+            "author": author,
+            "licence": meta.get("LicenseShortName", {}).get("value", "unknown"),
+            "source_url": ii.get("descriptionurl", ""),
+            "image_url": ii.get("thumburl") or ii.get("url", ""),
+        })
+    return photos
+
+
+def save_normalised(src, dst, max_side=1600):
+    """Apply the EXIF orientation (Blender ignores it), shrink to max_side and save without EXIF."""
+    with Image.open(src) as im:
+        im = ImageOps.exif_transpose(im).convert("RGB")
+        im.thumbnail((max_side, max_side), Image.LANCZOS)
+        im.save(dst, "JPEG", quality=90)
+        return im.size
+
+
+def _api_query(titles, width, run, sleep):
+    params = {"action": "query", "format": "json", "prop": "imageinfo", "iiprop": "url|extmetadata",
+              "iiextmetadatafilter": "Artist|LicenseShortName", "iiurlwidth": str(width),
+              "titles": "|".join(titles)}
+    # Percent-encode here so curl only ever sees ASCII (non-ASCII argv is unreliable on Windows).
+    url = API + "?" + urllib.parse.urlencode(params)
+    for attempt in range(3):
+        out = run(["curl", "-s", "-A", UA, url], capture_output=True).stdout
+        try:
+            return parse_imageinfo(json.loads(out))
+        except (ValueError, RateLimited):
+            if attempt == 2:
+                raise RateLimited("no API result after 3 attempts")
+            print("rate limited, waiting 60 s", file=sys.stderr)
+            sleep(60)
+
+
+def fetch_pack(asset_dir, titles, width=1600, run=subprocess.run, sleep=time.sleep):
+    """Download the given Commons titles to <asset_dir>/ref/NN.jpg and write refs.json."""
+    asset_dir = Path(asset_dir)
+    ref_dir = asset_dir / "ref"
+    ref_dir.mkdir(parents=True, exist_ok=True)
+    if len(titles) > 50:
+        raise ValueError("the API takes at most 50 titles per request")
+    found = {p["title"]: p for p in _api_query(titles, width, run, sleep)}
+    missing = [t for t in titles if _norm_title(t) not in found]
+    if missing:
+        raise ValueError(f"not found on Commons: {missing}")
+
+    refs_path = asset_dir / "refs.json"
+    old = {}
+    if refs_path.exists():
+        old = {p["title"]: p for p in json.loads(refs_path.read_text(encoding="utf-8"))["photos"]}
+
+    photos = []
+    for i, title in enumerate(titles, 1):
+        meta = found[_norm_title(title)]
+        rel = f"ref/{i:02d}.jpg"
+        tmp = ref_dir / f"{i:02d}.download"
+        result = run(["curl", "-s", "-f", "-A", UA, "-o", str(tmp), meta["image_url"]], capture_output=True)
+        if result.returncode != 0 or not tmp.exists():
+            raise RuntimeError(f"download failed for {meta['title']}")
+        size = save_normalised(tmp, asset_dir / rel)
+        tmp.unlink()
+        photo = {"file": rel, "title": meta["title"], "author": meta["author"], "licence": meta["licence"],
+                 "source_url": meta["source_url"], "size": list(size),
+                 "view": None, "key": False, "landmarks": {}, "camera": None}
+        for k in KEEP_KEYS:
+            if k in old.get(meta["title"], {}):
+                photo[k] = old[meta["title"]][k]
+        photos.append(photo)
+        print(f"{rel}  {size[0]}x{size[1]}  {meta['licence']}  {meta['title']}")
+        sleep(1)
+
+    refs_path.write_text(json.dumps({"photos": photos}, indent=1, ensure_ascii=False), encoding="utf-8")
+    return photos
+
+
+def load_refs(asset_dir):
+    return json.loads((Path(asset_dir) / "refs.json").read_text(encoding="utf-8"))
+
+
+def contact_sheet(asset_dir, out, cell=320, cols=4):
+    """Numbered thumbnails of all reference photos, labelled with their view tag (* = key photo)."""
+    asset_dir = Path(asset_dir)
+    photos = load_refs(asset_dir)["photos"]
+    rows = (len(photos) + cols - 1) // cols
+    sheet = Image.new("RGB", (cols * cell, rows * cell), "white")
+    draw = ImageDraw.Draw(sheet)
+    for i, p in enumerate(photos):
+        with Image.open(asset_dir / p["file"]) as im:
+            im.thumbnail((cell - 8, cell - 24))
+            x, y = (i % cols) * cell, (i // cols) * cell
+            sheet.paste(im, (x + 4, y + 20))
+        label = f"{Path(p['file']).stem}  {p.get('view') or '?'}{' *' if p.get('key') else ''}"
+        draw.text((x + 4, y + 4), label, fill="red")
+    Path(out).parent.mkdir(parents=True, exist_ok=True)
+    sheet.save(out, quality=88)
+
+
+def credits_lines(photos):
+    return [f'- {p["file"]}: "{p["title"]}" by {p["author"]}, {p["licence"]}, {p["source_url"]}' for p in photos]
+
+
+# ---------------------------------------------------------------- CLI
+
+def main(argv):
+    cmd = argv[0]
+    if cmd == "fetch":
+        asset_dir, titles_file = Path(argv[1]), Path(argv[2])
+        titles = [t.strip() for t in titles_file.read_text(encoding="utf-8").splitlines() if t.strip()]
+        fetch_pack(asset_dir, titles)
+    elif cmd == "sheet":
+        out = Path(argv[1]) / "previews" / "ref_sheet.jpg"
+        contact_sheet(argv[1], out)
+        print("sheet", out)
+    else:
+        raise SystemExit(__doc__)
+
+
+if __name__ == "__main__":
+    main(sys.argv[1:])
