@@ -18,7 +18,7 @@ import unicodedata
 import urllib.parse
 from pathlib import Path
 
-from PIL import Image, ImageDraw, ImageOps
+from PIL import Image, ImageDraw, ImageFont, ImageOps
 
 API = "https://commons.wikimedia.org/w/api.php"
 UA = "HannoverRushHour-student-project/0.1 (university course; low-volume reference lookup)"
@@ -150,11 +150,88 @@ def credits_lines(photos):
     return [f'- {p["file"]}: "{p["title"]}" by {p["author"]}, {p["licence"]}, {p["source_url"]}' for p in photos]
 
 
+# ---------------------------------------------------------------- reading photos
+
+def grid_positions(crop, step, scale):
+    """(source px, output px) of every grid line inside the crop; source values are multiples of step."""
+    x0, y0, x1, y1 = crop
+
+    def lines(lo, hi):
+        first = -(-lo // step) * step
+        return [(s, (s - lo) * scale) for s in range(first, hi + 1, step)]
+
+    return lines(x0, x1), lines(y0, y1)
+
+
+def grid_image(src, out, crop=None, step=50, out_width=1200):
+    """Crop + scale a photo and draw a grid labelled in SOURCE pixels, so points can be read off it."""
+    with Image.open(src) as im:
+        crop = crop or (0, 0, im.width, im.height)
+        scale = out_width / (crop[2] - crop[0])
+        img = im.convert("RGB").crop(crop).resize((out_width, round((crop[3] - crop[1]) * scale)), Image.LANCZOS)
+    draw = ImageDraw.Draw(img)
+    font = ImageFont.load_default(size=13)
+    xs, ys = grid_positions(crop, step, scale)
+    for vertical, positions in ((True, xs), (False, ys)):
+        for s, o in positions:
+            strong = s % (5 * step) == 0
+            colour = (255, 255, 0) if strong else (0, 255, 255)
+            line = [(o, 0), (o, img.height)] if vertical else [(0, o), (img.width, o)]
+            draw.line(line, fill=colour, width=2 if strong else 1)
+            pos = (o + 2, 2) if vertical else (2, o + 2)
+            box = draw.textbbox(pos, str(s), font=font)
+            draw.rectangle(box, fill=(0, 0, 0))
+            draw.text(pos, str(s), fill=colour, font=font)
+    Path(out).parent.mkdir(parents=True, exist_ok=True)
+    img.save(out)
+
+
+def srgb_to_linear(c):
+    return c / 12.92 if c <= 0.04045 else ((c + 0.055) / 1.055) ** 2.4
+
+
+def sample_color(src, box):
+    """Median colour of a photo region (x0, y0, x1, y1), returned as linear RGB for Blender materials."""
+    with Image.open(src) as im:
+        region = im.convert("RGB").crop(box)
+    channels = list(zip(*region.getdata()))
+    medians = [sorted(ch)[len(ch) // 2] / 255 for ch in channels]
+    return tuple(round(srgb_to_linear(c), 4) for c in medians)
+
+
+def measure(landmarks, ruler, pairs):
+    """Distances in metres between named landmark pixels, scaled by a ruler (name_a, name_b, metres)."""
+    def dist(a, b):
+        (ax, ay), (bx, by) = landmarks[a], landmarks[b]
+        return ((ax - bx) ** 2 + (ay - by) ** 2) ** 0.5
+
+    m_per_px = ruler[2] / dist(ruler[0], ruler[1])
+    return {name: dist(a, b) * m_per_px for name, (a, b) in pairs.items()}
+
+
 # ---------------------------------------------------------------- CLI
 
+def _box(text):
+    return tuple(int(v) for v in text.split(","))
+
+
 def main(argv):
+    sys.stdout.reconfigure(errors="replace")   # Commons titles may not fit the console code page
     cmd = argv[0]
-    if cmd == "fetch":
+    if cmd == "grid":
+        crop = _box(argv[argv.index("--crop") + 1]) if "--crop" in argv else None
+        step = int(argv[argv.index("--step") + 1]) if "--step" in argv else 50
+        grid_image(argv[1], argv[2], crop=crop, step=step)
+        print("grid", argv[2])
+    elif cmd == "color":
+        print("linear", list(sample_color(argv[1], _box(argv[2]))))
+    elif cmd == "measure":
+        asset_dir, photo_file, pairs_file = Path(argv[1]), argv[2], Path(argv[3])
+        photo = next(p for p in load_refs(asset_dir)["photos"] if p["file"] == photo_file)
+        spec = json.loads(pairs_file.read_text(encoding="utf-8"))
+        for name, metres in measure(photo["landmarks"], tuple(spec["ruler"]), spec["pairs"]).items():
+            print(f"{name:20s} {metres:.3f} m")
+    elif cmd == "fetch":
         asset_dir, titles_file = Path(argv[1]), Path(argv[2])
         titles = [t.strip() for t in titles_file.read_text(encoding="utf-8").splitlines() if t.strip()]
         fetch_pack(asset_dir, titles)

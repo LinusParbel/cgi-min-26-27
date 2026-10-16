@@ -108,5 +108,39 @@ class CreditsTest(unittest.TestCase):
                          ['- ref/01.jpg: "Title" by Author, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Title'])
 
 
+class GridTest(unittest.TestCase):
+    def test_grid_positions(self):
+        xs, ys = pt.grid_positions((100, 200, 500, 600), 50, 2.0)
+        self.assertEqual(xs[0], (100, 0.0))
+        self.assertIn((150, 100.0), xs)
+        self.assertEqual(len(xs), 9)
+        self.assertEqual(ys[0], (200, 0.0))
+        self.assertEqual(len(ys), 9)
+
+    def test_grid_image_size(self):
+        with tempfile.TemporaryDirectory() as d:
+            src, out = Path(d) / "src.jpg", Path(d) / "grid.png"
+            src.write_bytes(jpeg_bytes(600, 400))
+            pt.grid_image(src, out, crop=(100, 100, 300, 200), out_width=800)
+            with Image.open(out) as im:
+                self.assertEqual(im.size, (800, 400))
+
+
+class ColorTest(unittest.TestCase):
+    def test_sample_color_linear(self):
+        with tempfile.TemporaryDirectory() as d:
+            src = Path(d) / "grey.png"
+            Image.new("RGB", (40, 40), (128, 128, 128)).save(src)
+            for c in pt.sample_color(src, (5, 5, 30, 30)):
+                self.assertAlmostEqual(c, 0.2158, delta=0.001)
+
+
+class MeasureTest(unittest.TestCase):
+    def test_measure_ruler(self):
+        lm = {"a": [0, 0], "b": [254, 0], "c": [0, 0], "d": [0, 1000]}
+        result = pt.measure(lm, ("a", "b", 0.254), {"x": ("c", "d")})
+        self.assertAlmostEqual(result["x"], 1.0, delta=1e-6)
+
+
 if __name__ == "__main__":
     unittest.main()
