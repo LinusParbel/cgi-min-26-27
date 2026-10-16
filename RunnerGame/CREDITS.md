@@ -31,3 +31,4 @@ A prepared attribution especially for use in Social Media and Print (newspapers,
 - `ref/14.jpg`: "E-Scooter HL Germany.jpg" by Jochen64, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:E-Scooter_HL_Germany.jpg
 - `ref/15.jpg`: "Voi e-scooter used as part of the Portsmouth official 2021 Voi rental trial.jpg" by Djm-leighpark, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Voi_e-scooter_used_as_part_of_the_Portsmouth_official_2021_Voi_rental_trial.jpg
 - `ref/16.jpg`: "Electric scooter controls (Voi Portsmoiuth 2021).jpg" by Djm-leighpark, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:Electric_scooter_controls_(Voi_Portsmoiuth_2021).jpg
+- `ref/17.jpg`: "VOI Scooter in Bristol - June 2022.jpg" by Captain Galaxy, CC BY 4.0, https://commons.wikimedia.org/wiki/File:VOI_Scooter_in_Bristol_-_June_2022.jpg

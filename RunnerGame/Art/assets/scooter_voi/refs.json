@@ -40,8 +40,8 @@
     900,
     1600
    ],
-   "view": "side_left",
-   "key": true,
+   "view": "front_34",
+   "key": false,
    "landmarks": {},
    "camera": null
   },
@@ -55,7 +55,7 @@
     900,
     1600
    ],
-   "view": "side_left",
+   "view": "front_34",
    "key": false,
    "landmarks": {},
    "camera": null
@@ -100,7 +100,7 @@
     900,
     1600
    ],
-   "view": "side_left",
+   "view": "rear_34",
    "key": false,
    "landmarks": {},
    "camera": null
@@ -207,6 +207,21 @@
    ],
    "view": "detail_handlebar",
    "key": false,
+   "landmarks": {},
+   "camera": null
+  },
+  {
+   "file": "ref/17.jpg",
+   "title": "VOI Scooter in Bristol - June 2022.jpg",
+   "author": "Captain Galaxy",
+   "licence": "CC BY 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:VOI_Scooter_in_Bristol_-_June_2022.jpg",
+   "size": [
+    1600,
+    1067
+   ],
+   "view": "side_left",
+   "key": true,
    "landmarks": {},
    "camera": null
   }
