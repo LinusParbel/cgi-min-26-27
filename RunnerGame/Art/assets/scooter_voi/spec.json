@@ -1,0 +1,42 @@
+{
+ "ruler": {"photo": "ref/17.jpg", "from": "front_axle_top", "to": "front_axle_bottom", "metres": 0.254,
+           "note": "10-inch tyre (Voiager 5 fleet listing); 156 px in ref/17.jpg, so 1 px = 1.628 mm"},
+ "dims": {
+  "wheel_d":        {"value": 0.254, "source": "ruler (10-inch tyre)"},
+  "wheel_w":        {"value": 0.065, "source": "estimate (10x2.5 in tyre); check in ref/14.jpg"},
+  "wheelbase":      {"value": 0.848, "source": "ref/17.jpg front_axle-rear_axle (521 px)"},
+  "deck_len":       {"value": 0.505, "source": "ref/17.jpg deck_front-deck_rear (310 px)"},
+  "deck_front_off": {"value": 0.210, "source": "ref/17.jpg deck_front is 129 px behind front_axle"},
+  "deck_w":         {"value": 0.180, "source": "estimate; check in ref/15.jpg and ref/14.jpg"},
+  "deck_top_h":     {"value": 0.184, "source": "ref/17.jpg ground (y 929) to deck top (y 816)"},
+  "deck_thick":     {"value": 0.137, "source": "ref/17.jpg deck top (y 816) to red skirt bottom (y 900)"},
+  "stem_tilt_deg":  {"value": 10.1,  "source": "ref/17.jpg stem centre line stem_a (718,375) to stem_b (678,600)"},
+  "stem_d":         {"value": 0.073, "source": "ref/17.jpg stem width at y 550 (45 px)"},
+  "stem_axle_off":  {"value": 0.117, "source": "ref/17.jpg stem_b lies 72 px behind front_axle at height 0.534 m"},
+  "stem_b_h":       {"value": 0.534, "source": "ref/17.jpg stem_b (y 600) above ground"},
+  "crown_h":        {"value": 0.453, "source": "ref/17.jpg lower end of stem / fork crown at y 650"},
+  "bar_h":          {"value": 1.024, "source": "ref/17.jpg near grip end (y 300) above ground"},
+  "bar_w":          {"value": 0.600, "source": "estimate; ref/11.jpg grip-length ratio suggests 0.6-0.8, tune in ref/15.jpg compare"},
+  "bar_fwd":        {"value": 0.120, "source": "ref/17.jpg grip end ~0.12 m in front of the stem axis (perspective-corrected)"},
+  "head_top_h":     {"value": 1.167, "source": "ref/17.jpg head_top_front (y 212) above ground"},
+  "head_len":       {"value": 0.200, "source": "ref/17.jpg head block x 668-790 (122 px)"},
+  "head_h":         {"value": 0.094, "source": "ref/17.jpg head block y 212-270 (58 px)"},
+  "box_w":          {"value": 0.060, "source": "estimate; check in ref/02.jpg"},
+  "box_d":          {"value": 0.090, "source": "ref/17.jpg plate holder x 605-660 (55 px)"},
+  "box_h":          {"value": 0.220, "source": "ref/17.jpg plate holder y 425-560 (135 px)"},
+  "box_bottom_h":   {"value": 0.601, "source": "ref/17.jpg plate holder bottom (y 560) above ground"},
+  "box_fwd":        {"value": 0.100, "source": "ref/17.jpg plate holder centre ~0.10 m in front of the stem axis"},
+  "rear_fender_len":{"value": 0.273, "source": "ref/17.jpg deck_rear-fender_end (168 px)"},
+  "fender_top_h":   {"value": 0.259, "source": "ref/17.jpg fender top (y 770) above ground"}
+ },
+ "colors": {
+  "paint":  {"linear": [0.5972, 0.0908, 0.0908], "source": "ref/02.jpg box 740,500,760,550 (sunlit stem)"},
+  "deck":   {"linear": [0.016, 0.0203, 0.0319],  "source": "ref/02.jpg box 1020,700,1070,720 (grip surface)"},
+  "tyre":   {"linear": [0.0103, 0.0097, 0.0116], "source": "ref/02.jpg box 560,900,575,940"},
+  "grip":   {"linear": [0.012, 0.012, 0.013],    "source": "estimate (same black rubber as tyre)"},
+  "box":    {"linear": [0.0027, 0.004, 0.0056],  "source": "ref/02.jpg box 725,400,750,480 (plate holder)"},
+  "metal":  {"linear": [0.2195, 0.2086, 0.1946], "source": "ref/02.jpg box 677,800,685,830 (fork stanchion)"},
+  "fender": {"linear": [0.15, 0.1714, 0.2232],   "source": "ref/02.jpg box 1080,630,1120,660 (sunlit rear fender)"},
+  "band":   {"linear": [0.0212, 0.0222, 0.0252], "source": "ref/02.jpg box 715,580,760,620 (black stem band)"}
+ }
+}

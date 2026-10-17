@@ -222,7 +222,80 @@
    ],
    "view": "side_left",
    "key": true,
-   "landmarks": {},
+   "landmarks": {
+    "front_axle": [
+     606,
+     850
+    ],
+    "front_axle_top": [
+     606,
+     773
+    ],
+    "front_axle_bottom": [
+     606,
+     929
+    ],
+    "rear_axle": [
+     1127,
+     852
+    ],
+    "rear_axle_bottom": [
+     1127,
+     930
+    ],
+    "bar_left": [
+     642,
+     300
+    ],
+    "head_top_front": [
+     668,
+     212
+    ],
+    "head_top_rear": [
+     790,
+     245
+    ],
+    "stem_a": [
+     718,
+     375
+    ],
+    "stem_b": [
+     678,
+     600
+    ],
+    "plate_top": [
+     632,
+     425
+    ],
+    "plate_bottom": [
+     632,
+     560
+    ],
+    "deck_front": [
+     735,
+     816
+    ],
+    "deck_rear": [
+     1045,
+     816
+    ],
+    "deck_skirt_bottom": [
+     1000,
+     900
+    ],
+    "fender_top": [
+     1130,
+     770
+    ],
+    "fender_end": [
+     1212,
+     800
+    ],
+    "front_tyre_front": [
+     522,
+     850
+    ]
+   },
    "camera": null
   }
  ]

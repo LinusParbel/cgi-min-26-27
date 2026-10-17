@@ -1,0 +1,25 @@
+{
+ "ruler": [
+  "front_axle_top",
+  "front_axle_bottom",
+  0.254
+ ],
+ "pairs": {
+  "wheelbase": [
+   "front_axle",
+   "rear_axle"
+  ],
+  "deck_len": [
+   "deck_front",
+   "deck_rear"
+  ],
+  "rear_fender_len": [
+   "deck_rear",
+   "fender_end"
+  ],
+  "overall_len": [
+   "front_tyre_front",
+   "fender_end"
+  ]
+ }
+}
