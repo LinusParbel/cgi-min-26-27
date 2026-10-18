@@ -59,19 +59,19 @@ class Acc:
         self.hexa([(x0, y0, z0), (x1, y0, z0), (x1, y1, z0), (x0, y1, z0)],
                   [(x0, y0, z1), (x1, y0, z1), (x1, y1, z1), (x0, y1, z1)])
 
-    def frustum(self, z0, z1, w0, w1):
+    def frustum(self, z0, z1, w0, w1, cx=0.0, cy=0.0):
         r0, r1 = w0 / 2, w1 / 2
-        self.hexa([(-r0, -r0, z0), (r0, -r0, z0), (r0, r0, z0), (-r0, r0, z0)],
-                  [(-r1, -r1, z1), (r1, -r1, z1), (r1, r1, z1), (-r1, r1, z1)])
+        self.hexa([(cx - r0, cy - r0, z0), (cx + r0, cy - r0, z0), (cx + r0, cy + r0, z0), (cx - r0, cy + r0, z0)],
+                  [(cx - r1, cy - r1, z1), (cx + r1, cy - r1, z1), (cx + r1, cy + r1, z1), (cx - r1, cy + r1, z1)])
 
-    def lathe(self, profile, n, caps=True):
+    def lathe(self, profile, n, caps=True, cx=0.0, cy=0.0):
         """Surface of revolution round the Z axis; profile = [(radius, z), ...] bottom to top."""
         rings = []
         for r, z in profile:
             if r <= 1e-9:
-                rings.append([self.vert((0, 0, z))])
+                rings.append([self.vert((cx, cy, z))])
             else:
-                rings.append([self.vert((r * math.cos(2 * math.pi * i / n), r * math.sin(2 * math.pi * i / n), z))
+                rings.append([self.vert((cx + r * math.cos(2 * math.pi * i / n), cy + r * math.sin(2 * math.pi * i / n), z))
                               for i in range(n)])
         for k in range(len(profile) - 1):
             a, b = rings[k], rings[k + 1]
@@ -84,7 +84,7 @@ class Acc:
                 else:
                     idx = [a[0], b[j], b[i]]
                 c = sum((Vector(self.v[q]) for q in idx), Vector()) / len(idx)
-                self.face(idx, Vector((c.x, c.y, 0)))
+                self.face(idx, Vector((c.x - cx, c.y - cy, 0)))
         if caps:
             if len(rings[0]) > 1:
                 self.face(rings[0], (0, 0, -1))
@@ -131,6 +131,50 @@ class Acc:
         return o
 
 
+def cyl(acc, c, axis, r, ln, n=12):
+    """Cylinder with its axis along x or y, centred at c."""
+    def P(a, u, v):
+        return (c[0] + a, c[1] + u, c[2] + v) if axis == "x" else (c[0] + u, c[1] + a, c[2] + v)
+
+    def N(u, v):
+        return (0, u, v) if axis == "x" else (u, 0, v)
+
+    ring = [(r * math.cos(2 * math.pi * i / n), r * math.sin(2 * math.pi * i / n)) for i in range(n)]
+    for i in range(n):
+        (u0, v0), (u1, v1) = ring[i], ring[(i + 1) % n]
+        acc.quad(P(-ln / 2, u0, v0), P(-ln / 2, u1, v1), P(ln / 2, u1, v1), P(ln / 2, u0, v0), N(u0 + u1, v0 + v1))
+    for a, o in ((-ln / 2, -1), (ln / 2, 1)):
+        acc.face([acc.vert(P(a, u, v)) for u, v in ring], (o, 0, 0) if axis == "x" else (0, o, 0))
+
+
+def annulus(acc, ri, ro, cz, yf, yb, n=48):
+    """Ring round the axis (0, y, cz) facing -Y: front at yf, back at yb."""
+    for i in range(n):
+        a0, a1 = 2 * math.pi * i / n, 2 * math.pi * (i + 1) / n
+        am = (a0 + a1) / 2
+        o0, o1 = (ro * math.cos(a0), ro * math.sin(a0)), (ro * math.cos(a1), ro * math.sin(a1))
+        i0, i1 = (ri * math.cos(a0), ri * math.sin(a0)), (ri * math.cos(a1), ri * math.sin(a1))
+        acc.quad((i0[0], yf, cz + i0[1]), (o0[0], yf, cz + o0[1]), (o1[0], yf, cz + o1[1]), (i1[0], yf, cz + i1[1]), (0, -1, 0))
+        acc.quad((o0[0], yf, cz + o0[1]), (o1[0], yf, cz + o1[1]), (o1[0], yb, cz + o1[1]), (o0[0], yb, cz + o0[1]), (math.cos(am), 0, math.sin(am)))
+        acc.quad((i0[0], yf, cz + i0[1]), (i1[0], yf, cz + i1[1]), (i1[0], yb, cz + i1[1]), (i0[0], yb, cz + i0[1]), (-math.cos(am), 0, -math.sin(am)))
+
+
+def flute(acc, cx, cy, zb, h, w):
+    """Organ-pipe flute: D-shaped column (round side towards -Y) with a tapered rounded top."""
+    r = w / 2
+    pts = [(cx + r * math.cos(math.pi + math.pi * i / 6), cy + r * math.sin(math.pi + math.pi * i / 6)) for i in range(7)]
+    mx, my = cx, cy - r * 0.3
+    secs = [(zb, 1.0), (zb + h - 0.02, 1.0), (zb + h - 0.008, 0.75), (zb + h, 0.4)]
+    rings = [[acc.vert((mx + (x - mx) * k, my + (y - my) * k, z)) for x, y in pts] for z, k in secs]
+    for a, b in zip(rings, rings[1:]):
+        for i in range(len(pts)):
+            j = (i + 1) % len(pts)
+            idx = [a[i], a[j], b[j], b[i]]
+            c = sum((Vector(acc.v[q]) for q in idx), Vector()) / 4
+            acc.face(idx, (c.x - mx, c.y - my, 0))
+    acc.face(rings[-1], (0, 0, 1))
+
+
 def circle(cx, cz, r, n):
     return [(cx + r * math.cos(2 * math.pi * i / n), cz + r * math.sin(2 * math.pi * i / n)) for i in range(n)]
 
@@ -160,7 +204,8 @@ def shoulder_arch(w, z0, z1, seg=8):
 def build(spec):
     d, c = spec.d, spec.c
     mat = {"iron": al.material("iron", c("iron"), dust=0.15, streaks=0.25, grime=0.3, scratches=0.15, mottle=0.1),
-           "dial": al.flat("dial", c("dial")), "glass": al.flat("glass", c("glass")), "gold": al.flat("gold", c("gold"))}
+           "dial": al.flat("dial", c("dial")), "glass": al.flat("glass", c("glass")), "gold": al.flat("gold", c("gold")),
+           "iron_top": al.flat("iron_top", c("iron_top"))}
     S = {k: Acc() for k in mat}                      # whole clock, per material
     F = {k: Acc() for k in mat}                      # one face (front, -Y); copied 4x rotated into S
 
@@ -169,43 +214,53 @@ def build(spec):
     pw, hp = body["pilaster_w"], body["w"] / 2 + body["pilaster_proud"]   # pilaster front plane at hp
 
     # --- plinth slab, pedestal (four feet + ring beam; the arches between the feet stay open), profiles
-    ps = d("plinth_slab")
-    S["iron"].box(-ps["w"] / 2, ps["w"] / 2, -ps["w"] / 2, ps["w"] / 2, ps["z0"], ps["z1"])
+    for z0p, z1p, wp in d("plinth_slab")["steps"]:
+        S["iron"].box(-wp / 2, wp / 2, -wp / 2, wp / 2, z0p, z1p)
     pe, feet = ped["w"] / 2, ped["feet_w"]
     arch_z1 = ped["arch"]["z1"]
-    for sx in (-1, 1):
-        for sy in (-1, 1):
-            xa, xb = sorted((sx * pe, sx * (pe - feet)))
-            ya, yb = sorted((sy * pe, sy * (pe - feet)))
-            S["iron"].box(xa, xb, ya, yb, ped["z0"], arch_z1)
-    S["iron"].box(-pe, pe, -pe, pe, arch_z1, ped["z1"])
+    table_z = max(ped["z1"], ledge["profile"][0][0])
+    orn = d("ornaments")
+    pc = pe - feet / 2
+    legs = [(sx * pc, sy * pc) for sx in (-1, 1) for sy in (-1, 1)] + [(0, -pc), (0, pc), (-pc, 0), (pc, 0)]
+    prof = ped["baluster_profile"]
+    for cx, cy in legs:                              # square waisted pillar (stacked frustums), square cap slab under the table
+        for (za, wa), (zb, wb) in zip(prof, prof[1:]):
+            S["iron"].frustum(za, zb, wa, wb, cx, cy)
+        S["iron"].box(cx - feet / 2, cx + feet / 2, cy - feet / 2, cy + feet / 2, prof[-1][0] - 0.005, table_z)
+    S["iron"].box(-pe, pe, -pe, pe, table_z - 0.035, table_z)   # apron joining the caps
 
     def stack(profile):
         for (za, wa), (zb, wb) in zip(profile, profile[1:]):
             S["iron"].frustum(za, zb, wa, wb)
 
-    stack(ledge["profile"])
+    for (za, wa), (zb, wb) in zip(ledge["profile"], ledge["profile"][1:]):    # fascia in iron, the sloped top in iron_top
+        (S["iron"] if abs(wa - wb) < 1e-9 else S["iron_top"]).frustum(za, zb, wa, wb)
     stack(d("body_base")["profile"])
     stack(d("wings")["profile"])
     head = d("head_box")
     S["iron"].box(-head["w"] / 2, head["w"] / 2, -head["w"] / 2, head["w"] / 2, head["z0"], head["z1"])
     stack(d("crown")["profile"])
 
-    # --- cap: stacked frustums with raised vertical ribs on every sloped face
+    # --- round ribbed melon dome (profile = z, diameter) on a thin square foot plate
     cap = d("cap")
-    stack(cap["profile"])
-    per_face = max(1, cap["ribs"] // 4)
+    crown_top = d("crown")["profile"][-1]
+    stack([crown_top, [cap["profile"][0][0], cap["profile"][0][1]]])
+    S["iron"].lathe([(dm / 2, z) for z, dm in cap["profile"]], 32)
     rw, lift = 0.03, cap["rib_proud"]
-    for (za, wa), (zb, wb) in zip(cap["profile"], cap["profile"][1:]):
-        n = Vector((0, -(zb - za), (wa - wb) / 2)).normalized() * lift
-        for i in range(per_face):
-            f = -1 + (2 * i + 1) / per_face           # rib positions across the face, -1..1
+    for (za, da), (zb, db) in zip(cap["profile"], cap["profile"][1:]):
+        ra, rb = da / 2, db / 2
+        nr, nz = (zb - za), (ra - rb)                # outward normal of this segment in the (r, z) plane
+        ln = math.hypot(nr, nz)
+        nr, nz = nr / ln * lift, nz / ln * lift
+        for i in range(cap["ribs"]):
+            th = 2 * math.pi * i / cap["ribs"]
+            c_, s_ = math.cos(th), math.sin(th)
             ring = []
-            for z, w in ((za, wa), (zb, wb)):
-                px, py = f * w / 2, -w / 2
-                ring.append([(px - rw / 2, py, z), (px + rw / 2, py, z),
-                             (px + rw * 0.3 + n.x, py + n.y, z + n.z), (px - rw * 0.3 + n.x, py + n.y, z + n.z)])
-            F["iron"].hexa(ring[0], ring[1])
+            for r, z in ((ra, za), (rb, zb)):
+                ring.append([(r * c_ + s_ * rw / 2, r * s_ - c_ * rw / 2, z), (r * c_ - s_ * rw / 2, r * s_ + c_ * rw / 2, z),
+                             (r * c_ + nr * c_ - s_ * rw * 0.3, r * s_ + nr * s_ + c_ * rw * 0.3, z + nz),
+                             (r * c_ + nr * c_ + s_ * rw * 0.3, r * s_ + nr * s_ - c_ * rw * 0.3, z + nz)])
+            S["iron"].hexa(ring[0], ring[1])
 
     sr, sl = cap["corner_scrolls"]["r"], 0.12      # volute scrolls: horizontal cylinders along the face edge at the cap foot
     zf, wf = cap["profile"][0]
@@ -222,10 +277,12 @@ def build(spec):
 
     # --- neck, ball and spike on the top
     ball, spike = d("ball"), d("spike")
-    S["iron"].lathe([(0.045, cap["profile"][-1][0]), (0.045, spike["z0"])], 12)
     S["iron"].lathe([(ball["r"] * math.sin(math.pi * k / 12), ball["z"] - ball["r"] * math.cos(math.pi * k / 12))
                      for k in range(13)], 16, caps=False)
-    S["iron"].lathe([(spike["r0"], spike["z0"]), (0.0, spike["z1"])], 8)
+    fin = spike["finial"]                            # gilt finial of stacked lobes on the ball, then the thin rod
+    lobes = [(0.4, 0.0), (1.0, 0.12), (0.45, 0.22), (0.8, 0.34), (0.35, 0.46), (0.55, 0.58), (0.25, 0.7), (0.35, 0.8), (0.15, 1.0)]
+    S["gold"].lathe([(rf * fin["w"] / 2, spike["z0"] + zf * fin["h"]) for rf, zf in lobes], 12)
+    S["iron"].lathe([(0.15 * fin["w"] / 2, spike["z0"] + fin["h"]), (0.0, spike["z1"])], 8)
 
     # --- shaft with the showcase recesses, corner pilasters
     sc = d("showcase")
@@ -241,9 +298,12 @@ def build(spec):
             S["iron"].box(xa, xb, ya, yb, body["z0"], body["z1"])
 
     poly, arc, zs = shoulder_arch(sw, z0s, z1s)
-    fr = sc["frame_w"]
-    inner, _, _ = shoulder_arch(sw - 2 * fr, z0s + fr, z1s - fr)
-    yf, yg = -h + 0.45 * t, -h + t - 0.004
+    sf = orn["showcase_frame"]
+    stp = sc["frame_w"] / sf["steps"]
+    outlines = [shoulder_arch(sw - 2 * k * stp, z0s + k * stp, z1s - k * stp)[0] for k in range(sf["steps"] + 1)]
+    inner = outlines[-1]
+    yg = -h + t - 0.004
+    planes = [-h + (k + 1) * 0.25 * t for k in range(sf["steps"])] + [yg]
     for sx in (-1, 1):                               # wall beside the recess
         xa, xb = sorted((sx * sw / 2, sx * h))
         F["iron"].box(xa, xb, -h, -h + t, z0s, z1s)
@@ -256,23 +316,32 @@ def build(spec):
             (x0, z0), (x1, z1) = outline[i], outline[(i + 1) % len(outline)]
             F["iron"].quad((x0, ya, z0), (x1, ya, z1), (x1, yb, z1), (x0, yb, z0), (-(z1 - z0), 0, x1 - x0))
 
-    reveal(poly, -h, yf)
-    reveal(inner, yf, yg)
-    for i in range(len(poly)):                       # frame ring half way into the recess
-        j = (i + 1) % len(poly)
-        F["iron"].quad((poly[i][0], yf, poly[i][1]), (poly[j][0], yf, poly[j][1]),
-                       (inner[j][0], yf, inner[j][1]), (inner[i][0], yf, inner[i][1]), (0, -1, 0))
+    reveal(outlines[0], -h, planes[0])
+    for k in range(sf["steps"]):                     # stepped frame: each step one plane deeper
+        reveal(outlines[k + 1], planes[k], planes[k + 1])
+        a, b = outlines[k], outlines[k + 1]
+        for i in range(len(a)):
+            j = (i + 1) % len(a)
+            F["iron"].quad((a[i][0], planes[k], a[i][1]), (a[j][0], planes[k], a[j][1]),
+                           (b[j][0], planes[k], b[j][1]), (b[i][0], planes[k], b[i][1]), (0, -1, 0))
+    for sx in (-1, 1):                               # small scroll at each shoulder of the head
+        cyl(F["iron"], (sx * (sw / 2 - 0.03), -h - 0.012, zs + 0.035), "x", 0.025, 0.07, n=8)
     F["glass"].decal(inner, yg)
 
-    # --- gold stars on the pilasters, medallions
+    # --- pilaster ornaments (alternating relief figure / gilt star), medallions
     med = d("medallions")
+    pf = orn["pilaster_figures"]
     px = hp - pw / 2
     for sx in (-1, 1):
-        z = body["z0"] + 0.15
-        while z < body["z1"] - 0.1:
-            if abs(z - med["z"]) > 0.14:
+        for k, z in enumerate(pf["z"]):
+            if k % 2 == 0:
+                r0 = pf["w"] / 2
+                zt = z + pf["h"] / 2 - r0
+                fig = [(sx * px - r0, z - pf["h"] / 2), (sx * px + r0, z - pf["h"] / 2)] + \
+                      [(sx * px + r0 * math.cos(math.pi * i / 8), zt + r0 * math.sin(math.pi * i / 8)) for i in range(9)]
+                F["iron"].prism(fig, -hp - pf["proud"], -hp + 0.005, back=False)
+            else:
                 F["gold"].decal(star(sx * px, z, 0.025, 0.011), -hp - 0.003)
-            z += 0.25
     for x in med["x"]:
         F["iron"].prism(circle(x, med["z"], med["r"], 16), -hp - 0.015, -hp + 0.005, back=False)
 
@@ -293,17 +362,12 @@ def build(spec):
                        (o1[0], -h, dz + o1[1]), (o0[0], -h, dz + o0[1]), (math.cos(am), 0, math.sin(am)))
         F["iron"].quad((i0[0], ring_front, dz + i0[1]), (i1[0], ring_front, dz + i1[1]),
                        (i1[0], dy, dz + i1[1]), (i0[0], dy, dz + i0[1]), (-math.cos(am), 0, -math.sin(am)))
-    dh = d("dial_hood")                              # big ring frame round the dial, proud of the head box
+    dh = d("dial_hood")                              # stepped concentric rings round the dial, the outer one most proud
+    hr = orn["hood_rings"]
     yh0, yh1 = -head["w"] / 2 - dh["depth"], -head["w"] / 2 + 0.01
-    for i in range(n):
-        a0, a1 = 2 * math.pi * i / n, 2 * math.pi * (i + 1) / n
-        am = (a0 + a1) / 2
-        ro, ri = dh["r_outer"], dh["r_inner"]
-        o0, o1 = (ro * math.cos(a0), ro * math.sin(a0)), (ro * math.cos(a1), ro * math.sin(a1))
-        i0, i1 = (ri * math.cos(a0), ri * math.sin(a0)), (ri * math.cos(a1), ri * math.sin(a1))
-        F["iron"].quad((i0[0], yh0, dz + i0[1]), (o0[0], yh0, dz + o0[1]), (o1[0], yh0, dz + o1[1]), (i1[0], yh0, dz + i1[1]), (0, -1, 0))
-        F["iron"].quad((o0[0], yh0, dz + o0[1]), (o1[0], yh0, dz + o1[1]), (o1[0], yh1, dz + o1[1]), (o0[0], yh1, dz + o0[1]), (math.cos(am), 0, math.sin(am)))
-        F["iron"].quad((i0[0], yh0, dz + i0[1]), (i1[0], yh0, dz + i1[1]), (i1[0], yh1, dz + i1[1]), (i0[0], yh1, dz + i0[1]), (-math.cos(am), 0, -math.sin(am)))
+    edges = hr["radii"] + [hr["radii"][-1] - 0.05]
+    for k in range(len(hr["radii"])):
+        annulus(F["iron"], edges[k + 1], edges[k], dz, yh0 + k * hr["step_depth"], yh1)
     rh = dl["ring_r"] + 0.07
     cz_h = dl["arch_top_z"] - rh
     hood = [(-rh, dz + 0.17), (rh, dz + 0.17)] + [(rh * math.cos(math.pi * i / 16), cz_h + rh * math.sin(math.pi * i / 16))
@@ -316,6 +380,12 @@ def build(spec):
         a = math.radians(30 * k)
         r0 = dl["r"] - 0.075
         F["iron"].decal(bar(r0 * math.sin(a), dz + r0 * math.cos(a), 0.045, 0.012, a), dy - 0.004)
+
+    ws = orn["wing_scrolls"]
+    wz_top = d("wings")["profile"][1][0]
+    wwid = d("wings")["profile"][1][1] / 2
+    for sx in (-1, 1):                               # scroll at the outer tip of each flared bracket
+        cyl(F["iron"], (sx * (wwid - ws["r"]), -wwid + 0.06, wz_top), "y", ws["r"], 0.12)
 
     for key in mat:
         for k in range(4):
@@ -333,6 +403,12 @@ def build(spec):
         "dial_centre": (0, ring_front, dz),
         "body_l_bottom": (-h, -h, body["z0"]), "body_r_bottom": (h, -h, body["z0"]),
         "ledge_l": (-lw, -lw, ledge["profile"][1][0]), "ledge_r": (lw, -lw, ledge["profile"][1][0]),
+        # ref/01.jpg (3/4 view: front face on the left, +X face on the right, near corner (+x, -y))
+        "dial_side_centre": (-ring_front, 0, dz),           # +X face dial (ring_front is the front dial y < 0)
+        "ledge_back_r": (lw, lw, ledge["profile"][1][0]),
+        "ledge_near_bottom": (lw, -lw, ledge["profile"][0][0]),
+        "plinth_near": (d("plinth_slab")["steps"][0][2] / 2, -d("plinth_slab")["steps"][0][2] / 2, 0.0),
+        "crown_back_r": (cw, cw, cz0),
     }.items():
         pl.landmark(name, loc)
     return {"body": objs}

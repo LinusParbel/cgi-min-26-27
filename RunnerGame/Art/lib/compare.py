@@ -5,7 +5,7 @@ blender --background --factory-startup --python RunnerGame/Art/lib/compare.py --
 --sections writes ONE sheet (<out>_sections.png) with a row per entry of the photo's "sections" in refs.json
 ({"name": [x0, y0, x1, y1]}): photo | model in colour | 50/50 blend, each at 320 px height.
 
---fit first fits the camera to the photo's landmarks (numerically, no images) and saves it to refs.json.
+--fit first fits the camera (with lens shift if the photo has "lens_shift": true) to the photo's landmarks (numerically, no images) and saves it to refs.json.
 
 Reads the photo's "camera" and "landmarks" from <asset_dir>/refs.json, imports <asset_dir>/build.py,
 writes <asset_dir>/previews/compare_<NN>_r<round>.png and prints the landmark errors.
@@ -36,7 +36,8 @@ def main(argv):
 
     if "--fit" in argv:
         cam, fit_rms = pl.fit_camera(tuple(photo["size"]), photo["camera"], photo["landmarks"],
-                                     z_range=tuple(photo["camera_z_range"]) if photo.get("camera_z_range") else None)
+                                     z_range=tuple(photo["camera_z_range"]) if photo.get("camera_z_range") else None,
+                                     shift=bool(photo.get("lens_shift")), level=bool(photo.get("lens_shift")))
         photo["camera"] = cam
         (asset_dir / "refs.json").write_text(json.dumps(refs, indent=1, ensure_ascii=False), encoding="utf-8")
         print("fitted camera", cam, f"RMS {fit_rms:.1f} px")

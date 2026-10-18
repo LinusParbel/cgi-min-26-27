@@ -8,6 +8,7 @@ import unittest
 from pathlib import Path
 
 import bpy
+import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "lib"))
 import photo_lib  # noqa: E402
@@ -73,6 +74,51 @@ class FitCameraTest(unittest.TestCase):
         cam, _ = photo_lib.fit_camera((1200, 900), start, {k: list(v) for k, v in target.items()}, z_range=(0.0, 3.0))
         self.assertGreaterEqual(cam["loc"][2], 0.0)
         self.assertLessEqual(cam["loc"][2], 3.0)
+
+
+class LensShiftTest(unittest.TestCase):
+    def test_projection_with_shift_matches_blender(self):
+        scene_with_landmarks()
+        cam = {"loc": [0.3, -5, 1.6], "look_at": [0.3, 0, 1.6], "lens_mm": 24, "roll_deg": 0, "shift_x": 0.05, "shift_y": 0.1}
+        size = (1000, 1500)
+        blender = photo_lib.project_landmarks(photo_lib.match_camera(size, cam))
+        unshifted = photo_lib.project_landmarks(photo_lib.match_camera(size, {**cam, "shift_x": 0, "shift_y": 0}))
+        self.assertAlmostEqual(blender["o"][1] - unshifted["o"][1], 0.1 * 1500, delta=1.0)   # shift_y up -> image moves down
+        self.assertAlmostEqual(blender["o"][0] - unshifted["o"][0], -0.05 * 1500, delta=1.0)
+        names = ["o", "x"]
+        pts = np.array([bpy.data.objects["LM_" + n].matrix_world.translation for n in names])
+        vec = np.array([*cam["loc"], *cam["look_at"], cam["lens_mm"], cam["roll_deg"], cam["shift_x"], cam["shift_y"]])
+        px, py = photo_lib._project_np(vec, pts, size)
+        for i, n in enumerate(names):
+            self.assertAlmostEqual(px[i], blender[n][0], delta=0.5)
+            self.assertAlmostEqual(py[i], blender[n][1], delta=0.5)
+
+    def test_fit_recovers_shifted_level_camera(self):
+        photo_lib.al.clear_scene()
+        for name, loc in {"a": (0, 0, 0), "b": (0.5, 0.2, 0.1), "c": (-0.3, 0.4, 2.9), "d": (0.2, -0.5, 1.5),
+                          "e": (-0.4, -0.3, 0.2), "f": (0.1, 0.6, 3.6), "g": (0.5, 0.0, 3.0)}.items():
+            photo_lib.landmark(name, loc)
+        true = {"loc": [0.4, -6.0, 1.6], "look_at": [0.4, 0.0, 1.6], "lens_mm": 24, "roll_deg": 0, "shift_x": 0.0, "shift_y": 0.25}
+        target = photo_lib.project_landmarks(photo_lib.match_camera((1000, 1500), true))
+        start = {"loc": [0.0, -7.0, 1.5], "look_at": [0.0, 0.0, 1.8], "lens_mm": 30, "roll_deg": 0}
+        cam, rms = photo_lib.fit_camera((1000, 1500), start, {k: list(v) for k, v in target.items()},
+                                        z_range=(1.0, 2.0), shift=True)
+        self.assertLess(rms, 1.0)
+        self.assertGreater(cam["shift_y"], 0.1)
+
+    def test_level_fit_keeps_the_view_horizontal(self):
+        photo_lib.al.clear_scene()
+        for name, loc in {"a": (0, 0, 0), "b": (0.5, 0.2, 0.1), "c": (-0.3, 0.4, 2.9), "d": (0.2, -0.5, 1.5),
+                          "e": (-0.4, -0.3, 0.2), "f": (0.1, 0.6, 3.6), "g": (0.5, 0.0, 3.0)}.items():
+            photo_lib.landmark(name, loc)
+        true = {"loc": [0.4, -6.0, 1.6], "look_at": [0.4, 0.0, 1.6], "lens_mm": 24, "roll_deg": 0, "shift_x": 0.0, "shift_y": 0.25}
+        target = photo_lib.project_landmarks(photo_lib.match_camera((1000, 1500), true))
+        start = {"loc": [0.0, -7.0, 1.5], "look_at": [0.0, 0.0, 1.0], "lens_mm": 30, "roll_deg": 0}
+        cam, rms = photo_lib.fit_camera((1000, 1500), start, {k: list(v) for k, v in target.items()},
+                                        z_range=(1.0, 2.0), shift=True, level=True)
+        self.assertAlmostEqual(cam["look_at"][2], cam["loc"][2], delta=1e-6)
+        self.assertEqual(cam["roll_deg"], 0.0)
+        self.assertLess(rms, 1.0)
 
 
 class ErrorsTest(unittest.TestCase):

@@ -108,6 +108,8 @@ def match_camera(photo_size, cam):
         bpy.data.objects.remove(old)
     data = bpy.data.cameras.new(MATCH_CAM)
     data.lens = cam["lens_mm"]
+    data.shift_x = cam.get("shift_x", 0.0)   # lens shift (perspective-corrected architecture photos)
+    data.shift_y = cam.get("shift_y", 0.0)
     data.sensor_width = 36
     data.sensor_fit = 'AUTO'
     data.clip_end = 1000
@@ -162,8 +164,9 @@ def _project_np(cam_vec, points, size):
     v = points - loc
     z = v @ f
     fpx = lens / 36 * max(size)
-    px = size[0] / 2 + fpx * (v @ right) / z
-    py = size[1] / 2 - fpx * (v @ up) / z
+    sx, sy = (cam_vec[8], cam_vec[9]) if len(cam_vec) > 9 else (0.0, 0.0)
+    px = size[0] / 2 + fpx * (v @ right) / z - sx * max(size)
+    py = size[1] / 2 - fpx * (v @ up) / z + sy * max(size)
     px[z <= 0] = np.nan
     return px, py
 
@@ -197,16 +200,25 @@ def _nelder_mead(fn, x0, steps, iters=3000, tol=1e-6):
     return pts[i], vals[i]
 
 
-def fit_camera(photo_size, cam0, photo_landmarks, names=None, z_range=None):
+def fit_camera(photo_size, cam0, photo_landmarks, names=None, z_range=None, shift=False, level=False):
     """Find the camera (loc, look_at, lens, roll) that best projects the LM_* empties onto the photo's
     landmark pixels, starting from cam0. `names` limits the fit to some landmarks (e.g. to leave the
-    ones being checked out). z_range=(lo, hi) keeps the camera height plausible (e.g. a photo taken from a
+    ones being checked out). shift=True also fits a lens shift (shift_x/shift_y): use it for perspective-
+    corrected photos (vertical lines stay vertical), which a plain camera can only fake with a far telephoto.
+    level=True keeps the view horizontal and unrolled (how a shift-lens photo is taken); use it with shift. z_range=(lo, hi) keeps the camera height plausible (e.g. a photo taken from a
     lake shore). Returns (cam dict, RMS in px measured with Blender's own projection)."""
     names = [n for n in (names or photo_landmarks) if bpy.data.objects.get("LM_" + n)]
     pts = np.array([bpy.data.objects["LM_" + n].matrix_world.translation for n in names])
     target = np.array([photo_landmarks[n] for n in names], float)
 
+    def levelled(p):
+        if level:
+            p = p.copy()
+            p[5], p[7] = p[2], 0.0            # look_at z = camera z, no roll
+        return p
+
     def cost(p):
+        p = levelled(p)
         if p[6] < 8 or p[6] > 200:
             return 1e9
         if z_range and not z_range[0] <= p[2] <= z_range[1]:
@@ -215,13 +227,17 @@ def fit_camera(photo_size, cam0, photo_landmarks, names=None, z_range=None):
         d2 = (px - target[:, 0]) ** 2 + (py - target[:, 1]) ** 2
         return float(np.nanmean(d2) + 1e6 * np.isnan(d2).sum())
 
-    x = np.array([*cam0["loc"], *cam0["look_at"], cam0["lens_mm"], cam0.get("roll_deg", 0)], float)
+    x = np.array([*cam0["loc"], *cam0["look_at"], cam0["lens_mm"], cam0.get("roll_deg", 0)]
+                 + ([cam0.get("shift_x", 0.0), cam0.get("shift_y", 0.0)] if shift else []), float)
     if z_range:
         x[2] = min(max(x[2], z_range[0]), z_range[1])
     for _ in range(4):                      # restarts escape flat simplices
-        x, _ = _nelder_mead(cost, x, [0.2, 0.2, 0.2, 0.1, 0.1, 0.1, 4, 3])
+        x, _ = _nelder_mead(cost, x, [0.2, 0.2, 0.2, 0.1, 0.1, 0.1, 4, 3] + ([0.05, 0.05] if shift else []))
+    x = levelled(x)
     cam = {"loc": [round(float(v), 4) for v in x[:3]], "look_at": [round(float(v), 4) for v in x[3:6]],
            "lens_mm": round(float(x[6]), 2), "roll_deg": round(float(x[7]), 2)}
+    if shift:
+        cam["shift_x"], cam["shift_y"] = round(float(x[8]), 4), round(float(x[9]), 4)
     projected = project_landmarks(match_camera(photo_size, cam))
     _, rms = landmark_errors(projected, {n: photo_landmarks[n] for n in names})
     return cam, rms

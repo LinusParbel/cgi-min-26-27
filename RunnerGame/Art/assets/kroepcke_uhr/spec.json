@@ -25,56 +25,97 @@
   },
   "plinth_slab": {
    "value": {
-    "w": 2.35,
-    "z0": 0.0,
-    "z1": 0.15
+    "steps": [
+     [
+      0.0,
+      0.12,
+      2.6
+     ],
+     [
+      0.12,
+      0.28,
+      2.3
+     ]
+    ]
    },
-   "source": "estimate; stepped slab under the feet in ref/01, ref/05"
+   "source": "ref/01.jpg 3/4 grid, scaled 3.93 mm/px so the crown top (y 370) = 4.48 m as in ref/04 (consistent with the 5.59 m spike tip): stepped platform y 1440-1510 (two steps)"
   },
   "pedestal": {
    "value": {
     "w": 1.726,
-    "z0": 0.15,
+    "z0": 0.28,
     "z1": 0.687,
     "feet_w": 0.42,
+    "baluster_profile": [
+     [
+      0.28,
+      0.4
+     ],
+     [
+      0.33,
+      0.3
+     ],
+     [
+      0.42,
+      0.4
+     ],
+     [
+      0.52,
+      0.28
+     ],
+     [
+      0.6,
+      0.22
+     ],
+     [
+      0.66,
+      0.34
+     ],
+     [
+      0.69,
+      0.42
+     ]
+    ],
     "arch": {
      "w": 0.75,
      "z1": 0.571
-    }
+    },
+    "legs": "corners and side centres (8)",
+    "section": "square"
    },
-   "source": "ref/04.jpg 1:1 grid (front, 10 px), scale 4.46 mm/px, ground y 1658 (photo cut at 1600; ground from ref/05 ratio): legs x 351-738; corner feet with open arches between (ref/01)"
+   "source": "ref/01.jpg base section: 8 square-section legs with a waisted moulded profile (corners + middle of each side); widths = baluster_profile"
   },
   "ledge": {
    "value": {
     "profile": [
      [
-      0.687,
+      0.725,
       2.12
      ],
      [
-      0.838,
+      0.873,
       2.12
+     ],
+     [
+      1.1,
+      1.45
      ]
     ],
-    "top_z": 0.838,
-    "note": "thin flat table top; the sloped band y 1415-1470 in ref/04 is the TOP SURFACE seen from above, not a vertical flare"
+    "top_z": 0.873,
+    "note": "vertical fascia 0.725-0.873, then a slope up to the body base"
    },
-   "source": "round 1 section sheet: ref/04 camera (~1.6 m) is above the table (0.84 m), so its top surface is visible; front edge y 1470-1504"
+   "source": "ref/01 + ref/04 together: both show a ~0.24 m sloped band above the table fascia from two directions -> a real sloped (chamfered) table top, not only the flat top seen from above (round-1 'flat table' correction undone)"
   },
   "body_base": {
    "value": {
     "profile": [
      [
-      0.838,
-      1.36
+      1.1,
+      1.4
      ],
      [
-      0.92,
+      1.17,
       1.32
-     ],
-     [
-      1.0,
-      1.27
      ],
      [
       1.325,
@@ -82,7 +123,7 @@
      ]
     ]
    },
-   "source": "round 2 sheet: only a short moulded foot above the table; the rest of the band in ref/04 is the table top surface"
+   "source": "ref/01 + ref/04 together: both show a ~0.24 m sloped band above the table fascia from two directions -> a real sloped (chamfered) table top, not only the flat top seen from above (round-1 'flat table' correction undone)"
   },
   "body": {
    "value": {
@@ -119,27 +160,27 @@
    "value": {
     "profile": [
      [
-      3.862,
-      1.427
+      3.835,
+      1.36
      ],
      [
-      3.943,
-      1.539
+      3.915,
+      1.43
      ]
     ],
     "note": "flared cornice brackets at dial-centre level, both sides"
    },
-   "source": "ref/04.jpg 1:1 grid (front, 10 px), scale 4.46 mm/px, ground y 1658 (photo cut at 1600; ground from ref/05 ratio): y 774-792"
+   "source": "loop r4 (signed landmark errors): photo width 320 px (1.43 m) belongs to the upper edge y 774; lower edge narrower; moved down 3 cm"
   },
   "dial": {
    "value": {
-    "z": 3.626,
+    "z": 3.601,
     "r": 0.308,
     "ring_r": 0.406,
     "arch_top_z": 4.201,
     "proud": 0.06
    },
-   "source": "ref/04.jpg 1:1 grid (front, 10 px), scale 4.46 mm/px, ground y 1658 (photo cut at 1600; ground from ref/05 ratio): dial x 488-627, y 768-923; ring 467-649"
+   "source": "ref/04.jpg 1:1 grid (front, 10 px), scale 4.46 mm/px, ground y 1658 (photo cut at 1600; ground from ref/05 ratio): dial x 488-627, y 768-923; ring 467-649; loop r4 (signed landmark errors): -2.5 cm"
   },
   "head_box": {
    "value": {
@@ -153,65 +194,75 @@
    "value": {
     "profile": [
      [
-      4.273,
+      4.253,
       0.99
      ],
      [
-      4.415,
+      4.395,
       1.115
      ],
      [
-      4.473,
+      4.453,
       1.142
      ]
     ],
     "note": "cornice flaring OUTWARD going up"
    },
-   "source": "ref/04.jpg 1:1 top grid (x 400-720, y 590-810, 10 px): cornice x 440-660 at y 700, 427-672 at 668, slab 422-674 at 655"
+   "source": "ref/04.jpg 1:1 top grid (x 400-720, y 590-810, 10 px): cornice x 440-660 at y 700, 427-672 at 668, slab 422-674 at 655; loop r4 (signed landmark errors): -2 cm"
   },
   "cap": {
    "value": {
     "profile": [
      [
-      4.473,
-      1.115
+      4.48,
+      1.12
      ],
      [
-      4.54,
-      1.053
+      4.58,
+      1.02
      ],
      [
-      4.607,
-      0.847
+      4.67,
+      0.83
      ],
      [
-      4.652,
-      0.446
+      4.73,
+      0.5
+     ],
+     [
+      4.76,
+      0.2
      ]
     ],
-    "ribs": 16,
-    "rib_proud": 0.02,
+    "round": true,
+    "ribs": 24,
+    "rib_proud": 0.025,
     "corner_scrolls": {
      "r": 0.062,
      "note": "a horizontal scroll (volute) at both ends of each face, lying along the face edge at the cap foot"
     }
    },
-   "source": "ref/04.jpg 1:1 top grid (x 400-720, y 590-810, 10 px): fluted crest y 615-655, scroll ends x 425-450 / 650-672"
+   "source": "ref/01.jpg fine grid (x 480-900, y 60-720, 20 px), scale 3.80 mm/px from crown top y 330 = 4.48 m; agrees with ref/04's first reading (ball 4.83): low ribbed melon dome y 325->257 (0.28 m); the earlier 0.47 m came from a coarse 25 px grid"
   },
   "ball": {
    "value": {
-    "z": 4.835,
-    "r": 0.138
+    "z": 4.88,
+    "r": 0.137
    },
-   "source": "ref/04.jpg 1:1 grid (front, 10 px), scale 4.46 mm/px, ground y 1658 (photo cut at 1600; ground from ref/05 ratio): ball x 523-584, y 534-614"
+   "source": "ref/01.jpg fine grid (x 480-900, y 60-720, 20 px), scale 3.80 mm/px from crown top y 330 = 4.48 m; agrees with ref/04's first reading (ball 4.83): ball centre y 224, r 36 px"
   },
   "spike": {
    "value": {
-    "z0": 5.013,
+    "z0": 5.02,
     "z1": 5.588,
-    "r0": 0.025
+    "r0": 0.025,
+    "finial": {
+     "h": 0.32,
+     "w": 0.16,
+     "note": "gilt finial from the ball top up to ~5.34 m (gold centre y 112), thin rod to z1"
+    }
    },
-   "source": "ref/04.jpg 1:1 grid (front, 10 px), scale 4.46 mm/px, ground y 1658 (photo cut at 1600; ground from ref/05 ratio): spike tip y 405"
+   "source": "ref/01.jpg fine grid (x 480-900, y 60-720, 20 px), scale 3.80 mm/px from crown top y 330 = 4.48 m; agrees with ref/04's first reading (ball 4.83)"
   },
   "dial_hood": {
    "value": {
@@ -221,16 +272,59 @@
     "note": "big semicircular hood/ring around the dial, centred on the dial; lower half continues as a full ring frame"
    },
    "source": "ref/04 overview grid: outer arch x 443-676 (233 px), centred on the dial (y 845), top at y 716"
+  },
+  "ornaments": {
+   "value": {
+    "pilaster_figures": {
+     "z": [
+      1.351,
+      1.61,
+      1.869,
+      2.127,
+      2.386,
+      2.645,
+      2.903
+     ],
+     "w": 0.07,
+     "h": 0.12,
+     "proud": 0.03,
+     "note": "alternating small relief figures (boxes with a rounded top) and gilt stars up each corner pilaster, ~0.26 m apart"
+    },
+    "showcase_frame": {
+     "profile_w": 0.05,
+     "steps": 3,
+     "head": "shouldered arch with a small scroll at each shoulder"
+    },
+    "feet_volutes": {
+     "r": 0.0,
+     "count_per_foot": 0,
+     "note": "replaced by turned balusters (ref/01)"
+    },
+    "hood_rings": {
+     "radii": [
+      0.52,
+      0.47,
+      0.41
+     ],
+     "step_depth": 0.04,
+     "note": "three stepped concentric rings around the dial, the outer one proud"
+    },
+    "wing_scrolls": {
+     "r": 0.06,
+     "note": "the flared brackets beside the dial end in a scroll at the outer tip"
+    }
+   },
+   "source": "ref/04.jpg overview + 1:1 grids (ornament positions estimated from the 1:1 grids; sizes ±20 %); loop r6: volutes moved inside the feet, flutes taller (section sheet ghosts)"
   }
  },
  "colors": {
   "iron": {
    "linear": [
-    0.075,
-    0.085,
-    0.078
+    0.035,
+    0.05,
+    0.052
    ],
-   "source": "round 2: ref/04 is overcast (diffuse light), so its iron sample ~0.10/0.10/0.09 is representative; first value 0.02 wrongly applied the sunlit rule; slight green of the paint"
+   "source": "ref/01.jpg (overcast, close): body 700,780,715,860 = 0.038/0.055/0.056, head 0.025/0.031/0.036 -> dark green; ref/04 brighter by its exposure"
   },
   "dial": {
    "linear": [
@@ -242,11 +336,11 @@
   },
   "glass": {
    "linear": [
-    0.06,
-    0.06,
-    0.06
+    0.14,
+    0.13,
+    0.12
    ],
-   "source": "estimate (dark reflective showcase glass)"
+   "source": "review: ref/04 showcase glass median 0.165/0.133/0.112 (interior visible through the pane)"
   },
   "gold": {
    "linear": [
@@ -255,6 +349,14 @@
     0.08
    ],
    "source": "estimate: gilt stars on the pilasters"
+  },
+  "iron_top": {
+   "linear": [
+    0.12,
+    0.15,
+    0.16
+   ],
+   "source": "ref/01.jpg dome/top surfaces 0.136/0.171/0.191 (sky sheen), slightly darker"
   }
  }
 }
