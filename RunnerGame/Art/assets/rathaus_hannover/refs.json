@@ -25,49 +25,125 @@
      823,
      47
     ],
+    "cap_top": [
+     823,
+     88
+    ],
+    "lantern2_top_l": [
+     797,
+     139
+    ],
+    "lantern1_top_l": [
+     781,
+     199
+    ],
     "dome_top": [
      823,
-     253
+     247
     ],
-    "drum_left_top": [
-     703,
-     400
+    "dome_base_l": [
+     718,
+     396
     ],
-    "drum_right_top": [
+    "dome_base_r": [
+     931,
+     396
+    ],
+    "domebase_top_l": [
+     700,
+     419
+    ],
+    "domebase_top_r": [
      949,
-     400
+     419
+    ],
+    "pediment_top": [
+     823,
+     335
     ],
     "tower_l_tip": [
-     364,
-     260
+     365,
+     255
     ],
-    "tower_r_tip": [
-     1280,
-     267
+    "tower_l_body_top_l": [
+     301,
+     529
+    ],
+    "tower_l_body_top_r": [
+     401,
+     529
+    ],
+    "pav_l_gable": [
+     176,
+     568
+    ],
+    "pav_l_eave": [
+     106,
+     620
     ],
     "wing_l_eave": [
      107,
      707
     ],
+    "center_corner_l": [
+     623,
+     453
+    ],
+    "lantern2_top_r": [
+     854,
+     139
+    ],
+    "lantern1_top_r": [
+     870,
+     199
+    ],
+    "tower_r_tip": [
+     1286,
+     255
+    ],
+    "tower_r_body_top_l": [
+     1350,
+     529
+    ],
+    "tower_r_body_top_r": [
+     1250,
+     529
+    ],
+    "pav_r_gable": [
+     1475,
+     568
+    ],
+    "pav_r_eave": [
+     1545,
+     620
+    ],
     "wing_r_eave": [
      1544,
      707
+    ],
+    "center_corner_r": [
+     1028,
+     453
     ]
    },
    "camera": {
     "loc": [
-     0.1277,
-     -455.234,
-     -24.6619
+     -0.2985,
+     -334.3422,
+     -3.2956
     ],
     "look_at": [
-     -2.8665,
-     61.8876,
-     46.079
+     -3.0038,
+     50.3194,
+     43.1956
     ],
-    "lens_mm": 99.63,
-    "roll_deg": 0.05
-   }
+    "lens_mm": 69.1,
+    "roll_deg": 0.06
+   },
+   "camera_z_range": [
+    -4.0,
+    6.0
+   ]
   },
   {
    "file": "ref/02.jpg",

@@ -8,20 +8,20 @@
  },
  "dims": {
   "width": {
-   "value": 129.0,
-   "source": "hannover.de: north front 129 m"
+   "value": 127.2,
+   "source": "loop r2 (signed errors, camera z 1-8 m): south front 20 px narrower than the 129 m north front"
   },
   "depth": {
    "value": 124.0,
    "source": "hannover.de: depth 124 m"
   },
   "wing_eave_h": {
-   "value": 20.3,
-   "source": "ref/01.jpg facade scale 0.0898 m/px (129 m = 1437 px), base y 933: wing eave y 707"
+   "value": 20.4,
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: wing eave y 706 (avg of 708/705)"
   },
   "wing_roof_h": {
-   "value": 31.0,
-   "source": "ref/01.jpg facade scale 0.0898 m/px (129 m = 1437 px), base y 933: wing roof ridge y 587"
+   "value": 30.5,
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: wing roof ridges y 605/587"
   },
   "center_w": {
    "value": 38.0,
@@ -36,20 +36,20 @@
    "source": "estimate; central projection stands forward of the wings (ref/03.jpg)"
   },
   "tower_w": {
-   "value": 10.8,
-   "source": "ref/01.jpg facade scale 0.0898 m/px (129 m = 1437 px), base y 933: corner tower x 304-424"
+   "value": 9.0,
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: tower body x 301-401"
   },
   "tower_x": {
-   "value": 41.4,
-   "source": "ref/01.jpg facade scale 0.0898 m/px (129 m = 1437 px), base y 933: tower centre 461 px from facade centre"
+   "value": 42.6,
+   "source": "loop r2 (signed errors, camera z 1-8 m): towers 13 px too far inward"
   },
   "tower_body_h": {
-   "value": 44.0,
-   "source": "ref/01.jpg facade scale 0.0898 m/px (129 m = 1437 px), base y 933: tower body top y 440"
+   "value": 36.3,
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: stone body cornice y 529"
   },
   "tower_tip_h": {
-   "value": 60.0,
-   "source": "ref/01.jpg facade scale 0.0898 m/px (129 m = 1437 px), base y 933: tower spire tip y 260"
+   "value": 62.3,
+   "source": "loop r2 (signed errors, camera z 1-8 m): tower tips 16 px too low"
   },
   "drum_w": {
    "value": 24.0,
@@ -60,8 +60,8 @@
    "source": "ref/01.jpg drum top y 400 at dome-plane scale 0.1103 m/px"
   },
   "dome_top_h": {
-   "value": 75.0,
-   "source": "ref/01.jpg dome cap top y 253, dome-plane scale"
+   "value": 75.7,
+   "source": "ref/01.jpg dome grid, dome-plane scale 0.1103 m/px, base y 933: dome top y 247"
   },
   "lantern_top_h": {
    "value": 88.0,
@@ -72,20 +72,20 @@
    "source": "hannover.de: tip of the dome 97.73 m"
   },
   "dome_y": {
-   "value": 0.0,
-   "source": "estimate: dome over the centre of the footprint; check in ref/03.jpg"
+   "value": -4.5,
+   "source": "loop r2 (signed errors, camera z 1-8 m): spire/cap 10-12 px too low with the known 97.73 m tip -> dome stands closer to the lake"
   },
   "center_d": {
    "value": 22.0,
    "source": "estimate: depth of the central projection block"
   },
   "center_eave_h": {
-   "value": 28.0,
-   "source": "estimate: eave of the central projection before its roof"
+   "value": 23.7,
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: central projection cornice y 669"
   },
   "window_pitch": {
-   "value": 4.0,
-   "source": "estimate: window spacing on the facade"
+   "value": 2.7,
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: small windows in the end sections, 30 px"
   },
   "window_w": {
    "value": 1.8,
@@ -152,8 +152,8 @@
    "source": "estimate: widest gable step on central projection"
   },
   "gable_inset": {
-   "value": 4.0,
-   "source": "estimate: width lost per step"
+   "value": 9.0,
+   "source": "estimate: width lost per step so the centre gable narrows to a finial (34, 25, 16, 7 m)"
   },
   "gable_t": {
    "value": 1.0,
@@ -172,8 +172,8 @@
    "source": "estimate: wing gable step height"
   },
   "dormer_w": {
-   "value": 2.4,
-   "source": "estimate: dormer width"
+   "value": 4.0,
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: dormer gable width ~45 px"
   },
   "dormer_h": {
    "value": 2.6,
@@ -218,6 +218,193 @@
   "string_course_z": {
    "value": 7.0,
    "source": "ref/02.jpg: string course between floors 1 and 2"
+  },
+  "tri_budget": {
+   "value": 25000,
+   "source": "user 2026-10-18: High detail level"
+  },
+  "tex_res": {
+   "value": 2048,
+   "source": "user 2026-10-18: High detail level"
+  },
+  "domebase_w": {
+   "value": 26.2,
+   "source": "loop r3 (signed errors): square base 6 px too wide per side"
+  },
+  "domebase_emerge_h": {
+   "value": 42.8,
+   "source": "ref/01.jpg dome grid, dome-plane scale 0.1103 m/px, base y 933: base emerges from the roofs at y 545"
+  },
+  "domebase_top_h": {
+   "value": 54.4,
+   "source": "loop r2 (signed errors, camera z 1-8 m): square base cornice 21 px too high"
+  },
+  "domebase_pediment_h": {
+   "value": 63.5,
+   "source": "loop r2 (signed errors, camera z 1-8 m): pediment 23 px too high"
+  },
+  "domebase_pinnacle_h": {
+   "value": 65.3,
+   "source": "loop r2 (signed errors, camera z 1-8 m): lowered with the pediment"
+  },
+  "clock_d": {
+   "value": 6.5,
+   "source": "ref/01.jpg dome grid, dome-plane scale 0.1103 m/px, base y 933: clock face x 795-855 incl. ring"
+  },
+  "dome_base_h": {
+   "value": 59.2,
+   "source": "ref/01.jpg dome grid, dome-plane scale 0.1103 m/px, base y 933: dome springs at y 396"
+  },
+  "dome_w": {
+   "value": 23.5,
+   "source": "ref/01.jpg dome grid, dome-plane scale 0.1103 m/px, base y 933: dome x 718-931"
+  },
+  "dome_ribs": {
+   "value": 16,
+   "source": "ref/01.jpg: about 8 ribs visible on the front half"
+  },
+  "lantern1_w": {
+   "value": 9.4,
+   "source": "ref/01.jpg dome grid, dome-plane scale 0.1103 m/px, base y 933: lower lantern x 781-866"
+  },
+  "lantern1_top_h": {
+   "value": 80.25,
+   "source": "loop r3 (signed errors): lower lantern 7 px too high"
+  },
+  "lantern2_w": {
+   "value": 5.8,
+   "source": "ref/01.jpg dome grid, dome-plane scale 0.1103 m/px, base y 933: upper lantern x 797-850"
+  },
+  "lantern2_top_h": {
+   "value": 87.6,
+   "source": "ref/01.jpg dome grid, dome-plane scale 0.1103 m/px, base y 933: upper lantern top y 139"
+  },
+  "cap_top_h": {
+   "value": 94.0,
+   "source": "loop r3 (signed errors): cap 8 px too low"
+  },
+  "tower_gable_h": {
+   "value": 42.8,
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: gabled belfry storey peaks y 456"
+  },
+  "tower_roof_h": {
+   "value": 49.7,
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: copper pyramid roof top y 380"
+  },
+  "tower_lantern_h": {
+   "value": 53.5,
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: open lantern top y 334"
+  },
+  "tower_cap_h": {
+   "value": 55.7,
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: lantern cap y 313"
+  },
+  "pav_w": {
+   "value": 10.7,
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: end pavilion x 106-225"
+  },
+  "pav_eave_h": {
+   "value": 28.0,
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: pavilion cornice y 620"
+  },
+  "pav_gable_h": {
+   "value": 32.8,
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: pavilion gable tip y 568"
+  },
+  "wing_d": {
+   "value": 18.0,
+   "source": "estimate: wing depth around the courtyards (two inner courtyards per hannover.de / map ref/12)"
+  },
+  "court_split": {
+   "value": 2,
+   "source": "two inner courtyards left and right of the dome block (map ref/12)"
+  },
+  "dormer_gable_h": {
+   "value": 26.2,
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: ornate dormer gables y 641"
+  },
+  "dormer_pitch": {
+   "value": 6.5,
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: dormer/window axes x 435,507,580"
+  },
+  "small_turret_h": {
+   "value": 36.8,
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: small copper turrets on the wing roofs y 520-526"
+  },
+  "small_turret_w": {
+   "value": 2.2,
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: turret width ~25 px"
+  },
+  "floor_count": {
+   "value": 4,
+   "source": "ref/01.jpg: ground, two main floors, attic row"
+  },
+  "window_rows_h": {
+   "value": [
+    2.4,
+    7.3,
+    11.7,
+    16.1
+   ],
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: window row centres y 906,860,800,751 â†’ heights above ground"
+  },
+  "center_roof_h": {
+   "value": 35.5,
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: central projection roof y 538"
+  },
+  "center_corner_pinnacle_h": {
+   "value": 43.0,
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: pinnacles at the central projection corners y 453"
+  },
+  "cross_w": {
+   "value": 28.0,
+   "source": "estimate ref/03.jpg: width of the central cross wing between the two courtyards"
+  },
+  "corner_proj": {
+   "value": 0.3,
+   "source": "estimate towers/pavilions stand slightly proud of the wall (avoids coplanar faces)"
+  },
+  "tower_belfry_h": {
+   "value": 3.0,
+   "source": "estimate ref/01.jpg: height of the square belfry block below the tower gables"
+  },
+  "big_win_w": {
+   "value": 4.4,
+   "source": "estimate ref/02.jpg: large arched windows above the entrances"
+  },
+  "big_win_h": {
+   "value": 9.0,
+   "source": "estimate ref/02.jpg: large arched window height"
+  },
+  "big_win_z": {
+   "value": 10.5,
+   "source": "estimate ref/02.jpg: large arched window sill"
+  },
+  "dormer_x0": {
+   "value": 22.1,
+   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px: first dormer axis x 435 px (22.1 m from centre)"
+  },
+  "tower_upper_rows": {
+   "value": [
+    24.0,
+    30.0
+   ],
+   "source": "estimate ref/01.jpg: window sills in upper tower storeys"
+  },
+  "dome_rib_h": {
+   "value": 0.3,
+   "source": "estimate ref/03.jpg: rib projection on the dome"
+  },
+  "arch_pts": {
+   "value": 4,
+   "source": "estimate arch tessellation steps"
+  },
+  "small_turret_xs": {
+   "value": [
+    48.7,
+    27.4
+   ],
+   "source": "ref/01.jpg left-half grid: turrets on the front wing roofs at x 283 and 520 px (facade scale) -> 48.7 m and 27.4 m from the centre"
   }
  },
  "colors": {

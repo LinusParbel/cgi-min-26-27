@@ -62,6 +62,18 @@ class FitCameraTest(unittest.TestCase):
         cam, rms = photo_lib.fit_camera((1200, 900), start, {k: list(v) for k, v in target.items()})
         self.assertLess(rms, 1.0)
 
+    def test_fit_respects_height_range(self):
+        photo_lib.al.clear_scene()
+        for name, loc in {"a": (0, 0, 0), "b": (0.5, 0.2, 0.1), "c": (-0.3, 0.4, 0.9), "d": (0.2, -0.5, 0.5),
+                          "e": (-0.4, -0.3, 0.2), "f": (0.1, 0.6, 1.1)}.items():
+            photo_lib.landmark(name, loc)
+        true = {"loc": [-1.2, -2.0, -0.6], "look_at": [0, 0, 0.5], "lens_mm": 30, "roll_deg": 0}
+        target = photo_lib.project_landmarks(photo_lib.match_camera((1200, 900), true))
+        start = {"loc": [-1.0, -2.4, 1.1], "look_at": [0.1, 0.1, 0.4], "lens_mm": 26, "roll_deg": 0}
+        cam, _ = photo_lib.fit_camera((1200, 900), start, {k: list(v) for k, v in target.items()}, z_range=(0.0, 3.0))
+        self.assertGreaterEqual(cam["loc"][2], 0.0)
+        self.assertLessEqual(cam["loc"][2], 3.0)
+
 
 class ErrorsTest(unittest.TestCase):
     def test_errors_rms(self):

@@ -3,6 +3,7 @@
     --python-exit-code 1 --python RunnerGame/Art/tests/blender_test_rathaus.py
 """
 import importlib.util
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -53,7 +54,7 @@ class RathausBuildTest(unittest.TestCase):
 
     def test_dome_group_faces_point_outward(self):
         axis = (0.0, self.spec.d("dome_y"))
-        for name in ("drum", "dome", "lantern"):
+        for name in ("dome", "dome_cap"):
             me = bpy.data.objects[name].data
             checked = 0
             for p in me.polygons:
@@ -66,6 +67,19 @@ class RathausBuildTest(unittest.TestCase):
                 self.assertGreater(p.normal.x * dx + p.normal.y * dy, 0, f"{name} face {p.index} points inward")
             self.assertGreater(checked, 0, name)
 
+    def test_all_ref01_landmarks_exist(self):
+        refs = json.loads((ASSET / "refs.json").read_text(encoding="utf-8"))
+        names = next(p for p in refs["photos"] if p["file"] == "ref/01.jpg")["landmarks"]
+        missing = [n for n in names if "LM_" + n not in bpy.data.objects]
+        self.assertEqual(missing, [])
+        for n in names:                                        # all on the front (-Y) side
+            self.assertLessEqual(lm(n).y, self.spec.d("dome_y") + 1e-6, n)
+
+    def test_towers_and_dome_symmetric(self):
+        for a, b in (("tower_l_tip", "tower_r_tip"), ("pav_l_gable", "pav_r_gable"), ("center_corner_l", "center_corner_r")):
+            self.assertAlmostEqual(lm(a).x, -lm(b).x, delta=0.01)
+            self.assertAlmostEqual(lm(a).z, lm(b).z, delta=0.01)
+
     def test_triangle_budget(self):
         deps = bpy.context.evaluated_depsgraph_get()
         tris = 0
@@ -74,7 +88,7 @@ class RathausBuildTest(unittest.TestCase):
             me.calc_loop_triangles()
             tris += len(me.loop_triangles)
         print("TRIANGLES", tris)
-        self.assertLessEqual(tris, 8000)
+        self.assertLessEqual(tris, self.spec.d("tri_budget"))
 
 
 if __name__ == "__main__":

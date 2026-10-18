@@ -32,7 +32,8 @@ def main(argv):
     build.build(pl.Spec(asset_dir / "spec.json"))
 
     if "--fit" in argv:
-        cam, fit_rms = pl.fit_camera(tuple(photo["size"]), photo["camera"], photo["landmarks"])
+        cam, fit_rms = pl.fit_camera(tuple(photo["size"]), photo["camera"], photo["landmarks"],
+                                     z_range=tuple(photo["camera_z_range"]) if photo.get("camera_z_range") else None)
         photo["camera"] = cam
         (asset_dir / "refs.json").write_text(json.dumps(refs, indent=1, ensure_ascii=False), encoding="utf-8")
         print("fitted camera", cam, f"RMS {fit_rms:.1f} px")

@@ -197,10 +197,11 @@ def _nelder_mead(fn, x0, steps, iters=3000, tol=1e-6):
     return pts[i], vals[i]
 
 
-def fit_camera(photo_size, cam0, photo_landmarks, names=None):
+def fit_camera(photo_size, cam0, photo_landmarks, names=None, z_range=None):
     """Find the camera (loc, look_at, lens, roll) that best projects the LM_* empties onto the photo's
     landmark pixels, starting from cam0. `names` limits the fit to some landmarks (e.g. to leave the
-    ones being checked out). Returns (cam dict, RMS in px measured with Blender's own projection)."""
+    ones being checked out). z_range=(lo, hi) keeps the camera height plausible (e.g. a photo taken from a
+    lake shore). Returns (cam dict, RMS in px measured with Blender's own projection)."""
     names = [n for n in (names or photo_landmarks) if bpy.data.objects.get("LM_" + n)]
     pts = np.array([bpy.data.objects["LM_" + n].matrix_world.translation for n in names])
     target = np.array([photo_landmarks[n] for n in names], float)
@@ -208,11 +209,15 @@ def fit_camera(photo_size, cam0, photo_landmarks, names=None):
     def cost(p):
         if p[6] < 8 or p[6] > 200:
             return 1e9
+        if z_range and not z_range[0] <= p[2] <= z_range[1]:
+            return 1e9
         px, py = _project_np(p, pts, photo_size)
         d2 = (px - target[:, 0]) ** 2 + (py - target[:, 1]) ** 2
         return float(np.nanmean(d2) + 1e6 * np.isnan(d2).sum())
 
     x = np.array([*cam0["loc"], *cam0["look_at"], cam0["lens_mm"], cam0.get("roll_deg", 0)], float)
+    if z_range:
+        x[2] = min(max(x[2], z_range[0]), z_range[1])
     for _ in range(4):                      # restarts escape flat simplices
         x, _ = _nelder_mead(cost, x, [0.2, 0.2, 0.2, 0.1, 0.1, 0.1, 4, 3])
     cam = {"loc": [round(float(v), 4) for v in x[:3]], "look_at": [round(float(v), 4) for v in x[3:6]],
