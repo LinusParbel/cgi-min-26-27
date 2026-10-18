@@ -184,6 +184,8 @@ RunnerGame/Assets/Models/<Category>/<Asset>/   runtime OBJ + PNG + parts.json on
 | A photo cut off at the bottom: its extrapolated ground made the base far too short | Never extrapolate the ground; take base heights from a photo that shows the ground, scaled by a part both photos see (e.g. the glass case) |
 | Coarse grids gave wrong counts and shapes (8 legs, tall dome) | Zoom 1:1 on the part (crop ×2) BEFORE modelling it; count repeated parts on the zoom |
 | A mutation was placed after the variable it should change was read, so the test "passed" | After adding a `# MUTATION`, check the geometry actually changed (e.g. triangle count or a printed width) before trusting GREEN/RED |
+| Geometry tests that look for VERTICES were blind three times (closed gap between feet, frame steps, long rails have vertices only at their ends) | Test surfaces, not corners: slice edges with a plane, `scene.ray_cast`, or a relative test (build twice with a changed spec value, the measured result must change) |
+| Glass sampled where exhibits showed through came out brown; glass looked like a flat panel | Sample glass colours on plain reflection areas in ≥ 2 photos; fake reflection in the bake (vertical gradient + diagonal streaks + recessed pane), never photo pixels |
 | Camera fit always lands on a far telephoto for one photo | That photo's landmarks are inconsistent with the model — re-read them on a zoom (a 30 px misread corner cost 15 px RMS); try `lens_shift` + level for straight-on photos |
 
 ## 5. Pitfalls

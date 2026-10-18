@@ -165,20 +165,20 @@
     "w": 1.253,
     "z0": 1.635,
     "z1": 4.172,
-    "pilaster_w": 0.214,
+    "pilaster_w": 0.16,
     "pilaster_proud": 0.03
    },
-   "source": "ref/04.jpg 1:1 grid (front, 10 px), scale 4.46 mm/px, ground y 1658 (photo cut at 1600; ground from ref/05 ratio): body x 407-688, corner pilasters with star/figure ornaments"
+   "source": "ref/04.jpg 1:1 grid (front, 10 px), scale 4.46 mm/px, ground y 1658 (photo cut at 1600; ground from ref/05 ratio): body x 407-688, corner pilasters with star/figure ornaments; pilaster strips ~36 px in ref/04 (0.16 m), the 48 px reading included the frame moulding"
   },
   "showcase": {
    "value": {
-    "w": 0.812,
+    "w": 0.84,
     "z0": 1.661,
     "z1": 3.378,
     "frame_w": 0.071,
     "head": "shouldered arch"
    },
-   "source": "ref/04.jpg 1:1 grid (front, 10 px), scale 4.46 mm/px, ground y 1658 (photo cut at 1600; ground from ref/05 ratio): glass x 454-636, y 970-1355"
+   "source": "ref/04.jpg 1:1 grid (front, 10 px), scale 4.46 mm/px, ground y 1658 (photo cut at 1600; ground from ref/05 ratio): glass x 454-636, y 970-1355; glass round 2 engine-vs-photo: panes too narrow (broad iron margin beside the frame); ref/04 + ref/01 show the frame close to the pilasters -> 0.90; then 0.84 so the frame stays clear of the pilasters"
   },
   "medallions": {
    "value": {
@@ -444,9 +444,23 @@
      "boost": 0.12,
      "note": "two light diagonal reflection bands per pane"
     },
-    "recess": 0.03
+    "recess": 0.03,
+    "head_shape": {
+     "corners": "concave quarter-circle at each top corner, radius 0.16 x pane width (lambrequin / valance look, the curve bites INTO the glass)",
+     "centre_bump": {
+      "w": 0.25,
+      "h": 0.06,
+      "note": "small convex rounded bump rising at the top centre, fractions of the pane width"
+     },
+     "segments": 10
+    },
+    "frame_beads": {
+     "r": 0.012,
+     "spacing": 0.04,
+     "note": "row of small beads along the outer step of the showcase frame (ref/04)"
+    }
    },
-   "source": "part sheet glass r1: panes read light and reflective in both photos; the engine has no transparency, so the reflection is baked"
+   "source": "part sheet glass r1: panes read light and reflective in both photos; the engine has no transparency, so the reflection is baked; glass_top_zoom.png (ref/04, ref/01, ref/02): rounded concave top corners + centre bump; cool dark green-grey glass"
   }
  },
  "colors": {
@@ -500,19 +514,19 @@
   },
   "glass_top": {
    "linear": [
-    0.246,
-    0.266,
-    0.27
+    0.11,
+    0.135,
+    0.14
    ],
-   "source": "ref/04 pane median y 1000-1080 (sky/building reflection)"
+   "source": "ref/01 upper pane 830,740,860,820 = 0.069/0.089/0.091, raised ~40 % for the reflection highlight"
   },
   "glass_bottom": {
    "linear": [
-    0.084,
-    0.056,
-    0.047
+    0.03,
+    0.042,
+    0.045
    ],
-   "source": "ref/04 pane median y 1250-1340 (interior/exhibits)"
+   "source": "ref/01 lower pane 830,980,860,1060 = 0.030/0.042/0.045 (cool dark green-grey; ref/04's brown came from the exhibits)"
   }
  }
 }

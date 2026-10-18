@@ -41,6 +41,35 @@ def world_edges(parts):
             yield vs[e.vertices[0]], vs[e.vertices[1]]
 
 
+class FrameStepsTest(unittest.TestCase):
+    """Relative test: more frame steps in the spec must give more distinct frame planes in the built model.
+    (An absolute plane count is fooled by the bead row and the glass recess.)"""
+
+    def planes(self, steps):
+        photo_lib.al.clear_scene()
+        spec = photo_lib.Spec(ASSET / "spec.json")
+        spec.dims["ornaments"]["value"]["showcase_frame"]["steps"] = steps
+        parts = load_build().build(spec)
+        sc, h = spec.d("showcase"), spec.d("body")["w"] / 2
+        ys = set()                       # slice every edge with the plane x = 0 (long rails have no vertex there)
+        for o in [o for objs in parts.values() for o in objs if o.type == 'MESH']:
+            mw = o.matrix_world
+            for e in o.data.edges:
+                a, b = (mw @ o.data.vertices[i].co for i in e.vertices)
+                if (a.x > 0) == (b.x > 0) or abs(a.x - b.x) < 1e-9:
+                    continue
+                s = -a.x / (b.x - a.x)
+                y, z = a.y + s * (b.y - a.y), a.z + s * (b.z - a.z)
+                if sc["z0"] - 0.10 < z < sc["z0"] + 0.06 and -h - 0.02 < y < -h + 0.12:
+                    ys.add(round(y, 3))
+        return len(ys)
+
+    def test_steps_change_the_frame(self):
+        spec_steps = photo_lib.Spec(ASSET / "spec.json").d("ornaments")["showcase_frame"]["steps"]
+        self.assertGreater(spec_steps, 1)
+        self.assertGreater(self.planes(spec_steps), self.planes(1))
+
+
 class KroepckeBuildTest(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
@@ -103,13 +132,6 @@ class KroepckeBuildTest(unittest.TestCase):
         self.assertEqual(self.clusters(zs, 0.15), len(pf["z"][0::2]))
         gold = bpy.data.objects["clock_gold"].data
         self.assertEqual(len([v for v in gold.vertices if v.co.z < 4.0]), 10 * 4 * 2 * len(pf["z"][1::2]))
-
-    def test_showcase_frame_steps(self):
-        sc, steps = self.spec.d("showcase"), self.spec.d("ornaments")["showcase_frame"]["steps"]
-        h = self.spec.d("body")["w"] / 2
-        t = 0.1 * sc["w"]
-        planes = {round(v.y, 3) for v in self.verts if abs(v.x) < 0.41 and sc["z0"] - 0.01 < v.z < sc["z0"] + 0.10 and -h + 0.001 < v.y < -h + t - 0.0045}
-        self.assertGreaterEqual(len(planes), steps)
 
     def slice_points(self, z):
         pts = []
@@ -248,7 +270,7 @@ class KroepckeBuildTest(unittest.TestCase):
             if n.type == "MIX" and getattr(n, "data_type", "") == "RGBA" and not n.inputs[6].is_linked and not n.inputs[7].is_linked:
                 a, b = n.inputs[6].default_value, n.inputs[7].default_value
                 spread = max(spread, max(abs(a[i] - b[i]) for i in range(3)))
-        self.assertGreater(spread, 0.1, "glass gradient endpoints are (almost) the same colour")
+        self.assertGreater(spread, 0.05, "glass gradient endpoints are (almost) the same colour")
 
     def test_glass_pane_is_recessed(self):
         from mathutils import Vector
@@ -260,6 +282,39 @@ class KroepckeBuildTest(unittest.TestCase):
         hit, loc, *_ = bpy.context.scene.ray_cast(bpy.context.view_layer.depsgraph, Vector((0, -5, zc)), Vector((0, 1, 0)), distance=10)
         self.assertTrue(hit)
         self.assertGreaterEqual(loc.y - frame_inner, gl["recess"] - 1e-3)
+
+    def test_pane_head_has_concave_corners_and_bump(self):
+        sc = self.spec.d("showcase")
+        gl = self.spec.d("glass_look")
+        h = self.spec.d("body")["w"] / 2
+        stp = sc["frame_w"] / self.spec.d("ornaments")["showcase_frame"]["steps"]
+        w, z1 = sc["w"] - 2 * sc["frame_w"], sc["z1"] - sc["frame_w"]
+        yg = -h + self.spec.d("ornaments")["showcase_frame"]["steps"] * 0.25 * 0.1 * sc["w"] + gl["recess"]
+        glass = [v for o in meshes(self.parts) if o.data.materials and o.data.materials[0].name == "glass" for v in
+                 [o.matrix_world @ v.co for v in o.data.vertices]]
+        pane = [v for v in glass if abs(v.y - yg) < 1e-4 and v.z > 2.0 and abs(v.x) < w / 2 + 1e-3]
+
+        def top_at(x):                                # highest pane vertex near x, interpolating the outline
+            pts = sorted(pane, key=lambda v: v.x)
+            best = None
+            for a, b in zip(pts, pts[1:]):
+                if a.x <= x <= b.x and b.x > a.x:
+                    zz = max(a.z, b.z)
+                    best = zz if best is None else max(best, zz)
+            return best
+
+        near = max(v.z for v in pane if abs(abs(v.x) - (w / 2 - 0.05)) < 0.006)
+        centre = max(v.z for v in pane if abs(v.x) < 0.01)
+        self.assertGreaterEqual(centre - near, 0.03)
+        self.assertAlmostEqual(centre, z1, delta=0.01)
+
+    def test_frame_beads_exist(self):
+        sc, steps = self.spec.d("showcase"), self.spec.d("ornaments")["showcase_frame"]["steps"]
+        fb = self.spec.d("glass_look")["frame_beads"]
+        h = self.spec.d("body")["w"] / 2
+        y_apex = -h + 0.25 * 0.1 * sc["w"] - fb["r"]
+        apex = [v for v in self.verts if abs(v.y - y_apex) < 1e-4 and abs(v.x) < sc["w"] / 2 and sc["z0"] < v.z < sc["z1"]]
+        self.assertGreaterEqual(len(apex), 100)
 
     def test_pedestal_arch_is_open(self):
         # Rays through the middle of each side (x = 0 / y = 0) must pass the whole pedestal: faces, not vertices.

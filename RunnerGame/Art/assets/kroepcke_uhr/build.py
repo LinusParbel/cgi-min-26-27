@@ -197,13 +197,19 @@ def star(cx, cz, ro, ri):
              cz + (ro if i % 2 == 0 else ri) * math.sin(math.pi / 2 + i * math.pi / 5)) for i in range(10)]
 
 
-def shoulder_arch(w, z0, z1, seg=8):
-    """Outline of the showcase: rectangle with shoulders and a round head (CCW from the front).
-    Returns (outline, arc points left to right from angle 0 to 180 deg, shoulder height)."""
-    cz = z1 - 0.3 * w
-    zs = cz - 0.05
-    arc = [(0.3 * w * math.cos(math.pi * i / seg), cz + 0.3 * w * math.sin(math.pi * i / seg)) for i in range(seg + 1)]
-    return [(-w / 2, z0), (w / 2, z0), (w / 2, zs)] + arc + [(-w / 2, zs)], arc, zs
+def head_outline(w, z0, z1, look, seg=10):
+    """Pane outline (CCW from the front): straight sides, a CONCAVE quarter circle (radius 0.16 w) at each top corner,
+    a short straight run and a small convex rounded bump at the top centre.
+    Returns (outline, filler for the wall right of the centre above the outline, z where the corner arcs start)."""
+    R = 0.16 * w
+    bw, bh = look["centre_bump"]["w"] * w, look["centre_bump"]["h"] * w
+    zr = z1 - bh
+    arc_r = [(w / 2 - R * math.sin(math.pi / 2 * i / seg), zr - R * math.cos(math.pi / 2 * i / seg)) for i in range(seg + 1)]
+    bump = [(bw / 2 * math.cos(math.pi * i / seg), zr + bh * math.sin(math.pi * i / seg)) for i in range(seg + 1)]
+    arc_l = [(-x, z) for x, z in reversed(arc_r)]
+    outline = [(-w / 2, z0), (w / 2, z0)] + arc_r + bump + arc_l
+    filler = [(w / 2, zr - R), (w / 2, z1)] + list(reversed(bump[:seg // 2 + 1])) + list(reversed(arc_r))
+    return outline, filler, zr - R
 
 
 def ctube(acc, p0, p1, r, n=6):
@@ -517,17 +523,17 @@ def build(spec):
             ya, yb = sorted((sy * hp, sy * (hp - pw)))
             S["iron"].box(xa, xb, ya, yb, body["z0"], body["z1"])
 
-    poly, arc, zs = shoulder_arch(sw, z0s, z1s)
     sf = orn["showcase_frame"]
     stp = sc["frame_w"] / sf["steps"]
-    outlines = [shoulder_arch(sw - 2 * k * stp, z0s + k * stp, z1s - k * stp)[0] for k in range(sf["steps"] + 1)]
+    hs_ = gl["head_shape"]
+    outlines = [head_outline(sw - 2 * k * stp, z0s + k * stp, z1s - k * stp, hs_, hs_["segments"])[0] for k in range(sf["steps"] + 1)]
+    poly, right, zs = head_outline(sw, z0s, z1s, hs_, hs_["segments"])
     inner = outlines[-1]
     planes = [-h + (k + 1) * 0.25 * t0 for k in range(sf["steps"])] + [yg]
     for sx in (-1, 1):                               # wall beside the recess
         xa, xb = sorted((sx * sw / 2, sx * h))
         F["iron"].box(xa, xb, -h, -h + t, z0s, z1s)
-    right = [(sw / 2, zs), (sw / 2, z1s)] + list(reversed(arc[:len(arc) // 2 + 1]))   # shoulder filler beside the head
-    F["iron"].prism(right, -h, -h + t, back=False)
+    F["iron"].prism(right, -h, -h + t, back=False)   # wall between the curved head and the top of the recess
     F["iron"].prism([(-x, z) for x, z in reversed(right)], -h, -h + t, back=False)
 
     def reveal(outline, ya, yb):
@@ -543,6 +549,22 @@ def build(spec):
             j = (i + 1) % len(a)
             F["iron"].quad((a[i][0], planes[k], a[i][1]), (a[j][0], planes[k], a[j][1]),
                            (b[j][0], planes[k], b[j][1]), (b[i][0], planes[k], b[i][1]), (0, -1, 0))
+    fb = gl["frame_beads"]                           # row of small beads along the outer step of the frame
+    mid = [((p[0] + q[0]) / 2, (p[1] + q[1]) / 2) for p, q in zip(outlines[0], outlines[1])]
+    carry, br = 0.0, fb["r"]
+    for i in range(len(mid)):
+        (x0, z0), (x1, z1) = mid[i], mid[(i + 1) % len(mid)]
+        ln = math.hypot(x1 - x0, z1 - z0)
+        pos = fb["spacing"] - carry if carry else 0.0
+        while pos <= ln:
+            x, z = x0 + (x1 - x0) * pos / ln, z0 + (z1 - z0) * pos / ln
+            if z > z0s + stp:                        # none along the bottom edge
+                y0 = planes[0]
+                F["iron"].hexa([(x - br, y0, z - br), (x + br, y0, z - br), (x + br, y0, z + br), (x - br, y0, z + br)],
+                               [(x - br * 0.5, y0 - br, z - br * 0.5), (x + br * 0.5, y0 - br, z - br * 0.5),
+                                (x + br * 0.5, y0 - br, z + br * 0.5), (x - br * 0.5, y0 - br, z + br * 0.5)])
+            pos += fb["spacing"]
+        carry = ln - (pos - fb["spacing"])
     for sx in (-1, 1):                               # small scroll at each shoulder of the head
         cyl(F["iron"], (sx * (sw / 2 - 0.03), -h - 0.012, zs + 0.035), "x", 0.025, 0.07, n=8)
     F["glass"].decal(inner, yg)
