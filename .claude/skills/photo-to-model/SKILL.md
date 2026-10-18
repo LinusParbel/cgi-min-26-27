@@ -49,6 +49,10 @@ BL --python A/build.py -- --preview /abs/path/A/previews/preview.png
 BL --python RunnerGame/Art/lib/compare.py -- A ref/NN.jpg --fit
 ```
 `--fit` numerically fits the camera to the landmarks and saves it to refs.json (drop it on later rounds if the camera is fine). Output: landmark errors, RMS (px and % of photo width), and `A/previews/compare_NN_r<k>.png` (3-panel sheet, do not view) plus `compare_NN_r<k>_overlay.png` (cropped, the one image to view). Read the numbers first; view the overlay only if needed. Derive spec corrections, rebuild, repeat.
+Each round also writes `compare_NN_r<k>_blend.png` (photo and coloured model 50/50, same crop) — the outline cannot
+see windows, gables or pinnacles inside the silhouette, the blend can (mismatches show as double images). For details
+add `--zoom x0,y0,x1,y1` (photo pixels) → `_blend_zoom.png` at full resolution. If the fitted camera lands at an
+impossible height, set `"camera_z_range": [lo, hi]` on that photo in refs.json.
 **GATE B (user):** side + rear 3/4 outline approved. Stop and wait.
 
 **Step 5 - Details**, in game-camera priority: rear (light, reflector, plate, fender), deck/top, handles/controls, stem/box. Front and underside stay simple. Same loop on `detail_*` photos. Materials via `al.material` / `al.flat` / `al.emissive_look` with spec colours.
@@ -146,6 +150,10 @@ RunnerGame/Assets/Models/<Category>/<Asset>/   runtime OBJ + PNG + parts.json on
 - Sunlit colour samples are too light: sample flat shaded areas, darken after the engine check.
 - Leaning or parked objects bias the camera fit; prefer upright photos as key views.
 - A file open in an image viewer can be locked on Windows; close it or write a new name.
+- Large objects: the viewer's clip planes scale with the model; for a photo-like engine view use `--pitch 5`.
+- Tapering shapes (gables, spires): build trapezoids/frustums per measured segment, not stacked boxes (box corners show as ghosts).
+- A band inside a gable is easily misread as an eave; confirm heights on the 1:1 blend zoom.
+- Symmetric objects: measure one half and mirror; small left/right differences in the photo are perspective, not model errors.
 - **Never edit** `tools/asset-spike/asset_lib.py` or `tools/asset-spike/SpikeViewer` (another session uses them; reach `asset_lib` only via `photo_lib`). Report library bugs instead of patching. Leave `tools/asset-viewer/` code alone unless the task is the viewer.
 - No logos, wordmarks or QR codes (invent plate numbers). No photo pixels in textures; colours come from spec.json.
 - Reference photos are CC BY / CC BY-SA: credit every one in `RunnerGame/CREDITS.md`. Only add assets we may share.
