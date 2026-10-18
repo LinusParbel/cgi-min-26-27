@@ -6,7 +6,7 @@ Assets built with the photo-to-model workflow (`.claude/skills/photo-to-model/`)
 | Asset | Runtime files | Triangles | Texture | Photo match | Approved |
 |---|---|---|---|---|---|
 | Voi e-scooter (2022 gen.) `scooter_voi` | `Models/Fahrzeug/ScooterVoi/VEH_ScooterVoi_{body,wheel_front,wheel_rear}.obj`, `VEH_ScooterVoi.png`, `VEH_ScooterVoi_parts.json` | body 2456, wheels 664 / 664 | 1024² shared | ref/17 side: landmark RMS 4.7 px (0.29 %), outline matched in 5 rounds; ref/15 rear 3/4: 26 px (2 %, scooter leans on kickstand) | 2026-10-18 |
-| Neues Rathaus Hannover, Maschteich front `rathaus_hannover` | `Models/Wahrzeichen/NeuesRathaus/BLD_NeuesRathaus_body.obj`, `BLD_NeuesRathaus.png`, `BLD_NeuesRathaus_parts.json` | 18,936 | 2048² | ref/01 front: landmark RMS 3.2 px (0.20 %) over 28 points; 50/50 blend congruent at 1:1 for the central projection, dome group, pavilions, towers and window axes; north side simplified (out of scope) | 2026-10-18 (user: "make it perfect, don't ask again") |
+| Neues Rathaus Hannover, Maschteich front `rathaus_hannover` | `Models/Wahrzeichen/NeuesRathaus/BLD_NeuesRathaus_body.obj`, `BLD_NeuesRathaus.png`, `BLD_NeuesRathaus_parts.json` | 24,540 | 2048² | ref/01 front: landmark RMS 3.2 px (0.20 %) over 28 points; 50/50 blend congruent at 1:1 for the central projection, dome group, pavilions, towers and window axes; north side simplified (out of scope) | 2026-10-18 (user: "make it perfect, don't ask again") |
 
 ## Notes per asset
 

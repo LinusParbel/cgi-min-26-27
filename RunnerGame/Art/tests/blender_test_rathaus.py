@@ -104,6 +104,31 @@ class RathausBuildTest(unittest.TestCase):
         for g, e in zip(got, expect):
             self.assertAlmostEqual(g, e, delta=0.05)
 
+    def test_dome_base_pediment_is_small(self):
+        dd = self.spec.d("domebase_detail")
+        fz = self.spec.d("dome_y") - self.spec.d("domebase_w") / 2
+        xs = [(o.matrix_world @ v.co).x for o in self.objs for v in o.data.vertices
+              if dd["frontispiece"]["z1"] - 0.01 <= (o.matrix_world @ v.co).z <= dd["pediment"]["z1"] + 0.01
+              and (o.matrix_world @ v.co).y < fz + 0.1 and abs((o.matrix_world @ v.co).x) < 20]
+        self.assertGreater(len(xs), 0)
+        self.assertLessEqual(max(xs) - min(xs), dd["frontispiece"]["w"] + 0.5)
+
+    def test_corner_tower_roof_flares(self):
+        ctd = self.spec.d("corner_tower_detail")
+        tx = self.spec.d("tower_x")
+        prof = ctd["roof"]["profile"]
+
+        def width(z):
+            xs = [(o.matrix_world @ v.co).x for o in self.objs if o.name == "copper" for v in o.data.vertices
+                  if abs((o.matrix_world @ v.co).z - z) < 0.02 and abs((o.matrix_world @ v.co).x + tx) < 6]
+            self.assertGreater(len(xs), 0, z)
+            return max(xs) - min(xs)
+        base, top = width(prof[0][0]), width(prof[-1][0])
+        self.assertGreater(base, top + 2.0)
+        mid = width(prof[2][0])                                # concave: narrower than the straight line base-top
+        lin = base + (top - base) * (prof[2][0] - prof[0][0]) / (prof[-1][0] - prof[0][0])
+        self.assertLess(mid, lin)
+
     def test_triangle_budget(self):
         deps = bpy.context.evaluated_depsgraph_get()
         tris = 0

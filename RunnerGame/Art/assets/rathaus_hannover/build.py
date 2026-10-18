@@ -289,31 +289,60 @@ def build(spec):
         pinnacle(s * (inner_x + wd / 2), 0.0, ridge - 1.5, sth, stw, 2.6)
 
     # ---------------------------------------------------------------- corner towers
-    body, gab, rf, lan, cap, tip = (d("tower_body_h"), d("tower_gable_h"), d("tower_roof_h"), d("tower_lantern_h"),
-                                    d("tower_cap_h"), d("tower_tip_h"))
-    bel = body + d("tower_belfry_h")
-    w2 = tw - 1.4
+    ctd = d("corner_tower_detail")
+    body, tip = d("tower_body_h"), d("tower_tip_h")
+    bw = ctd["body_w"]
+    cr, bl, fg, rp = ctd["crown"], ctd["belfry"], ctd["front_gable"], ctd["roof"]["profile"]
+    lt, cp, sp_, vn = ctd["lantern"], ctd["cap"]["profile"], ctd["spire"], ctd["vane"]
     up = d("tower_upper_rows")
+    bw2 = bl["w"]
     for s in (-1, 1):
-        cx_, cy_ = s * tx, fy - proj + tw / 2
-        S.box(cx_ - tw / 2, cx_ + tw / 2, cy_ - tw / 2, cy_ + tw / 2, 0, body)
-        S.box(cx_ - tw / 2 - 0.4, cx_ + tw / 2 + 0.4, cy_ - tw / 2 - 0.4, cy_ + tw / 2 + 0.4, body - 0.8, body)
-        S.box(cx_ - w2 / 2, cx_ + w2 / 2, cy_ - w2 / 2, cy_ + w2 / 2, body, bel)
-        C.frustum(cx_, cy_, bel, rf, w2 - 0.6, w2 - 0.6, 0, 0)
-        for i, pl2 in enumerate(sides_of(cx_, cy_, tw / 2, tw / 2)):
+        cx_, cy_ = s * tx, fy - proj + bw / 2
+        S.box(cx_ - bw / 2, cx_ + bw / 2, cy_ - bw / 2, cy_ + bw / 2, 0, cr["z1"])
+        # projecting crown on a row of corbels
+        ov = cr["overhang"]
+        ch_c = 0.9
+        S.box(cx_ - bw / 2 - ov, cx_ + bw / 2 + ov, cy_ - bw / 2 - ov, cy_ + bw / 2 + ov, cr["z0"] + ch_c, cr["z1"])
+        nc = int(cr["corbels"])
+        for i, pl2 in enumerate(sides_of(cx_, cy_, bw / 2, bw / 2)):
+            for k in range(nc):
+                u = (k + 0.5) * bw / nc - bw / 2
+                pl2.prism(S, [(u - 0.28, cr["z0"] + ch_c), (u + 0.28, cr["z0"] + ch_c), (u + 0.12, cr["z0"]),
+                              (u - 0.12, cr["z0"])], -0.1, ov * 0.85)
             if i:                                              # the front (i == 0) comes from front_layout
                 window_rows(pl2, (0.0,), w=1.5, h=3.0, rws=rows + up)
-        for pl2 in sides_of(cx_, cy_, w2 / 2, w2 / 2):
-            pl2.prism(S, [(-w2 / 2, bel), (w2 / 2, bel), (0, gab)], -0.8, 0.0)
-            win(pl2, 0.0, body + 0.4, 1.5, d("tower_belfry_h") - 0.8, False, 0.03)
-        # open lantern: platform, four posts, dark core, cap, spire
-        C.box(cx_ - 1.7, cx_ + 1.7, cy_ - 1.7, cy_ + 1.7, rf - 0.1, rf + 0.3)
-        WS.box(cx_ - 0.9, cx_ + 0.9, cy_ - 0.9, cy_ + 0.9, rf + 0.3, lan)
+        # belfry with two arched openings per face, pointed stone gables with round window and corner figures
+        S.box(cx_ - bw2 / 2, cx_ + bw2 / 2, cy_ - bw2 / 2, cy_ + bw2 / 2, bl["z0"], bl["z1"])
+        op = bl["openings"]
+        for pl2 in sides_of(cx_, cy_, bw2 / 2, bw2 / 2):
+            for dx in op["dx"]:
+                win(pl2, dx, op["z0"], op["w"], op["z1"] - op["z0"], False, 0.03)
+            pl2.prism(S, [(-fg["w"] / 2, fg["z0"]), (fg["w"] / 2, fg["z0"]), (0, fg["apex_z"])], -0.8, 0.15)
+            rw = fg["round_window"]
+            pl2.decal(WF, circle_outline(0.0, rw["z"], rw["r"], 12), 0.17)
+            for sg in (-1, 1):
+                u0, u1 = sorted((sg * (fg["w"] / 2 - 0.55), sg * (fg["w"] / 2 + 0.05)))
+                pl2.prism(S, rect_outline(u0, fg["z0"], u1, fg["z0"] + fg["corner_figures_h"]), -0.3, 0.3)
+        # square flaring (concave) copper roof, one frustum per profile segment
+        for (za, wa), (zb, wb) in zip(rp, rp[1:]):
+            C.frustum(cx_, cy_, za, zb, wa, wa, wb, wb)
+        # open lantern: arched opening per face, gallery ring, corner posts
+        lw_, lz0, lz1 = lt["w"], lt["z0"], lt["z1"]
+        S.box(cx_ - lw_ / 2, cx_ + lw_ / 2, cy_ - lw_ / 2, cy_ + lw_ / 2, lz0, lz1)
+        gl = lt["gallery"]
+        S.box(cx_ - gl["w"] / 2, cx_ + gl["w"] / 2, cy_ - gl["w"] / 2, cy_ + gl["w"] / 2, gl["z"], gl["z"] + gl["h"])
+        S.box(cx_ - lw_ / 2 - 0.15, cx_ + lw_ / 2 + 0.15, cy_ - lw_ / 2 - 0.15, cy_ + lw_ / 2 + 0.15, lz1 - 0.3, lz1)
         for ix in (-1, 1):
             for iy in (-1, 1):
-                C.box(cx_ + ix * 1.1 - 0.2, cx_ + ix * 1.1 + 0.2, cy_ + iy * 1.1 - 0.2, cy_ + iy * 1.1 + 0.2, rf + 0.3, lan)
-        C.frustum(cx_, cy_, lan, cap, 3.2, 3.2, 0.5, 0.5)
-        C.frustum(cx_, cy_, cap, tip, 0.5, 0.5, 0, 0)
+                S.box(cx_ + ix * (lw_ / 2 - 0.1) - 0.2, cx_ + ix * (lw_ / 2 - 0.1) + 0.2,
+                      cy_ + iy * (lw_ / 2 - 0.1) - 0.2, cy_ + iy * (lw_ / 2 - 0.1) + 0.2, lz0, lz1 - 0.3)
+        for pl2 in sides_of(cx_, cy_, lw_ / 2, lw_ / 2):
+            win(pl2, 0.0, lt["arches"]["z0"], lt["arches"]["w"], lt["arches"]["z1"] - lt["arches"]["z0"], False, 0.03)
+        # ogee copper cap, thin spire, flat weather-vane plate up to the measured tip height
+        C.lathe(cx_, cy_, [(w_ / 2, z_) for z_, w_ in cp], seg=12)
+        vh = vn["z1"] - vn["z0"]
+        C.lathe(cx_, cy_, [(sp_["w0"] / 2, sp_["z0"]), (0.04, tip - vh)], seg=8)
+        C.box(cx_ - vn["w"] / 2, cx_ + vn["w"] / 2, cy_ - 0.03, cy_ + 0.03, tip - vh, tip)
 
     # ---------------------------------------------------------------- end pavilions with stepped gables
     pe, pg = d("pav_eave_h"), d("pav_gable_h")
@@ -537,24 +566,54 @@ def build(spec):
     S.box(-h2, h2, dy - h2, dy + h2, eave - 0.5, db_t - 1.0)
     S.box(-h2 - 0.8, h2 + 0.8, dy - h2 - 0.8, dy + h2 + 0.8, db_t - 1.0, db_t)
     S.box(-h2 - 0.5, h2 + 0.5, dy - h2 - 0.5, dy + h2 + 0.5, db_e - 0.6, db_e)
-    clk_r, clk_z = d("clock_d") / 2, db_t + 0.38 * (dp - db_t)
+    dd = d("domebase_detail")
+    clk_r, clk_z = dd["clock"]["r"], dd["clock"]["z"]
+    fw = dd["frontispiece"]["w"]
+    pw_d = dd["corner_pier_w"]
+    cz_d = dd["cornice_z"]
+    rel = 0.8                                                   # frontispiece / cornice projection
     for i, pl2 in enumerate(sides_of(0, dy, h2, h2)):
-        for x in (-5.5, 0.0, 5.5):
-            win(pl2, x, db_e + 1.5, 2.2, 7.0, framed=True)
-        rel = d("domebase_relief")
-        pl2.prism(S, [(-h2 + 1.5, db_t), (h2 - 1.5, db_t), (0, dp)], -0.3, rel)
-        pl2.prism(S, [(-h2 + 1.0, db_t), (h2 - 1.0, db_t), (h2 - 1.0, db_t + 0.5), (-h2 + 1.0, db_t + 0.5)], -0.3, rel + 0.1)
+        tw_ = dd["tracery_window"]
+        opening(pl2, 0.0, tw_["z0"], tw_["z1"], tw_["w"], "tracery", register=False)
+        sw_ = dd["side_windows"]
+        for x in mir(sw_["x"]):
+            win(pl2, x, sw_["z0"], sw_["w"], sw_["z1"] - sw_["z0"], True)
+        bz0, bz1 = dd["balustrade"]["z0"], dd["balustrade"]["z1"]
+        ub = h2 - pw_d
+        bar(pl2, -ub, ub, bz0, bz0 + 0.18, 0, 0.5)
+        bar(pl2, -ub, ub, bz1 - 0.16, bz1, 0, 0.55)
+        nb = int(2 * ub / 1.0)
+        for k in range(nb):
+            ux = -ub + (k + 0.5) * 2 * ub / nb
+            bar(pl2, ux - 0.1, ux + 0.1, bz0 + 0.18, bz1 - 0.16, 0.05, 0.35)
+        ga = dd["gallery_arches"]
+        for x in mir(ga["side_x"]) + list(ga["centre_x"]):
+            win(pl2, x, ga["z0"], ga["w"], ga["z1"] - ga["z0"], False, 0.03)
+        # central frontispiece with the clock and a small pediment
+        pl2.prism(S, rect_outline(-fw / 2, cz_d, fw / 2, dd["frontispiece"]["z1"]), -1.0, rel)
+        pm = dd["pediment"]
+        pl2.prism(S, [(-pm["w"] / 2, pm["z0"]), (pm["w"] / 2, pm["z0"]), (0, pm["z1"])], -0.6, rel + 0.2)
         n_ = 20
-        ring = [(clk_r * math.cos(2 * math.pi * k / n_), clk_z + clk_r * math.sin(2 * math.pi * k / n_)) for k in range(n_)]
-        pl2.prism(CK, ring, rel - 0.1, rel + 0.15)
-        pl2.decal(WF, [(-0.12, clk_z + 0.0), (0.12, clk_z + 0.0), (0.12, clk_z + clk_r * 0.75), (-0.12, clk_z + clk_r * 0.75)], rel + 0.18)
-        pl2.decal(WF, [(0.0, clk_z - 0.12), (clk_r * 0.55, clk_z - 0.12), (clk_r * 0.55, clk_z + 0.12), (0.0, clk_z + 0.12)], rel + 0.18)
+        ring_ = [(clk_r * math.cos(2 * math.pi * k / n_), clk_z + clk_r * math.sin(2 * math.pi * k / n_)) for k in range(n_)]
+        pl2.prism(CK, ring_, rel, rel + 0.25)
+        pl2.decal(WF, [(-0.12, clk_z), (0.12, clk_z), (0.12, clk_z + clk_r * 0.75), (-0.12, clk_z + clk_r * 0.75)], rel + 0.28)
+        pl2.decal(WF, [(0.0, clk_z - 0.12), (clk_r * 0.55, clk_z - 0.12), (clk_r * 0.55, clk_z + 0.12), (0.0, clk_z + 0.12)], rel + 0.28)
         px, py, _ = pl2.pt(0, 0, 0.5)
         C.frustum(px, py, dp - 0.1, dp + 1.2, 0.9, 0.9, 0, 0)
+    pin = h2 - d("domebase_pinnacle_inset")
+    tr = dd["corner_turret"]
     for ix in (-1, 1):
         for iy in (-1, 1):
-            pin = h2 - d("domebase_pinnacle_inset")
-            pinnacle(ix * pin, dy + iy * pin, db_t - 0.5, dpn, d("domebase_pinnacle_w"), 2.4)
+            xa, xb = sorted((ix * (h2 - pw_d), ix * (h2 + 0.3)))
+            ya, yb = sorted((dy + iy * (h2 - pw_d), dy + iy * (h2 + 0.3)))
+            S.box(xa, xb, ya, yb, dd["roof_emerge_z"], dd["corner_pier_top_z"])
+            S.box(xa - 0.15, xb + 0.15, ya - 0.15, yb + 0.15, dd["corner_pier_top_z"] - 0.3, dd["corner_pier_top_z"])
+            pinnacle(ix * pin, dy + iy * pin, dd["corner_pier_top_z"], dd["pinnacle_top_z"], d("domebase_pinnacle_w"), 2.4)
+            tcx, tcy = ix * (h2 + 0.4 * tr["x_off"]), dy + iy * (h2 + 0.4 * tr["x_off"])
+            S.lathe(tcx, tcy, [(tr["r"], tr["z0"]), (tr["r"], tr["z1"])], seg=12)
+            tz = tr["z1"]
+            C.lathe(tcx, tcy, [(tr["r"] * 1.1, tz), (tr["r"] * 1.15, tz + 0.3), (tr["r"] * 0.85, tz + 0.9),
+                               (tr["r"] * 0.45, tz + 1.6), (tr["r"] * 0.12, tz + 2.2), (0, tz + 2.5)], seg=12)
     dbh, dm = d("dome_base_h"), d("dome_top_h")
     R_d = d("dome_w") / 2
     S.lathe(0, dy, [(R_d + 0.4, db_t), (R_d + 0.4, dbh - 0.01)], seg=24)           # drum under the dome
@@ -572,15 +631,39 @@ def build(spec):
     S.lathe(0, dy, [(l1w / 2 * k8 + d("lantern_rim"), l1t - 0.8), (l1w / 2 * k8 + d("lantern_rim"), l1t)], seg=8, phase=math.pi / 8)
     S.lathe(0, dy, [(l2w / 2 * k8, l1t), (l2w / 2 * k8, l2t - 0.6)], seg=8, phase=math.pi / 8)
     S.lathe(0, dy, [(l2w / 2 * k8 + d("lantern_rim"), l2t - 0.6), (l2w / 2 * k8 + d("lantern_rim"), l2t)], seg=8, phase=math.pi / 8)
+    lw1 = dd["lantern1_windows"]
     for pl2 in sides_of(0, dy, l1w / 2 * 0.99, l1w / 2 * 0.99):
-        win(pl2, 0.0, dm + 0.8, 2.0, l1t - dm - 2.0, False, 0.05)
+        win(pl2, 0.0, lw1["z0"], lw1["w"], lw1["z1"] - lw1["z0"], False, 0.05)
+    ob = dd["lantern1_obelisks"]
+    ob_r = (l1w / 2 - ob["inset"] + 0.3) / math.sqrt(2)           # on the four diagonal faces of the octagon
+    for ix in (-1, 1):
+        for iy in (-1, 1):
+            ox_, oy_ = ix * ob_r, dy + iy * ob_r
+            S.box(ox_ - ob["w"] / 2, ox_ + ob["w"] / 2, oy_ - ob["w"] / 2, oy_ + ob["w"] / 2, dm + 0.5, ob["top_z"] - 0.8)
+            C.frustum(ox_, oy_, ob["top_z"] - 0.8, ob["top_z"], ob["w"] * 1.3, ob["w"] * 1.3, 0, 0)
+    g2 = dd["lantern2_gallery"]
+    S.lathe(0, dy, [(g2["w"] / 2 * k8, g2["z"]), (g2["w"] / 2 * k8, g2["z"] + g2["h"])], seg=8, phase=math.pi / 8)
+    ar = dd["lantern2_arcade"]
+    cu = [(k - (ar["cols"] - 1) / 2) * 1.2 for k in range(ar["cols"])]
     for pl2 in sides_of(0, dy, l2w / 2 * 0.99, l2w / 2 * 0.99):
-        win(pl2, 0.0, l1t + 0.8, 1.4, l2t - l1t - 2.0, False, 0.05)
+        for u in cu:                                            # open arcade: columns with dark arches between
+            pl2.prism(S, rect_outline(u - ar["col_w"] / 2, ar["z0"], u + ar["col_w"] / 2, ar["z1"]), -0.2, 0.3)
+        for a_, b_ in zip(cu, cu[1:]):
+            win(pl2, (a_ + b_) / 2, ar["z0"] + 0.4, 0.75, ar["z1"] - ar["z0"] - 0.8, False, 0.05)
     ct, st = d("cap_top_h"), d("spire_tip_h")
     ch_ = ct - l2t
     c0, c1, c2, c3 = d("cap_profile")
     CAP.lathe(0, dy, [(l2w / 2 * c0, l2t), (l2w / 2 * c1, l2t + 0.15 * ch_), (l2w / 2 * c2, l2t + 0.45 * ch_),
                       (l2w / 2 * c3, l2t + 0.8 * ch_), (0.45, ct), (0.2, ct + (st - ct) * 0.35), (0, st)], seg=16)
+    cobx, cobt, cobw = dd["cap_obelisks"]["x"][1], dd["cap_obelisks"]["top_z"], dd["cap_obelisks"]["w"]
+    for ix in (-1, 1):                                          # obelisks beside the cap
+        for iy in (-1, 1):
+            ox_, oy_ = ix * cobx, dy + iy * cobx
+            S.box(ox_ - cobw / 2, ox_ + cobw / 2, oy_ - cobw / 2, oy_ + cobw / 2, l2t - 0.3, cobt - 0.9)
+            C.frustum(ox_, oy_, cobt - 0.9, cobt, cobw * 1.3, cobw * 1.3, 0, 0)
+    fb_r, fb_z = dd["finial_ball"]["r"], dd["finial_ball"]["z"]
+    CK.lathe(0, dy, [(0, fb_z - fb_r)] + [(fb_r * math.sin(math.pi * k / 7), fb_z - fb_r * math.cos(math.pi * k / 7))
+                                         for k in range(1, 7)] + [(0, fb_z + fb_r)], seg=10)   # gold-ish finial ball
 
     # ---------------------------------------------------------------- landmarks (names from refs.json, ref/01.jpg)
     fz = dy - h2

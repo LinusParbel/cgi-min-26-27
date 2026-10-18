@@ -1,0 +1,14 @@
+{
+  "texture": "BLD_NeuesRathaus.png",
+  "parts": [
+    {
+      "name": "body",
+      "obj": "BLD_NeuesRathaus_body.obj",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ]
+}
