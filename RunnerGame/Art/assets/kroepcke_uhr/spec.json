@@ -28,30 +28,30 @@
     "stone": {
      "z0": 0.0,
      "z1": 0.1,
-     "w": 2.6
+     "w": 2.47
     },
     "iron_plinth": {
      "profile": [
       [
        0.1,
-       2.34
+       2.223
       ],
       [
        0.3,
-       2.34
+       2.223
       ],
       [
        0.37,
-       2.24
+       2.128
       ],
       [
        0.42,
-       2.16
+       2.052
       ]
      ]
     }
    },
-   "source": "ref/01 near-corner edge, scaled so the glass case (700-1110 px) equals ref/04's (970-1355 px at 4.46 mm/px) -> 4.19 mm/px: below the table fascia 270 px = 1.13 m (ref/04 is cut off at the bottom; its extrapolated ground was too high). Everything above the base lifted by +0.31 m"
+   "source": "ref/01 near-corner edge, scaled so the glass case (700-1110 px) equals ref/04's (970-1355 px at 4.46 mm/px) -> 4.19 mm/px: below the table fascia 270 px = 1.13 m (ref/04 is cut off at the bottom; its extrapolated ground was too high). Everything above the base lifted by +0.31 m; two-photo signed errors (ref/04 close shift camera RMS 10.5, ref/01 RMS 30.6): base widths x0.95 (ref/04: table edges 11-15 px too wide each side)"
   },
   "pedestal": {
    "value": {
@@ -112,25 +112,25 @@
     "apron": {
      "z0": 1.05,
      "z1": 1.13,
-     "w": 1.98
+     "w": 1.881
     },
     "arch": {
      "w": 1.0,
      "z1": 1.05
     }
    },
-   "source": "ref/01 near-corner edge, scaled so the glass case (700-1110 px) equals ref/04's (970-1355 px at 4.46 mm/px) -> 4.19 mm/px: below the table fascia 270 px = 1.13 m (ref/04 is cut off at the bottom; its extrapolated ground was too high). Everything above the base lifted by +0.31 m"
+   "source": "ref/01 near-corner edge, scaled so the glass case (700-1110 px) equals ref/04's (970-1355 px at 4.46 mm/px) -> 4.19 mm/px: below the table fascia 270 px = 1.13 m (ref/04 is cut off at the bottom; its extrapolated ground was too high). Everything above the base lifted by +0.31 m; two-photo signed errors (ref/04 close shift camera RMS 10.5, ref/01 RMS 30.6): base widths x0.95 (ref/04: table edges 11-15 px too wide each side)"
   },
   "ledge": {
    "value": {
     "profile": [
      [
       1.13,
-      2.12
+      2.014
      ],
      [
       1.25,
-      2.12
+      2.014
      ],
      [
       1.46,
@@ -139,7 +139,7 @@
     ],
     "top_z": 1.25
    },
-   "source": "ref/01 near-corner edge, scaled so the glass case (700-1110 px) equals ref/04's (970-1355 px at 4.46 mm/px) -> 4.19 mm/px: below the table fascia 270 px = 1.13 m (ref/04 is cut off at the bottom; its extrapolated ground was too high). Everything above the base lifted by +0.31 m"
+   "source": "ref/01 near-corner edge, scaled so the glass case (700-1110 px) equals ref/04's (970-1355 px at 4.46 mm/px) -> 4.19 mm/px: below the table fascia 270 px = 1.13 m (ref/04 is cut off at the bottom; its extrapolated ground was too high). Everything above the base lifted by +0.31 m; two-photo signed errors (ref/04 close shift camera RMS 10.5, ref/01 RMS 30.6): base widths x0.95 (ref/04: table edges 11-15 px too wide each side)"
   },
   "body_base": {
    "value": {
@@ -209,41 +209,41 @@
   },
   "dial": {
    "value": {
-    "z": 3.911,
+    "z": 3.861,
     "r": 0.308,
     "ring_r": 0.406,
     "arch_top_z": 4.511,
     "proud": 0.06
    },
-   "source": "ref/04.jpg 1:1 grid (front, 10 px), scale 4.46 mm/px, ground y 1658 (photo cut at 1600; ground from ref/05 ratio): dial x 488-627, y 768-923; ring 467-649; loop r4 (signed landmark errors): -2.5 cm"
+   "source": "ref/04.jpg 1:1 grid (front, 10 px), scale 4.46 mm/px, ground y 1658 (photo cut at 1600; ground from ref/05 ratio): dial x 488-627, y 768-923; ring 467-649; loop r4 (signed landmark errors): -2.5 cm; two-photo signed errors (ref/04 close shift camera RMS 10.5, ref/01 RMS 30.6): dial -0.05 m (ref/01 -0.15, ref/04 0)"
   },
   "head_box": {
    "value": {
     "w": 0.99,
     "z0": 4.172,
-    "z1": 4.583
+    "z1": 4.653
    },
-   "source": "ref/04.jpg 1:1 top grid (x 400-720, y 590-810, 10 px): frieze box x 437-658 up to y 700"
+   "source": "ref/04.jpg 1:1 top grid (x 400-720, y 590-810, 10 px): frieze box x 437-658 up to y 700; two-photo signed errors (ref/04 close shift camera RMS 10.5, ref/01 RMS 30.6): cornice/frieze/dome +0.07 m (both photos: crown projects low)"
   },
   "crown": {
    "value": {
     "profile": [
      [
-      4.563,
+      4.633,
       0.99
      ],
      [
-      4.705,
+      4.775,
       1.115
      ],
      [
-      4.763,
+      4.833,
       1.142
      ]
     ],
     "note": "cornice flaring OUTWARD going up"
    },
-   "source": "ref/04.jpg 1:1 top grid (x 400-720, y 590-810, 10 px): cornice x 440-660 at y 700, 427-672 at 668, slab 422-674 at 655; loop r4 (signed landmark errors): -2 cm"
+   "source": "ref/04.jpg 1:1 top grid (x 400-720, y 590-810, 10 px): cornice x 440-660 at y 700, 427-672 at 668, slab 422-674 at 655; loop r4 (signed landmark errors): -2 cm; two-photo signed errors (ref/04 close shift camera RMS 10.5, ref/01 RMS 30.6): cornice/frieze/dome +0.07 m (both photos: crown projects low)"
   },
   "dial_hood": {
    "value": {
@@ -300,15 +300,15 @@
   "top": {
    "value": {
     "cornice": {
-     "z0": 4.66,
-     "z1": 4.79,
+     "z0": 4.73,
+     "z1": 4.86,
      "w0": 1.02,
      "w1": 1.12,
      "note": "projecting slab with an ogee underside (replaces the crown profile's top)"
     },
     "frieze": {
-     "z0": 4.48,
-     "z1": 4.66,
+     "z0": 4.55,
+     "z1": 4.73,
      "lattice": {
       "w": 0.3,
       "h": 0.12,
@@ -333,8 +333,8 @@
     },
     "dome": {
      "shape": "square cloister vault",
-     "z0": 4.79,
-     "z1": 5.1,
+     "z0": 4.86,
+     "z1": 5.17,
      "foot_w": 0.78,
      "top_w": 0.3,
      "profile": "quarter-ellipse: half-side(t) = top_w/2 + (foot_w-top_w)/2 * sqrt(1 - t^2), t = 0 at the foot -> 1 at the top",
@@ -350,20 +350,20 @@
      }
     },
     "top_plate": {
-     "z0": 5.1,
-     "z1": 5.13,
+     "z0": 5.17,
+     "z1": 5.2,
      "w": 0.4
     },
     "neck": {
-     "z0": 5.13,
+     "z0": 5.2,
      "z1": 5.28,
      "profile": [
       [
-       5.13,
+       5.2,
        0.16
       ],
       [
-       5.19,
+       5.22,
        0.1
       ],
       [
@@ -432,7 +432,7 @@
      "bead_r": 0.025
     }
    },
-   "source": "previews/top_ref01_zoom.png (ref/01.jpg x 470-900, y 40-500, 2x): scale 1.83 mm per zoom px from the ball radius (0.137 m, agreed by both photos); anchored at the cornice top 4.48 m (zoom y 690). ref/04 (close, from below) projects the set-back upper parts too low, so these heights come from ref/01; top round 2 (photo vs model): dome foot set in from the cornice (one face spans ~255 zoom px foreshortened ~45 deg -> ~0.78 m); broad ledge around it"
+   "source": "previews/top_ref01_zoom.png (ref/01.jpg x 470-900, y 40-500, 2x): scale 1.83 mm per zoom px from the ball radius (0.137 m, agreed by both photos); anchored at the cornice top 4.48 m (zoom y 690). ref/04 (close, from below) projects the set-back upper parts too low, so these heights come from ref/01; top round 2 (photo vs model): dome foot set in from the cornice (one face spans ~255 zoom px foreshortened ~45 deg -> ~0.78 m); broad ledge around it; two-photo signed errors (ref/04 close shift camera RMS 10.5, ref/01 RMS 30.6): cornice/frieze/dome +0.07 m (both photos: crown projects low)"
   }
  },
  "colors": {

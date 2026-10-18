@@ -554,7 +554,7 @@ def build(spec):
         "dial_side_centre": (-ring_front, 0, dz),           # +X face dial (ring_front is the front dial y < 0)
         "ledge_back_r": (lw, lw, ledge["profile"][1][0]),
         "ledge_near_bottom": (lw, -lw, ledge["profile"][0][0]),
-        "plinth_near": (d("plinth_slab")["stone"]["w"] / 2, -d("plinth_slab")["stone"]["w"] / 2, 0.0),
+        "plinth_near": (d("plinth_slab")["iron_plinth"]["profile"][0][1] / 2, -d("plinth_slab")["iron_plinth"]["profile"][0][1] / 2, d("plinth_slab")["iron_plinth"]["profile"][0][0]),   # iron plinth bottom, near corner
         "crown_back_r": (cw, cw, cz0),
     }.items():
         pl.landmark(name, loc)

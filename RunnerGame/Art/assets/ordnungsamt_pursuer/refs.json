@@ -1,0 +1,34 @@
+{
+ "photos": [
+  {
+   "file": "ref/01.jpg",
+   "title": "German Ordnungsamt and street musicians in Cologne, Germany.jpg",
+   "author": "Alexandar Vujadinovic",
+   "licence": "CC BY-SA 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:German_Ordnungsamt_and_street_musicians_in_Cologne,_Germany.jpg",
+   "size": [
+    1600,
+    1068
+   ],
+   "view": null,
+   "key": false,
+   "landmarks": {},
+   "camera": null
+  },
+  {
+   "file": "ref/02.jpg",
+   "title": "Kommunaler Ordnungsdienst (IMG 8832).jpg",
+   "author": "Matti Blume",
+   "licence": "CC BY-SA 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Kommunaler_Ordnungsdienst_(IMG_8832).jpg",
+   "size": [
+    1600,
+    1067
+   ],
+   "view": null,
+   "key": false,
+   "landmarks": {},
+   "camera": null
+  }
+ ]
+}
