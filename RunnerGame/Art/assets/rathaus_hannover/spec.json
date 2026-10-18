@@ -676,11 +676,11 @@
   },
   "copper": {
    "linear": [
-    0.38,
-    0.51,
-    0.41
+    0.24,
+    0.34,
+    0.29
    ],
-   "source": "ref/01.jpg dome 790,300,840,340 and tower 350,420,370,440 averaged"
+   "source": "review: dome/spires too pale; ref/01.jpg dome samples (860,330,880,360)/(745,300,765,330) are sunlit (~0.39/0.54/0.46), base colour ~60 % of that"
   },
   "window": {
    "linear": [

@@ -24,6 +24,8 @@ if (args.Length < 2)
 }
 bool interactive = args[1] == "--show";
 string[] views = interactive ? [] : (args.Length > 2 ? args[2] : "game").Split(',', StringSplitOptions.RemoveEmptyEntries);
+int pitchAt = Array.IndexOf(args, "--pitch");
+if (pitchAt > 0) ViewOptions.Pitch = float.Parse(args[pitchAt + 1], System.Globalization.CultureInfo.InvariantCulture);
 var settings = new NativeWindowSettings
 {
     ClientSize = new Vector2i(1280, 720),
@@ -73,7 +75,7 @@ sealed class Viewer(string json, string? outPrefix, string[] views, GameWindowSe
         _focus = (lo + hi) / 2;
         // Clip planes follow the model size: a 130 m building at 1.1x its diagonal lies beyond a fixed 200 m.
         _cam = new Camera(Vector3.UnitZ, _focus) { NearPlane = MathF.Max(0.05f, _size * 0.002f), FarPlane = MathF.Max(200, _size * 6) };
-        if (outPrefix != null) _pitch = 17;
+        if (outPrefix != null) _pitch = ViewOptions.Pitch;   // --pitch <deg>, default 17
     }
 
     protected override void FramebufferResized(int width, int height) => _r.Resize(width, height);
@@ -131,4 +133,10 @@ sealed class Viewer(string json, string? outPrefix, string[] views, GameWindowSe
         _tex.Dispose();
         _r.Dispose();
     }
+}
+
+// Command-line options the window class needs (top-level locals are not visible inside classes).
+static class ViewOptions
+{
+    public static float Pitch = 17f;
 }
