@@ -210,60 +210,6 @@
    },
    "source": "ref/04.jpg 1:1 top grid (x 400-720, y 590-810, 10 px): cornice x 440-660 at y 700, 427-672 at 668, slab 422-674 at 655; loop r4 (signed landmark errors): -2 cm"
   },
-  "cap": {
-   "value": {
-    "profile": [
-     [
-      4.48,
-      1.12
-     ],
-     [
-      4.58,
-      1.02
-     ],
-     [
-      4.67,
-      0.83
-     ],
-     [
-      4.73,
-      0.5
-     ],
-     [
-      4.76,
-      0.2
-     ]
-    ],
-    "round": true,
-    "ribs": 24,
-    "rib_proud": 0.025,
-    "corner_scrolls": {
-     "r": 0.062,
-     "note": "a horizontal scroll (volute) at both ends of each face, lying along the face edge at the cap foot"
-    }
-   },
-   "source": "ref/01.jpg fine grid (x 480-900, y 60-720, 20 px), scale 3.80 mm/px from crown top y 330 = 4.48 m; agrees with ref/04's first reading (ball 4.83): low ribbed melon dome y 325->257 (0.28 m); the earlier 0.47 m came from a coarse 25 px grid"
-  },
-  "ball": {
-   "value": {
-    "z": 4.88,
-    "r": 0.137
-   },
-   "source": "ref/01.jpg fine grid (x 480-900, y 60-720, 20 px), scale 3.80 mm/px from crown top y 330 = 4.48 m; agrees with ref/04's first reading (ball 4.83): ball centre y 224, r 36 px"
-  },
-  "spike": {
-   "value": {
-    "z0": 5.02,
-    "z1": 5.588,
-    "r0": 0.025,
-    "finial": {
-     "h": 0.32,
-     "w": 0.16,
-     "note": "gilt finial from the ball top up to ~5.34 m (gold centre y 112), thin rod to z1"
-    }
-   },
-   "source": "ref/01.jpg fine grid (x 480-900, y 60-720, 20 px), scale 3.80 mm/px from crown top y 330 = 4.48 m; agrees with ref/04's first reading (ball 4.83)"
-  },
   "dial_hood": {
    "value": {
     "r_outer": 0.52,
@@ -315,6 +261,143 @@
     }
    },
    "source": "ref/04.jpg overview + 1:1 grids (ornament positions estimated from the 1:1 grids; sizes ±20 %); loop r6: volutes moved inside the feet, flutes taller (section sheet ghosts)"
+  },
+  "top": {
+   "value": {
+    "cornice": {
+     "z0": 4.35,
+     "z1": 4.48,
+     "w0": 1.02,
+     "w1": 1.12,
+     "note": "projecting slab with an ogee underside (replaces the crown profile's top)"
+    },
+    "frieze": {
+     "z0": 4.17,
+     "z1": 4.35,
+     "lattice": {
+      "w": 0.3,
+      "h": 0.12,
+      "depth": 0.02,
+      "note": "dark openwork panel, one each side of the centre on every face"
+     },
+     "swag": {
+      "span": 0.28,
+      "sag": 0.07,
+      "r": 0.022,
+      "note": "hanging garland (half-torus arc) over each lattice panel"
+     },
+     "star": {
+      "r": 0.03,
+      "note": "gold star in the middle of each face"
+     },
+     "corner_blocks": {
+      "w": 0.12,
+      "bars": 4,
+      "note": "horizontally ribbed blocks at the four corners"
+     }
+    },
+    "dome": {
+     "shape": "square cloister vault",
+     "z0": 4.48,
+     "z1": 4.79,
+     "foot_w": 0.78,
+     "top_w": 0.3,
+     "profile": "quarter-ellipse: half-side(t) = top_w/2 + (foot_w-top_w)/2 * sqrt(1 - t^2), t = 0 at the foot -> 1 at the top",
+     "ribs_per_face": 18,
+     "rib_r": 0.018,
+     "hip_rope": {
+      "r": 0.035,
+      "note": "twisted cable moulding along each of the 4 hips, foot to top plate (approximate the twist by a chain of short tilted cylinders or a 6-sided helix)"
+     },
+     "hip_volute": {
+      "r": 0.06,
+      "note": "scroll at the foot of each hip, sitting on the cornice corner, axis along the diagonal"
+     }
+    },
+    "top_plate": {
+     "z0": 4.79,
+     "z1": 4.82,
+     "w": 0.4
+    },
+    "neck": {
+     "z0": 4.82,
+     "z1": 4.97,
+     "profile": [
+      [
+       4.82,
+       0.16
+      ],
+      [
+       4.88,
+       0.1
+      ],
+      [
+       4.94,
+       0.12
+      ],
+      [
+       4.97,
+       0.09
+      ]
+     ],
+     "feet_scrolls": {
+      "count": 4,
+      "r": 0.025
+     }
+    },
+    "ball": {
+     "z": 5.1,
+     "r": 0.137,
+     "band": {
+      "h": 0.015,
+      "proud": 0.006
+     }
+    },
+    "knob_neck": {
+     "profile": [
+      [
+       5.237,
+       0.07
+      ],
+      [
+       5.26,
+       0.05
+      ],
+      [
+       5.29,
+       0.08
+      ],
+      [
+       5.33,
+       0.05
+      ]
+     ]
+    },
+    "medallion": {
+     "z": 5.46,
+     "r_outer": 0.11,
+     "r_inner": 0.085,
+     "thick": 0.025,
+     "curls": 6,
+     "trefoil": {
+      "lobe_r": 0.035,
+      "gold": true,
+      "note": "three gold lobes inside the ring, ring stands upright facing -Y (and a second one facing +X, crossed)"
+     }
+    },
+    "rod": {
+     "z0": 5.57,
+     "z1": 5.8,
+     "r": 0.012,
+     "beads": [
+      5.62,
+      5.68,
+      5.74
+     ],
+     "bead_r": 0.025
+    }
+   },
+   "source": "previews/top_ref01_zoom.png (ref/01.jpg x 470-900, y 40-500, 2x): scale 1.83 mm per zoom px from the ball radius (0.137 m, agreed by both photos); anchored at the cornice top 4.48 m (zoom y 690). ref/04 (close, from below) projects the set-back upper parts too low, so these heights come from ref/01; top round 2 (photo vs model): dome foot set in from the cornice (one face spans ~255 zoom px foreshortened ~45 deg -> ~0.78 m); broad ledge around it"
   }
  },
  "colors": {

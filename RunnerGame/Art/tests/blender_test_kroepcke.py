@@ -66,7 +66,7 @@ class KroepckeBuildTest(unittest.TestCase):
 
     def test_ground_and_height(self):
         self.assertAlmostEqual(min(v.z for v in self.verts), 0.0, delta=0.01)
-        self.assertAlmostEqual(max(v.z for v in self.verts), self.spec.d("spike")["z1"], delta=0.02)
+        self.assertAlmostEqual(max(v.z for v in self.verts), self.spec.d("top")["rod"]["z1"], delta=0.02)
 
     def test_landmarks_of_ref04(self):
         refs = json.loads((ASSET / "refs.json").read_text(encoding="utf-8"))
@@ -102,7 +102,7 @@ class KroepckeBuildTest(unittest.TestCase):
         zs = [v.z for v in self.verts if abs(v.y - plane) < 1e-4 and v.x > 0.4]
         self.assertEqual(self.clusters(zs, 0.15), len(pf["z"][0::2]))
         gold = bpy.data.objects["clock_gold"].data
-        self.assertEqual(len([v for v in gold.vertices if v.co.z < 4.9]), 10 * 4 * 2 * len(pf["z"][1::2]))
+        self.assertEqual(len([v for v in gold.vertices if v.co.z < 4.0]), 10 * 4 * 2 * len(pf["z"][1::2]))
 
     def test_showcase_frame_steps(self):
         sc, steps = self.spec.d("showcase"), self.spec.d("ornaments")["showcase_frame"]["steps"]
@@ -146,31 +146,64 @@ class KroepckeBuildTest(unittest.TestCase):
         for g in groups:                              # square section: x and y extent equal
             self.assertAlmostEqual(max(x for x, _ in g) - min(x for x, _ in g), max(y for _, y in g) - min(y for _, y in g), delta=0.01)
 
-    def test_sloped_ledge_and_finial(self):
+    def test_sloped_ledge(self):
         led = self.spec.d("ledge")["profile"]
         self.assertAlmostEqual(self.width_at((led[1][0] + led[2][0]) / 2), (led[1][1] + led[2][1]) / 2, delta=0.03)
-        spike = self.spec.d("spike")
-        gold = [o for o in bpy.data.objects if o.type == 'MESH' and o.name.startswith("clock_gold")][0]
-        zs = [v.co.z for v in gold.data.vertices]
-        self.assertGreater(max(zs), spike["z0"] + 0.9 * spike["finial"]["h"])
 
-    def test_cap_is_a_round_dome(self):
-        import math as m
-        cap = self.spec.d("cap")
-        z = (cap["profile"][0][0] + cap["profile"][-1][0]) / 2
-        sector_min = {}
-        for x, y in self.slice_points(z):
-            r = m.hypot(x, y)
-            if r < 0.6:
-                k = int((m.atan2(y, x) + m.pi) / (2 * m.pi) * 16) % 16
-                sector_min[k] = min(sector_min.get(k, 9), r)
-        self.assertEqual(len(sector_min), 16)
-        lo, hi = min(sector_min.values()), max(sector_min.values())
-        self.assertLessEqual(hi / lo, 1.06)
-        self.assertGreater(lo, 0.25)
-        top_r = cap["profile"][-1][1] / 2
-        self.assertTrue([v for v in self.verts if abs(v.z - cap["profile"][-1][0]) < 2e-3 and abs(m.hypot(v.x, v.y) - top_r) < 3e-3])
-        self.assertFalse([v for v in self.verts if 0.3 < m.hypot(v.x, v.y) < 0.6 and v.z > cap["profile"][-1][0] + 0.02 and v.z < 5.0])
+    def top_hs(self, t):
+        dm = self.spec.d("top")["dome"]
+        return dm["top_w"] / 2 + (dm["foot_w"] - dm["top_w"]) / 2 * math.sqrt(1 - t * t)
+
+    def test_dome_is_square_in_plan(self):
+        dm = self.spec.d("top")["dome"]
+        z = (dm["z0"] + dm["z1"]) / 2
+        pts = [p for p in self.slice_points(z) if math.hypot(*p) < 0.8]
+        ex = max(abs(x) for x, _ in pts)
+        ey = max(abs(y) for _, y in pts)
+        self.assertAlmostEqual(ex / ey, 1.0, delta=0.02)
+        self.assertGreater(max(math.hypot(x, y) for x, y in pts) / ex, 1.3)       # corners reach out: a round dome gives 1.0
+
+    def test_dome_half_width_follows_profile(self):
+        dm = self.spec.d("top")["dome"]
+        for k in (2, 4, 6):                           # levels of the 8-step stack
+            t = k / 8
+            z = dm["z0"] + (dm["z1"] - dm["z0"]) * t
+            front = max(-y for x, y in self.slice_points(z) if abs(x) < 0.1)    # includes the 0.018 rib crest
+            self.assertAlmostEqual(front, self.top_hs(t) + dm["rib_r"], delta=0.02)
+
+    def test_dome_foot_width(self):
+        dm = self.spec.d("top")["dome"]
+        front = max(-y for x, y in self.slice_points(dm["z0"] + 0.005) if abs(x) < 0.1 and abs(y) < 0.6)
+        self.assertAlmostEqual(2 * (front - dm["rib_r"]), dm["foot_w"], delta=0.02)
+
+    def test_four_hip_ropes(self):
+        from mathutils import Vector
+        dm = self.spec.d("top")["dome"]
+        r = dm["hip_rope"]["r"]
+        n_ropes = 0
+        for sx in (-1, 1):
+            for sy in (-1, 1):
+                ok = True
+                for t in (0.25, 0.5, 0.75):
+                    z = dm["z0"] + (dm["z1"] - dm["z0"]) * t
+                    c = Vector((sx * self.top_hs(t), sy * self.top_hs(t), z)) + Vector((sx, sy, 0)).normalized() * 0.6 * r
+                    near = [v for v in self.verts if (v - c).length < 0.03]
+                    ok = ok and len(near) >= 6
+                n_ropes += ok
+        self.assertEqual(n_ropes, 4)
+
+    def test_ball_radius_and_rod_tip(self):
+        top = self.spec.d("top")
+        ring = [math.hypot(v.x, v.y) for v in self.verts if abs(v.z - top["ball"]["z"]) < 1e-3]
+        self.assertAlmostEqual(min(ring), top["ball"]["r"], delta=0.003)
+        self.assertAlmostEqual(max(v.z for v in self.verts), top["rod"]["z1"], delta=0.002)
+
+    def test_two_crossed_medallion_rings(self):
+        md = self.spec.d("top")["medallion"]
+        ro = md["r_outer"]
+        near = [v for v in self.verts if abs(v.z - md["z"]) < 2e-3]
+        self.assertTrue([v for v in near if abs(abs(v.x) - ro) < 2e-3 and abs(v.y) < md["thick"]])   # ring facing -Y
+        self.assertTrue([v for v in near if abs(abs(v.y) - ro) < 2e-3 and abs(v.x) < md["thick"]])   # ring facing +X
 
     def test_hood_rings(self):
         hr, dh = self.spec.d("ornaments")["hood_rings"], self.spec.d("dial_hood")
