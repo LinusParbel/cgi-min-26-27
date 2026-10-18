@@ -115,6 +115,11 @@ class Acc:
             self.v.append((x * c - y * s, x * s + y * c, z))
         self.f += [[i + off for i in fc] for fc in other.f]
 
+    def add_translated(self, other, dx, dy):
+        off = len(self.v)
+        self.v += [(x + dx, y + dy, z) for x, y, z in other.v]
+        self.f += [[i + off for i in fc] for fc in other.f]
+
     def to_object(self, name, mat):
         me = bpy.data.meshes.new(name)
         me.from_pydata(self.v, [], self.f)
@@ -373,7 +378,7 @@ def build(spec):
     d, c = spec.d, spec.c
     mat = {"iron": al.material("iron", c("iron"), dust=0.15, streaks=0.25, grime=0.3, scratches=0.15, mottle=0.1),
            "dial": al.flat("dial", c("dial")), "glass": al.flat("glass", c("glass")), "gold": al.flat("gold", c("gold")),
-           "iron_top": al.flat("iron_top", c("iron_top"))}
+           "iron_top": al.flat("iron_top", c("iron_top")), "stone": al.flat("stone", c("stone"))}
     S = {k: Acc() for k in mat}                      # whole clock, per material
     F = {k: Acc() for k in mat}                      # one face (front, -Y); copied 4x rotated into S
 
@@ -381,25 +386,47 @@ def build(spec):
     h = body["w"] / 2                                # half width of the shaft
     pw, hp = body["pilaster_w"], body["w"] / 2 + body["pilaster_proud"]   # pilaster front plane at hp
 
-    # --- plinth slab, pedestal (four feet + ring beam; the arches between the feet stay open), profiles
-    for z0p, z1p, wp in d("plinth_slab")["steps"]:
-        S["iron"].box(-wp / 2, wp / 2, -wp / 2, wp / 2, z0p, z1p)
-    pe, feet = ped["w"] / 2, ped["feet_w"]
-    arch_z1 = ped["arch"]["z1"]
-    table_z = max(ped["z1"], ledge["profile"][0][0])
-    orn = d("ornaments")
-    pc = pe - feet / 2
-    legs = [(sx * pc, sy * pc) for sx in (-1, 1) for sy in (-1, 1)] + [(0, -pc), (0, pc), (-pc, 0), (pc, 0)]
-    prof = ped["baluster_profile"]
-    for cx, cy in legs:                              # square waisted pillar (stacked frustums), square cap slab under the table
-        for (za, wa), (zb, wb) in zip(prof, prof[1:]):
-            S["iron"].frustum(za, zb, wa, wb, cx, cy)
-        S["iron"].box(cx - feet / 2, cx + feet / 2, cy - feet / 2, cy + feet / 2, prof[-1][0] - 0.005, table_z)
-    S["iron"].box(-pe, pe, -pe, pe, table_z - 0.035, table_z)   # apron joining the caps
-
     def stack(profile):
         for (za, wa), (zb, wb) in zip(profile, profile[1:]):
             S["iron"].frustum(za, zb, wa, wb)
+
+    # --- stone slab, moulded iron plinth, four corner legs (waisted, ribbed, grooved), apron under the table
+    ps = d("plinth_slab")
+    st = ps["stone"]
+    S["stone"].box(-st["w"] / 2, st["w"] / 2, -st["w"] / 2, st["w"] / 2, st["z0"], st["z1"])
+    orn = d("ornaments")
+    apron = ped["apron"]
+    prof = ped["profile"]
+    S["iron"].box(-apron["w"] / 2, apron["w"] / 2, -apron["w"] / 2, apron["w"] / 2, apron["z0"], apron["z1"])
+    centre = apron["w"] / 2 - ped["w"] / 2                  # outer leg faces flush with the apron corners
+
+    def leg_w(z):
+        for (za, wa), (zb, wb) in zip(prof, prof[1:]):
+            if za <= z <= zb:
+                return wa + (wb - wa) * (z - za) / (zb - za) if zb > za else wa
+        return prof[-1][1]
+
+    leg = {"iron": Acc(), "glass": Acc()}
+    for (za, wa), (zb, wb) in zip(prof, prof[1:]):
+        leg["iron"].frustum(za, zb, wa, wb)
+    lo, hi = prof[0][0] + 0.12, prof[-1][0] - 0.06
+    for k in range(ped["rib_tiers"]):                        # raised ribbed bands round the waist
+        z = lo + (hi - lo) * k / (ped["rib_tiers"] - 1)
+        w = leg_w(z) + 2 * ped["rib_proud"]
+        leg["iron"].frustum(z - 0.01, z + 0.01, w, w)
+    gr = ped["corner_grooves"]
+    wmin = min(w for _, w in prof)
+    front = Acc()
+    for u in (-1, 1):                                        # dark vertical groove near each corner of every leg face
+        gx = u * (wmin / 2 - gr["w"] * 1.5)
+        front.box(gx - gr["w"] / 2, gx + gr["w"] / 2, -wmin / 2 - 0.004, -wmin / 2 + 0.002, prof[0][0] + 0.08, prof[-1][0] - 0.05)
+    for k in range(4):
+        leg["glass"].add_rotated(front, k)
+    for sx in (-1, 1):
+        for sy in (-1, 1):
+            for key in leg:
+                S[key].add_translated(leg[key], sx * centre, sy * centre)
+    stack(ps["iron_plinth"]["profile"])
 
     for (za, wa), (zb, wb) in zip(ledge["profile"], ledge["profile"][1:]):    # fascia in iron, the sloped top in iron_top
         (S["iron"] if abs(wa - wb) < 1e-9 else S["iron_top"]).frustum(za, zb, wa, wb)
@@ -527,7 +554,7 @@ def build(spec):
         "dial_side_centre": (-ring_front, 0, dz),           # +X face dial (ring_front is the front dial y < 0)
         "ledge_back_r": (lw, lw, ledge["profile"][1][0]),
         "ledge_near_bottom": (lw, -lw, ledge["profile"][0][0]),
-        "plinth_near": (d("plinth_slab")["steps"][0][2] / 2, -d("plinth_slab")["steps"][0][2] / 2, 0.0),
+        "plinth_near": (d("plinth_slab")["stone"]["w"] / 2, -d("plinth_slab")["stone"]["w"] / 2, 0.0),
         "crown_back_r": (cw, cw, cz0),
     }.items():
         pl.landmark(name, loc)

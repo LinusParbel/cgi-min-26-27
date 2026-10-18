@@ -108,7 +108,7 @@ class KroepckeBuildTest(unittest.TestCase):
         sc, steps = self.spec.d("showcase"), self.spec.d("ornaments")["showcase_frame"]["steps"]
         h = self.spec.d("body")["w"] / 2
         t = 0.1 * sc["w"]
-        planes = {round(v.y, 3) for v in self.verts if abs(v.x) < 0.41 and 1.34 < v.z < 1.45 and -h + 0.001 < v.y < -h + t - 0.0045}
+        planes = {round(v.y, 3) for v in self.verts if abs(v.x) < 0.41 and sc["z0"] - 0.01 < v.z < sc["z0"] + 0.10 and -h + 0.001 < v.y < -h + t - 0.0045}
         self.assertGreaterEqual(len(planes), steps)
 
     def slice_points(self, z):
@@ -122,29 +122,41 @@ class KroepckeBuildTest(unittest.TestCase):
                     pts.append((a.x + t * (b.x - a.x), a.y + t * (b.y - a.y)))
         return pts
 
-    def test_square_legs_waist_belly_and_count(self):
+    def test_four_corner_legs_waisted(self):
         ped = self.spec.d("pedestal")
-        c = ped["w"] / 2 - ped["feet_w"] / 2
+        c = self.spec.d("pedestal")["apron"]["w"] / 2 - ped["w"] / 2
+        prof = dict((round(z, 2), w) for z, w in ped["profile"])
+        zs = sorted(prof)                       # sample heights come from the spec profile, not fixed numbers
+        z_bot = zs[0]
+        z_waist = min(zs[1:-1], key=lambda z: prof[z])
+        z_top = zs[-1] - 0.001
+        prof[z_top] = prof[zs[-1]]
         widths = {}
-        for z in (0.42, 0.60):
+        for z in (z_bot, z_waist, z_top):
             xs = [x for x, y in self.slice_points(z) if abs(x - c) < 0.3 and abs(y + c) < 0.3]
             widths[z] = max(xs) - min(xs)
-        prof = dict((round(z, 2), dm) for z, dm in ped["baluster_profile"])
-        self.assertAlmostEqual(widths[0.42], prof[0.42], delta=0.02)
-        self.assertAlmostEqual(widths[0.60], prof[0.6], delta=0.02)
-        self.assertLess(widths[0.60], widths[0.42] * 0.7)
-        pts = self.slice_points(0.60)                 # eight separate square legs
+            self.assertAlmostEqual(widths[z], prof[z], delta=0.02)
+        self.assertLess(widths[z_waist], widths[z_bot] - 0.05)
+        self.assertLess(widths[z_waist], widths[z_top] - 0.05)
+        pts = self.slice_points((z_bot + z_top) / 2)
         groups = []
         for p in pts:
             for g in groups:
-                if any(abs(p[0] - q[0]) < 0.3 and abs(p[1] - q[1]) < 0.3 for q in g):
+                if any(abs(p[0] - q[0]) < 0.6 and abs(p[1] - q[1]) < 0.6 for q in g):
                     g.append(p)
                     break
             else:
                 groups.append([p])
-        self.assertEqual(len(groups), 8)
-        for g in groups:                              # square section: x and y extent equal
-            self.assertAlmostEqual(max(x for x, _ in g) - min(x for x, _ in g), max(y for _, y in g) - min(y for _, y in g), delta=0.01)
+        self.assertEqual(len(groups), 4)                  # one leg per corner, nothing at the middle of a side
+        self.assertEqual(sorted((round(sum(x for x, _ in g) / len(g), 1), round(sum(y for _, y in g) / len(g), 1)) for g in groups),
+                         sorted((round(sx * c, 1), round(sy * c, 1)) for sx in (-1, 1) for sy in (-1, 1)))
+        self.assertFalse([p for p in pts if abs(p[0]) < 0.4 and abs(p[1]) > 0.4])
+
+    def test_plinth_and_stone_widths(self):
+        ps = self.spec.d("plinth_slab")
+        self.assertAlmostEqual(self.width_at(ps["stone"]["z1"] / 2), ps["stone"]["w"], delta=0.03)
+        z, w = ps["iron_plinth"]["profile"][0]
+        self.assertAlmostEqual(self.width_at(z + 0.01), w, delta=0.03)
 
     def test_sloped_ledge(self):
         led = self.spec.d("ledge")["profile"]
@@ -221,17 +233,14 @@ class KroepckeBuildTest(unittest.TestCase):
             self.assertTrue([v for v in self.verts if abs(v.z - ztop) < 1e-3 and sign * v.x > 0.5 and v.y < -0.5])
 
     def test_pedestal_arch_is_open(self):
-        # A ray through the middle of the gap between the front feet must pass the whole pedestal (faces, not
-        # vertices: a closed panel has no vertices in the gap and would slip past a vertex check).
+        # Rays through the middle of each side (x = 0 / y = 0) must pass the whole pedestal: faces, not vertices.
         from mathutils import Vector
         ped = self.spec.d("pedestal")
         z = (ped["z0"] + ped["arch"]["z1"]) / 2
         bpy.context.view_layer.update()
-        c = ped["w"] / 2 - ped["feet_w"] / 2
-        for x in (-c / 2, c / 2):                    # midway between the middle leg (x=0) and a corner leg
-            hit, *_ = bpy.context.scene.ray_cast(bpy.context.view_layer.depsgraph, Vector((x, -5, z)), Vector((0, 1, 0)),
-                                                 distance=10)
-            self.assertFalse(hit, f"something blocks the gap between the legs at x {x:.2f}, z {z:.2f}")
+        for origin, direction in ((Vector((0, -5, z)), Vector((0, 1, 0))), (Vector((-5, 0, z)), Vector((1, 0, 0)))):
+            hit, *_ = bpy.context.scene.ray_cast(bpy.context.view_layer.depsgraph, origin, direction, distance=10)
+            self.assertFalse(hit, f"something blocks the gap between the legs at z {z:.2f}")
 
 
 class ExportTest(unittest.TestCase):
