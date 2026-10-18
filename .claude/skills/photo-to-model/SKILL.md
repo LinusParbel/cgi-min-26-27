@@ -166,7 +166,7 @@ RunnerGame/Assets/Models/<Category>/<Asset>/   runtime OBJ + PNG + parts.json on
 | Measured on medium-zoom grids, misread a band as an eave | 1:1 grid per section, labels only |
 | Global RMS/outline "passed" while gables, towers, windows were wrong | Section sheet; done = no double image per section |
 | Camera fit landed underground | `camera_z_range` from the shooting position at GATE A |
-| A new test passed although the geometry was wrong (it filtered out what it should check) | Main session mutates one spec value, sees the test go RED, restores — before trusting any new test |
+| A new test passed although the geometry was wrong (it filtered out what it should check; it only looked at vertices) | Main session breaks the BUILD code once per new test (scale a part, close an opening — mark the line `# MUTATION`), sees the test go RED, restores. Mutating spec.json proves nothing for build-equals-spec tests: the build follows the spec. Openings/gaps: test with a ray cast, not with vertices |
 | Viewer/tool bug read as a model bug (far plane hid the dome) | When an engine view contradicts the blend, suspect the tool first; check with numbers (OBJ bounds, normals) |
 
 ## 5. Pitfalls

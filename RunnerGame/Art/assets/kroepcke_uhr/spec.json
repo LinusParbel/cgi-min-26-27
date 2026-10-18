@@ -1,0 +1,260 @@
+{
+ "ruler": {
+  "photo": "ref/05.jpg",
+  "from": "person_head",
+  "to": "person_feet",
+  "metres": 1.68,
+  "note": "no published size; woman beside the clock in ref/05 (302 px, ~12 % closer than the clock -> 270 px at clock depth) => 6.2 mm/px in ref/05; ref/04 is 1.39x larger (ball-centre to ledge-top 841 vs 605 px) => 4.46 mm/px. Uncertainty ~±8 %; total height 5.59 m"
+ },
+ "dims": {
+  "detail_level": {
+   "value": "replica",
+   "source": "user 2026-10-18 gate A"
+  },
+  "tri_budget": {
+   "value": 25000,
+   "source": "replica level"
+  },
+  "tex_res": {
+   "value": 2048,
+   "source": "replica level"
+  },
+  "plan": {
+   "value": "square, four identical faces (ref/01 shows two dials, ref/05 two)",
+   "source": "ref/01.jpg, ref/05.jpg"
+  },
+  "plinth_slab": {
+   "value": {
+    "w": 2.35,
+    "z0": 0.0,
+    "z1": 0.15
+   },
+   "source": "estimate; stepped slab under the feet in ref/01, ref/05"
+  },
+  "pedestal": {
+   "value": {
+    "w": 1.726,
+    "z0": 0.15,
+    "z1": 0.687,
+    "feet_w": 0.42,
+    "arch": {
+     "w": 0.75,
+     "z1": 0.571
+    }
+   },
+   "source": "ref/04.jpg 1:1 grid (front, 10 px), scale 4.46 mm/px, ground y 1658 (photo cut at 1600; ground from ref/05 ratio): legs x 351-738; corner feet with open arches between (ref/01)"
+  },
+  "ledge": {
+   "value": {
+    "profile": [
+     [
+      0.687,
+      2.12
+     ],
+     [
+      0.838,
+      2.12
+     ]
+    ],
+    "top_z": 0.838,
+    "note": "thin flat table top; the sloped band y 1415-1470 in ref/04 is the TOP SURFACE seen from above, not a vertical flare"
+   },
+   "source": "round 1 section sheet: ref/04 camera (~1.6 m) is above the table (0.84 m), so its top surface is visible; front edge y 1470-1504"
+  },
+  "body_base": {
+   "value": {
+    "profile": [
+     [
+      0.838,
+      1.36
+     ],
+     [
+      0.92,
+      1.32
+     ],
+     [
+      1.0,
+      1.27
+     ],
+     [
+      1.325,
+      1.25
+     ]
+    ]
+   },
+   "source": "round 2 sheet: only a short moulded foot above the table; the rest of the band in ref/04 is the table top surface"
+  },
+  "body": {
+   "value": {
+    "w": 1.253,
+    "z0": 1.325,
+    "z1": 3.862,
+    "pilaster_w": 0.214,
+    "pilaster_proud": 0.03
+   },
+   "source": "ref/04.jpg 1:1 grid (front, 10 px), scale 4.46 mm/px, ground y 1658 (photo cut at 1600; ground from ref/05 ratio): body x 407-688, corner pilasters with star/figure ornaments"
+  },
+  "showcase": {
+   "value": {
+    "w": 0.812,
+    "z0": 1.351,
+    "z1": 3.068,
+    "frame_w": 0.071,
+    "head": "shouldered arch"
+   },
+   "source": "ref/04.jpg 1:1 grid (front, 10 px), scale 4.46 mm/px, ground y 1658 (photo cut at 1600; ground from ref/05 ratio): glass x 454-636, y 970-1355"
+  },
+  "medallions": {
+   "value": {
+    "x": [
+     -0.535,
+     0.535
+    ],
+    "z": 3.291,
+    "r": 0.08
+   },
+   "source": "ref/04.jpg 1:1 grid (front, 10 px), scale 4.46 mm/px, ground y 1658 (photo cut at 1600; ground from ref/05 ratio): round medallions beside the dial base y 920"
+  },
+  "wings": {
+   "value": {
+    "profile": [
+     [
+      3.862,
+      1.427
+     ],
+     [
+      3.943,
+      1.539
+     ]
+    ],
+    "note": "flared cornice brackets at dial-centre level, both sides"
+   },
+   "source": "ref/04.jpg 1:1 grid (front, 10 px), scale 4.46 mm/px, ground y 1658 (photo cut at 1600; ground from ref/05 ratio): y 774-792"
+  },
+  "dial": {
+   "value": {
+    "z": 3.626,
+    "r": 0.308,
+    "ring_r": 0.406,
+    "arch_top_z": 4.201,
+    "proud": 0.06
+   },
+   "source": "ref/04.jpg 1:1 grid (front, 10 px), scale 4.46 mm/px, ground y 1658 (photo cut at 1600; ground from ref/05 ratio): dial x 488-627, y 768-923; ring 467-649"
+  },
+  "head_box": {
+   "value": {
+    "w": 0.99,
+    "z0": 3.862,
+    "z1": 4.273
+   },
+   "source": "ref/04.jpg 1:1 top grid (x 400-720, y 590-810, 10 px): frieze box x 437-658 up to y 700"
+  },
+  "crown": {
+   "value": {
+    "profile": [
+     [
+      4.273,
+      0.99
+     ],
+     [
+      4.415,
+      1.115
+     ],
+     [
+      4.473,
+      1.142
+     ]
+    ],
+    "note": "cornice flaring OUTWARD going up"
+   },
+   "source": "ref/04.jpg 1:1 top grid (x 400-720, y 590-810, 10 px): cornice x 440-660 at y 700, 427-672 at 668, slab 422-674 at 655"
+  },
+  "cap": {
+   "value": {
+    "profile": [
+     [
+      4.473,
+      1.115
+     ],
+     [
+      4.54,
+      1.053
+     ],
+     [
+      4.607,
+      0.847
+     ],
+     [
+      4.652,
+      0.446
+     ]
+    ],
+    "ribs": 16,
+    "rib_proud": 0.02,
+    "corner_scrolls": {
+     "r": 0.062,
+     "note": "a horizontal scroll (volute) at both ends of each face, lying along the face edge at the cap foot"
+    }
+   },
+   "source": "ref/04.jpg 1:1 top grid (x 400-720, y 590-810, 10 px): fluted crest y 615-655, scroll ends x 425-450 / 650-672"
+  },
+  "ball": {
+   "value": {
+    "z": 4.835,
+    "r": 0.138
+   },
+   "source": "ref/04.jpg 1:1 grid (front, 10 px), scale 4.46 mm/px, ground y 1658 (photo cut at 1600; ground from ref/05 ratio): ball x 523-584, y 534-614"
+  },
+  "spike": {
+   "value": {
+    "z0": 5.013,
+    "z1": 5.588,
+    "r0": 0.025
+   },
+   "source": "ref/04.jpg 1:1 grid (front, 10 px), scale 4.46 mm/px, ground y 1658 (photo cut at 1600; ground from ref/05 ratio): spike tip y 405"
+  },
+  "dial_hood": {
+   "value": {
+    "r_outer": 0.52,
+    "r_inner": 0.41,
+    "depth": 0.12,
+    "note": "big semicircular hood/ring around the dial, centred on the dial; lower half continues as a full ring frame"
+   },
+   "source": "ref/04 overview grid: outer arch x 443-676 (233 px), centred on the dial (y 845), top at y 716"
+  }
+ },
+ "colors": {
+  "iron": {
+   "linear": [
+    0.075,
+    0.085,
+    0.078
+   ],
+   "source": "round 2: ref/04 is overcast (diffuse light), so its iron sample ~0.10/0.10/0.09 is representative; first value 0.02 wrongly applied the sunlit rule; slight green of the paint"
+  },
+  "dial": {
+   "linear": [
+    0.71,
+    0.74,
+    0.76
+   ],
+   "source": "ref/04.jpg dial 500,860,520,880"
+  },
+  "glass": {
+   "linear": [
+    0.06,
+    0.06,
+    0.06
+   ],
+   "source": "estimate (dark reflective showcase glass)"
+  },
+  "gold": {
+   "linear": [
+    0.55,
+    0.38,
+    0.08
+   ],
+   "source": "estimate: gilt stars on the pilasters"
+  }
+ }
+}

@@ -26,7 +26,8 @@ Create `pl.landmark(name, loc)` for EVERY name in refs.json → photos[<key phot
 - budget (tris ≤ tri_budget), ground at z 0, facing, every refs landmark exists
 - one test per profiled part that measures the BUILT geometry (e.g. width at two heights), not the spec value
 Report: test result line, triangle count, which spec entries you could not build. The main session proves each new
-test can fail (mutates one spec value, sees RED, restores) before trusting it.
+test can fail (breaks the build code once, sees RED, restores) before trusting it. Test openings with
+`scene.ray_cast`, never by looking for vertices in the gap.
 
 ## Image budget
 At most 1 own preview (Workbench, size 512). Do not open comparison images.

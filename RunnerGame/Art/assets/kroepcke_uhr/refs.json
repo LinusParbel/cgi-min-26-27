@@ -1,0 +1,156 @@
+{
+ "photos": [
+  {
+   "file": "ref/01.jpg",
+   "title": "Hannover Kröpcke-Uhr 545-dh.jpg",
+   "author": "Pedelecs",
+   "licence": "CC BY-SA 3.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Hannover_Kr%C3%B6pcke-Uhr_545-dh.jpg",
+   "size": [
+    1185,
+    1557
+   ],
+   "view": "front_34",
+   "key": true,
+   "landmarks": {},
+   "camera": null,
+   "camera_z_range": [
+    1.0,
+    2.0
+   ]
+  },
+  {
+   "file": "ref/02.jpg",
+   "title": "2026-01-09 Kröpcke-Uhr 1380265.JPG",
+   "author": "Bärbel Miemietz",
+   "licence": "CC BY-SA 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:2026-01-09_Kr%C3%B6pcke-Uhr_1380265.JPG",
+   "size": [
+    900,
+    1600
+   ],
+   "view": "detail_head",
+   "key": false,
+   "landmarks": {},
+   "camera": null
+  },
+  {
+   "file": "ref/04.jpg",
+   "title": "20230320 Kröpcke-Uhr.jpg",
+   "author": "Flocci Nivis",
+   "licence": "CC BY 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:20230320_Kr%C3%B6pcke-Uhr.jpg",
+   "size": [
+    1068,
+    1600
+   ],
+   "view": "front",
+   "key": true,
+   "landmarks": {
+    "spike_tip": [
+     555,
+     405
+    ],
+    "ball_centre": [
+     553,
+     574
+    ],
+    "crown_l": [
+     440,
+     700
+    ],
+    "crown_r": [
+     660,
+     700
+    ],
+    "wing_l": [
+     383,
+     774
+    ],
+    "wing_r": [
+     703,
+     774
+    ],
+    "dial_centre": [
+     557,
+     845
+    ],
+    "body_l_bottom": [
+     407,
+     1361
+    ],
+    "body_r_bottom": [
+     688,
+     1361
+    ],
+    "ledge_l": [
+     302,
+     1470
+    ],
+    "ledge_r": [
+     778,
+     1470
+    ]
+   },
+   "camera": {
+    "loc": [
+     2.3679,
+     -39.6879,
+     2.0
+    ],
+    "look_at": [
+     -0.7587,
+     10.9819,
+     4.341
+    ],
+    "lens_mm": 200.0,
+    "roll_deg": 0.0
+   },
+   "camera_z_range": [
+    1.0,
+    2.0
+   ],
+   "sections": {
+    "top": [
+     400,
+     390,
+     710,
+     800
+    ],
+    "clock_head": [
+     370,
+     640,
+     720,
+     980
+    ],
+    "body": [
+     390,
+     950,
+     700,
+     1400
+    ],
+    "base": [
+     290,
+     1350,
+     790,
+     1600
+    ]
+   }
+  },
+  {
+   "file": "ref/05.jpg",
+   "title": "Kröpcke-Uhr.jpg",
+   "author": "Thomas Dahlstrøm Nielsen",
+   "licence": "CC BY 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Kr%C3%B6pcke-Uhr.jpg",
+   "size": [
+    1600,
+    1067
+   ],
+   "view": "front_34",
+   "key": false,
+   "landmarks": {},
+   "camera": null
+  }
+ ]
+}

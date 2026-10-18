@@ -40,3 +40,10 @@ A prepared attribution especially for use in Social Media and Print (newspapers,
 - `ref/03.jpg`: "2021-05-09 Neues Rathaus Hannover 02.JPG" by Bärbel Miemietz, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:2021-05-09_Neues_Rathaus_Hannover_02.JPG
 - `ref/07.jpg`: "20230321 Neues Rathaus Hannover 01.jpg" by Flocci Nivis, CC BY 4.0, https://commons.wikimedia.org/wiki/File:20230321_Neues_Rathaus_Hannover_01.jpg
 - `ref/12.jpg`: "1918-1939 circa Open GeoData Plan der Hauptstadt Hannover 1 zu 1000 (Historisch) Kachel sw 301b Ausschnitt Neues Rathaus Trammplatz.jpg" by Landeshauptstadt Hannover, FB Planen und Stadtentwicklung, Bereich Geoinformation, CC BY 4.0, https://commons.wikimedia.org/wiki/File:1918-1939_circa_Open_GeoData_Plan_der_Hauptstadt_Hannover_1_zu_1000_(Historisch)_Kachel_sw_301b_Ausschnitt_Neues_Rathaus_Trammplatz.jpg
+
+### Kröpcke-Uhr (`RunnerGame/Art/assets/kroepcke_uhr/`)
+
+- `ref/01.jpg`: "Hannover Kröpcke-Uhr 545-dh.jpg" by Pedelecs, CC BY-SA 3.0, https://commons.wikimedia.org/wiki/File:Hannover_Kr%C3%B6pcke-Uhr_545-dh.jpg
+- `ref/02.jpg`: "2026-01-09 Kröpcke-Uhr 1380265.JPG" by Bärbel Miemietz, CC BY-SA 4.0, https://commons.wikimedia.org/wiki/File:2026-01-09_Kr%C3%B6pcke-Uhr_1380265.JPG
+- `ref/04.jpg`: "20230320 Kröpcke-Uhr.jpg" by Flocci Nivis, CC BY 4.0, https://commons.wikimedia.org/wiki/File:20230320_Kr%C3%B6pcke-Uhr.jpg
+- `ref/05.jpg`: "Kröpcke-Uhr.jpg" by Thomas Dahlstrøm Nielsen, CC BY 4.0, https://commons.wikimedia.org/wiki/File:Kr%C3%B6pcke-Uhr.jpg
