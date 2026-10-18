@@ -23,9 +23,20 @@ python RunnerGame/Art/lib/photo_tools.py fetch A A/titles.txt   # -> A/ref/NN.jp
 python RunnerGame/Art/lib/photo_tools.py sheet A                # -> A/previews/ref_sheet.jpg (one contact sheet)
 ```
 View ONLY the contact sheet. Edit `refs.json`: set `view` (`side_left`, `side_right`, `rear`, `rear_34`, `front_34`, `top`, `detail_<part>`) and `"key": true` on the key photos. Prune photos by deleting them from refs.json and titles.txt (numbering gaps are fine; a re-fetch keeps view/key/landmarks/camera by title). Add credits to `RunnerGame/CREDITS.md` (same format as the Voi section; a haiku agent can write the lines from refs.json).
-**GATE A (user):** photo pack approved (right model/generation, a true side view, a rear 3/4). Stop and wait.
+**GATE A (user):** in ONE AskUserQuestion: (1) photo pack approved (right model/generation, a true side view, a rear 3/4);
+(2) **detail level** — `backdrop` (outline only, ≤ 5k tris, 1024²), `medium` (main features, ≤ 12k, 1024²) or `replica`
+(every visible feature of the key side, ≤ 25k, 2048²); (3) which side faces the player. Record the answers as
+`detail_level`, `tri_budget`, `tex_res` in spec.json. Also set `"camera_z_range"` on each key photo from where it was
+taken (standing on a street ≈ [1, 2]; across water ≈ [-4, 6]). Stop and wait.
 
-**Step 2 - Measure -> `spec.json`.** Pick a ruler (known real size, e.g. wheel diameter). Per key photo:
+**Step 2 - Sections, then measure -> `spec.json`.** Pick a ruler (known real size: wheel diameter, a published
+facade length, a tower height). Split the key photo into **sections** (one per distinct part: tower, dome group,
+gable, central block, wheel, handlebar...) and write them into that photo's refs.json entry as
+`"sections": {"name": [x0, y0, x1, y1]}` (photo pixels). Then measure **each section on its own 1:1 grid**
+(`--crop` = the section box, `--step 10`) BEFORE the first build. For every part record a **profile**, not one number:
+the width at 4–6 heights from bottom to top (a gable, roof, spire, cap or tower is a list `[[z, width], ...]`), plus
+the features on it (window axes x, rows z0–z1, arches, pediments with their own width). Read the printed LABELS, not
+positions. Per key photo:
 ```
 python RunnerGame/Art/lib/photo_tools.py grid A/ref/NN.jpg A/previews/grid_NN.png [--crop x0,y0,x1,y1] [--step 50]
 python RunnerGame/Art/lib/photo_tools.py color A/ref/NN.jpg x0,y0,x1,y1          # median patch -> LINEAR rgb
@@ -39,7 +50,9 @@ Read pixel points from the grid image and write them into that photo's `landmark
 ```
 Every value needs a `source` (photo + landmarks, or "estimate; check in ref/NN"). Metres, degrees, linear colours.
 
-**Step 3 - Rough model.** Write `A/build.py` modelled on `scooter_voi/build.py`: `build(spec) -> dict[str, list[Object]]` (parts, e.g. `body`, `wheel_front`); read numbers only via `spec.d("name")` / `spec.c("name")`; use `import photo_lib as pl` (`pl.al` = `asset_lib`; helpers `pl.tube`, `pl.arc_shell`, `pl.landmark`); create an `LM_<name>` empty (`pl.landmark(name, loc)`) for every landmark in refs.json. Corrections = change a number in spec.json and rebuild, never hand-edit geometry. Smoke test:
+**Step 3 - First build.** Give the builder agent the brief in `builder_brief.md` (this folder), filled in — it
+carries the shape vocabulary (profiles → trapezoid stacks/lathes, flaring roofs, frontispieces, recessed windows)
+that keeps first builds from turning into boxes and pyramids. `A/build.py` follows `scooter_voi/build.py`: `build(spec) -> dict[str, list[Object]]` (parts, e.g. `body`, `wheel_front`); read numbers only via `spec.d("name")` / `spec.c("name")`; use `import photo_lib as pl` (`pl.al` = `asset_lib`; helpers `pl.tube`, `pl.arc_shell`, `pl.landmark`); create an `LM_<name>` empty (`pl.landmark(name, loc)`) for every landmark in refs.json. Corrections = change a number in spec.json and rebuild, never hand-edit geometry. Smoke test:
 ```
 BL --python A/build.py -- --preview /abs/path/A/previews/preview.png
 ```
@@ -49,13 +62,18 @@ BL --python A/build.py -- --preview /abs/path/A/previews/preview.png
 BL --python RunnerGame/Art/lib/compare.py -- A ref/NN.jpg --fit
 ```
 `--fit` numerically fits the camera to the landmarks and saves it to refs.json (drop it on later rounds if the camera is fine). Output: landmark errors, RMS (px and % of photo width), and `A/previews/compare_NN_r<k>.png` (3-panel sheet, do not view) plus `compare_NN_r<k>_overlay.png` (cropped, the one image to view). Read the numbers first; view the overlay only if needed. Derive spec corrections, rebuild, repeat.
+**Section loop (the standard from round 2 on):** `BL --python RunnerGame/Art/lib/compare.py -- A ref/NN.jpg --sections`
+writes ONE image `compare_NN_r<k>_sections.png`: a row per section with photo | model in colour | 50/50 blend at
+320 px height. View only that image. **Done** when no section shows a double image (ghost edge, offset window,
+protruding step) — the landmark RMS is only a pre-check (it is partly circular and blind inside the silhouette).
+For a ghost you cannot place, crop the model panel of the 3-panel sheet at that spot (model-only view).
 Each round also writes `compare_NN_r<k>_blend.png` (photo and coloured model 50/50, same crop) — the outline cannot
 see windows, gables or pinnacles inside the silhouette, the blend can (mismatches show as double images). For details
 add `--zoom x0,y0,x1,y1` (photo pixels) → `_blend_zoom.png` at full resolution. If the fitted camera lands at an
 impossible height, set `"camera_z_range": [lo, hi]` on that photo in refs.json.
 **GATE B (user):** side + rear 3/4 outline approved. Stop and wait.
 
-**Step 5 - Details**, in game-camera priority: rear (light, reflector, plate, fender), deck/top, handles/controls, stem/box. Front and underside stay simple. Same loop on `detail_*` photos. Materials via `al.material` / `al.flat` / `al.emissive_look` with spec colours.
+**Step 5 - Details**, in game-camera priority: rear (light, reflector, plate, fender), deck/top, handles/controls, stem/box. Front and underside stay simple. Same loop on `detail_*` photos; add each detail area as a section. Materials via `al.material` / `al.flat` / `al.emissive_look` with spec colours.
 
 **Step 6 - Export (the only bake, 1024^2, 32 samples).**
 ```
@@ -86,9 +104,9 @@ approve anything; only the user approves.
 | 1 | search + `fetch` + `sheet` | script | – | – | 0 |
 | 2 | tag views/keys, write credits (from refs.json titles) | helper agent | **haiku** | once | 0 (text only) |
 | A | **STOP A** – photo pack | user | – | – | 1 (contact sheet) |
-| 3 | grid, landmarks, `measure`, `color`, `spec.json` | main session | user's model | once, then corrections from the loop | ≤ 3 grid crops |
-| 4 | `build.py` skeleton from the scooter template | builder agent | **sonnet** | until its Blender test passes | 1 preview |
-| 5 | comparison loop on key photos (`compare.py --fit`) | main session | user's model | ≤ 3 rounds per key photo, stop when errors stop improving | 1 overlay per round |
+| 3 | sections, 1:1 grids, profiles, landmarks, `color`, `spec.json` | main session | user's model | once per section, before any build | 1 grid per section |
+| 4 | first build from the filled-in `builder_brief.md` | builder agent | **sonnet** | until its Blender tests pass | 1 preview |
+| 5 | `--fit` once, then section loop (`compare.py --sections`) | main session | user's model | until no section shows a double image (see loop rules) | 1 section sheet per round |
 | B | **STOP B** – outline | user | – | – | the 2 final overlays |
 | 6 | details, materials, `--export` | builder agent | **sonnet** | self-check by numbers (tris, bounds, tests); ≤ 2 rounds per detail photo | ≤ 4 |
 | 7 | independent review against the photos | reviewer agent | **sonnet** | one review; **reads, never edits** | ≤ 4 (1 engine sheet + ≤ 3 refs) |
@@ -139,7 +157,19 @@ RunnerGame/Assets/Models/<Category>/<Asset>/   runtime OBJ + PNG + parts.json on
 - `<PREFIX>_parts.json`: `{"texture":"X.png","parts":[{"name","obj","pivot":[x,y,z]}]}`. Pivots are in **Blender coordinates**; engine translation = `(x, z, -y)`. Prefix like `VEH_ScooterVoi`.
 - Conventions: Blender Z-up, 1 unit = 1 m; **vehicles face +Y in Blender** (they drive towards -Z in the engine), static props face -Y; OBJ export is forward -Z / up Y, triangulated (done by `bake_shared_and_export`); PNG sRGB, spec colours linear; look shader nodes up by type, never by name; the engine has no normal maps, do not brighten textures to compensate.
 
-## 4. Pitfalls
+## 4. Mistakes that cost extra rounds (each happened)
+
+| Mistake | Instead |
+|---|---|
+| Detail level never agreed → first model rejected as "not detailed enough" | Ask the detail level at GATE A |
+| One number per part (top/bottom) → builder guesses the shape (pyramid, box steps, full-width pediment) | Profiles (width at 4–6 heights) per part, features with their own widths |
+| Measured on medium-zoom grids, misread a band as an eave | 1:1 grid per section, labels only |
+| Global RMS/outline "passed" while gables, towers, windows were wrong | Section sheet; done = no double image per section |
+| Camera fit landed underground | `camera_z_range` from the shooting position at GATE A |
+| A new test passed although the geometry was wrong (it filtered out what it should check) | Main session mutates one spec value, sees the test go RED, restores — before trusting any new test |
+| Viewer/tool bug read as a model bug (far plane hid the dome) | When an engine view contradicts the blend, suspect the tool first; check with numbers (OBJ bounds, normals) |
+
+## 5. Pitfalls
 
 - Downloads: **curl, not urllib** (old cert store). Wikimedia: project User-Agent, >= 1 s between files, a non-JSON reply = rate limit, wait 60 s and retry (fetch does this; never hammer). Titles may be non-ASCII (`Bâle`, `ü`): keep them in UTF-8 files, never pass them as shell/curl arguments, and expect a garbled Windows console.
 - EXIF: reference copies are already transposed; measure and mark landmarks on `ref/NN.jpg` only, never on originals.
@@ -159,9 +189,10 @@ RunnerGame/Assets/Models/<Category>/<Asset>/   runtime OBJ + PNG + parts.json on
 - Reference photos are CC BY / CC BY-SA: credit every one in `RunnerGame/CREDITS.md`. Only add assets we may share.
 - Tests: `python -m unittest discover -s RunnerGame/Art/tests -p "test_*.py"`; Blender tests `blender_test_*.py` via the BL command.
 
-## 5. Start checklist (e.g. Hannover wheelie bin)
+## 6. Start checklist (e.g. Hannover wheelie bin)
 
 1. `mkdir -p RunnerGame/Art/assets/bin_hannover/{ref,previews}`; search Commons with curl; write `titles.txt`.
-2. `fetch`, `sheet`; view only the sheet; tag views and keys in refs.json; credits -> **Gate A**.
-3. Ruler (e.g. the known height of the bin), `grid` the side photo, landmarks into refs.json, `measure`, `color`, write `spec.json`.
-4. Copy `scooter_voi/build.py` as template (props face -Y; lid as its own part if it should move); first `--preview`, then the compare loop -> **Gate B**.
+2. `fetch`, `sheet`; view only the sheet; tag views and keys; credits → **Gate A** incl. detail level, facing side, camera_z_range.
+3. Ruler; sections in refs.json; one 1:1 grid per section; profiles + features + landmarks + colours into `spec.json`.
+4. Fill in `builder_brief.md` → sonnet builder (props face −Y; lid as its own part if it should move); prove its new tests can fail.
+5. `compare.py --fit` once, then `--sections` rounds until no section shows a double image → **Gate B**.

@@ -110,6 +110,12 @@ class CompareImageTest(unittest.TestCase):
             photo_lib.compare_image(photo, CAM, out2, {"o": [150, 100]}, zoom=(10, 20, 110, 70))
             z = bpy.data.images.load(str(Path(d) / "zoomed_blend_zoom.png"))
             self.assertEqual(tuple(z.size), (100, 50))
+            out3 = str(Path(d) / "sec.png")
+            photo_lib.compare_image(photo, CAM, out3, {"o": [150, 100]},
+                                    sections=[("a", (0, 0, 100, 50)), ("b", (100, 100, 300, 200))])
+            sheet = bpy.data.images.load(str(Path(d) / "sec_sections.png"))
+            self.assertEqual(sheet.size[1], 2 * photo_lib.SECTION_ROW_H)       # one row per section
+            self.assertEqual(sheet.size[0], 3 * 2 * photo_lib.SECTION_ROW_H)    # widest row: 3 panels of a 2:1 section
 
 
 

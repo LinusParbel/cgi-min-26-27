@@ -265,6 +265,31 @@ def _save_crop(px, box, path, max_side=1000):
     bpy.data.images.remove(img)
 
 
+SECTION_ROW_H = 320
+
+
+def _resize_rows(px, height):
+    """Nearest-neighbour resize to a given height (keeps the aspect ratio)."""
+    h, w = px.shape[:2]
+    width = max(1, round(w * height / h))
+    rows = (np.arange(height) * h / height).astype(int)
+    cols = (np.arange(width) * w / width).astype(int)
+    return px[rows][:, cols]
+
+
+def _save_section_sheet(layers, sections, h, path):
+    """Rows = sections (top to bottom in list order); columns = the given full-size layers, cropped to the section."""
+    rows = []
+    for _, (x0, y0, x1, y1) in sections:
+        panels = [_resize_rows(layer[h - y1:h - y0, x0:x1], SECTION_ROW_H) for layer in layers]
+        rows.append(np.concatenate(panels, axis=1))
+    width = max(r.shape[1] for r in rows)
+    sheet = np.ones((SECTION_ROW_H * len(rows), width, 4), dtype=np.float32)
+    for i, r in enumerate(reversed(rows)):       # Blender rows run bottom-up: first section ends up on top
+        sheet[i * SECTION_ROW_H:(i + 1) * SECTION_ROW_H, :r.shape[1]] = r
+    _save_crop(sheet, (0, sheet.shape[0], 0, sheet.shape[1]), path, max_side=10 ** 6)
+
+
 def _render_materials(path, samples=8):
     """Quick Cycles render with the real (node) materials and transparent film, for the blend image."""
     scene = bpy.context.scene
@@ -276,7 +301,7 @@ def _render_materials(path, samples=8):
     scene.cycles.samples = samples
     scene.cycles.device = 'CPU'
     scene.world = scene.world or bpy.data.worlds.new("World")
-    scene.world.color = (0.6, 0.6, 0.6)
+    scene.world.color = (1.0, 1.0, 1.0)   # bright enough to read recesses in the model panel
     scene.render.film_transparent = True
     scene.render.filepath = path
     bpy.ops.render.render(write_still=True)
@@ -308,7 +333,7 @@ def _save_overlay_crop(overlay, mask, photo_landmarks, out_png, margin=40, max_s
     bpy.data.images.remove(img)
 
 
-def compare_image(photo_path, cam, out_png, photo_landmarks, zoom=None):
+def compare_image(photo_path, cam, out_png, photo_landmarks, zoom=None, sections=None):
     """Render the scene from the matched camera and write photo | render | overlay side by side.
     Overlay: the render's outline in magenta on the photo, photo landmarks green, model landmarks red.
     Returns the landmark RMS error in pixels (None if no landmark pairs)."""
@@ -369,6 +394,11 @@ def compare_image(photo_path, cam, out_png, photo_landmarks, zoom=None):
     blend[:, :, 3] = 1
     p = Path(out_png).resolve()
     _save_crop(blend, _crop_box(mask, photo_landmarks, h, w), p.with_name(p.stem + "_blend.png"))
+    if sections:                                 # one sheet: a row per section, photo | model colour | blend
+        grey = np.full_like(photo, 0.35)
+        model = grey * (1 - colour[:, :, 3:4]) + colour * colour[:, :, 3:4]
+        model[:, :, 3] = 1
+        _save_section_sheet([photo, model, blend], sections, h, p.with_name(p.stem + "_sections.png"))
     if zoom:                                     # (x0, y0, x1, y1) in photo pixels, full resolution
         x0, y0, x1, y1 = zoom
         _save_crop(blend, (h - y1, h - y0, x0, x1), p.with_name(p.stem + "_blend_zoom.png"), max_side=10 ** 6)
