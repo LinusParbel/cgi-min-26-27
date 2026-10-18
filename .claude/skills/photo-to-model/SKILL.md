@@ -168,6 +168,13 @@ RunnerGame/Assets/Models/<Category>/<Asset>/   runtime OBJ + PNG + parts.json on
 | Camera fit landed underground | `camera_z_range` from the shooting position at GATE A |
 | A new test passed although the geometry was wrong (it filtered out what it should check; it only looked at vertices) | Main session breaks the BUILD code once per new test (scale a part, close an opening — mark the line `# MUTATION`), sees the test go RED, restores. Mutating spec.json proves nothing for build-equals-spec tests: the build follows the spec. Openings/gaps: test with a ray cast, not with vertices |
 | Viewer/tool bug read as a model bug (far plane hid the dome) | When an engine view contradicts the blend, suspect the tool first; check with numbers (OBJ bounds, normals) |
+| Looped on the front photo only → the 3/4 view later showed a hidden dome, wrong legs and a wrong base (Kröpcke) | Every round runs `--sections` on BOTH key photos; a part counts as measured only when two views agree |
+| A close photo from below hid set-back upper parts and placed the ball/finial too low | Heights of set-back parts (domes, finials) come from the more distant/higher photo; front edges from the straight-on one |
+| A sloped band was read once as a flat top seen from above, once as a slope | Decide slope vs. top surface only when two views agree (it shows the same height from both = real slope) |
+| A photo cut off at the bottom: its extrapolated ground made the base far too short | Never extrapolate the ground; take base heights from a photo that shows the ground, scaled by a part both photos see (e.g. the glass case) |
+| Coarse grids gave wrong counts and shapes (8 legs, tall dome) | Zoom 1:1 on the part (crop ×2) BEFORE modelling it; count repeated parts on the zoom |
+| A mutation was placed after the variable it should change was read, so the test "passed" | After adding a `# MUTATION`, check the geometry actually changed (e.g. triangle count or a printed width) before trusting GREEN/RED |
+| Camera fit always lands on a far telephoto for one photo | That photo's landmarks are inconsistent with the model — re-read them on a zoom (a 30 px misread corner cost 15 px RMS); try `lens_shift` + level for straight-on photos |
 
 ## 5. Pitfalls
 
