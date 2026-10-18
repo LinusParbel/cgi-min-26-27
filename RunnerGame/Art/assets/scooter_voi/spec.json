@@ -185,7 +185,7 @@
   },
   "display_h": {
    "value": 0.02,
-   "source": "estimate"
+   "source": "Gate C check: thin display cover on the head (ref/11.jpg, ref/15.jpg); 0.0x made the head a tall box"
   },
   "kick_len": {
    "value": 0.27,
@@ -251,11 +251,11 @@
   },
   "fender": {
    "linear": [
-    0.15,
-    0.1714,
-    0.2232
+    0.025,
+    0.027,
+    0.032
    ],
-   "source": "ref/02.jpg box 1080,630,1120,660 (sunlit rear fender)"
+   "source": "Gate C check: fenders are near-black in ref/15.jpg and ref/17.jpg; the first sample (0.15,0.17,0.22) was a sunlit highlight in ref/02.jpg"
   },
   "band": {
    "linear": [
