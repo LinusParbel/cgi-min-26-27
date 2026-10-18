@@ -71,7 +71,8 @@ sealed class Viewer(string json, string? outPrefix, string[] views, GameWindowSe
         }
         _size = (hi - lo).Length;
         _focus = (lo + hi) / 2;
-        _cam = new Camera(Vector3.UnitZ, _focus) { NearPlane = 0.05f, FarPlane = 200 };
+        // Clip planes follow the model size: a 130 m building at 1.1x its diagonal lies beyond a fixed 200 m.
+        _cam = new Camera(Vector3.UnitZ, _focus) { NearPlane = MathF.Max(0.05f, _size * 0.002f), FarPlane = MathF.Max(200, _size * 6) };
         if (outPrefix != null) _pitch = 17;
     }
 

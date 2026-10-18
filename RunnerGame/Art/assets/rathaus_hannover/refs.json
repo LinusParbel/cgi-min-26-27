@@ -1,0 +1,133 @@
+{
+ "photos": [
+  {
+   "file": "ref/01.jpg",
+   "title": "Neues Rathaus Hannover Maschteich.jpg",
+   "author": "Pedelecs",
+   "licence": "CC BY-SA 3.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:Neues_Rathaus_Hannover_Maschteich.jpg",
+   "size": [
+    1600,
+    1206
+   ],
+   "view": "front",
+   "key": true,
+   "landmarks": {
+    "facade_left_base": [
+     107,
+     933
+    ],
+    "facade_right_base": [
+     1544,
+     933
+    ],
+    "spire_tip": [
+     823,
+     47
+    ],
+    "dome_top": [
+     823,
+     253
+    ],
+    "drum_left_top": [
+     703,
+     400
+    ],
+    "drum_right_top": [
+     949,
+     400
+    ],
+    "tower_l_tip": [
+     364,
+     260
+    ],
+    "tower_r_tip": [
+     1280,
+     267
+    ],
+    "wing_l_eave": [
+     107,
+     707
+    ],
+    "wing_r_eave": [
+     1544,
+     707
+    ]
+   },
+   "camera": {
+    "loc": [
+     0.1277,
+     -455.234,
+     -24.6619
+    ],
+    "look_at": [
+     -2.8665,
+     61.8876,
+     46.079
+    ],
+    "lens_mm": 99.63,
+    "roll_deg": 0.05
+   }
+  },
+  {
+   "file": "ref/02.jpg",
+   "title": "2021-05-09 Neues Rathaus Hannover 01.JPG",
+   "author": "Bärbel Miemietz",
+   "licence": "CC BY-SA 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:2021-05-09_Neues_Rathaus_Hannover_01.JPG",
+   "size": [
+    1600,
+    1067
+   ],
+   "view": "detail_entrance",
+   "key": false,
+   "landmarks": {},
+   "camera": null
+  },
+  {
+   "file": "ref/03.jpg",
+   "title": "2021-05-09 Neues Rathaus Hannover 02.JPG",
+   "author": "Bärbel Miemietz",
+   "licence": "CC BY-SA 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:2021-05-09_Neues_Rathaus_Hannover_02.JPG",
+   "size": [
+    1600,
+    1138
+   ],
+   "view": "rear_34",
+   "key": false,
+   "landmarks": {},
+   "camera": null
+  },
+  {
+   "file": "ref/07.jpg",
+   "title": "20230321 Neues Rathaus Hannover 01.jpg",
+   "author": "Flocci Nivis",
+   "licence": "CC BY 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:20230321_Neues_Rathaus_Hannover_01.jpg",
+   "size": [
+    1600,
+    1068
+   ],
+   "view": "rear",
+   "key": true,
+   "landmarks": {},
+   "camera": null
+  },
+  {
+   "file": "ref/12.jpg",
+   "title": "1918-1939 circa Open GeoData Plan der Hauptstadt Hannover 1 zu 1000 (Historisch) Kachel sw 301b Ausschnitt Neues Rathaus Trammplatz.jpg",
+   "author": "Landeshauptstadt Hannover, FB Planen und Stadtentwicklung, Bereich Geoinformation",
+   "licence": "CC BY 4.0",
+   "source_url": "https://commons.wikimedia.org/wiki/File:1918-1939_circa_Open_GeoData_Plan_der_Hauptstadt_Hannover_1_zu_1000_(Historisch)_Kachel_sw_301b_Ausschnitt_Neues_Rathaus_Trammplatz.jpg",
+   "size": [
+    1600,
+    1102
+   ],
+   "view": "top",
+   "key": false,
+   "landmarks": {},
+   "camera": null
+  }
+ ]
+}

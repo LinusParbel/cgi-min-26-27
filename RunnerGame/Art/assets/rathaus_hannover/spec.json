@@ -1,0 +1,265 @@
+{
+ "ruler": {
+  "photo": "ref/01.jpg",
+  "from": "facade_left_base",
+  "to": "facade_right_base",
+  "metres": 129.0,
+  "note": "facade length 129 m (hannover.de); dome tip 97.73 m cross-checks after perspective correction"
+ },
+ "dims": {
+  "width": {
+   "value": 129.0,
+   "source": "hannover.de: north front 129 m"
+  },
+  "depth": {
+   "value": 124.0,
+   "source": "hannover.de: depth 124 m"
+  },
+  "wing_eave_h": {
+   "value": 20.3,
+   "source": "ref/01.jpg facade scale 0.0898 m/px (129 m = 1437 px), base y 933: wing eave y 707"
+  },
+  "wing_roof_h": {
+   "value": 31.0,
+   "source": "ref/01.jpg facade scale 0.0898 m/px (129 m = 1437 px), base y 933: wing roof ridge y 587"
+  },
+  "center_w": {
+   "value": 38.0,
+   "source": "ref/01.jpg facade scale 0.0898 m/px (129 m = 1437 px), base y 933: central projection x 607-1033"
+  },
+  "center_h": {
+   "value": 36.0,
+   "source": "ref/01.jpg facade scale 0.0898 m/px (129 m = 1437 px), base y 933: central gables ~y 533"
+  },
+  "center_fwd": {
+   "value": 4.0,
+   "source": "estimate; central projection stands forward of the wings (ref/03.jpg)"
+  },
+  "tower_w": {
+   "value": 10.8,
+   "source": "ref/01.jpg facade scale 0.0898 m/px (129 m = 1437 px), base y 933: corner tower x 304-424"
+  },
+  "tower_x": {
+   "value": 41.4,
+   "source": "ref/01.jpg facade scale 0.0898 m/px (129 m = 1437 px), base y 933: tower centre 461 px from facade centre"
+  },
+  "tower_body_h": {
+   "value": 44.0,
+   "source": "ref/01.jpg facade scale 0.0898 m/px (129 m = 1437 px), base y 933: tower body top y 440"
+  },
+  "tower_tip_h": {
+   "value": 60.0,
+   "source": "ref/01.jpg facade scale 0.0898 m/px (129 m = 1437 px), base y 933: tower spire tip y 260"
+  },
+  "drum_w": {
+   "value": 24.0,
+   "source": "ref/01.jpg drum x 703-949, between facade and dome-plane scale"
+  },
+  "drum_top_h": {
+   "value": 58.8,
+   "source": "ref/01.jpg drum top y 400 at dome-plane scale 0.1103 m/px"
+  },
+  "dome_top_h": {
+   "value": 75.0,
+   "source": "ref/01.jpg dome cap top y 253, dome-plane scale"
+  },
+  "lantern_top_h": {
+   "value": 88.0,
+   "source": "ref/01.jpg lantern top y 133, dome-plane scale"
+  },
+  "spire_tip_h": {
+   "value": 97.73,
+   "source": "hannover.de: tip of the dome 97.73 m"
+  },
+  "dome_y": {
+   "value": 0.0,
+   "source": "estimate: dome over the centre of the footprint; check in ref/03.jpg"
+  },
+  "center_d": {
+   "value": 22.0,
+   "source": "estimate: depth of the central projection block"
+  },
+  "center_eave_h": {
+   "value": 28.0,
+   "source": "estimate: eave of the central projection before its roof"
+  },
+  "window_pitch": {
+   "value": 4.0,
+   "source": "estimate: window spacing on the facade"
+  },
+  "window_w": {
+   "value": 1.8,
+   "source": "estimate: window width"
+  },
+  "window_h": {
+   "value": 3.4,
+   "source": "estimate: window height"
+  },
+  "win_floor1_z": {
+   "value": 1.2,
+   "source": "estimate from ref/02.jpg (17 px/m at the wing eave): ground-floor window sill"
+  },
+  "win_floor2_z": {
+   "value": 8.8,
+   "source": "estimate from ref/02.jpg (17 px/m at the wing eave): 2nd floor sill"
+  },
+  "win_floor3_z": {
+   "value": 14.8,
+   "source": "estimate from ref/02.jpg (17 px/m at the wing eave): 3rd floor sill"
+  },
+  "win_arch_h": {
+   "value": 3.8,
+   "source": "estimate from ref/02.jpg (17 px/m at the wing eave): arched window height incl. arch"
+  },
+  "win_protrude": {
+   "value": 0.25,
+   "source": "estimate: window box stands proud of the wall"
+  },
+  "side_pitch": {
+   "value": 5.0,
+   "source": "estimate: window spacing on side and rear facades"
+  },
+  "centre_win_pitch": {
+   "value": 5.5,
+   "source": "estimate from ref/02.jpg (17 px/m at the wing eave): window spacing on the central projection"
+  },
+  "centre_win_w": {
+   "value": 2.2,
+   "source": "estimate: central projection window width"
+  },
+  "entrance_x": {
+   "value": 8.1,
+   "source": "ref/02.jpg: outer entrance arches +-138 px from centre"
+  },
+  "entrance_w": {
+   "value": 5.0,
+   "source": "ref/02.jpg: arch width ~ 110 px"
+  },
+  "entrance_h": {
+   "value": 7.0,
+   "source": "ref/02.jpg: arch height ~ 115 px"
+  },
+  "gable_steps": {
+   "value": 4,
+   "source": "estimate: steps per gable on central projection"
+  },
+  "gable_step_h": {
+   "value": 2.0,
+   "source": "estimate: height of one gable step (centre_h - center_eave_h = 8 m)"
+  },
+  "gable_w": {
+   "value": 34.0,
+   "source": "estimate: widest gable step on central projection"
+  },
+  "gable_inset": {
+   "value": 4.0,
+   "source": "estimate: width lost per step"
+  },
+  "gable_t": {
+   "value": 1.0,
+   "source": "estimate: gable wall thickness"
+  },
+  "wing_gable_x": {
+   "value": 57.0,
+   "source": "ref/02.jpg: wing end gables near the outer edge, estimate"
+  },
+  "wing_gable_w": {
+   "value": 10.0,
+   "source": "estimate: wing end gable base width"
+  },
+  "wing_gable_step_h": {
+   "value": 1.6,
+   "source": "estimate: wing gable step height"
+  },
+  "dormer_w": {
+   "value": 2.4,
+   "source": "estimate: dormer width"
+  },
+  "dormer_h": {
+   "value": 2.6,
+   "source": "estimate: dormer body height"
+  },
+  "dormer_d": {
+   "value": 2.5,
+   "source": "estimate: dormer depth"
+  },
+  "dormer_z": {
+   "value": 23.5,
+   "source": "estimate: dormer base height on the roof slope"
+  },
+  "turret_w": {
+   "value": 3.0,
+   "source": "ref/02.jpg: small turrets at centre corners, estimate"
+  },
+  "turret_top_h": {
+   "value": 31.0,
+   "source": "estimate: turret body top"
+  },
+  "turret_cap_h": {
+   "value": 4.5,
+   "source": "estimate: copper cap height"
+  },
+  "clock_r": {
+   "value": 3.2,
+   "source": "ref/02.jpg: clock face on the drum ~ 55 px radius at 17 px/m"
+  },
+  "clock_z": {
+   "value": 50.0,
+   "source": "ref/02.jpg: clock centre ~ 8 m below drum top"
+  },
+  "cornice_h": {
+   "value": 1.0,
+   "source": "estimate: cornice band height"
+  },
+  "cornice_out": {
+   "value": 0.8,
+   "source": "estimate: cornice projection"
+  },
+  "string_course_z": {
+   "value": 7.0,
+   "source": "ref/02.jpg: string course between floors 1 and 2"
+  }
+ },
+ "colors": {
+  "stone": {
+   "linear": [
+    0.4,
+    0.33,
+    0.26
+   ],
+   "source": "ref/01.jpg between shaded (180,840,200,860) and sunlit (1450,840,1470,860) facade samples"
+  },
+  "roof": {
+   "linear": [
+    0.3419,
+    0.0704,
+    0.0369
+   ],
+   "source": "ref/01.jpg box 490,610,530,640"
+  },
+  "copper": {
+   "linear": [
+    0.38,
+    0.51,
+    0.41
+   ],
+   "source": "ref/01.jpg dome 790,300,840,340 and tower 350,420,370,440 averaged"
+  },
+  "window": {
+   "linear": [
+    0.03,
+    0.03,
+    0.035
+   ],
+   "source": "estimate (dark glass)"
+  },
+  "clock": {
+   "linear": [
+    0.6,
+    0.55,
+    0.4
+   ],
+   "source": "ref/02.jpg: gilded clock face, estimate"
+  }
+ }
+}
