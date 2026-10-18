@@ -71,27 +71,50 @@ cp A/out/<PREFIX>* RunnerGame/Assets/Models/<Category>/<Asset>/
 ```
 (Existing categories: `Fahrzeug`, `Baustelle`, `Mull`.) Then `dotnet build CgiMin.sln` (no new warnings), add a row to `RunnerGame/Art/ASSETS.md`, finish `RunnerGame/CREDITS.md`. Commit only when the user asks.
 
-## 2. Gates and stop rules
+## 2. Roles, loops, review and stops
 
-- Gates A, B, C: present, **stop, wait for the user. Never self-approve.** The user judges; Claude measures and builds.
-- Rounds: max 3 per key photo, max 2 per detail photo. Stop earlier when the errors stop improving. Target: outline matches in the overlay and landmark RMS < ~1.5 % of photo width (a leaning object may stay higher - say so at the gate).
-- Budgets: body <= 8,000 triangles, each moving part <= 1,000, one shared 1024^2 PNG.
-- Gate feedback = one fix batch + one re-export, then present again.
+The main session is the **orchestrator**: it runs the steps below in order, hands work to the named agent, and
+stops at every STOP. One asset at a time; at most 3 agents running at once. Agents never commit and never
+approve anything; only the user approves.
 
-## 3. Token budget
+| # | Step | Who | Model | Loop / limit | Images |
+|---|---|---|---|---|---|
+| 1 | search + `fetch` + `sheet` | script | – | – | 0 |
+| 2 | tag views/keys, write credits (from refs.json titles) | helper agent | **haiku** | once | 0 (text only) |
+| A | **STOP A** – photo pack | user | – | – | 1 (contact sheet) |
+| 3 | grid, landmarks, `measure`, `color`, `spec.json` | main session | user's model | once, then corrections from the loop | ≤ 3 grid crops |
+| 4 | `build.py` skeleton from the scooter template | builder agent | **sonnet** | until its Blender test passes | 1 preview |
+| 5 | comparison loop on key photos (`compare.py --fit`) | main session | user's model | ≤ 3 rounds per key photo, stop when errors stop improving | 1 overlay per round |
+| B | **STOP B** – outline | user | – | – | the 2 final overlays |
+| 6 | details, materials, `--export` | builder agent | **sonnet** | self-check by numbers (tris, bounds, tests); ≤ 2 rounds per detail photo | ≤ 4 |
+| 7 | independent review against the photos | reviewer agent | **sonnet** | one review; **reads, never edits** | ≤ 4 (1 engine sheet + ≤ 3 refs) |
+| 7b | fix the review findings | same builder (SendMessage) | **sonnet** | one fix batch + one re-export | ≤ 1 |
+| C | **STOP C** – in-engine look | user | – | – | 1 engine-vs-photo sheet |
+| 8 | install, `ASSETS.md`, `CREDITS.md`, `dotnet build` | main session | – | – | 0 |
 
-| Step | Who |
-|---|---|
-| fetch, sheet, grid, colour, measure, compare, export, viewer | scripts (no model) |
-| sorting / crediting refs.json (text only) | haiku subagent |
-| mechanical code (build.py skeleton, glue, viewer fixes) | sonnet subagent with exact files/signatures; it does not commit |
-| reading grids, measuring, judging overlays, the gates | main session |
+**Reviewer checklist (step 7):** outline vs. key photos; real dimensions within ±10 % of spec.json; facing
+(+Y vehicles / −Y props) and parts on their pivots in the engine sheet; no missing faces, floating or
+intersecting parts; colours plausible in the engine sheet (not sunlit-bright); triangle and texture budgets;
+no logos or photo pixels. Output: a numbered list, each item marked **must fix** or **could fix** with the
+evidence (number or image). Must-fix items go to step 7b; could-fix items go to STOP C.
 
-- <= 4 reference photos in the loop (1 key side, 1 key rear 3/4, <= 2 details). Only the contact sheet is viewed for sorting.
-- Per comparison round view ONE image: the cropped `*_overlay.png` (<= 1000 px). Never re-read images from earlier rounds. Numbers (landmark errors, `measure`, triangle counts) before pictures.
-- Workbench previews for geometry; bake only for `--export`. <= 3 parallel agents.
+**At every STOP, present this and wait** (use AskUserQuestion when there are ≤ 4 decisions):
+1. What matches the photos (one line each, with the number that shows it).
+2. What still differs — one line each with the options **keep as is** / **fix**, and the cost of fixing
+   (rounds, images, a re-bake).
+3. Your recommendation, then stop. Never self-approve. Gate feedback = one fix batch + one re-export, then
+   present again.
 
-## 4. File layout and formats
+**Stop rules:** key photos ≤ 3 rounds, detail photos ≤ 2, review fix batches 1. Target: outline matches in the
+overlay and landmark RMS < ~1.5 % of photo width (a leaning object may stay higher – say so at the stop).
+Budgets: body ≤ 8,000 triangles, each moving part ≤ 1,000, one shared 1024² PNG.
+
+**Token rules:** ≤ 4 reference photos in the loop (1 key side, 1 key rear 3/4, ≤ 2 details). View ONE image per
+comparison round (the cropped `*_overlay.png`, ≤ 1000 px); never re-read images from earlier rounds; numbers
+(landmark errors, `measure`, triangle counts) before pictures. Workbench previews for geometry; bake only for
+`--export`. Briefs to agents name exact files, signatures, the image budget and "do not commit".
+
+## 3. File layout and formats
 
 ```
 RunnerGame/Art/lib/        photo_tools.py (system python, no bpy)  photo_lib.py (Blender, no PIL)  compare.py
@@ -103,7 +126,7 @@ RunnerGame/Assets/Models/<Category>/<Asset>/   runtime OBJ + PNG + parts.json on
 - `<PREFIX>_parts.json`: `{"texture":"X.png","parts":[{"name","obj","pivot":[x,y,z]}]}`. Pivots are in **Blender coordinates**; engine translation = `(x, z, -y)`. Prefix like `VEH_ScooterVoi`.
 - Conventions: Blender Z-up, 1 unit = 1 m; **vehicles face +Y in Blender** (they drive towards -Z in the engine), static props face -Y; OBJ export is forward -Z / up Y, triangulated (done by `bake_shared_and_export`); PNG sRGB, spec colours linear; look shader nodes up by type, never by name; the engine has no normal maps, do not brighten textures to compensate.
 
-## 5. Pitfalls
+## 4. Pitfalls
 
 - Downloads: **curl, not urllib** (old cert store). Wikimedia: project User-Agent, >= 1 s between files, a non-JSON reply = rate limit, wait 60 s and retry (fetch does this; never hammer). Titles may be non-ASCII (`Bâle`, `ü`): keep them in UTF-8 files, never pass them as shell/curl arguments, and expect a garbled Windows console.
 - EXIF: reference copies are already transposed; measure and mark landmarks on `ref/NN.jpg` only, never on originals.
@@ -119,7 +142,7 @@ RunnerGame/Assets/Models/<Category>/<Asset>/   runtime OBJ + PNG + parts.json on
 - Reference photos are CC BY / CC BY-SA: credit every one in `RunnerGame/CREDITS.md`. Only add assets we may share.
 - Tests: `python -m unittest discover -s RunnerGame/Art/tests -p "test_*.py"`; Blender tests `blender_test_*.py` via the BL command.
 
-## 6. Start checklist (e.g. Hannover wheelie bin)
+## 5. Start checklist (e.g. Hannover wheelie bin)
 
 1. `mkdir -p RunnerGame/Art/assets/bin_hannover/{ref,previews}`; search Commons with curl; write `titles.txt`.
 2. `fetch`, `sheet`; view only the sheet; tag views and keys in refs.json; credits -> **Gate A**.
