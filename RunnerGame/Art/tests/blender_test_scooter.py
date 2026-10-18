@@ -56,6 +56,40 @@ class ScooterBuildTest(unittest.TestCase):
         self.assertAlmostEqual(lowest, 0.0, delta=0.002)
 
 
+class ExportTest(unittest.TestCase):
+    def test_export_three_parts(self):
+        import json
+        import tempfile
+        photo_lib.al.clear_scene()
+        spec = photo_lib.Spec(ASSET / "spec.json")
+        parts = load_build().build(spec)
+        pivots = {"body": (0, 0, 0), "wheel_front": tuple(lm("front_axle")), "wheel_rear": tuple(lm("rear_axle"))}
+        with tempfile.TemporaryDirectory() as tmp:
+            info = photo_lib.bake_shared_and_export(parts, pivots, tmp, "T", res=128, samples=1)
+            files = sorted(p.name for p in Path(tmp).iterdir())
+            self.assertEqual(files, ["T.png", "T_body.obj", "T_parts.json", "T_wheel_front.obj", "T_wheel_rear.obj"])
+            data = json.loads((Path(tmp) / "T_parts.json").read_text())
+            self.assertEqual(data, json.loads(json.dumps(info)))
+            self.assertEqual(data["texture"], "T.png")
+            for part in data["parts"]:
+                want = pivots[part["name"]]
+                for a, b in zip(part["pivot"], want):
+                    self.assertAlmostEqual(a, b, delta=0.001)
+            tris = {}
+            for part in data["parts"]:
+                bpy.ops.wm.obj_import(filepath=str(Path(tmp) / part["obj"]), forward_axis='NEGATIVE_Z', up_axis='Y')
+                o = bpy.context.selected_objects[0]
+                tris[part["name"]] = photo_lib.al.tri_count(o)
+                if part["name"] != "body":
+                    vs = [v.co for v in o.data.vertices]
+                    for axis in range(3):
+                        mid = (min(v[axis] for v in vs) + max(v[axis] for v in vs)) / 2
+                        self.assertAlmostEqual(mid, 0.0, delta=0.002)
+            self.assertLessEqual(tris["body"], 8000)
+            self.assertLessEqual(tris["wheel_front"], 1000)
+            self.assertLessEqual(tris["wheel_rear"], 1000)
+
+
 class TubeTest(unittest.TestCase):
     def test_tube_spans_its_end_points(self):
         o = photo_lib.tube("__t", (0.1, 0.2, 0.0), (0.1, 0.5, 0.4), 0.02, None)

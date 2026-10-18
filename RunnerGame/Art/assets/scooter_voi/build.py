@@ -3,7 +3,7 @@
 Blender Z-up, metres. The scooter faces +Y; the origin is on the ground midway between the axles.
 Rider's left = -X. Every number comes from spec.json; fix measurements there, never here.
 
-Headless:  blender --background --factory-startup --python RunnerGame/Art/assets/scooter_voi/build.py -- [--preview out.png]
+Headless:  blender --background --factory-startup --python RunnerGame/Art/assets/scooter_voi/build.py -- [--preview out.png | --export]
 """
 import math
 import sys
@@ -21,7 +21,15 @@ PX = 0.254 / 156          # metres per pixel in ref/17.jpg (ruler), for photo-on
 
 def build(spec):
     d, c = spec.d, spec.c
-    mat = {name: al.flat(name, c(name)) for name in spec.colors}
+    # painted/printed/lit surfaces stay clean; everything else is a lightly weathered used rental scooter
+    mat = {}
+    for name in spec.colors:
+        if name in ("plate", "plate_ink", "reflector"):
+            mat[name] = al.flat(name, c(name))
+        elif name == "light_red":
+            mat[name] = al.emissive_look(name, c(name))
+        else:
+            mat[name] = al.material(name, c(name), dust=0.2, streaks=0.3, grime=0.4, scratches=0.3, mottle=0.15)
     parts = {"body": [], "wheel_front": [], "wheel_rear": []}
     body = parts["body"].append
 
@@ -83,6 +91,50 @@ def build(spec):
     hood_r = d("fender_top_h") - R
     body(pl.arc_shell("rear_fender", rear, 0.06, d("wheel_w") + 0.05, 20, 185, hood_r + 0.01 - 0.06, mat["fender"]))
 
+    # --- details, in camera priority: rear light, plate, reflectors, rails, levers, display, kickstand
+    hood_out = hood_r + 0.01                                  # outer radius of the rear hood around the rear axle
+
+    def on_hood(name, size, angle_deg, mat_, lift=0.0, bevel=0.004):
+        a = math.radians(angle_deg)
+        n = Vector((0, math.cos(a), math.sin(a)))
+        o = al.box(name, size, rear + n * (hood_out + size[1] / 2 + lift), mat_, bevel=bevel)
+        o.rotation_euler.x = a
+        body(o)
+        return o, n
+
+    on_hood("rear_light", (d("light_w"), d("light_t"), d("light_h")), d("light_angle_deg"), mat["light_red"], bevel=0.006)
+    plate, n = on_hood("plate", (d("plate_w"), d("plate_t"), d("plate_h")), d("plate_angle_deg"), mat["plate"], lift=0.006, bevel=0.002)
+    t_axis = Vector((0, -n.z, n.y))                           # tangent, upward along the plate
+    for row in (0, 1):                                        # made-up number: 3 + 3 character blocks
+        for i in range(3):
+            p = rear + n * (hood_out + d("plate_t") + 0.008) + t_axis * (0.022 - row * 0.045) + Vector(((i - 1) * 0.038, 0, 0))
+            ch = al.box(f"plate_char_{row}{i}", (0.022, 0.002, 0.032), p, mat["plate_ink"], bevel=0.0005, segments=1)
+            ch.rotation_euler.x = math.radians(d("plate_angle_deg"))
+            body(ch)
+
+    for side in (-1, 1):
+        x = side * (d("deck_w") / 2 + 0.001)
+        body(al.box(f"reflector_{side}", (0.004, d("reflector_len"), d("reflector_h")), (x, deck_mid, d("deck_top_h") - 0.045), mat["reflector"], bevel=0.0015, segments=1))
+        rx = side * (d("deck_w") / 2 - d("rail_w") / 2)
+        body(al.box(f"rail_{side}", (d("rail_w"), d("deck_len"), d("rail_h")), (rx, deck_mid, d("deck_top_h") + d("rail_h") / 2 - 0.008), mat["paint"], bevel=0.003))
+
+    half_bar = d("bar_w") / 2
+    for side in (-1, 1):
+        root = (side * (half_bar - d("lever_in")), bar_y - 0.015, d("bar_h") - 0.005)
+        tip = (side * (half_bar - d("lever_in") + 0.03), bar_y - 0.015 - d("lever_len") * 0.9, d("bar_h") - 0.04)
+        body(pl.tube(f"lever_{side}", root, tip, d("lever_r"), mat["band"], verts=8))
+    tilt_head = math.radians(15)
+    head_top = head_centre + Vector((0, -math.sin(tilt_head), math.cos(tilt_head))) * (d("head_h") / 2 + d("display_h") / 2 - 0.002)
+    display = al.box("display", (d("display_w"), d("display_d"), d("display_h")), head_top, mat["band"], bevel=0.004)
+    display.rotation_euler.x = tilt_head
+    body(display)
+
+    kx = -(d("deck_w") / 2 + d("kick_r") + 0.004)             # folded kickstand on the rider's left (-X)
+    k0 = (kx, deck_mid - d("kick_len") / 2, d("kick_z"))
+    k1 = (kx, deck_mid + d("kick_len") / 2, d("kick_z") + 0.01)
+    body(pl.tube("kickstand", k0, k1, d("kick_r"), mat["metal"], verts=8))
+    body(al.box("kickstand_foot", (0.03, 0.045, 0.014), (kx, k0[1] - 0.01, d("kick_z")), mat["band"], bevel=0.003))
+
     # landmarks (names match refs.json)
     for name, loc in {
         "front_axle": front, "rear_axle": rear,
@@ -105,6 +157,12 @@ def build(spec):
 def main(argv):
     al.clear_scene()
     parts = build(pl.Spec(HERE / "spec.json"))
+    if "--export" in argv:
+        out = HERE / "out"
+        pivots = {"body": (0, 0, 0), "wheel_front": tuple(Vector(pl.bpy.data.objects["LM_front_axle"].location)),
+                  "wheel_rear": tuple(Vector(pl.bpy.data.objects["LM_rear_axle"].location))}
+        pl.bake_shared_and_export(parts, pivots, str(out.resolve()), "VEH_ScooterVoi", res=1024, samples=32)
+        return
     if "--preview" in argv:
         objs = [o for group in parts.values() for o in group]
         out = str(Path(argv[argv.index("--preview") + 1]).resolve())   # Blender resolves relative paths oddly

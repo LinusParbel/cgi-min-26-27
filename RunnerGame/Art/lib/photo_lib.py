@@ -8,7 +8,9 @@ Landmarks are empties named LM_<name>; the same names are used for pixel positio
 """
 import json
 import math
+import shutil
 import sys
+import tempfile
 from pathlib import Path
 
 import bpy
@@ -314,3 +316,68 @@ def compare_image(photo_path, cam, out_png, photo_landmarks):
     for name, e in sorted(errors.items(), key=lambda kv: -kv[1]):
         print(f"  {name:20s} {e:6.1f} px")
     return rms
+
+
+# ---------------------------------------------------------------- shared bake + multi-part export
+
+def export_obj(obj, path):
+    """OBJ with the engine settings of asset_lib.bake_and_export (selected object only)."""
+    bpy.ops.object.select_all(action='DESELECT')
+    obj.select_set(True)
+    bpy.context.view_layer.objects.active = obj
+    bpy.ops.wm.obj_export(filepath=str(path), export_selected_objects=True, forward_axis='NEGATIVE_Z',
+                          up_axis='Y', export_triangulated_mesh=True, export_normals=True, export_uv=True,
+                          export_materials=False, apply_modifiers=True, global_scale=1.0)
+
+
+def bake_shared_and_export(parts, pivots, out_dir, name, res=1024, samples=32):
+    """Bake all parts into ONE texture, then write one OBJ per part (origin at its pivot, vertices relative
+    to it) plus <name>.png and <name>_parts.json. Pivots are in Blender coordinates. Returns the json dict."""
+    import bmesh
+    out_dir = str(Path(out_dir).resolve())
+    Path(out_dir).mkdir(parents=True, exist_ok=True)
+    for key, objs in parts.items():                       # one vertex group per part
+        for o in objs:
+            if o.type != 'MESH':
+                bpy.context.view_layer.objects.active = o
+                bpy.ops.object.convert(target='MESH')
+    bpy.ops.object.select_all(action='DESELECT')
+    for objs in parts.values():                           # bake transforms so the joined origin is the world origin
+        for o in objs:
+            o.select_set(True)
+            bpy.context.view_layer.objects.active = o
+    bpy.ops.object.transform_apply(location=True, rotation=True, scale=True)
+    for key, objs in parts.items():
+        for o in objs:
+            vg = o.vertex_groups.new(name=key)
+            vg.add(list(range(len(o.data.vertices))), 1.0, 'REPLACE')
+    joined = al.join_all("__joined", objects=[o for objs in parts.values() for o in objs])
+    joined.location = (0, 0, 0)
+
+    with tempfile.TemporaryDirectory() as tmp:
+        _, png = al.bake_and_export(joined, tmp, name, res, samples=samples, keep_origin=True)
+        shutil.copyfile(png, str(Path(out_dir) / (name + ".png")))
+
+    info = {"texture": name + ".png", "parts": []}
+    for key in parts:
+        idx = joined.vertex_groups[key].index
+        part = joined.copy()
+        part.data = joined.data.copy()
+        part.name = part.data.name = f"{name}_{key}"
+        bpy.context.scene.collection.objects.link(part)
+        bm = bmesh.new()
+        bm.from_mesh(part.data)
+        layer = bm.verts.layers.deform.verify()
+        bmesh.ops.delete(bm, geom=[v for v in bm.verts if idx not in v[layer]], context='VERTS')
+        pivot = Vector(pivots[key])
+        bmesh.ops.translate(bm, vec=-pivot, verts=bm.verts)
+        bm.to_mesh(part.data)
+        bm.free()
+        part.vertex_groups.clear()
+        part.location = (0, 0, 0)
+        obj_name = f"{name}_{key}.obj"
+        export_obj(part, Path(out_dir) / obj_name)
+        print(f"part {key}: tris {al.tri_count(part)}")
+        info["parts"].append({"name": key, "obj": obj_name, "pivot": [round(v, 5) for v in pivot]})
+    (Path(out_dir) / (name + "_parts.json")).write_text(json.dumps(info, indent=2), encoding="utf-8")
+    return info

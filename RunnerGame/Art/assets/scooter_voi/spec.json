@@ -114,6 +114,90 @@
   "head_fwd": {
    "value": 0.136,
    "source": "ref/17.jpg head front 0.136 m in front of the stem axis at head height"
+  },
+  "light_w": {
+   "value": 0.06,
+   "source": "estimate; ref/14.jpg rear light about half the hood width"
+  },
+  "light_h": {
+   "value": 0.09,
+   "source": "estimate; ref/14.jpg rear light height"
+  },
+  "light_t": {
+   "value": 0.02,
+   "source": "estimate"
+  },
+  "light_angle_deg": {
+   "value": 140,
+   "source": "estimate; light at z about 0.21 on the rear face of the hood (angle on the hood arc, 0=front, 90=up, 180=rear)"
+  },
+  "plate_w": {
+   "value": 0.13,
+   "source": "estimate; ref/14.jpg insurance plate wider than the hood"
+  },
+  "plate_h": {
+   "value": 0.1,
+   "source": "estimate; ref/14.jpg insurance plate"
+  },
+  "plate_t": {
+   "value": 0.005,
+   "source": "estimate"
+  },
+  "plate_angle_deg": {
+   "value": 168,
+   "source": "estimate; ref/14.jpg plate sits on the lower rear end of the hood"
+  },
+  "rail_w": {
+   "value": 0.012,
+   "source": "estimate; ref/14.jpg red rails along the deck edges"
+  },
+  "rail_h": {
+   "value": 0.02,
+   "source": "estimate"
+  },
+  "reflector_len": {
+   "value": 0.12,
+   "source": "estimate; side reflector strip"
+  },
+  "reflector_h": {
+   "value": 0.018,
+   "source": "estimate"
+  },
+  "lever_len": {
+   "value": 0.09,
+   "source": "estimate; brake lever length"
+  },
+  "lever_r": {
+   "value": 0.005,
+   "source": "estimate"
+  },
+  "lever_in": {
+   "value": 0.15,
+   "source": "estimate; lever root distance from the grip end towards the centre"
+  },
+  "display_w": {
+   "value": 0.07,
+   "source": "estimate; display/phone holder on the head"
+  },
+  "display_d": {
+   "value": 0.07,
+   "source": "estimate"
+  },
+  "display_h": {
+   "value": 0.02,
+   "source": "estimate"
+  },
+  "kick_len": {
+   "value": 0.27,
+   "source": "estimate; folded kickstand along the left deck side"
+  },
+  "kick_r": {
+   "value": 0.008,
+   "source": "estimate"
+  },
+  "kick_z": {
+   "value": 0.085,
+   "source": "estimate; kickstand height above ground (under the deck)"
   }
  },
  "colors": {
@@ -180,6 +264,38 @@
     0.0252
    ],
    "source": "ref/02.jpg box 715,580,760,620 (black stem band)"
+  },
+  "light_red": {
+   "linear": [
+    0.55,
+    0.02,
+    0.02
+   ],
+   "source": "estimate from ref/14.jpg (rear detail), sRGB converted to linear"
+  },
+  "plate": {
+   "linear": [
+    0.69,
+    0.83,
+    0.89
+   ],
+   "source": "estimate from ref/14.jpg (rear detail), sRGB converted to linear; plate is near white with light blue ink"
+  },
+  "plate_ink": {
+   "linear": [
+    0.26,
+    0.52,
+    0.79
+   ],
+   "source": "estimate from ref/14.jpg (rear detail), sRGB converted to linear"
+  },
+  "reflector": {
+   "linear": [
+    0.89,
+    0.21,
+    0.01
+   ],
+   "source": "estimate from ref/14.jpg (rear detail), sRGB converted to linear (orange reflector)"
   }
  }
 }
