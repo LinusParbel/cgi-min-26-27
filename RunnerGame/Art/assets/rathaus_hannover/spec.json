@@ -613,23 +613,27 @@
      10.7
     ],
     [
-     24.5,
-     8.9
+     24.2,
+     8.7
     ],
     [
-     28.0,
-     5.3
+     27.4,
+     5.8
     ],
     [
-     31.0,
+     29.0,
      2.5
     ],
     [
+     32.4,
+     1.1
+    ],
+    [
      32.8,
-     0.6
+     0.3
     ]
    ],
-   "source": "ref/01.jpg full-res blend zoom (1:1): gable width at y 706/660/620/585/568"
+   "source": "stop C loop, 1:1 pavilion blend zoom: widths at src y 710/660/620/600/570/565; heights lowered ~0.5 m because the projecting pavilion front appears larger; r5 trapezoid blend: upper widths -6 % (outline 5-8 px too wide)"
   },
   "pav_roof_h": {
    "value": 26.0,
@@ -655,6 +659,24 @@
   "domebase_relief": {
    "value": 0.45,
    "source": "loop r9 dome blend: pediments/clock rings stood 1.0-1.4 m proud and showed beside the base in the front view; real relief is shallow"
+  },
+  "center_pinnacle_w": {
+   "value": 0.8,
+   "source": "stop C loop: central pinnacles are slim spires in ref/01.jpg (were 1.5 m)"
+  },
+  "stone_weathering": {
+   "value": {
+    "dust": 0.25,
+    "streaks": 0.6,
+    "grime": 0.55,
+    "scratches": 0.1,
+    "mottle": 0.5
+   },
+   "source": "stop C loop: ref/01.jpg stone shows light/dark variation, darker recesses and base; first pass was flat beige"
+  },
+  "domebase_pinnacle_inset": {
+   "value": 1.2,
+   "source": "stop C loop r6 centre zoom: dome-base corner pinnacles sit ~1.2 m in from the corners (ghosts 8 px outside at 0.4 m)"
   }
  },
  "colors": {

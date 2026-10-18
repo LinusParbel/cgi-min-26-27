@@ -170,7 +170,7 @@ def build(spec):
     d, c = spec.d, spec.c
     FRONT_OPENINGS.clear()
     mat = {
-        "stone": al.material("stone", c("stone"), dust=0.2, streaks=0.4, grime=0.3, scratches=0.1, mottle=0.2),
+        "stone": al.material("stone", c("stone"), **d("stone_weathering")),
         "roof": al.material("roof", c("roof"), dust=0.15, streaks=0.3, grime=0.2, scratches=0.1, mottle=0.25),
         "copper": al.material("copper", c("copper"), dust=0.1, streaks=0.4, grime=0.1, scratches=0.05, mottle=0.45),
         "window": al.flat("window", c("window")),
@@ -259,7 +259,7 @@ def build(spec):
     R.roof(-cw / 2, cw / 2, yc + 0.6, fy + wd - 9, ce, cre, "y", 0)
     pc = Plane(0, yc, (1, 0), (0, -1))
     for s in (-1, 1):
-        pinnacle(s * (cw / 2 - 0.8), yc + 0.8, ce - 1.0, d("center_corner_pinnacle_h"), 1.5, 3.0)
+        pinnacle(s * (cw / 2 - 0.8), yc + 0.8, ce - 1.0, d("center_corner_pinnacle_h"), d("center_pinnacle_w"), 3.0)
 
     # ---------------------------------------------------------------- front wings: dormers, windows, bands
     pf = Plane(0, fy, (1, 0), (0, -1))
@@ -324,12 +324,9 @@ def build(spec):
             S.box(x0, x1, y0, y1, 0, pe)
             R.roof(x0, x1, y0 + 0.6 if sy < 0 else y0, y1 if sy < 0 else y1 - 0.6, pe, d("pav_roof_h"), "y", 0)
             pp = Plane((x0 + x1) / 2, y0 if sy < 0 else y1, (1, 0) if sy < 0 else (-1, 0), (0, sy))
-            if sy < 0:                                         # Maschteich front: measured gable profile
-                gx, prof = (x0 + x1) / 2, d("pav_gable_profile")
-                for (za, wa), (zb, _) in zip(prof, prof[1:]):
-                    S.box(gx - wa / 2, gx + wa / 2, y0, y0 + 0.8, za, zb)
-            else:
-                stepped_gable(pp, 0, pe, pg, pw, 2.0, 4, 0.9, 1.4)
+            prof = d("pav_gable_profile")                           # measured gable profile (front and back):
+            for (za, wa), (zb, wb) in zip(prof, prof[1:]):          # one trapezoid per segment, so the outline
+                pp.prism(S, [(-wa / 2, za), (wa / 2, za), (wb / 2, zb), (-wb / 2, zb)], -0.8, 0.0)   # narrows smoothly
             band(pp, -pw / 2 - 0.3, pw / 2 + 0.3, pe, chh, co)
             if sy > 0:                                         # the front pavilions come from front_layout
                 window_rows(pp, [u - pw / 2 for u in spaced(pw, d("window_pitch"))])
@@ -556,7 +553,8 @@ def build(spec):
         C.frustum(px, py, dp - 0.1, dp + 1.2, 0.9, 0.9, 0, 0)
     for ix in (-1, 1):
         for iy in (-1, 1):
-            pinnacle(ix * (h2 - 0.4), dy + iy * (h2 - 0.4), db_t - 0.5, dpn, d("domebase_pinnacle_w"), 2.4)
+            pin = h2 - d("domebase_pinnacle_inset")
+            pinnacle(ix * pin, dy + iy * pin, db_t - 0.5, dpn, d("domebase_pinnacle_w"), 2.4)
     dbh, dm = d("dome_base_h"), d("dome_top_h")
     R_d = d("dome_w") / 2
     S.lathe(0, dy, [(R_d + 0.4, db_t), (R_d + 0.4, dbh - 0.01)], seg=24)           # drum under the dome
