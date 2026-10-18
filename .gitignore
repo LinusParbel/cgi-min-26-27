@@ -1,3 +1,14 @@
 **/bin/
 **/obj/
 .vs/
+
+# Secrets (API tokens)
+.env
+.env.*
+
+# Asset pipeline scratch output, downloaded reference photos, caches, secrets
+tools/asset-spike/out/
+tools/asset-spike/ref/*
+!tools/asset-spike/ref/signs/
+__pycache__/
+*.pyc
