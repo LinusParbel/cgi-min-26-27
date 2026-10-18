@@ -105,8 +105,17 @@ evidence (number or image). Must-fix items go to step 7b; could-fix items go to 
 3. Your recommendation, then stop. Never self-approve. Gate feedback = one fix batch + one re-export, then
    present again.
 
-**Stop rules:** key photos ≤ 3 rounds, detail photos ≤ 2, review fix batches 1. Target: outline matches in the
-overlay and landmark RMS < ~1.5 % of photo width (a leaning object may stay higher – say so at the stop).
+**Loop rules (never ask the user mid-loop):**
+- Default limits: key photo ≤ 3 rounds, detail photo ≤ 2 rounds. Continue automatically while each round cuts
+  the landmark RMS by > ~20 % or fixes something visible in the overlay.
+- Stop early when a round brings no improvement (e.g. a leaning object, poor landmarks) – say why at the stop.
+- At the limit, do not stop silently: every remaining difference goes into the next STOP as
+  "keep as is / one more round (≈ 1 image)". The user decides there.
+- Hard ceiling: 5 rounds per photo including user-granted extras – beyond that the photo is the problem.
+- Review: one review + one fix batch. A second review only if must-fix items changed geometry, and only on
+  those items (≤ 2 images). Anything still open goes to STOP C – no reviewer/builder ping-pong.
+- Target: outline matches in the overlay and landmark RMS < ~1.5 % of photo width (a leaning object may stay
+  higher – say so at the stop). Landmark RMS is partly circular; shapes (rounded fenders etc.) need the overlay.
 Budgets: body ≤ 8,000 triangles, each moving part ≤ 1,000, one shared 1024² PNG.
 
 **Token rules:** ≤ 4 reference photos in the loop (1 key side, 1 key rear 3/4, ≤ 2 details). View ONE image per
