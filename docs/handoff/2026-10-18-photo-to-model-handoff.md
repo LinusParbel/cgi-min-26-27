@@ -2,6 +2,11 @@
 
 Context for a new session. Read this first, then `CLAUDE.md` and `.claude/skills/photo-to-model/SKILL.md`.
 
+**How we work:** the real goal is the **skill** (`/photo-to-model`). We improve it by modelling real Hannover
+objects with it: every model is a test run, and every mistake that costs extra rounds becomes a rule, a tool
+feature or a test in the skill (see the "Mistakes that cost extra rounds" table in SKILL.md). So after each
+model (or each lesson), update SKILL.md / `builder_brief.md` / the tools, then **commit and push** the branch.
+
 ## 1. Project and user
 
 - Repo `cgi-min-26-27`: minimal C#/OpenTK course engine (`Engine/`) plus our uni game `RunnerGame/`
