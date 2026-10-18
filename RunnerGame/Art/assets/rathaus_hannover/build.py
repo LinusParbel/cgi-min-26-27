@@ -22,6 +22,8 @@ bpy = pl.bpy
 
 Z = (0.0, 0.0, 1.0)
 
+FRONT_OPENINGS = []        # every window/door opening built on the Maschteich front (filled by build(), read by the tests)
+
 
 class Geo:
     """Vertex/face accumulator; closed solids get their normals recalculated, flat decals (recalc=False) keep order."""
@@ -141,6 +143,23 @@ def arch_outline(cx, zb, w, h, n):
     return pts
 
 
+def head_outline(cx, zb, w, zt, n, spring=None):
+    """Convex (u, z) outline, counter-clockwise: rectangle with a semicircular (or elliptic) head, sill zb, top zt."""
+    a = w / 2
+    zs = zt - a if spring is None else spring
+    b = zt - zs
+    pts = [(cx - a, zb), (cx + a, zb)]
+    return pts + [(cx + a * math.cos(math.pi * i / n), zs + b * math.sin(math.pi * i / n)) for i in range(n + 1)]
+
+
+def rect_outline(x0, z0, x1, z1):
+    return [(x0, z0), (x1, z0), (x1, z1), (x0, z1)]
+
+
+def circle_outline(cx, cz, r, n):
+    return [(cx + r * math.cos(2 * math.pi * i / n), cz + r * math.sin(2 * math.pi * i / n)) for i in range(n)]
+
+
 def sides_of(cx, cy, hx, hy):
     """The four facade planes of an axis-aligned box centred at (cx, cy), starting at the front (-Y)."""
     return [Plane(cx, cy - hy, (1, 0), (0, -1)), Plane(cx + hx, cy, (0, 1), (1, 0)),
@@ -149,6 +168,7 @@ def sides_of(cx, cy, hx, hy):
 
 def build(spec):
     d, c = spec.d, spec.c
+    FRONT_OPENINGS.clear()
     mat = {
         "stone": al.material("stone", c("stone"), dust=0.2, streaks=0.4, grime=0.3, scratches=0.1, mottle=0.2),
         "roof": al.material("roof", c("roof"), dust=0.15, streaks=0.3, grime=0.2, scratches=0.1, mottle=0.25),
@@ -238,26 +258,12 @@ def build(spec):
     S.box(-cw / 2, cw / 2, yc, fy + wd - 3, 0, ce)
     R.roof(-cw / 2, cw / 2, yc + 0.6, fy + wd - 9, ce, cre, "y", 0)
     pc = Plane(0, yc, (1, 0), (0, -1))
-    stepped_gable(pc, 0, ce, ch, d("gable_w"), d("gable_w") - (int(d("gable_steps")) - 1) * d("gable_inset"),
-                  int(d("gable_steps")), d("gable_t"), 1.6)
-    band(pc, -cw / 2 - 0.4, cw / 2 + 0.4, ce, chh, co)
-    band(pc, -cw / 2 - 0.3, cw / 2 + 0.3, d("string_course_z"), 0.6, co * 0.7)
     for s in (-1, 1):
         pinnacle(s * (cw / 2 - 0.8), yc + 0.8, ce - 1.0, d("center_corner_pinnacle_h"), 1.5, 3.0)
-    ex, ew, eh = d("entrance_x"), d("entrance_w"), d("entrance_h")
-    for e in (-ex, 0.0, ex):                                     # three entrance arches, dark recesses
-        win(pc, e, 0.0, ew, eh, framed=True)
-        win(pc, e, d("big_win_z"), d("big_win_w"), d("big_win_h"), framed=True)
-    window_rows(pc, (-(cw / 2 - 3.4), cw / 2 - 3.4), rws=rows[1:])
 
     # ---------------------------------------------------------------- front wings: dormers, windows, bands
     pf = Plane(0, fy, (1, 0), (0, -1))
     xs_mid = [s * (d("dormer_x0") + i * d("dormer_pitch")) for s in (-1, 1) for i in range(3)]
-    xe = [tx + tw / 2 + 0.8 + u for u in spaced(hw - pw - (tx + tw / 2 + 0.8), d("window_pitch"))]
-    xs_end = xe + [-x for x in xe]
-    window_rows(pf, xs_mid + xs_end, framed=True)
-    band(pf, -hw + pw, hw - pw, eave, chh, co)
-    band(pf, -hw + pw, hw - pw, d("string_course_z"), 0.6, co * 0.7)
     dz, dg, dw = d("dormer_z"), d("dormer_gable_h"), d("dormer_w")
     for sy in (-1, 1):
         pl_ = Plane(0, sy * hd, (1, 0), (0, -1)) if sy < 0 else Plane(0, sy * hd, (-1, 0), (0, 1))
@@ -269,7 +275,8 @@ def build(spec):
             pl_.prism(S, [(pu - dw / 2 - 0.15, dz), (pu + dw / 2 + 0.15, dz), (pu, dg)], -0.4, 0.35)
             pl_.prism(S, [(pu - dw / 2 - 0.3, dz - 0.3), (pu + dw / 2 + 0.3, dz - 0.3), (pu + dw / 2 + 0.3, dz),
                           (pu - dw / 2 - 0.3, dz)], -0.4, 0.45)
-            win(pl_, pu, eave + 0.5, dw * 0.45, dz - eave - 0.9, False, 0.03)
+            if sy > 0:
+                win(pl_, pu, eave + 0.5, dw * 0.45, dz - eave - 0.9, False, 0.03)
             px, py, _ = pl_.pt(pu, 0, 0.2)
             C.frustum(px, py, dg, dg + 0.9, 0.5, 0.5, 0, 0)
     # small copper turrets on the wing roofs
@@ -294,7 +301,8 @@ def build(spec):
         S.box(cx_ - w2 / 2, cx_ + w2 / 2, cy_ - w2 / 2, cy_ + w2 / 2, body, bel)
         C.frustum(cx_, cy_, bel, rf, w2 - 0.6, w2 - 0.6, 0, 0)
         for i, pl2 in enumerate(sides_of(cx_, cy_, tw / 2, tw / 2)):
-            window_rows(pl2, (0.0,), w=1.5, h=3.0, rws=rows + up, framed=(i == 0))
+            if i:                                              # the front (i == 0) comes from front_layout
+                window_rows(pl2, (0.0,), w=1.5, h=3.0, rws=rows + up)
         for pl2 in sides_of(cx_, cy_, w2 / 2, w2 / 2):
             pl2.prism(S, [(-w2 / 2, bel), (w2 / 2, bel), (0, gab)], -0.8, 0.0)
             win(pl2, 0.0, body + 0.4, 1.5, d("tower_belfry_h") - 0.8, False, 0.03)
@@ -311,16 +319,191 @@ def build(spec):
     pe, pg = d("pav_eave_h"), d("pav_gable_h")
     for sx in (-1, 1):
         for sy in (-1, 1):
-            x0, x1 = sorted((sx * (hw - pw), sx * (hw + proj)))
+            x0, x1 = sorted((sx * (hw - pw), sx * hw))          # flush with the facade edge (photo), only the front projects
             y0, y1 = (fy - proj, fy + wd) if sy < 0 else (hd - wd, hd + proj)
             S.box(x0, x1, y0, y1, 0, pe)
-            R.roof(x0, x1, y0 + 0.6 if sy < 0 else y0, y1 if sy < 0 else y1 - 0.6, pe, pg - 1.0, "y", 0)
+            R.roof(x0, x1, y0 + 0.6 if sy < 0 else y0, y1 if sy < 0 else y1 - 0.6, pe, d("pav_roof_h"), "y", 0)
             pp = Plane((x0 + x1) / 2, y0 if sy < 0 else y1, (1, 0) if sy < 0 else (-1, 0), (0, sy))
-            stepped_gable(pp, 0, pe, pg, pw, 2.0, 4, 0.9, 1.4)
+            if sy < 0:                                         # Maschteich front: measured gable profile
+                gx, prof = (x0 + x1) / 2, d("pav_gable_profile")
+                for (za, wa), (zb, _) in zip(prof, prof[1:]):
+                    S.box(gx - wa / 2, gx + wa / 2, y0, y0 + 0.8, za, zb)
+            else:
+                stepped_gable(pp, 0, pe, pg, pw, 2.0, 4, 0.9, 1.4)
             band(pp, -pw / 2 - 0.3, pw / 2 + 0.3, pe, chh, co)
-            window_rows(pp, [u - pw / 2 for u in spaced(pw, d("window_pitch"))], framed=(sy < 0))
-            ps = Plane(sx * (hw + proj), y0 if sx > 0 else y1, (0, sx), (sx, 0))
+            if sy > 0:                                         # the front pavilions come from front_layout
+                window_rows(pp, [u - pw / 2 for u in spaced(pw, d("window_pitch"))])
+            ps = Plane(sx * hw, y0 if sx > 0 else y1, (0, sx), (sx, 0))
             window_rows(ps, spaced(y1 - y0, d("side_pitch")))
+
+    # ---------------------------------------------------------------- Maschteich front from spec front_layout
+    fl = d("front_layout")
+    pT = Plane(0, fy - proj, (1, 0), (0, -1))                   # tower and pavilion fronts
+    FR, DEP = 0.25, 0.35                                         # stone frame width, reveal depth
+
+    def mir(xs):
+        return sorted({round(x, 3) for x in xs} | {round(-x, 3) for x in xs})
+
+    def ring(plane, inner, outer, off0, off1):
+        """Closed stone ring between two outlines of equal point count, from off0 to off1."""
+        k = len(inner)
+        v = ([plane.pt(u, z, off0) for u, z in inner] + [plane.pt(u, z, off1) for u, z in inner] +
+             [plane.pt(u, z, off0) for u, z in outer] + [plane.pt(u, z, off1) for u, z in outer])
+        i0, i1, o0, o1 = 0, k, 2 * k, 3 * k
+        f = []
+        for i in range(k):
+            j = (i + 1) % k
+            f += [(i1 + i, i1 + j, o1 + j, o1 + i), (o0 + i, o0 + j, i0 + j, i0 + i),
+                  (o0 + i, o0 + j, o1 + j, o1 + i), (i0 + i, i1 + i, i1 + j, i0 + j)]
+        S.solid(v, f)
+
+    def bar(plane, u0, u1, z0, z1, off0, off1):
+        plane.prism(S, rect_outline(u0, z0, u1, z1), off0, off1)
+
+    def opening(plane, x, z0, z1, w, shape, base=0.0, spring=None, frame=FR, depth=DEP, register=True):
+        """Recessed opening: dark face on the wall, stone ring standing `depth` proud around it (reads as a reveal)."""
+        n = 8
+        if shape == "rect":
+            def outl(g):
+                return rect_outline(x - w / 2 - g, max(0.0, z0 - g), x + w / 2 + g, z1 + g)
+        else:
+            sp = spring if spring is not None else z1 - w / 2
+
+            def outl(g):
+                return head_outline(x, max(0.0, z0 - g), w + 2 * g, z1 + g, n, sp)
+        inner = outl(0.0)
+        if shape == "arch2":
+            m = 0.3
+            lw = (w - m) / 2 - 0.2
+            lz = z1 - 0.7
+            for sgn in (-1, 1):
+                plane.decal(WF, head_outline(x + sgn * (m / 2 + 0.1 + lw / 2), z0, lw, lz, n), base + 0.03)
+            bar(plane, x - m / 2, x + m / 2, z0, lz - lw / 2, base, base + depth)
+        else:
+            plane.decal(WF, inner, base + 0.03)
+        ring(plane, inner, outl(frame), base, base + depth)
+        if shape == "tracery":
+            zs = z1 - w / 2
+            mw_ = 0.26
+            for mx in (-w / 4, 0.0, w / 4):
+                bar(plane, x + mx - mw_ / 2, x + mx + mw_ / 2, z0, zs + 0.9, base, base + depth * 0.8)
+            tz = z0 + 0.52 * (zs - z0)
+            bar(plane, x - w / 2, x + w / 2, tz, tz + 0.3, base, base + depth * 0.8)
+            for cx_, cz_, r_ in ((0.0, zs + 1.45, 1.0), (-w / 4 - 0.1, zs + 0.85, 0.62), (w / 4 + 0.1, zs + 0.85, 0.62)):
+                ring(plane, [(x + cx_ + a, cz_ + b) for a, b in circle_outline(0, 0, r_, 12)],
+                     [(x + cx_ + a, cz_ + b) for a, b in circle_outline(0, 0, r_ + 0.17, 12)], base, base + depth * 0.8)
+        if register:
+            FRONT_OPENINGS.append({"x": x, "z0": z0, "z1": z1, "w": w, "shape": shape, "y": round(plane.o[1], 3),
+                                   "hw": w / 2 + frame + 0.05})
+
+    def fband(plane, u0, u1, z, h, out):
+        """Projecting band (top at z) that leaves the openings of this plane free."""
+        y = round(plane.o[1], 3)
+        cuts = sorted((o["x"] - o["hw"], o["x"] + o["hw"]) for o in FRONT_OPENINGS
+                      if o["y"] == y and o["z0"] - 0.3 < z and o["z1"] + 0.3 > z - h
+                      and o["x"] + o["hw"] > u0 and o["x"] - o["hw"] < u1)
+        cur = u0
+        for a, b in cuts:
+            if a > cur + 0.05:
+                band(plane, cur, a, z, h, out)
+            cur = max(cur, b)
+        if u1 > cur + 0.05:
+            band(plane, cur, u1, z, h, out)
+
+    cbl = fl["central_bays"]
+    stair_n, stair_d, stair_w = int(fl["terrace"]["steps"]), fl["terrace"]["depth"], fl["terrace"]["w"]
+    rise = 0.12
+    z_floor = stair_n * rise
+    en, bw, att, gb = cbl["entrance"], cbl["big_window"], cbl["attic_windows"], cbl["gable"]
+    cz = cbl["cornice_z"]
+    bays = mir(cbl["x"])
+    piers = mir(cbl["pier_x"])
+    pw_ = cbl["pier_w"]
+    edges = [-cw / 2] + [e for p in piers for e in (p - pw_ / 2, p + pw_ / 2)] + [cw / 2]
+
+    # terrace: broad stair in front of the central projection
+    sd = stair_d / stair_n
+    for j in range(stair_n):
+        S.box(-stair_w / 2, stair_w / 2, yc - sd * (j + 1), yc - sd * j + 0.05, 0, rise * (stair_n - j))
+    S.box(-cw / 2, cw / 2, yc, yc + 1.0, ce - 0.1, cz)           # attic parapet under the gables
+
+    for bx in bays:
+        opening(pc, bx, z_floor, en["z_top"], en["w"], "arch", spring=en["z_spring"])
+        opening(pc, bx, bw["z0"], bw["z_top"], bw["w"], "tracery")
+        for dx in att["dx"]:
+            opening(pc, bx + dx, att["z0"], att["z1"], att["w"], "arch")
+    # piers with statues, stepping 0.4 m forward
+    z0s, z1s = cbl["statues"]["z0"], cbl["statues"]["z1"]
+    for px_ in piers:
+        bar(pc, px_ - pw_ / 2, px_ + pw_ / 2, 0, cz - 0.5, 0, 0.4)
+        bar(pc, px_ - pw_ / 2 - 0.15, px_ + pw_ / 2 + 0.15, cz - 0.9, cz - 0.5, 0, 0.55)
+        bar(pc, px_ - 0.5, px_ + 0.5, z0s, z0s + 0.55, 0.4, 1.0)
+        bar(pc, px_ - 0.35, px_ + 0.35, z0s + 0.55, z1s - 0.7, 0.4, 0.95)
+        bar(pc, px_ - 0.17, px_ + 0.17, z1s - 0.7, z1s, 0.45, 0.85)
+    # balustrades between the piers (inner pier faces)
+    inner_e = [edges[i] for i in range(len(edges))]
+    spans = [(-cw / 2, piers[0] - pw_ / 2)] + [(piers[i] + pw_ / 2, piers[i + 1] - pw_ / 2) for i in range(len(piers) - 1)] \
+        + [(piers[-1] + pw_ / 2, cw / 2)]
+    bz0, bz1 = cbl["balustrade"]["z0"], cbl["balustrade"]["z1"]
+    for u0, u1 in spans:
+        if u1 - u0 < 5.0:
+            continue
+        u0, u1 = max(u0, -17.5), min(u1, 17.5)
+        bar(pc, u0, u1, bz0, bz0 + 0.18, 0, 0.5)
+        bar(pc, u0, u1, bz1 - 0.16, bz1, 0, 0.55)
+        nb = int((u1 - u0) / 0.5)
+        for k in range(nb):
+            ux = u0 + (k + 0.5) * (u1 - u0) / nb
+            bar(pc, ux - 0.1, ux + 0.1, bz0 + 0.18, bz1 - 0.16, 0.05, 0.35)
+    gw, gz0, gzt, nw, nz = gb["w"], gb["z0"], gb["z_top"], gb["neck_w"], gb["neck_z"]
+    nsl = 12
+
+    def half(z):
+        t = (z - gz0) / (nz - gz0)
+        return nw / 2 + (gw / 2 - nw / 2) * (1 - t) ** 2.2
+    for bx in bays:                                              # ogee gables with statue niche, pedestal and finial
+        for k in range(nsl):
+            za, zb_ = gz0 + (nz - gz0) * k / nsl, gz0 + (nz - gz0) * (k + 1) / nsl
+            pc.prism(S, [(bx - half(za), za), (bx + half(za), za), (bx + half(zb_), zb_), (bx - half(zb_), zb_)], -0.8, 0.1)
+        bar(pc, bx - nw / 2 - 0.3, bx + nw / 2 + 0.3, nz, nz + 0.25, -0.8, 0.3)
+        bar(pc, bx - 0.6, bx + 0.6, nz + 0.25, nz + 1.0, -0.4, 0.3)
+        fx, fy_, _ = pc.pt(bx, 0, -0.05)
+        C.frustum(fx, fy_, nz + 1.0, gzt, 0.9, 0.9, 0, 0)
+        opening(pc, bx, gb["niche_z0"], gb["niche_z1"], 2.4, "arch", base=0.1, register=False)
+        bar(pc, bx - 0.45, bx + 0.45, gb["niche_z0"], gb["niche_z0"] + 0.4, 0.1, 0.5)
+        bar(pc, bx - 0.35, bx + 0.35, gb["niche_z0"] + 0.4, gb["niche_z1"] - 1.3, 0.1, 0.45)
+        bar(pc, bx - 0.17, bx + 0.17, gb["niche_z1"] - 1.3, gb["niche_z1"] - 0.75, 0.1, 0.4)
+
+    # middle wing, towers, wing ends and pavilions
+    mwg = fl["middle_wing"]
+    for x in mir(mwg["x"]):
+        for r in mwg["rows"]:
+            opening(pf, x, r["z0"], r["z1"], r["w"], r["shape"])
+        dwn = mwg["dormer_window"]
+        opening(pf, x, dwn["z0"], dwn["z1"], dwn["w"], "arch", depth=0.3)
+    for key, plane in (("tower_body", pT), ("wing_end", pf), ("pavilion", pT)):
+        for x in mir(fl[key]["x"]):
+            for r in fl[key]["rows"]:
+                opening(plane, x, r["z0"], r["z1"], r["w"], r["shape"])
+    gwn = fl["pavilion"]["gable_window"]
+    for x in mir([gwn["x"]]):
+        opening(pT, x, gwn["z0"], gwn["z1"], gwn["w"], gwn["shape"])
+
+    # floor bands across the whole front, plus cornice and the old eave / string-course bands
+    xp0, xp1 = hw - pw, hw + proj
+    for z in fl["floor_bands_z"]:
+        if z >= cz - 0.01:
+            continue
+        fband(pc, -cw / 2, cw / 2, z, 0.3, 0.25)
+        if z <= eave:
+            fband(pf, -(hw - pw), hw - pw, z, 0.3, 0.25)
+        for s in (-1, 1):
+            fband(pT, s * tx - tw / 2, s * tx + tw / 2, z, 0.3, 0.25)
+            fband(pT, min(s * xp0, s * xp1), max(s * xp0, s * xp1), z, 0.3, 0.25)
+    band(pc, -cw / 2 - 0.3, cw / 2 + 0.3, cz, 0.5, 0.5)
+    fband(pf, -(hw - pw), hw - pw, eave, chh, co)
+    fband(pf, -(hw - pw), hw - pw, d("string_course_z"), 0.6, co * 0.7)
+    fband(pc, -cw / 2, cw / 2, d("string_course_z"), 0.6, co * 0.7)
 
     # ---------------------------------------------------------------- side, rear and courtyard facades
     sp = d("side_pitch")
@@ -361,18 +544,19 @@ def build(spec):
     for i, pl2 in enumerate(sides_of(0, dy, h2, h2)):
         for x in (-5.5, 0.0, 5.5):
             win(pl2, x, db_e + 1.5, 2.2, 7.0, framed=True)
-        pl2.prism(S, [(-h2 + 1.5, db_t), (h2 - 1.5, db_t), (0, dp)], -0.3, 1.0)
-        pl2.prism(S, [(-h2 + 1.0, db_t), (h2 - 1.0, db_t), (h2 - 1.0, db_t + 0.5), (-h2 + 1.0, db_t + 0.5)], -0.3, 1.3)
+        rel = d("domebase_relief")
+        pl2.prism(S, [(-h2 + 1.5, db_t), (h2 - 1.5, db_t), (0, dp)], -0.3, rel)
+        pl2.prism(S, [(-h2 + 1.0, db_t), (h2 - 1.0, db_t), (h2 - 1.0, db_t + 0.5), (-h2 + 1.0, db_t + 0.5)], -0.3, rel + 0.1)
         n_ = 20
         ring = [(clk_r * math.cos(2 * math.pi * k / n_), clk_z + clk_r * math.sin(2 * math.pi * k / n_)) for k in range(n_)]
-        pl2.prism(CK, ring, 0.9, 1.4)
-        pl2.decal(WF, [(-0.12, clk_z + 0.0), (0.12, clk_z + 0.0), (0.12, clk_z + clk_r * 0.75), (-0.12, clk_z + clk_r * 0.75)], 1.43)
-        pl2.decal(WF, [(0.0, clk_z - 0.12), (clk_r * 0.55, clk_z - 0.12), (clk_r * 0.55, clk_z + 0.12), (0.0, clk_z + 0.12)], 1.43)
+        pl2.prism(CK, ring, rel - 0.1, rel + 0.15)
+        pl2.decal(WF, [(-0.12, clk_z + 0.0), (0.12, clk_z + 0.0), (0.12, clk_z + clk_r * 0.75), (-0.12, clk_z + clk_r * 0.75)], rel + 0.18)
+        pl2.decal(WF, [(0.0, clk_z - 0.12), (clk_r * 0.55, clk_z - 0.12), (clk_r * 0.55, clk_z + 0.12), (0.0, clk_z + 0.12)], rel + 0.18)
         px, py, _ = pl2.pt(0, 0, 0.5)
         C.frustum(px, py, dp - 0.1, dp + 1.2, 0.9, 0.9, 0, 0)
     for ix in (-1, 1):
         for iy in (-1, 1):
-            pinnacle(ix * (h2 - 0.4), dy + iy * (h2 - 0.4), db_t - 0.5, dpn, 1.6, 2.4)
+            pinnacle(ix * (h2 - 0.4), dy + iy * (h2 - 0.4), db_t - 0.5, dpn, d("domebase_pinnacle_w"), 2.4)
     dbh, dm = d("dome_base_h"), d("dome_top_h")
     R_d = d("dome_w") / 2
     S.lathe(0, dy, [(R_d + 0.4, db_t), (R_d + 0.4, dbh - 0.01)], seg=24)           # drum under the dome
@@ -387,17 +571,18 @@ def build(spec):
     DOME.lathe(0, dy, prof, seg=2 * ribs, rib=d("dome_rib_h"))
     k8 = 1 / math.cos(math.pi / 8)
     S.lathe(0, dy, [(l1w / 2 * k8, dm - 0.2), (l1w / 2 * k8, l1t - 0.8)], seg=8, phase=math.pi / 8)
-    S.lathe(0, dy, [(l1w / 2 * k8 + 0.6, l1t - 0.8), (l1w / 2 * k8 + 0.6, l1t)], seg=8, phase=math.pi / 8)
+    S.lathe(0, dy, [(l1w / 2 * k8 + d("lantern_rim"), l1t - 0.8), (l1w / 2 * k8 + d("lantern_rim"), l1t)], seg=8, phase=math.pi / 8)
     S.lathe(0, dy, [(l2w / 2 * k8, l1t), (l2w / 2 * k8, l2t - 0.6)], seg=8, phase=math.pi / 8)
-    S.lathe(0, dy, [(l2w / 2 * k8 + 0.4, l2t - 0.6), (l2w / 2 * k8 + 0.4, l2t)], seg=8, phase=math.pi / 8)
+    S.lathe(0, dy, [(l2w / 2 * k8 + d("lantern_rim"), l2t - 0.6), (l2w / 2 * k8 + d("lantern_rim"), l2t)], seg=8, phase=math.pi / 8)
     for pl2 in sides_of(0, dy, l1w / 2 * 0.99, l1w / 2 * 0.99):
         win(pl2, 0.0, dm + 0.8, 2.0, l1t - dm - 2.0, False, 0.05)
     for pl2 in sides_of(0, dy, l2w / 2 * 0.99, l2w / 2 * 0.99):
         win(pl2, 0.0, l1t + 0.8, 1.4, l2t - l1t - 2.0, False, 0.05)
     ct, st = d("cap_top_h"), d("spire_tip_h")
     ch_ = ct - l2t
-    CAP.lathe(0, dy, [(l2w / 2 * 1.2, l2t), (l2w / 2 * 1.3, l2t + 0.15 * ch_), (l2w / 2 * 1.05, l2t + 0.45 * ch_),
-                      (l2w / 2 * 0.55, l2t + 0.8 * ch_), (0.45, ct), (0.2, ct + (st - ct) * 0.35), (0, st)], seg=16)
+    c0, c1, c2, c3 = d("cap_profile")
+    CAP.lathe(0, dy, [(l2w / 2 * c0, l2t), (l2w / 2 * c1, l2t + 0.15 * ch_), (l2w / 2 * c2, l2t + 0.45 * ch_),
+                      (l2w / 2 * c3, l2t + 0.8 * ch_), (0.45, ct), (0.2, ct + (st - ct) * 0.35), (0, st)], seg=16)
 
     # ---------------------------------------------------------------- landmarks (names from refs.json, ref/01.jpg)
     fz = dy - h2

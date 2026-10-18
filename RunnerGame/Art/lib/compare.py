@@ -1,6 +1,6 @@
 """Build an asset and compare it with one reference photo (one round of the comparison loop).
 
-blender --background --factory-startup --python RunnerGame/Art/lib/compare.py -- <asset_dir> <ref/NN.jpg> [--fit]
+blender --background --factory-startup --python RunnerGame/Art/lib/compare.py -- <asset_dir> <ref/NN.jpg> [--fit] [--zoom x0,y0,x1,y1]
 
 --fit first fits the camera to the photo's landmarks (numerically, no images) and saves it to refs.json.
 
@@ -45,7 +45,8 @@ def main(argv):
     while (previews / f"compare_{stem}_r{rnd}.png").exists():
         rnd += 1
     out = previews / f"compare_{stem}_r{rnd}.png"
-    rms = pl.compare_image(str(asset_dir / photo_file), photo["camera"], str(out), photo.get("landmarks", {}))
+    zoom = tuple(int(v) for v in argv[argv.index("--zoom") + 1].split(",")) if "--zoom" in argv else None
+    rms = pl.compare_image(str(asset_dir / photo_file), photo["camera"], str(out), photo.get("landmarks", {}), zoom=zoom)
     width = photo["size"][0]
     print(f"RMS {rms:.1f} px ({100 * rms / width:.2f} % of width)" if rms is not None else "RMS n/a (no landmark pairs)")
     print("wrote", out)

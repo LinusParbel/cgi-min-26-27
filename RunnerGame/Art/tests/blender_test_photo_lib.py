@@ -104,6 +104,13 @@ class CompareImageTest(unittest.TestCase):
             overlay = bpy.data.images.load(str(Path(d) / "compare_overlay.png"))
             self.assertLessEqual(max(overlay.size), 1000)
             self.assertLessEqual(overlay.size[0], 300)   # cropped to the model, never wider than the photo
+            blend = bpy.data.images.load(str(Path(d) / "compare_blend.png"))
+            self.assertEqual(tuple(blend.size), tuple(overlay.size))
+            out2 = str(Path(d) / "zoomed.png")
+            photo_lib.compare_image(photo, CAM, out2, {"o": [150, 100]}, zoom=(10, 20, 110, 70))
+            z = bpy.data.images.load(str(Path(d) / "zoomed_blend_zoom.png"))
+            self.assertEqual(tuple(z.size), (100, 50))
+
 
 
 if __name__ == "__main__":

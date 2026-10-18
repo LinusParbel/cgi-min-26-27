@@ -304,8 +304,8 @@
    "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: end pavilion x 106-225"
   },
   "pav_eave_h": {
-   "value": 28.0,
-   "source": "ref/01.jpg left-half grid, facade scale 0.0898 m/px, base y 933: pavilion cornice y 620"
+   "value": 20.4,
+   "source": "loop r5 full-res blend: the pavilion gable starts at the wing eave (y 706); the band at y 620 is inside the gable"
   },
   "pav_gable_h": {
    "value": 32.8,
@@ -405,6 +405,256 @@
     27.4
    ],
    "source": "ref/01.jpg left-half grid: turrets on the front wing roofs at x 283 and 520 px (facade scale) -> 48.7 m and 27.4 m from the centre"
+  },
+  "front_layout": {
+   "value": {
+    "note": "left half of the Maschteich front, mirrored for the right; x in metres from the centre (negative = left), z above the base; windows: [x_centre, z_bottom, z_top, width, shape] with shape rect|arch|arch2 (paired arched)|tracery; loop r5: wing_end axes spread between pavilion edge (-53.1) and the tower (-47.1); tower_body axis follows tower_x",
+    "central_bays": {
+     "x": [
+      -10.4,
+      0.0
+     ],
+     "pier_x": [
+      -16.68,
+      -5.71
+     ],
+     "pier_w": 1.3,
+     "entrance": {
+      "w": 5.6,
+      "z_top": 7.54,
+      "z_spring": 5.39
+     },
+     "balustrade": {
+      "z0": 9.07,
+      "z1": 10.06
+     },
+     "big_window": {
+      "w": 6.2,
+      "z0": 10.33,
+      "z_top": 18.59,
+      "shape": "tracery"
+     },
+     "band_z": 20.12,
+     "attic_windows": {
+      "dx": [
+       -2.0,
+       0.0,
+       2.0
+      ],
+      "w": 1.9,
+      "z0": 20.92,
+      "z1": 23.26
+     },
+     "cornice_z": 24.52,
+     "gable": {
+      "w": 9.6,
+      "z0": 24.52,
+      "z_top": 36.55,
+      "neck_w": 3.1,
+      "neck_z": 33.5,
+      "niche_z0": 25.41,
+      "niche_z1": 29.9,
+      "shape": "ogee"
+     },
+     "statues": {
+      "z0": 15.54,
+      "z1": 19.58
+     }
+    },
+    "middle_wing": {
+     "x": [
+      -34.56,
+      -28.19,
+      -21.73
+     ],
+     "rows": [
+      {
+       "z0": 4.85,
+       "z1": 8.17,
+       "w": 2.4,
+       "shape": "arch"
+      },
+      {
+       "z0": 10.33,
+       "z1": 16.88,
+       "w": 4.2,
+       "shape": "arch2"
+      }
+     ],
+     "dormer_window": {
+      "z0": 20.92,
+      "z1": 23.8,
+      "w": 1.8
+     }
+    },
+    "tower_body": {
+     "x": [
+      -42.6
+     ],
+     "rows": [
+      {
+       "z0": 0.72,
+       "z1": 4.04,
+       "w": 1.8,
+       "shape": "arch"
+      },
+      {
+       "z0": 4.76,
+       "z1": 8.17,
+       "w": 2.0,
+       "shape": "arch"
+      },
+      {
+       "z0": 10.87,
+       "z1": 14.19,
+       "w": 2.4,
+       "shape": "arch"
+      },
+      {
+       "z0": 16.43,
+       "z1": 18.95,
+       "w": 3.6,
+       "shape": "rect"
+      }
+     ]
+    },
+    "wing_end": {
+     "x": [
+      -51.4,
+      -48.8
+     ],
+     "rows": [
+      {
+       "z0": 0.72,
+       "z1": 3.86,
+       "w": 1.7,
+       "shape": "arch"
+      },
+      {
+       "z0": 4.94,
+       "z1": 8.17,
+       "w": 1.7,
+       "shape": "arch"
+      },
+      {
+       "z0": 10.51,
+       "z1": 13.29,
+       "w": 1.7,
+       "shape": "arch"
+      },
+      {
+       "z0": 15.0,
+       "z1": 17.6,
+       "w": 1.7,
+       "shape": "arch"
+      }
+     ]
+    },
+    "pavilion": {
+     "x": [
+      -60.4,
+      -57.75,
+      -55.09
+     ],
+     "rows": [
+      {
+       "z0": 0.72,
+       "z1": 3.86,
+       "w": 1.7,
+       "shape": "arch"
+      },
+      {
+       "z0": 4.94,
+       "z1": 8.17,
+       "w": 1.7,
+       "shape": "arch"
+      },
+      {
+       "z0": 10.51,
+       "z1": 13.29,
+       "w": 1.7,
+       "shape": "arch"
+      },
+      {
+       "z0": 15.0,
+       "z1": 17.6,
+       "w": 1.7,
+       "shape": "arch"
+      }
+     ],
+     "gable_window": {
+      "x": -57.75,
+      "z0": 20.47,
+      "z1": 23.17,
+      "w": 2.0,
+      "shape": "arch"
+     }
+    },
+    "floor_bands_z": [
+     4.58,
+     9.25,
+     20.12,
+     24.52
+    ],
+    "terrace": {
+     "w": 20.0,
+     "depth": 8.0,
+     "z": 0.0,
+     "steps": 6,
+     "source": "ref/01.jpg broad stair in front of the central projection, estimate"
+    }
+   },
+   "source": "ref/01.jpg central-projection grid (10 px) and left-half grid (25 px); x scale 0.0885 m/px (127.2 m / 1437 px), z scale 0.0898 m/px, base y 933"
+  },
+  "pav_gable_profile": {
+   "value": [
+    [
+     20.4,
+     10.7
+    ],
+    [
+     24.5,
+     8.9
+    ],
+    [
+     28.0,
+     5.3
+    ],
+    [
+     31.0,
+     2.5
+    ],
+    [
+     32.8,
+     0.6
+    ]
+   ],
+   "source": "ref/01.jpg full-res blend zoom (1:1): gable width at y 706/660/620/585/568"
+  },
+  "pav_roof_h": {
+   "value": 26.0,
+   "source": "loop r6 blend: pavilion roof must stay hidden behind the narrowing gable (sky beside the gable in ref/01.jpg)"
+  },
+  "domebase_pinnacle_w": {
+   "value": 1.0,
+   "source": "loop r8 dome blend: corner pinnacles are slim spires (were 1.6 m blocks)"
+  },
+  "cap_profile": {
+   "value": [
+    0.95,
+    1.0,
+    0.8,
+    0.45
+   ],
+   "source": "loop r8 dome blend: bulb cap radii as multiples of lantern2_w/2 at 0/15/45/80 % of its height (slimmer than the first guess 1.2/1.3/1.05/0.55)"
+  },
+  "lantern_rim": {
+   "value": 0.3,
+   "source": "loop r8 dome blend: lantern cornice rims overhang ~0.3 m"
+  },
+  "domebase_relief": {
+   "value": 0.45,
+   "source": "loop r9 dome blend: pediments/clock rings stood 1.0-1.4 m proud and showed beside the base in the front view; real relief is shallow"
   }
  },
  "colors": {

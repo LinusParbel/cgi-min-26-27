@@ -242,6 +242,50 @@ def _mark(px, x, y, colour, r=4):
     px[max(0, row - r):min(h, row + r + 1), max(0, col - r):min(w, col + r + 1), :3] = colour
 
 
+def _crop_box(mask, photo_landmarks, h, w, margin=40):
+    rows, cols = np.nonzero(mask)
+    ys = list(rows) + [h - 1 - y for _, y in photo_landmarks.values()]
+    xs = list(cols) + [x for x, _ in photo_landmarks.values()]
+    if not xs:
+        ys, xs = [0, h - 1], [0, w - 1]
+    return (max(0, int(min(ys)) - margin), min(h, int(max(ys)) + margin + 1),
+            max(0, int(min(xs)) - margin), min(w, int(max(xs)) + margin + 1))
+
+
+def _save_crop(px, box, path, max_side=1000):
+    r0, r1, c0, c1 = box
+    crop = px[r0:r1, c0:c1]
+    step = max(1, math.ceil(max(crop.shape[:2]) / max_side))
+    crop = np.ascontiguousarray(crop[::step, ::step])
+    img = bpy.data.images.new("__crop", crop.shape[1], crop.shape[0])
+    img.pixels[:] = crop.ravel()
+    img.filepath_raw = str(path)
+    img.file_format = 'PNG'
+    img.save()
+    bpy.data.images.remove(img)
+
+
+def _render_materials(path, samples=8):
+    """Quick Cycles render with the real (node) materials and transparent film, for the blend image."""
+    scene = bpy.context.scene
+    engine = scene.render.engine
+    try:
+        scene.render.engine = 'CYCLES'
+    except TypeError as e:
+        raise RuntimeError(f"Cycles not available: {e}")
+    scene.cycles.samples = samples
+    scene.cycles.device = 'CPU'
+    scene.world = scene.world or bpy.data.worlds.new("World")
+    scene.world.color = (0.6, 0.6, 0.6)
+    scene.render.film_transparent = True
+    scene.render.filepath = path
+    bpy.ops.render.render(write_still=True)
+    scene.render.engine = engine
+    px = _load_pixels(path)
+    Path(path).unlink()
+    return px
+
+
 def _save_overlay_crop(overlay, mask, photo_landmarks, out_png, margin=40, max_side=1000):
     """The one image to look at per round: overlay cropped to model + landmarks, at most max_side px."""
     h, w = overlay.shape[:2]
@@ -264,7 +308,7 @@ def _save_overlay_crop(overlay, mask, photo_landmarks, out_png, margin=40, max_s
     bpy.data.images.remove(img)
 
 
-def compare_image(photo_path, cam, out_png, photo_landmarks):
+def compare_image(photo_path, cam, out_png, photo_landmarks, zoom=None):
     """Render the scene from the matched camera and write photo | render | overlay side by side.
     Overlay: the render's outline in magenta on the photo, photo landmarks green, model landmarks red.
     Returns the landmark RMS error in pixels (None if no landmark pairs)."""
@@ -318,6 +362,16 @@ def compare_image(photo_path, cam, out_png, photo_landmarks):
     out.save()
     bpy.data.images.remove(out)
     _save_overlay_crop(overlay, mask, photo_landmarks, out_png)
+    # blend image: photo and material render 50/50, same crop as the overlay (windows/details show as doubles)
+    colour = _render_materials(tmp)
+    a = colour[:, :, 3:4] * 0.5
+    blend = photo * (1 - a) + colour * a
+    blend[:, :, 3] = 1
+    p = Path(out_png).resolve()
+    _save_crop(blend, _crop_box(mask, photo_landmarks, h, w), p.with_name(p.stem + "_blend.png"))
+    if zoom:                                     # (x0, y0, x1, y1) in photo pixels, full resolution
+        x0, y0, x1, y1 = zoom
+        _save_crop(blend, (h - y1, h - y0, x0, x1), p.with_name(p.stem + "_blend_zoom.png"), max_side=10 ** 6)
     for name, e in sorted(errors.items(), key=lambda kv: -kv[1]):
         print(f"  {name:20s} {e:6.1f} px")
     return rms

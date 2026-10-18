@@ -32,7 +32,8 @@ class RathausBuildTest(unittest.TestCase):
     def setUpClass(cls):
         photo_lib.al.clear_scene()
         cls.spec = photo_lib.Spec(ASSET / "spec.json")
-        cls.parts = load_build().build(cls.spec)
+        cls.module = load_build()
+        cls.parts = cls.module.build(cls.spec)
         cls.objs = [o for objs in cls.parts.values() for o in objs]
 
     def test_one_part(self):
@@ -79,6 +80,29 @@ class RathausBuildTest(unittest.TestCase):
         for a, b in (("tower_l_tip", "tower_r_tip"), ("pav_l_gable", "pav_r_gable"), ("center_corner_l", "center_corner_r")):
             self.assertAlmostEqual(lm(a).x, -lm(b).x, delta=0.01)
             self.assertAlmostEqual(lm(a).z, lm(b).z, delta=0.01)
+
+    def test_front_window_count_matches_front_layout(self):
+        fl = self.spec.d("front_layout")
+        bays = [x for x in fl["central_bays"]["x"]]
+        bay_xs = {round(x, 2) for x in bays} | {round(-x, 2) for x in bays}
+        n = len(bay_xs) * (2 + len(fl["central_bays"]["attic_windows"]["dx"]))   # entrance, big window, attics
+
+        def mirrored(xs):
+            return len({round(x, 2) for x in xs} | {round(-x, 2) for x in xs})
+        mw = fl["middle_wing"]
+        n += mirrored(mw["x"]) * (len(mw["rows"]) + 1)                           # rows + dormer window
+        for key in ("tower_body", "wing_end", "pavilion"):
+            n += mirrored(fl[key]["x"]) * len(fl[key]["rows"])
+        n += 2                                                                   # pavilion gable windows
+        self.assertEqual(len(self.module.FRONT_OPENINGS), n)
+
+    def test_tracery_windows_at_layout_x(self):
+        fl = self.spec.d("front_layout")["central_bays"]
+        expect = sorted({round(x, 2) for x in fl["x"]} | {round(-x, 2) for x in fl["x"]})
+        got = sorted(o["x"] for o in self.module.FRONT_OPENINGS if o["shape"] == "tracery")
+        self.assertEqual(len(got), len(expect))
+        for g, e in zip(got, expect):
+            self.assertAlmostEqual(g, e, delta=0.05)
 
     def test_triangle_budget(self):
         deps = bpy.context.evaluated_depsgraph_get()
