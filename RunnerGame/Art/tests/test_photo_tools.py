@@ -81,6 +81,68 @@ class FetchPackTest(unittest.TestCase):
         self.assertEqual(refs["photos"][0]["size"], [64, 48])
 
 
+def two_page_fixture():
+    api = json.loads(json.dumps(API_FIXTURE))
+    page = json.loads(json.dumps(api["query"]["pages"]["-1"]))
+    page["title"] = "File:Second.jpg"
+    api["query"]["pages"]["-2"] = page
+    return api
+
+
+class FetchRobustnessTest(unittest.TestCase):
+    def test_existing_titles_keep_their_file_names(self):
+        with tempfile.TemporaryDirectory() as d:
+            (Path(d) / "refs.json").write_text(json.dumps({"photos": [
+                {"file": "ref/17.jpg", "title": BALE, "view": "side_left", "key": True,
+                 "landmarks": {"a": [1, 2]}, "camera": None}]}), encoding="utf-8")
+
+            def fake_run(args, **kwargs):
+                if "-o" in args:
+                    Path(args[args.index("-o") + 1]).write_bytes(jpeg_bytes(64, 48))
+                    return subprocess.CompletedProcess(args, 0, stdout=b"")
+                return subprocess.CompletedProcess(args, 0, stdout=json.dumps(two_page_fixture()).encode())
+
+            photos = pt.fetch_pack(Path(d), ["File:" + BALE, "File:Second.jpg"], run=fake_run, sleep=lambda s: None)
+            files = {p["title"]: p["file"] for p in photos}
+            self.assertEqual(files[BALE], "ref/17.jpg")
+            self.assertEqual(files["Second.jpg"], "ref/18.jpg")
+            self.assertEqual(photos[0]["landmarks"], {"a": [1, 2]})
+
+    def test_download_retried_after_failure(self):
+        sleeps, fails = [], [1]
+
+        def fake_run(args, **kwargs):
+            if "-o" in args:
+                if fails:
+                    fails.pop()
+                    return subprocess.CompletedProcess(args, 22, stdout=b"")
+                Path(args[args.index("-o") + 1]).write_bytes(jpeg_bytes(64, 48))
+                return subprocess.CompletedProcess(args, 0, stdout=b"")
+            return subprocess.CompletedProcess(args, 0, stdout=json.dumps(API_FIXTURE).encode())
+
+        with tempfile.TemporaryDirectory() as d:
+            pt.fetch_pack(Path(d), ["File:" + BALE], run=fake_run, sleep=sleeps.append)
+            self.assertTrue((Path(d) / "ref" / "01.jpg").exists())
+        self.assertIn(60, sleeps)
+
+    def test_failed_download_leaves_old_pack_untouched(self):
+        def fake_run(args, **kwargs):
+            if "-o" in args:
+                return subprocess.CompletedProcess(args, 22, stdout=b"")
+            return subprocess.CompletedProcess(args, 0, stdout=json.dumps(two_page_fixture()).encode())
+
+        with tempfile.TemporaryDirectory() as d:
+            ref = Path(d) / "ref"
+            ref.mkdir()
+            (ref / "01.jpg").write_bytes(b"old")
+            refs = json.dumps({"photos": [{"file": "ref/01.jpg", "title": BALE}]})
+            (Path(d) / "refs.json").write_text(refs, encoding="utf-8")
+            with self.assertRaises(RuntimeError):
+                pt.fetch_pack(Path(d), ["File:" + BALE, "File:Second.jpg"], run=fake_run, sleep=lambda s: None)
+            self.assertEqual((ref / "01.jpg").read_bytes(), b"old")
+            self.assertEqual((Path(d) / "refs.json").read_text(encoding="utf-8"), refs)
+
+
 class SaveNormalisedTest(unittest.TestCase):
     def test_save_normalised_exif_rotation(self):
         exif = Image.Exif()

@@ -19,7 +19,9 @@ import photo_lib as pl  # noqa: E402
 def main(argv):
     asset_dir, photo_file = Path(argv[0]).resolve(), argv[1]
     refs = json.loads((asset_dir / "refs.json").read_text(encoding="utf-8"))
-    photo = next(p for p in refs["photos"] if p["file"] == photo_file)
+    photo = next((p for p in refs["photos"] if p["file"] == photo_file), None)
+    if photo is None:
+        raise SystemExit(f"{photo_file} is not in refs.json (files: {[p['file'] for p in refs['photos']]})")
     if not photo.get("camera"):
         raise SystemExit(f"{photo_file} has no 'camera' in refs.json yet")
 

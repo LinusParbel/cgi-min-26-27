@@ -100,25 +100,47 @@ def fetch_pack(asset_dir, titles, width=1600, run=subprocess.run, sleep=time.sle
     if refs_path.exists():
         old = {p["title"]: p for p in json.loads(refs_path.read_text(encoding="utf-8"))["photos"]}
 
+    # Known titles keep their file name (spec.json, landmarks and commands refer to it); new ones get the next number.
+    used = [int(p["file"][4:6]) for p in old.values() if re.fullmatch(r"ref/\d\d\.jpg", p.get("file", ""))]
+    used += [int(f.stem) for f in ref_dir.glob("[0-9][0-9].jpg")]
+    next_no = max(used, default=0) + 1
+
+    # Download everything into a staging folder first, so a failure leaves the old pack untouched.
+    stage = ref_dir / ".fetch"
+    stage.mkdir(exist_ok=True)
     photos = []
-    for i, title in enumerate(titles, 1):
-        meta = found[_norm_title(title)]
-        rel = f"ref/{i:02d}.jpg"
-        tmp = ref_dir / f"{i:02d}.download"
-        result = run(["curl", "-s", "-f", "-A", UA, "-o", str(tmp), meta["image_url"]], capture_output=True)
-        if result.returncode != 0 or not tmp.exists():
-            raise RuntimeError(f"download failed for {meta['title']}")
-        size = save_normalised(tmp, asset_dir / rel)
-        tmp.unlink()
-        photo = {"file": rel, "title": meta["title"], "author": meta["author"], "licence": meta["licence"],
-                 "source_url": meta["source_url"], "size": list(size),
-                 "view": None, "key": False, "landmarks": {}, "camera": None}
-        for k in KEEP_KEYS:
-            if k in old.get(meta["title"], {}):
-                photo[k] = old[meta["title"]][k]
-        photos.append(photo)
-        print(f"{rel}  {size[0]}x{size[1]}  {meta['licence']}  {meta['title']}")
-        sleep(1)
+    try:
+        for title in titles:
+            meta = found[_norm_title(title)]
+            rel = old.get(meta["title"], {}).get("file")
+            if not rel:
+                rel, next_no = f"ref/{next_no:02d}.jpg", next_no + 1
+            tmp = stage / (Path(rel).stem + ".download")
+            for attempt in range(3):
+                result = run(["curl", "-s", "-f", "-A", UA, "-o", str(tmp), meta["image_url"]], capture_output=True)
+                if result.returncode == 0 and tmp.exists():
+                    break
+                if attempt == 2:
+                    raise RuntimeError(f"download failed for {meta['title']}")
+                print("download failed, waiting 60 s", file=sys.stderr)
+                sleep(60)
+            size = save_normalised(tmp, stage / Path(rel).name)
+            tmp.unlink()
+            photo = {"file": rel, "title": meta["title"], "author": meta["author"], "licence": meta["licence"],
+                     "source_url": meta["source_url"], "size": list(size),
+                     "view": None, "key": False, "landmarks": {}, "camera": None}
+            for k in KEEP_KEYS:
+                if k in old.get(meta["title"], {}):
+                    photo[k] = old[meta["title"]][k]
+            photos.append(photo)
+            print(f"{rel}  {size[0]}x{size[1]}  {meta['licence']}  {meta['title']}")
+            sleep(1)
+        for p in photos:
+            (stage / Path(p["file"]).name).replace(asset_dir / p["file"])
+    finally:
+        for f in stage.iterdir():
+            f.unlink()
+        stage.rmdir()
 
     refs_path.write_text(json.dumps({"photos": photos}, indent=1, ensure_ascii=False), encoding="utf-8")
     return photos
