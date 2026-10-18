@@ -69,7 +69,7 @@ def build(spec):
     bar_y = on_stem(d("bar_h")).y + d("bar_fwd")
     head_front_y = on_stem(d("head_top_h")).y + d("head_fwd")
     head_centre = Vector((0, head_front_y - d("head_len") / 2, d("head_top_h") - d("head_h") / 2))
-    head = al.box("head", (0.075, d("head_len"), d("head_h")), head_centre, mat["box"], bevel=0.015)
+    head = al.box("head", (d("head_w"), d("head_len"), d("head_h")), head_centre, mat["box"], bevel=0.022, segments=3)
     head.rotation_euler.x = math.radians(15)
     body(head)
     half = d("bar_w") / 2

@@ -80,8 +80,8 @@
    "source": "ref/17.jpg head block x 668-790 (122 px)"
   },
   "head_h": {
-   "value": 0.094,
-   "source": "ref/17.jpg head block y 212-270 (58 px)"
+   "value": 0.055,
+   "source": "Gate C feedback: flat display head (ref/11.jpg, ref/15.jpg); the side-photo reading 0.094 included the phone holder"
   },
   "box_w": {
    "value": 0.06,
@@ -176,16 +176,16 @@
    "source": "estimate; lever root distance from the grip end towards the centre"
   },
   "display_w": {
-   "value": 0.07,
-   "source": "estimate; display/phone holder on the head"
+   "value": 0.075,
+   "source": "slightly narrower than head_w"
   },
   "display_d": {
-   "value": 0.07,
-   "source": "estimate"
+   "value": 0.16,
+   "source": "most of head_len"
   },
   "display_h": {
-   "value": 0.02,
-   "source": "Gate C check: thin display cover on the head (ref/11.jpg, ref/15.jpg); 0.0x made the head a tall box"
+   "value": 0.006,
+   "source": "Gate C feedback: thin display cover"
   },
   "kick_len": {
    "value": 0.27,
@@ -198,6 +198,10 @@
   "kick_z": {
    "value": 0.085,
    "source": "estimate; kickstand height above ground (under the deck)"
+  },
+  "head_w": {
+   "value": 0.09,
+   "source": "ref/11.jpg head about 1.5x stem width"
   }
  },
  "colors": {
