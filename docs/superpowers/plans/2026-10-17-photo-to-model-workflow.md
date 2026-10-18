@@ -31,6 +31,17 @@ headless (bundled Python 3.13 + numpy, **no Pillow**), curl, C#/.NET 10 + course
 - Work on branch `feature/photo-to-model`; commit only this plan's files (the working tree contains other sessions' untracked files).
 - Gates A, B and C: stop and wait for the user's approval; never self-approve.
 
+## Token budget (user, 2026-10-18; same rules as `tools/asset-spike/WORKFLOW.md`)
+
+- Model per step: scripts for fetching/downloading; **haiku** for anything that only reads text (sorting `refs.json`,
+  credits); **sonnet** subagents for mechanical code tasks (Task 5 bake/export code, Task 6 C# viewer, Task 8 skill
+  text); the main session only for measuring, judging comparisons and the gates.
+- Images: ≤ 4 references per asset in the loop (1 key side, 1 key rear 3/4, ≤ 2 details). Only the contact sheet is
+  viewed for sorting. Per comparison round read **one** image: the cropped overlay (`*_overlay.png`, ≤ 1000 px),
+  never the full 3-panel sheet, never images from earlier rounds. Prefer numbers (landmark errors) over pictures.
+- Rounds: max 3 per key photo (was 5), max 2 per detail photo. Stop early when the errors stop improving.
+- Bake only for export (Workbench renders for geometry), 1024², samples 32. ≤ 3 parallel agents.
+
 ## Review Focus
 
 - Commons titles with non-ASCII characters (`Bâle`, `Électrique`, `ü`) must survive fetching and land in `refs.json` unchanged → test in Task 1.

@@ -65,6 +65,17 @@ class TubeTest(unittest.TestCase):
         self.assertAlmostEqual(sum(v.y for v in ends) / len(ends), 0.35, delta=0.001)
         bpy.data.objects.remove(o)
 
+    def test_arc_shell_stays_on_its_arc(self):
+        import math
+        o = photo_lib.arc_shell("__a", (0, 1, 0.2), 0.15, 0.08, 30, 120, 0.01, None)
+        for v in o.data.vertices:
+            co = o.matrix_world @ v.co
+            dy, dz = co.y - 1, co.z - 0.2
+            self.assertTrue(0.15 - 1e-4 <= math.hypot(dy, dz) <= 0.16 + 1e-4)
+            self.assertTrue(30 - 1e-3 <= math.degrees(math.atan2(dz, dy)) <= 120 + 1e-3)
+            self.assertLessEqual(abs(co.x), 0.04 + 1e-6)
+        bpy.data.objects.remove(o)
+
 
 class SpecTest(unittest.TestCase):
     def test_missing_key_names_it(self):

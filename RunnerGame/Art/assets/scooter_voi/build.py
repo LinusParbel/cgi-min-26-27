@@ -46,7 +46,7 @@ def build(spec):
     for side in (-1, 1):
         body(pl.tube(f"fork_{side}", (side * leg_x, crown.y, crown.z), (side * leg_x, front.y, front.z), 0.014, mat["metal"]))
     body(al.box("fork_crown", (2 * leg_x + 0.03, 0.05, 0.04), crown, mat["band"]))
-    body(al.box("front_fender", (d("wheel_w") + 0.03, R * 1.4, 0.015), front + Vector((0, -0.01, R + 0.025)), mat["fender"]))
+    body(pl.arc_shell("front_fender", front, R + 0.015, d("wheel_w") + 0.025, 70, 165, 0.01, mat["fender"]))
 
     # stem, black band, number-plate holder
     head_bottom = d("head_top_h") - d("head_h")
@@ -59,7 +59,8 @@ def build(spec):
 
     # head block on top of the stem, handlebar at its front edge
     bar_y = on_stem(d("bar_h")).y + d("bar_fwd")
-    head_centre = Vector((0, bar_y - d("head_len") / 2 + 0.03, d("head_top_h") - d("head_h") / 2))
+    head_front_y = on_stem(d("head_top_h")).y + d("head_fwd")
+    head_centre = Vector((0, head_front_y - d("head_len") / 2, d("head_top_h") - d("head_h") / 2))
     head = al.box("head", (0.075, d("head_len"), d("head_h")), head_centre, mat["box"], bevel=0.015)
     head.rotation_euler.x = math.radians(15)
     body(head)
@@ -77,13 +78,12 @@ def build(spec):
     body(al.box("deck_grip", (d("deck_w") - 0.02, d("deck_len") - 0.02, 0.01), (0, deck_mid, d("deck_top_h") - 0.005), mat["deck"]))
     body(pl.tube("down_tube", crown + Vector((0, -0.02, 0)), (0, deck_front + 0.03, d("deck_top_h") - 0.03), 0.035, mat["paint"]))
 
-    # rear fender hood over the top half of the rear wheel
+    # rear fender hood: a solid sector over the rear wheel, from the deck end over the top down to axle height
     fender_end = deck_rear - d("rear_fender_len")
-    body(al.box("rear_fender", (d("wheel_w") + 0.05, d("rear_fender_len"), d("fender_top_h") - R),
-                (0, (deck_rear + fender_end) / 2, (d("fender_top_h") + R) / 2), mat["fender"], bevel=0.02))
+    hood_r = d("fender_top_h") - R
+    body(pl.arc_shell("rear_fender", rear, 0.06, d("wheel_w") + 0.05, 20, 185, hood_r + 0.01 - 0.06, mat["fender"]))
 
     # landmarks (names match refs.json)
-    head_front_y = head_centre.y + d("head_len") / 2
     for name, loc in {
         "front_axle": front, "rear_axle": rear,
         "front_axle_top": front + Vector((0, 0, R)), "front_axle_bottom": front - Vector((0, 0, R)),
