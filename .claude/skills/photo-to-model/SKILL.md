@@ -1,0 +1,127 @@
+---
+name: photo-to-model
+description: Build a believable 3D model of a specific real object (vehicle, bin, tram, clock...) from free-licensed reference photos, measured by script and compared against the photos until the outline matches, then export OBJ + PNG for the runner game. Use for "model <real object> from photos", "make a new asset from reference photos", "photo-to-model", "build the Hannover wheelie bin / tram / Voi scooter from photos".
+---
+
+# photo-to-model
+
+Repeatable workflow: reference photos -> measured `spec.json` -> headless Blender build -> photo/outline comparison -> shared-texture OBJ export -> engine check. Worked example: `RunnerGame/Art/assets/scooter_voi/` (register: `RunnerGame/Art/ASSETS.md`). Design: `docs/superpowers/specs/2026-10-17-photo-to-model-workflow-design.md`.
+
+## 0. When to use
+
+- Generic prop ("a bin / cone / barrier"), recognisability not critical -> sibling workflow `tools/asset-spike/WORKFLOW.md` (script-built, no photo measuring). Do not use this skill.
+- Object that must look like a specific real thing (Voi scooter, Hannover tram, the Hannover bin, Kroepcke clock) -> this skill.
+- No external 3D generators, no paid services, no photo pixels in textures.
+
+All commands run from the repo root in Git Bash. Notation: `BL` = `"/c/Program Files/Blender Foundation/Blender 5.2/blender.exe" --background --factory-startup --python-exit-code 1`; `A` = `RunnerGame/Art/assets/<asset>` (e.g. `scooter_voi`); `python` = system Python (Pillow, numpy). Pass **absolute** output paths to Blender.
+
+## 1. The 7 steps
+
+**Step 1 - Reference pack.** Write `A/titles.txt` (one Commons title per line, `File:Name.jpg`). Find candidates with curl against the Commons API (low volume).
+```
+python RunnerGame/Art/lib/photo_tools.py fetch A A/titles.txt   # -> A/ref/NN.jpg (long side 1600, EXIF applied) + A/refs.json
+python RunnerGame/Art/lib/photo_tools.py sheet A                # -> A/previews/ref_sheet.jpg (one contact sheet)
+```
+View ONLY the contact sheet. Edit `refs.json`: set `view` (`side_left`, `side_right`, `rear`, `rear_34`, `front_34`, `top`, `detail_<part>`) and `"key": true` on the key photos. Prune photos by deleting them from refs.json and titles.txt (numbering gaps are fine; a re-fetch keeps view/key/landmarks/camera by title). Add credits to `RunnerGame/CREDITS.md` (same format as the Voi section; a haiku agent can write the lines from refs.json).
+**GATE A (user):** photo pack approved (right model/generation, a true side view, a rear 3/4). Stop and wait.
+
+**Step 2 - Measure -> `spec.json`.** Pick a ruler (known real size, e.g. wheel diameter). Per key photo:
+```
+python RunnerGame/Art/lib/photo_tools.py grid A/ref/NN.jpg A/previews/grid_NN.png [--crop x0,y0,x1,y1] [--step 50]
+python RunnerGame/Art/lib/photo_tools.py color A/ref/NN.jpg x0,y0,x1,y1          # median patch -> LINEAR rgb
+python RunnerGame/Art/lib/photo_tools.py measure A ref/NN.jpg A/measure_NN.json   # prints metres per pair
+```
+Read pixel points from the grid image and write them into that photo's `landmarks` in refs.json (`{"name": [x, y]}`). `measure_NN.json` = `{"ruler": ["lm_a","lm_b",metres], "pairs": {"wheelbase": ["front_axle","rear_axle"], ...}}`. Write `A/spec.json`:
+```
+{"ruler": {"photo": "ref/17.jpg", "from": "lm", "to": "lm", "metres": 0.254, "note": "..."},
+ "dims":   {"wheel_d": {"value": 0.254, "source": "ruler"}, ...},
+ "colors": {"paint": {"linear": [r, g, b], "source": "ref/02.jpg box 740,500,760,550"}, ...}}
+```
+Every value needs a `source` (photo + landmarks, or "estimate; check in ref/NN"). Metres, degrees, linear colours.
+
+**Step 3 - Rough model.** Write `A/build.py` modelled on `scooter_voi/build.py`: `build(spec) -> dict[str, list[Object]]` (parts, e.g. `body`, `wheel_front`); read numbers only via `spec.d("name")` / `spec.c("name")`; use `import photo_lib as pl` (`pl.al` = `asset_lib`; helpers `pl.tube`, `pl.arc_shell`, `pl.landmark`); create an `LM_<name>` empty (`pl.landmark(name, loc)`) for every landmark in refs.json. Corrections = change a number in spec.json and rebuild, never hand-edit geometry. Smoke test:
+```
+BL --python A/build.py -- --preview /abs/path/A/previews/preview.png
+```
+
+**Step 4 - Comparison loop (key photos).** Needs a rough `camera` in that photo's refs.json entry: `{"loc":[x,y,z],"look_at":[x,y,z],"lens_mm":26,"roll_deg":0}`.
+```
+BL --python RunnerGame/Art/lib/compare.py -- A ref/NN.jpg --fit
+```
+`--fit` numerically fits the camera to the landmarks and saves it to refs.json (drop it on later rounds if the camera is fine). Output: landmark errors, RMS (px and % of photo width), and `A/previews/compare_NN_r<k>.png` (3-panel sheet, do not view) plus `compare_NN_r<k>_overlay.png` (cropped, the one image to view). Read the numbers first; view the overlay only if needed. Derive spec corrections, rebuild, repeat.
+**GATE B (user):** side + rear 3/4 outline approved. Stop and wait.
+
+**Step 5 - Details**, in game-camera priority: rear (light, reflector, plate, fender), deck/top, handles/controls, stem/box. Front and underside stay simple. Same loop on `detail_*` photos. Materials via `al.material` / `al.flat` / `al.emissive_look` with spec colours.
+
+**Step 6 - Export (the only bake, 1024^2, 32 samples).**
+```
+BL --python A/build.py -- --export     # -> A/out/<PREFIX>_<part>.obj, <PREFIX>.png, <PREFIX>_parts.json
+```
+`build.py main()` handles `--export` as in the scooter: `pl.bake_shared_and_export(parts, pivots, str(out.resolve()), "<PREFIX>", res=1024, samples=32)` with pivots = `{"body": (0,0,0), "wheel_front": LM_front_axle location, ...}`. Body origin on the ground at its centre; moving parts have their origin on their axis. Check the triangle counts.
+
+**Step 7 - Engine check.**
+```
+dotnet run --project tools/asset-viewer -- A/out/<PREFIX>_parts.json A/previews/engine game,0,90,180
+```
+Writes `A/previews/engine_<view>.png` (1280x720; `game` = behind/above preset, numbers = yaw degrees, 0 = front towards camera). `--show` instead of the prefix opens an interactive window.
+**GATE C (user):** in-engine look approved. Then install:
+```
+mkdir -p RunnerGame/Assets/Models/<Category>/<Asset>
+cp A/out/<PREFIX>* RunnerGame/Assets/Models/<Category>/<Asset>/
+```
+(Existing categories: `Fahrzeug`, `Baustelle`, `Mull`.) Then `dotnet build CgiMin.sln` (no new warnings), add a row to `RunnerGame/Art/ASSETS.md`, finish `RunnerGame/CREDITS.md`. Commit only when the user asks.
+
+## 2. Gates and stop rules
+
+- Gates A, B, C: present, **stop, wait for the user. Never self-approve.** The user judges; Claude measures and builds.
+- Rounds: max 3 per key photo, max 2 per detail photo. Stop earlier when the errors stop improving. Target: outline matches in the overlay and landmark RMS < ~1.5 % of photo width (a leaning object may stay higher - say so at the gate).
+- Budgets: body <= 8,000 triangles, each moving part <= 1,000, one shared 1024^2 PNG.
+- Gate feedback = one fix batch + one re-export, then present again.
+
+## 3. Token budget
+
+| Step | Who |
+|---|---|
+| fetch, sheet, grid, colour, measure, compare, export, viewer | scripts (no model) |
+| sorting / crediting refs.json (text only) | haiku subagent |
+| mechanical code (build.py skeleton, glue, viewer fixes) | sonnet subagent with exact files/signatures; it does not commit |
+| reading grids, measuring, judging overlays, the gates | main session |
+
+- <= 4 reference photos in the loop (1 key side, 1 key rear 3/4, <= 2 details). Only the contact sheet is viewed for sorting.
+- Per comparison round view ONE image: the cropped `*_overlay.png` (<= 1000 px). Never re-read images from earlier rounds. Numbers (landmark errors, `measure`, triangle counts) before pictures.
+- Workbench previews for geometry; bake only for `--export`. <= 3 parallel agents.
+
+## 4. File layout and formats
+
+```
+RunnerGame/Art/lib/        photo_tools.py (system python, no bpy)  photo_lib.py (Blender, no PIL)  compare.py
+RunnerGame/Art/assets/<asset>/   ref/NN.jpg  refs.json  spec.json  titles.txt  build.py  previews/  out/
+RunnerGame/Assets/Models/<Category>/<Asset>/   runtime OBJ + PNG + parts.json only
+```
+- `refs.json`: `{"photos":[{file,title,author,licence,source_url,size:[w,h],view,key,landmarks:{name:[x,y]},camera}]}`.
+- `spec.json`: see step 2; every value has a `source`.
+- `<PREFIX>_parts.json`: `{"texture":"X.png","parts":[{"name","obj","pivot":[x,y,z]}]}`. Pivots are in **Blender coordinates**; engine translation = `(x, z, -y)`. Prefix like `VEH_ScooterVoi`.
+- Conventions: Blender Z-up, 1 unit = 1 m; **vehicles face +Y in Blender** (they drive towards -Z in the engine), static props face -Y; OBJ export is forward -Z / up Y, triangulated (done by `bake_shared_and_export`); PNG sRGB, spec colours linear; look shader nodes up by type, never by name; the engine has no normal maps, do not brighten textures to compensate.
+
+## 5. Pitfalls
+
+- Downloads: **curl, not urllib** (old cert store). Wikimedia: project User-Agent, >= 1 s between files, a non-JSON reply = rate limit, wait 60 s and retry (fetch does this; never hammer). Titles may be non-ASCII (`Bâle`, `ü`): keep them in UTF-8 files, never pass them as shell/curl arguments, and expect a garbled Windows console.
+- EXIF: reference copies are already transposed; measure and mark landmarks on `ref/NN.jpg` only, never on originals.
+- Blender: absolute output paths; headless only; do not use `mcp__blender__*` for builds (the live Blender is shared with other sessions).
+- Grid images: read the printed LABELS (source px), not positions on the displayed image; zoom with `--crop` for small parts.
+- Near-face perspective: widths/heights of near-side parts read from a side photo are too big; correct after the first compare. Widths invisible from the side are estimates - mark them so in `source`.
+- Landmark RMS is partly circular (landmarks and fit use the same photo); the overlay outline is the real check.
+- Sunlit colour samples are too light: sample flat shaded areas, darken after the engine check.
+- Leaning or parked objects bias the camera fit; prefer upright photos as key views.
+- A file open in an image viewer can be locked on Windows; close it or write a new name.
+- **Never edit** `tools/asset-spike/asset_lib.py` or `tools/asset-spike/SpikeViewer` (another session uses them; reach `asset_lib` only via `photo_lib`). Report library bugs instead of patching. Leave `tools/asset-viewer/` code alone unless the task is the viewer.
+- No logos, wordmarks or QR codes (invent plate numbers). No photo pixels in textures; colours come from spec.json.
+- Reference photos are CC BY / CC BY-SA: credit every one in `RunnerGame/CREDITS.md`. Only add assets we may share.
+- Tests: `python -m unittest discover -s RunnerGame/Art/tests -p "test_*.py"`; Blender tests `blender_test_*.py` via the BL command.
+
+## 6. Start checklist (e.g. Hannover wheelie bin)
+
+1. `mkdir -p RunnerGame/Art/assets/bin_hannover/{ref,previews}`; search Commons with curl; write `titles.txt`.
+2. `fetch`, `sheet`; view only the sheet; tag views and keys in refs.json; credits -> **Gate A**.
+3. Ruler (e.g. the known height of the bin), `grid` the side photo, landmarks into refs.json, `measure`, `color`, write `spec.json`.
+4. Copy `scooter_voi/build.py` as template (props face -Y; lid as its own part if it should move); first `--preview`, then the compare loop -> **Gate B**.
