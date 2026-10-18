@@ -306,6 +306,23 @@ def _save_section_sheet(layers, sections, h, path):
     _save_crop(sheet, (0, sheet.shape[0], 0, sheet.shape[1]), path, max_side=10 ** 6)
 
 
+def part_sheet(photos, out_png):
+    """One part across several key photos: photos = [(photo_path, cam, box, landmarks), ...].
+    Writes one image with a row per photo (photo | model colour | 50/50 blend, SECTION_ROW_H high)."""
+    import tempfile
+    rows = []
+    with tempfile.TemporaryDirectory() as tmp:
+        for i, (path, cam, box, lms) in enumerate(photos):
+            out = str(Path(tmp) / f"row{i}.png")
+            compare_image(path, cam, out, lms, sections=[("part", tuple(box))])
+            rows.append(_load_pixels(str(Path(tmp) / f"row{i}_sections.png")))
+    width = max(r.shape[1] for r in rows)
+    sheet = np.ones((SECTION_ROW_H * len(rows), width, 4), dtype=np.float32)
+    for i, r in enumerate(reversed(rows)):          # rows are bottom-up: first photo ends up on top
+        sheet[i * SECTION_ROW_H:(i + 1) * SECTION_ROW_H, :r.shape[1]] = r
+    _save_crop(sheet, (0, sheet.shape[0], 0, sheet.shape[1]), Path(out_png).resolve(), max_side=10 ** 6)
+
+
 def _render_materials(path, samples=8):
     """Quick Cycles render with the real (node) materials and transparent film, for the blend image."""
     scene = bpy.context.scene

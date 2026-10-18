@@ -374,10 +374,73 @@ def build_top(S, F, d, head_w):
         S[key].add_rotated(T[key], 1)
 
 
+def glass_material(name, c_top, c_bot, z_bot, z_top, look):
+    """Baked-look glass: Base Color = vertical gradient bottom->top plus diagonal light reflection bands (world position)."""
+    m = bpy.data.materials.new(name)
+    m.use_nodes = True
+    nt = m.node_tree
+    N, L = nt.nodes, nt.links
+    bsdf = next(n for n in N if n.type == "BSDF_PRINCIPLED")
+    bsdf.inputs["Roughness"].default_value = 0.1
+    geo = N.new("ShaderNodeNewGeometry")
+    sep = N.new("ShaderNodeSeparateXYZ")
+    L.new(geo.outputs["Position"], sep.inputs["Vector"])
+
+    def math(op, a, b=None):
+        n = N.new("ShaderNodeMath")
+        n.operation = op
+        for sock, val in ((n.inputs[0], a), (n.inputs[1], b)):
+            if val is None:
+                continue
+            if isinstance(val, (int, float)):
+                sock.default_value = val
+            else:
+                L.new(val, sock)
+        return n.outputs[0]
+
+    def map_range(value, a0, a1, b0, b1):
+        n = N.new("ShaderNodeMapRange")
+        n.clamp = True
+        L.new(value, n.inputs["Value"])
+        for key, val in (("From Min", a0), ("From Max", a1), ("To Min", b0), ("To Max", b1)):
+            n.inputs[key].default_value = val
+        return n.outputs["Result"]
+
+    def mix(a, b, fac, blend='MIX'):
+        n = N.new("ShaderNodeMix")
+        n.data_type = 'RGBA'
+        n.blend_type = blend
+        n.clamp_factor = True
+        for sock, val in ((n.inputs[6], a), (n.inputs[7], b)):
+            if isinstance(val, tuple):
+                sock.default_value = (*val, 1)
+            else:
+                L.new(val, sock)
+        if isinstance(fac, (int, float)):
+            n.inputs[0].default_value = fac
+        else:
+            L.new(fac, n.inputs[0])
+        return n.outputs[2]
+
+    t = map_range(sep.outputs["Z"], z_bot, z_top, 0.0, 1.0)
+    grad = mix(tuple(c_bot), tuple(c_top), t)
+    st = look["streaks"]
+    ang = math_radians = __import__("math").radians(st["angle_deg"])
+    cosa, sina = __import__("math").cos(ang), __import__("math").sin(ang)
+    horiz = math("SUBTRACT", sep.outputs["X"], sep.outputs["Y"])          # x on the front/back faces, -y on the sides
+    u = math("SUBTRACT", math("MULTIPLY", horiz, sina), math("MULTIPLY", sep.outputs["Z"], cosa))
+    period = 1.3 / st["count"]
+    m1 = math("MODULO", math("ADD", u, 100.0), period)
+    d = math("ABSOLUTE", math("SUBTRACT", m1, period / 2))
+    band = map_range(d, st["w"] / 2, 0.0, 0.0, 1.0)
+    L.new(mix(grad, (1.0, 1.0, 1.0), math("MULTIPLY", band, st["boost"] * 4), 'ADD'), bsdf.inputs["Base Color"])
+    return m
+
+
 def build(spec):
     d, c = spec.d, spec.c
     mat = {"iron": al.material("iron", c("iron"), dust=0.15, streaks=0.25, grime=0.3, scratches=0.15, mottle=0.1),
-           "dial": al.flat("dial", c("dial")), "glass": al.flat("glass", c("glass")), "gold": al.flat("gold", c("gold")),
+           "dial": al.flat("dial", c("dial")), "glass": None, "gold": al.flat("gold", c("gold")),
            "iron_top": al.flat("iron_top", c("iron_top")), "stone": al.flat("stone", c("stone"))}
     S = {k: Acc() for k in mat}                      # whole clock, per material
     F = {k: Acc() for k in mat}                      # one face (front, -Y); copied 4x rotated into S
@@ -439,7 +502,12 @@ def build(spec):
     # --- shaft with the showcase recesses, corner pilasters
     sc = d("showcase")
     z0s, z1s, sw = sc["z0"], sc["z1"], sc["w"]
-    t = 0.1 * sw                                     # recess depth: inset ~ 10 % of the width
+    t0 = 0.1 * sw                                    # frame steps: inset ~ 10 % of the width
+    sf = orn["showcase_frame"]
+    gl = d("glass_look")
+    yg = -h + sf["steps"] * 0.25 * t0 + gl["recess"]  # pane sits `recess` behind the innermost frame edge
+    t = yg + h + 0.004                               # wall thickness: the core wall is just behind the pane
+    mat["glass"] = glass_material("glass", c("glass_top"), c("glass_bottom"), z0s + sc["frame_w"], z1s - sc["frame_w"], gl)
     S["iron"].box(-h, h, -h, h, body["z0"], z0s)
     S["iron"].box(-h, h, -h, h, z1s, body["z1"])
     S["iron"].box(-(h - t), h - t, -(h - t), h - t, z0s, z1s)
@@ -454,8 +522,7 @@ def build(spec):
     stp = sc["frame_w"] / sf["steps"]
     outlines = [shoulder_arch(sw - 2 * k * stp, z0s + k * stp, z1s - k * stp)[0] for k in range(sf["steps"] + 1)]
     inner = outlines[-1]
-    yg = -h + t - 0.004
-    planes = [-h + (k + 1) * 0.25 * t for k in range(sf["steps"])] + [yg]
+    planes = [-h + (k + 1) * 0.25 * t0 for k in range(sf["steps"])] + [yg]
     for sx in (-1, 1):                               # wall beside the recess
         xa, xb = sorted((sx * sw / 2, sx * h))
         F["iron"].box(xa, xb, -h, -h + t, z0s, z1s)

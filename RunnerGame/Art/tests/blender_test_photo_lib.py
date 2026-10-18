@@ -121,6 +121,27 @@ class LensShiftTest(unittest.TestCase):
         self.assertLess(rms, 1.0)
 
 
+class PartSheetTest(unittest.TestCase):
+    def test_part_sheet_has_one_row_per_photo(self):
+        scene_with_landmarks()
+        photo_lib.al.box("cube", (1, 1, 1), (0, 0, 0), None)
+        with tempfile.TemporaryDirectory() as d:
+            photos = []
+            for i, (w, h) in enumerate(((300, 200), (200, 300))):
+                path = str(Path(d) / f"p{i}.png")
+                img = bpy.data.images.new(f"__p{i}", w, h)
+                img.pixels[:] = [0.5] * (w * h * 4)
+                img.filepath_raw = path
+                img.file_format = 'PNG'
+                img.save()
+                photos.append((path, CAM, (0, 0, 100, 50), {"o": [w / 2, h / 2]}))
+            out = str(Path(d) / "part.png")
+            photo_lib.part_sheet(photos, out)
+            sheet = bpy.data.images.load(out)
+            self.assertEqual(sheet.size[1], 2 * photo_lib.SECTION_ROW_H)
+            self.assertEqual(sheet.size[0], 3 * 2 * photo_lib.SECTION_ROW_H)
+
+
 class ErrorsTest(unittest.TestCase):
     def test_errors_rms(self):
         errors, rms = photo_lib.landmark_errors({"a": (0, 0), "b": (3, 4)}, {"a": [0, 0], "b": [0, 0]})

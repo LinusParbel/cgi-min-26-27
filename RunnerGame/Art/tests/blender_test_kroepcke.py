@@ -232,6 +232,35 @@ class KroepckeBuildTest(unittest.TestCase):
         for sign in (-1, 1):
             self.assertTrue([v for v in self.verts if abs(v.z - ztop) < 1e-3 and sign * v.x > 0.5 and v.y < -0.5])
 
+    def test_glass_material_varies_with_height(self):
+        nodes = bpy.data.materials["glass"].node_tree.nodes
+        links = bpy.data.materials["glass"].node_tree.links
+        types = {n.type for n in nodes}
+        self.assertIn("SEPXYZ", types)
+        self.assertIn("MAP_RANGE", types)
+        self.assertIn("NEW_GEOMETRY", types)
+        self.assertTrue([l for l in links if l.from_node.type == "SEPXYZ" and l.from_socket.name == "Z" and l.to_node.type == "MAP_RANGE"])
+        bsdf = next(n for n in nodes if n.type == "BSDF_PRINCIPLED")
+        self.assertTrue(bsdf.inputs["Base Color"].is_linked)
+        # the height gradient must really change colour: some MIX node blends two clearly different colours
+        spread = 0.0
+        for n in nodes:
+            if n.type == "MIX" and getattr(n, "data_type", "") == "RGBA" and not n.inputs[6].is_linked and not n.inputs[7].is_linked:
+                a, b = n.inputs[6].default_value, n.inputs[7].default_value
+                spread = max(spread, max(abs(a[i] - b[i]) for i in range(3)))
+        self.assertGreater(spread, 0.1, "glass gradient endpoints are (almost) the same colour")
+
+    def test_glass_pane_is_recessed(self):
+        from mathutils import Vector
+        sc, gl = self.spec.d("showcase"), self.spec.d("glass_look")
+        h = self.spec.d("body")["w"] / 2
+        frame_inner = -h + self.spec.d("ornaments")["showcase_frame"]["steps"] * 0.25 * 0.1 * sc["w"]
+        zc = (sc["z0"] + sc["z1"]) / 2
+        bpy.context.view_layer.update()
+        hit, loc, *_ = bpy.context.scene.ray_cast(bpy.context.view_layer.depsgraph, Vector((0, -5, zc)), Vector((0, 1, 0)), distance=10)
+        self.assertTrue(hit)
+        self.assertGreaterEqual(loc.y - frame_inner, gl["recess"] - 1e-3)
+
     def test_pedestal_arch_is_open(self):
         # Rays through the middle of each side (x = 0 / y = 0) must pass the whole pedestal: faces, not vertices.
         from mathutils import Vector

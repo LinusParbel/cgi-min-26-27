@@ -29,6 +29,16 @@ View ONLY the contact sheet. Edit `refs.json`: set `view` (`side_left`, `side_ri
 `detail_level`, `tri_budget`, `tex_res` in spec.json. Also set `"camera_z_range"` on each key photo from where it was
 taken (standing on a street ≈ [1, 2]; across water ≈ [-4, 6]). Stop and wait.
 
+**Parts (the backbone of steps 2–6).** Split the object into named parts (`top`, `head`, `glass`, `legs`, …) and
+give EVERY key photo the same names in refs.json `"sections": {"<part>": [x0, y0, x1, y1]}` — cut each box tight
+around that part so the part fills it. The same boxes are used three times:
+1. **Measure:** a 1:1 grid of the part box (`grid --crop <box> --step 10`).
+2. **Build:** `python RunnerGame/Art/lib/photo_tools.py crops A` writes `A/previews/crops/crop_<part>_<NN>.png`
+   (2×, every key photo) — the builder brief names exactly these files for the part it works on (≤ 2 images).
+3. **Check:** `BL --python RunnerGame/Art/lib/compare.py -- A --part <part>` → `A/previews/part_<part>_r<k>.png`:
+   one row per key photo (photo | model colour | 50/50 blend). A part is done when NO row shows a double image.
+Work part by part (worst part first); one part image per round.
+
 **Step 2 - Sections, then measure -> `spec.json`.** Pick a ruler (known real size: wheel diameter, a published
 facade length, a tower height). Split the key photo into **sections** (one per distinct part: tower, dome group,
 gable, central block, wheel, handlebar...) and write them into that photo's refs.json entry as
@@ -106,7 +116,7 @@ approve anything; only the user approves.
 | A | **STOP A** – photo pack | user | – | – | 1 (contact sheet) |
 | 3 | sections, 1:1 grids, profiles, landmarks, `color`, `spec.json` | main session | user's model | once per section, before any build | 1 grid per section |
 | 4 | first build from the filled-in `builder_brief.md` | builder agent | **sonnet** | until its Blender tests pass | 1 preview |
-| 5 | `--fit` once, then section loop (`compare.py --sections`) | main session | user's model | until no section shows a double image (see loop rules) | 1 section sheet per round |
+| 5 | `--fit` per key photo once, then part loop (`compare.py --part <part>`, worst part first) | main session | user's model | until no row of the part shows a double image (see loop rules) | 1 part image per round |
 | B | **STOP B** – outline | user | – | – | the 2 final overlays |
 | 6 | details, materials, `--export` | builder agent | **sonnet** | self-check by numbers (tris, bounds, tests); ≤ 2 rounds per detail photo | ≤ 4 |
 | 7 | independent review against the photos | reviewer agent | **sonnet** | one review; **reads, never edits** | ≤ 4 (1 engine sheet + ≤ 3 refs) |

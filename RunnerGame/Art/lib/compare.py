@@ -1,6 +1,7 @@
 """Build an asset and compare it with one reference photo (one round of the comparison loop).
 
 blender --background --factory-startup --python RunnerGame/Art/lib/compare.py -- <asset_dir> <ref/NN.jpg> [--fit] [--zoom x0,y0,x1,y1] [--sections]
+blender ... --python RunnerGame/Art/lib/compare.py -- <asset_dir> --part <name>   # one part, all key photos, one image
 
 --sections writes ONE sheet (<out>_sections.png) with a row per entry of the photo's "sections" in refs.json
 ({"name": [x0, y0, x1, y1]}): photo | model in colour | 50/50 blend, each at 320 px height.
@@ -19,7 +20,31 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import photo_lib as pl  # noqa: E402
 
 
+def part_main(asset_dir, name):
+    """--part NAME: build once, render that part in every key photo that has it, one stacked image."""
+    refs = json.loads((asset_dir / "refs.json").read_text(encoding="utf-8"))
+    spec = importlib.util.spec_from_file_location("asset_build", asset_dir / "build.py")
+    build = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(build)
+    pl.al.clear_scene()
+    build.build(pl.Spec(asset_dir / "spec.json"))
+    photos = [(str(asset_dir / p["file"]), p["camera"], p["sections"][name], p.get("landmarks", {}))
+              for p in refs["photos"] if p.get("key") and p.get("camera") and name in p.get("sections", {})]
+    if not photos:
+        raise SystemExit(f"no key photo with a camera has a section '{name}'")
+    previews = asset_dir / "previews"
+    previews.mkdir(exist_ok=True)
+    rnd = 1
+    while (previews / f"part_{name}_r{rnd}.png").exists():
+        rnd += 1
+    out = previews / f"part_{name}_r{rnd}.png"
+    pl.part_sheet(photos, str(out))
+    print("wrote", out)
+
+
 def main(argv):
+    if argv[1] == "--part":
+        return part_main(Path(argv[0]).resolve(), argv[2])
     asset_dir, photo_file = Path(argv[0]).resolve(), argv[1]
     refs = json.loads((asset_dir / "refs.json").read_text(encoding="utf-8"))
     photo = next((p for p in refs["photos"] if p["file"] == photo_file), None)

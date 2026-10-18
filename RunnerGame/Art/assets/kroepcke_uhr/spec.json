@@ -433,6 +433,20 @@
     }
    },
    "source": "previews/top_ref01_zoom.png (ref/01.jpg x 470-900, y 40-500, 2x): scale 1.83 mm per zoom px from the ball radius (0.137 m, agreed by both photos); anchored at the cornice top 4.48 m (zoom y 690). ref/04 (close, from below) projects the set-back upper parts too low, so these heights come from ref/01; top round 2 (photo vs model): dome foot set in from the cornice (one face spans ~255 zoom px foreshortened ~45 deg -> ~0.78 m); broad ledge around it; two-photo signed errors (ref/04 close shift camera RMS 10.5, ref/01 RMS 30.6): cornice/frieze/dome +0.07 m (both photos: crown projects low)"
+  },
+  "glass_look": {
+   "value": {
+    "gradient": "vertical, glass_top at the pane top -> glass_bottom at the pane bottom",
+    "streaks": {
+     "count": 2,
+     "w": 0.07,
+     "angle_deg": 60,
+     "boost": 0.12,
+     "note": "two light diagonal reflection bands per pane"
+    },
+    "recess": 0.03
+   },
+   "source": "part sheet glass r1: panes read light and reflective in both photos; the engine has no transparency, so the reflection is baked"
   }
  },
  "colors": {
@@ -483,6 +497,22 @@
     0.29
    ],
    "source": "estimate: grey stone slab under the plinth (ref/01, ref/04)"
+  },
+  "glass_top": {
+   "linear": [
+    0.246,
+    0.266,
+    0.27
+   ],
+   "source": "ref/04 pane median y 1000-1080 (sky/building reflection)"
+  },
+  "glass_bottom": {
+   "linear": [
+    0.084,
+    0.056,
+    0.047
+   ],
+   "source": "ref/04 pane median y 1250-1340 (interior/exhibits)"
   }
  }
 }

@@ -143,6 +143,25 @@ class FetchRobustnessTest(unittest.TestCase):
             self.assertEqual((Path(d) / "refs.json").read_text(encoding="utf-8"), refs)
 
 
+class PartCropsTest(unittest.TestCase):
+    def test_crops_per_part_and_photo(self):
+        with tempfile.TemporaryDirectory() as d:
+            d = Path(d)
+            (d / "ref").mkdir()
+            Image.new("RGB", (400, 300), (10, 20, 30)).save(d / "ref" / "01.jpg")
+            Image.new("RGB", (300, 400), (40, 50, 60)).save(d / "ref" / "04.jpg")
+            refs = {"photos": [
+                {"file": "ref/01.jpg", "key": True, "sections": {"top": [10, 10, 110, 60], "legs": [0, 200, 200, 300]}},
+                {"file": "ref/04.jpg", "key": True, "sections": {"top": [50, 0, 150, 100]}},
+                {"file": "ref/09.jpg", "key": False, "sections": {"top": [0, 0, 10, 10]}}]}
+            (d / "refs.json").write_text(json.dumps(refs), encoding="utf-8")
+            written = pt.part_crops(d, scale=2)
+            names = sorted(p.name for p in written)
+            self.assertEqual(names, ["crop_legs_01.png", "crop_top_01.png", "crop_top_04.png"])
+            with Image.open(d / "previews" / "crops" / "crop_top_01.png") as im:
+                self.assertEqual(im.size, (200, 100))
+
+
 class SaveNormalisedTest(unittest.TestCase):
     def test_save_normalised_exif_rotation(self):
         exif = Image.Exif()

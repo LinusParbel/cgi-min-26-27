@@ -30,4 +30,5 @@ test can fail (breaks the build code once, sees RED, restores) before trusting i
 `scene.ray_cast`, never by looking for vertices in the gap.
 
 ## Image budget
-At most 1 own preview (Workbench, size 512). Do not open comparison images.
+The part's reference crops `A/previews/crops/crop_<part>_<NN>.png` (≤ 2) + at most 1 own preview
+(Workbench, size 512). Do not open comparison images.

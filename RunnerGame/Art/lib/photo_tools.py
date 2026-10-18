@@ -7,6 +7,7 @@ is outdated.
 CLI (from the repo root):
     python RunnerGame/Art/lib/photo_tools.py fetch <asset_dir> <titles.txt>
     python RunnerGame/Art/lib/photo_tools.py sheet <asset_dir>
+    python RunnerGame/Art/lib/photo_tools.py crops <asset_dir>     # reference crop per part and key photo
 """
 import html
 import json
@@ -172,6 +173,26 @@ def credits_lines(photos):
     return [f'- {p["file"]}: "{p["title"]}" by {p["author"]}, {p["licence"]}, {p["source_url"]}' for p in photos]
 
 
+def part_crops(asset_dir, scale=2):
+    """Reference crop of every part (refs.json "sections", same names across photos) in every KEY photo,
+    enlarged by `scale`, written to previews/crops/crop_<part>_<NN>.png. These are the images the builder gets."""
+    asset_dir = Path(asset_dir)
+    out_dir = asset_dir / "previews" / "crops"
+    out_dir.mkdir(parents=True, exist_ok=True)
+    written = []
+    for photo in load_refs(asset_dir)["photos"]:
+        if not photo.get("key"):
+            continue
+        with Image.open(asset_dir / photo["file"]) as im:
+            for name, box in photo.get("sections", {}).items():
+                crop = im.convert("RGB").crop(tuple(box))
+                crop = crop.resize((crop.width * scale, crop.height * scale), Image.LANCZOS)
+                path = out_dir / f"crop_{name}_{Path(photo['file']).stem}.png"
+                crop.save(path)
+                written.append(path)
+    return written
+
+
 # ---------------------------------------------------------------- reading photos
 
 def grid_positions(crop, step, scale):
@@ -253,6 +274,9 @@ def main(argv):
         spec = json.loads(pairs_file.read_text(encoding="utf-8"))
         for name, metres in measure(photo["landmarks"], tuple(spec["ruler"]), spec["pairs"]).items():
             print(f"{name:20s} {metres:.3f} m")
+    elif cmd == "crops":
+        for path in part_crops(argv[1]):
+            print("crop", path)
     elif cmd == "fetch":
         asset_dir, titles_file = Path(argv[1]), Path(argv[2])
         titles = [t.strip() for t in titles_file.read_text(encoding="utf-8").splitlines() if t.strip()]
