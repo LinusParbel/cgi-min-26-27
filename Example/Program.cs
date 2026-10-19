@@ -1,7 +1,9 @@
 using Engine;
 using Engine.Geometry;
 using Engine.Geometry.Loaders;
+using Engine.Lighting;
 using Engine.Materials;
+using Engine.Materials.AmbientDiffuseSpecular;
 using Engine.Materials.ReflectionMapping;
 using Engine.Materials.UnlitTexture;
 using Engine.Materials.WaveDistortion;
@@ -49,13 +51,25 @@ internal sealed class CubeWindow : Application
         _renderer = new OpenGlRenderer();
         _camera = new Camera(new Vector3(0, 0, 8), Vector3.Zero);
 
+        // The light of the scene, used by materials with lighting (e.g. AmbientDiffuseSpecularMaterial).
+        _renderer.DirectionalLight = new DirectionalLight
+        {
+            Direction = new Vector3(1.0f, 1.0f, 1.0f),
+            AmbientColor = new Vector3(0.2f, 0.2f, 0.2f),
+            DiffuseColor = new Vector3(0.8f, 0.8f, 0.8f),
+            SpecularColor = new Vector3(1.0f, 1.0f, 1.0f)
+        };
+
         // To switch, comment out the active line and uncomment another one.
+        _texture = Texture.FromFile(Path.Combine(AppContext.BaseDirectory, "Assets", "duck_texture.png"));
         // _texture = Texture.FromFile(Path.Combine(AppContext.BaseDirectory, "Assets", "wood_box.png"));
-        _texture = Texture.FromFile(Path.Combine(AppContext.BaseDirectory, "Assets", "environment.png"));
+        // _texture = Texture.FromFile(Path.Combine(AppContext.BaseDirectory, "Assets", "star.png"));
+        // _texture = Texture.FromFile(Path.Combine(AppContext.BaseDirectory, "Assets", "environment.png"));
 
         // _material = new UnlitTextureMaterial(_texture);
         // _material = new WaveDistortionMaterial(_texture);
-        _material = new ReflectionMappingMaterial(_texture);
+        // _material = new ReflectionMappingMaterial(_texture);
+        _material = new AmbientDiffuseSpecularMaterial(_texture) { Shininess = 64.0f };
         // _material = new NormalColorMaterial();   // own material in this project, see Materials/NormalColor
 
         // _mesh = new Mesh(Primitives.CreateCube());
