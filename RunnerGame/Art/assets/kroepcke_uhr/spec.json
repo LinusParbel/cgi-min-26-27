@@ -430,7 +430,7 @@
      "trefoil": {
       "lobe_r": 0.035,
       "gold": true,
-      "note": "three gold lobes inside the ring, ring stands upright facing -Y (and a second one facing +X, crossed)"
+      "note": "three gold lobes inside ONE upright ring facing +-X (ref/04 front view sees it edge-on; ref/01 at 45 deg)"
      }
     },
     "rod": {
@@ -445,7 +445,7 @@
      "bead_r": 0.025
     }
    },
-   "source": "previews/top_ref01_zoom.png (ref/01.jpg x 470-900, y 40-500, 2x): scale 1.83 mm per zoom px from the ball radius (0.137 m, agreed by both photos); anchored at the cornice top 4.48 m (zoom y 690). ref/04 (close, from below) projects the set-back upper parts too low, so these heights come from ref/01; top round 2 (photo vs model): dome foot set in from the cornice (one face spans ~255 zoom px foreshortened ~45 deg -> ~0.78 m); broad ledge around it; two-photo signed errors (ref/04 close shift camera RMS 10.5, ref/01 RMS 30.6): cornice/frieze/dome +0.07 m (both photos: crown projects low)"
+   "source": "previews/top_ref01_zoom.png (ref/01.jpg x 470-900, y 40-500, 2x): scale 1.83 mm per zoom px from the ball radius (0.137 m, agreed by both photos); anchored at the cornice top 4.48 m (zoom y 690). ref/04 (close, from below) projects the set-back upper parts too low, so these heights come from ref/01; top round 2 (photo vs model): dome foot set in from the cornice (one face spans ~255 zoom px foreshortened ~45 deg -> ~0.78 m); broad ledge around it; two-photo signed errors (ref/04 close shift camera RMS 10.5, ref/01 RMS 30.6): cornice/frieze/dome +0.07 m (both photos: crown projects low); part_top_r1: one sideways ring, not two crossed"
   },
   "glass_look": {
    "value": {

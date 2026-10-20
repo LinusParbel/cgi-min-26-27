@@ -356,7 +356,7 @@ def build_top(S, F, d, head_w):
     for zb in rod["beads"]:
         sphere(S["iron"], (0, 0, zb), rod["bead_r"], n=8, rings=6)
 
-    # two crossed upright medallion rings with curls and a gold trefoil
+    # one upright medallion ring (facing +-X) with curls and a gold trefoil
     md = top["medallion"]
     T = {"iron": Acc(), "gold": Acc()}
     zm, th = md["z"], md["thick"] / 2
@@ -375,8 +375,7 @@ def build_top(S, F, d, head_w):
     for i in range(3):
         a = math.pi / 2 + 2 * math.pi * i / 3
         T["gold"].prism(circle(lr * math.cos(a), zm + lr * math.sin(a), lr * 0.9, 10), -th * 0.5, th * 0.5)
-    for key in T:
-        S[key].add_rotated(T[key], 0)
+    for key in T:                                    # ONE ring, facing +-X: ref/04 sees it edge-on, ref/01 at 45 deg
         S[key].add_rotated(T[key], 1)
 
 

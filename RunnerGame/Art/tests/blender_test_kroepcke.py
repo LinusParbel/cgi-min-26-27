@@ -232,12 +232,13 @@ class KroepckeBuildTest(unittest.TestCase):
         self.assertAlmostEqual(min(ring), top["ball"]["r"], delta=0.003)
         self.assertAlmostEqual(max(v.z for v in self.verts), top["rod"]["z1"], delta=0.002)
 
-    def test_two_crossed_medallion_rings(self):
+    def test_one_medallion_ring_facing_sideways(self):
+        # ref/04 (straight front) sees the ring edge-on, ref/01 (45 deg) sees it at an angle -> one ring, plane x = 0
         md = self.spec.d("top")["medallion"]
         ro = md["r_outer"]
         near = [v for v in self.verts if abs(v.z - md["z"]) < 2e-3]
-        self.assertTrue([v for v in near if abs(abs(v.x) - ro) < 2e-3 and abs(v.y) < md["thick"]])   # ring facing -Y
-        self.assertTrue([v for v in near if abs(abs(v.y) - ro) < 2e-3 and abs(v.x) < md["thick"]])   # ring facing +X
+        self.assertTrue([v for v in near if abs(abs(v.y) - ro) < 2e-3 and abs(v.x) < md["thick"]])        # ring in the YZ plane
+        self.assertFalse([v for v in near if abs(abs(v.x) - ro) < 2e-3 and abs(v.y) < md["thick"]])       # none in the XZ plane
 
     def test_hood_rings(self):
         hr, dh = self.spec.d("ornaments")["hood_rings"], self.spec.d("dial_hood")
