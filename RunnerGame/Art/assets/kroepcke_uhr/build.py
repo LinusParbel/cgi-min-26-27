@@ -152,10 +152,10 @@ def cyl(acc, c, axis, r, ln, n=12):
         acc.face([acc.vert(P(a, u, v)) for u, v in ring], (o, 0, 0) if axis == "x" else (0, o, 0))
 
 
-def annulus(acc, ri, ro, cz, yf, yb, n=48):
+def annulus(acc, ri, ro, cz, yf, yb, n=48, a_from=0.0, a_to=2 * math.pi):
     """Ring round the axis (0, y, cz) facing -Y: front at yf, back at yb."""
     for i in range(n):
-        a0, a1 = 2 * math.pi * i / n, 2 * math.pi * (i + 1) / n
+        a0, a1 = a_from + (a_to - a_from) * i / n, a_from + (a_to - a_from) * (i + 1) / n
         am = (a0 + a1) / 2
         o0, o1 = (ro * math.cos(a0), ro * math.sin(a0)), (ro * math.cos(a1), ro * math.sin(a1))
         i0, i1 = (ri * math.cos(a0), ri * math.sin(a0)), (ri * math.cos(a1), ri * math.sin(a1))
@@ -551,11 +551,12 @@ def build(spec):
                            (b[j][0], planes[k], b[j][1]), (b[i][0], planes[k], b[i][1]), (0, -1, 0))
     fb = gl["frame_beads"]                           # row of small beads along the outer step of the frame
     mid = [((p[0] + q[0]) / 2, (p[1] + q[1]) / 2) for p, q in zip(outlines[0], outlines[1])]
+    bsp = fb["spacing"] * 1.3                        # slightly sparser than the spec to stay in the triangle budget
     carry, br = 0.0, fb["r"]
     for i in range(len(mid)):
         (x0, z0), (x1, z1) = mid[i], mid[(i + 1) % len(mid)]
         ln = math.hypot(x1 - x0, z1 - z0)
-        pos = fb["spacing"] - carry if carry else 0.0
+        pos = bsp - carry if carry else 0.0
         while pos <= ln:
             x, z = x0 + (x1 - x0) * pos / ln, z0 + (z1 - z0) * pos / ln
             if z > z0s + stp:                        # none along the bottom edge
@@ -563,8 +564,8 @@ def build(spec):
                 F["iron"].hexa([(x - br, y0, z - br), (x + br, y0, z - br), (x + br, y0, z + br), (x - br, y0, z + br)],
                                [(x - br * 0.5, y0 - br, z - br * 0.5), (x + br * 0.5, y0 - br, z - br * 0.5),
                                 (x + br * 0.5, y0 - br, z + br * 0.5), (x - br * 0.5, y0 - br, z + br * 0.5)])
-            pos += fb["spacing"]
-        carry = ln - (pos - fb["spacing"])
+            pos += bsp
+        carry = ln - (pos - bsp)
     for sx in (-1, 1):                               # small scroll at each shoulder of the head
         cyl(F["iron"], (sx * (sw / 2 - 0.03), -h - 0.012, zs + 0.035), "x", 0.025, 0.07, n=8)
     F["glass"].decal(inner, yg)
@@ -590,32 +591,53 @@ def build(spec):
     dl = d("dial")
     dz, dy = dl["z"], -(h + dl["proud"])
     F["dial"].prism(circle(0, dz, dl["r"], 48), dy, -h + 0.01, back=False)
-    ring_front = dy - 0.02
-    n = 48
-    for i in range(n):
-        a0, a1 = 2 * math.pi * i / n, 2 * math.pi * (i + 1) / n
-        am = (a0 + a1) / 2
-        o0, o1 = (dl["ring_r"] * math.cos(a0), dl["ring_r"] * math.sin(a0)), (dl["ring_r"] * math.cos(a1), dl["ring_r"] * math.sin(a1))
-        i0, i1 = (dl["r"] * math.cos(a0), dl["r"] * math.sin(a0)), (dl["r"] * math.cos(a1), dl["r"] * math.sin(a1))
-        F["iron"].quad((i0[0], ring_front, dz + i0[1]), (o0[0], ring_front, dz + o0[1]),
-                       (o1[0], ring_front, dz + o1[1]), (i1[0], ring_front, dz + i1[1]), (0, -1, 0))
-        F["iron"].quad((o0[0], ring_front, dz + o0[1]), (o1[0], ring_front, dz + o1[1]),
-                       (o1[0], -h, dz + o1[1]), (o0[0], -h, dz + o0[1]), (math.cos(am), 0, math.sin(am)))
-        F["iron"].quad((i0[0], ring_front, dz + i0[1]), (i1[0], ring_front, dz + i1[1]),
-                       (i1[0], dy, dz + i1[1]), (i0[0], dy, dz + i0[1]), (-math.cos(am), 0, -math.sin(am)))
-    dh = d("dial_hood")                              # stepped concentric rings round the dial, the outer one most proud
+    bz = dl["bezel"]                                 # thick rounded bezel: three stacked rings (half-torus look)
+    ring_front = dy - bz["proud"]
+    tiers = [(bz["r_inner"], bz["r_outer"], dy - bz["proud"] * 0.4), (bz["r_inner"] + 0.012, bz["r_outer"] - 0.012, dy - bz["proud"] * 0.75),
+             (bz["r_inner"] + 0.024, bz["r_outer"] - 0.024, ring_front)]
+    yb_ = -h
+    for ri_, ro_, yf_ in tiers:
+        annulus(F["iron"], ri_, ro_, dz, yf_, yb_, n=32)
+        yb_ = yf_
+    dh = d("dial_hood")                              # stepped rings below the dial (the upper half is the hood arch)
     hr = orn["hood_rings"]
     yh0, yh1 = -head["w"] / 2 - dh["depth"], -head["w"] / 2 + 0.01
     edges = hr["radii"] + [hr["radii"][-1] - 0.05]
     for k in range(len(hr["radii"])):
-        annulus(F["iron"], edges[k + 1], edges[k], dz, yh0 + k * hr["step_depth"], yh1)
+        annulus(F["iron"], edges[k + 1], edges[k], dz, yh0 + k * hr["step_depth"], yh1, n=24, a_from=math.pi, a_to=2 * math.pi)
+    ha = d("hood_arch")                              # upper half-annulus hood extruded forward from the head face, curved top moulding
+    seg = 16
+    yh_back, yh_front = -head["w"] / 2 + 0.01, -head["w"] / 2 - ha["depth"]
+    arch = [(ha["r_outer"] * math.cos(math.pi * i / seg), dz + ha["r_outer"] * math.sin(math.pi * i / seg)) for i in range(seg + 1)] +            [(ha["r_inner"] * math.cos(math.pi * (seg - i) / seg), dz + ha["r_inner"] * math.sin(math.pi * (seg - i) / seg)) for i in range(seg + 1)]
+    F["iron"].prism(arch, yh_front, yh_back, back=False)
+    tm = ha["top_moulding"]
+    mould = [((ha["r_outer"] + tm["h"]) * math.cos(math.pi * i / seg), dz + (ha["r_outer"] + tm["h"]) * math.sin(math.pi * i / seg)) for i in range(seg + 1)] +             [(ha["r_outer"] * math.cos(math.pi * (seg - i) / seg), dz + ha["r_outer"] * math.sin(math.pi * (seg - i) / seg)) for i in range(seg + 1)]
+    F["iron"].prism(mould, yh_front - tm["proud"], yh_back, back=False)
     for ang, ln, wd in ((math.radians(-60), 0.17, 0.022), (math.radians(60), 0.25, 0.014)):
         F["iron"].decal(bar(0, dz, ln, wd, ang), dy - 0.004)
     F["iron"].decal(circle(0, dz, 0.018, 12), dy - 0.005)
-    for k in range(12):
+    nm = dl["numerals"]                              # roman I-XII as raised dark strokes, tops pointing away from the centre
+    gh, gw = nm["h"] / 2, 0.022
+    glyph = {"I": lambda u: [((u, -gh), (u, gh))],
+             "V": lambda u: [((u - gw, gh), (u, -gh)), ((u + gw, gh), (u, -gh))],
+             "X": lambda u: [((u - gw, gh), (u + gw, -gh)), ((u + gw, gh), (u - gw, -gh))]}
+    width = {"I": 0.012, "V": 2 * gw, "X": 2 * gw}
+    romans = ["XII", "I", "II", "III", "IIII", "V", "VI", "VII", "VIII", "IX", "X", "XI"]
+    for k, text in enumerate(romans):
         a = math.radians(30 * k)
-        r0 = dl["r"] - 0.075
-        F["iron"].decal(bar(r0 * math.sin(a), dz + r0 * math.cos(a), 0.045, 0.012, a), dy - 0.004)
+        rho, tau = (math.sin(a), math.cos(a)), (math.cos(a), -math.sin(a))
+        total = sum(width[ch] for ch in text) + 0.012 * (len(text) - 1)
+        u = -total / 2
+        for ch in text:
+            for (u0, v0), (u1, v1) in glyph[ch](u + width[ch] / 2):
+                p0 = (rho[0] * (nm["r_text"] + v0) + tau[0] * u0, dz + rho[1] * (nm["r_text"] + v0) + tau[1] * u0)
+                p1 = (rho[0] * (nm["r_text"] + v1) + tau[0] * u1, dz + rho[1] * (nm["r_text"] + v1) + tau[1] * u1)
+                dx, dzz = p1[0] - p0[0], p1[1] - p0[1]
+                ln = math.hypot(dx, dzz)
+                nx, nz = -dzz / ln * nm["stroke_w"] / 2, dx / ln * nm["stroke_w"] / 2
+                F["iron"].decal([(p0[0] + nx, p0[1] + nz), (p0[0] - nx, p0[1] - nz), (p1[0] - nx, p1[1] - nz), (p1[0] + nx, p1[1] + nz)],
+                                dy - 0.006)
+            u += width[ch] + 0.012
 
     ws = orn["wing_scrolls"]
     wz_top = d("wings")["profile"][1][0]

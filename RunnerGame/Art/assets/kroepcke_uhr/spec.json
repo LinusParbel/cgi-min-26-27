@@ -213,7 +213,20 @@
     "r": 0.308,
     "ring_r": 0.406,
     "arch_top_z": 4.511,
-    "proud": 0.06
+    "proud": 0.06,
+    "numerals": {
+     "style": "roman I-XII",
+     "stroke_w": 0.012,
+     "h": 0.07,
+     "r_text": 0.24,
+     "note": "raised dark bars forming the numerals (I, V, X strokes), upright towards the centre"
+    },
+    "bezel": {
+     "r_inner": 0.31,
+     "r_outer": 0.37,
+     "proud": 0.05,
+     "note": "thick rounded ring around the dial (half-torus look)"
+    }
    },
    "source": "ref/04.jpg 1:1 grid (front, 10 px), scale 4.46 mm/px, ground y 1658 (photo cut at 1600; ground from ref/05 ratio): dial x 488-627, y 768-923; ring 467-649; loop r4 (signed landmark errors): -2.5 cm; two-photo signed errors (ref/04 close shift camera RMS 10.5, ref/01 RMS 30.6): dial -0.05 m (ref/01 -0.15, ref/04 0)"
   },
@@ -461,6 +474,20 @@
     }
    },
    "source": "part sheet glass r1: panes read light and reflective in both photos; the engine has no transparency, so the reflection is baked; glass_top_zoom.png (ref/04, ref/01, ref/02): rounded concave top corners + centre bump; cool dark green-grey glass"
+  },
+  "hood_arch": {
+   "value": {
+    "r_outer": 0.52,
+    "r_inner": 0.43,
+    "depth": 0.15,
+    "spring": "at dial centre height, both ends sit on the flared brackets (wings)",
+    "top_moulding": {
+     "h": 0.04,
+     "proud": 0.03
+    },
+    "note": "upper half-annulus extruded forward from the head face = the dominant arched hood over each dial"
+   },
+   "source": "part_head_r1 (ref/04 crop: outer arch x 450-673 src px = 0.99 m wide, top y 716, springs at the wings y ~800; ref/01 crop confirms on both faces)"
   }
  },
  "colors": {

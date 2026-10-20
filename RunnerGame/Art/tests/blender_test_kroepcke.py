@@ -316,6 +316,32 @@ class KroepckeBuildTest(unittest.TestCase):
         apex = [v for v in self.verts if abs(v.y - y_apex) < 1e-4 and abs(v.x) < sc["w"] / 2 and sc["z0"] < v.z < sc["z1"]]
         self.assertGreaterEqual(len(apex), 100)
 
+    def test_hood_arch_projects_from_head_face(self):
+        from mathutils import Vector
+        ha, dl = self.spec.d("hood_arch"), self.spec.d("dial")
+        hw = self.spec.d("head_box")["w"] / 2
+        z = dl["z"] + (ha["r_inner"] + ha["r_outer"]) / 2           # inside the arch band at the top
+        bpy.context.view_layer.update()
+        hit, loc, *_ = bpy.context.scene.ray_cast(bpy.context.view_layer.depsgraph, Vector((0, -5, z)), Vector((0, 1, 0)), distance=10)
+        self.assertTrue(hit)
+        self.assertGreaterEqual(-hw - loc.y, ha["depth"] - 0.02)
+        hit, loc, *_ = bpy.context.scene.ray_cast(bpy.context.view_layer.depsgraph, Vector((5, 0, z)), Vector((-1, 0, 0)), distance=10)
+        self.assertTrue(hit)
+        self.assertGreaterEqual(loc.x - hw, ha["depth"] - 0.02)
+
+    def test_dial_has_numerals_around_it(self):
+        dl = self.spec.d("dial")
+        h = self.spec.d("body")["w"] / 2
+        plane = -(h + dl["proud"]) - 0.006
+        sectors = set()
+        for v in self.verts:
+            if abs(v.y - plane) < 1e-4 and abs(v.x) < 0.4:
+                dx, dz = v.x, v.z - dl["z"]
+                r = math.hypot(dx, dz)
+                if 0.18 < r < dl["r"]:
+                    sectors.add(int(round(math.degrees(math.atan2(dx, dz)) / 30)) % 12)
+        self.assertEqual(len(sectors), 12)
+
     def test_pedestal_arch_is_open(self):
         # Rays through the middle of each side (x = 0 / y = 0) must pass the whole pedestal: faces, not vertices.
         from mathutils import Vector
