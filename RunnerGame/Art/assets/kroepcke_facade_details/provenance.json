@@ -1,0 +1,10 @@
+{
+  "geometry": "official Hannover CityGML LoD2 CC BY4.0 source, source2010; additional photo-informed facade geometry and rebuilt Center envelope",
+  "photos": "refs.json, reference only, historical2014 CC BY-SA3.0, no photo pixels/logos",
+  "atlas": "entirely authored opaque RGB numerical swatches",
+  "coordinateSystem": "engine X=E-550000,Y=H-sourceGround-1,Z=5803000-N",
+  "scope": "two buildings, no current storefront replica claim",
+  "build": "build.py",
+  "editable": "KroepckeFacades.blend",
+  "epochConflict": "Center2010 source facade22.57m outdated relative to2014 six-storey envelope; reconstruction29.1m justified by photo/storey count and original source29.03m maximum"
+}

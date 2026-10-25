@@ -1,0 +1,27 @@
+{
+  "body": {
+    "serialized_zero_area_faces_removed": 0,
+    "uv_preserved": true,
+    "unit_normals_normalized": true
+  },
+  "front_left": {
+    "serialized_zero_area_faces_removed": 0,
+    "uv_preserved": true,
+    "unit_normals_normalized": true
+  },
+  "front_right": {
+    "serialized_zero_area_faces_removed": 0,
+    "uv_preserved": true,
+    "unit_normals_normalized": true
+  },
+  "rear_left": {
+    "serialized_zero_area_faces_removed": 0,
+    "uv_preserved": true,
+    "unit_normals_normalized": true
+  },
+  "rear_right": {
+    "serialized_zero_area_faces_removed": 0,
+    "uv_preserved": true,
+    "unit_normals_normalized": true
+  }
+}

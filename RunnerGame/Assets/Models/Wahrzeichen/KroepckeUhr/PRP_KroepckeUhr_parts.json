@@ -1,0 +1,14 @@
+{
+  "texture": "PRP_KroepckeUhr.png",
+  "parts": [
+    {
+      "name": "body",
+      "obj": "PRP_KroepckeUhr_body.obj",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ]
+}

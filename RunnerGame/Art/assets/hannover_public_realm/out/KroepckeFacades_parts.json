@@ -1,0 +1,14 @@
+{
+  "texture": "KroepckeFacades.png",
+  "parts": [
+    {
+      "name": "kroepcke_key_facades",
+      "obj": "KroepckeFacades.obj",
+      "pivot": [
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

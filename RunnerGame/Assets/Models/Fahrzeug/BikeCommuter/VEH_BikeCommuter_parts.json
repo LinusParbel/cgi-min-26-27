@@ -1,0 +1,32 @@
+{
+  "texture": "VEH_BikeCommuter.png",
+  "parts": [
+    {
+      "name": "body",
+      "obj": "VEH_BikeCommuter_body.obj",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "wheel_front",
+      "obj": "VEH_BikeCommuter_wheel_front.obj",
+      "pivot": [
+        0.0,
+        -0.54,
+        0.34
+      ]
+    },
+    {
+      "name": "wheel_rear",
+      "obj": "VEH_BikeCommuter_wheel_rear.obj",
+      "pivot": [
+        0.0,
+        0.54,
+        0.34
+      ]
+    }
+  ]
+}

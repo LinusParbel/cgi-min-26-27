@@ -1,0 +1,44 @@
+{
+  "photos": [
+    {
+      "title": "2012 Mercedes-Benz Sprinter (W 906 MY12) 313 CDI van (2018-11-22) 01.jpg",
+      "author": "EurovisionNim",
+      "licence": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:2012_Mercedes-Benz_Sprinter_(W_906_MY12)_313_CDI_van_(2018-11-22)_01.jpg",
+      "file": "ref/01.jpg",
+      "size": [
+        1280,
+        747
+      ],
+      "view": "front_34",
+      "key": true,
+      "landmarks": {},
+      "camera": null,
+      "camera_z_range": [
+        1,
+        2
+      ],
+      "use": "Category/proportion reference only; original generic unbranded van, not an exact Sprinter replica."
+    },
+    {
+      "title": "2012 Mercedes-Benz Sprinter (W 906 MY12) 313 CDI van (2018-11-22) 02.jpg",
+      "author": "EurovisionNim",
+      "licence": "CC BY-SA 4.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:2012_Mercedes-Benz_Sprinter_(W_906_MY12)_313_CDI_van_(2018-11-22)_02.jpg",
+      "file": "ref/02.jpg",
+      "size": [
+        1280,
+        760
+      ],
+      "view": "rear_34",
+      "key": true,
+      "landmarks": {},
+      "camera": null,
+      "camera_z_range": [
+        1,
+        2
+      ],
+      "use": "Category/proportion reference only; original generic unbranded van, not an exact Sprinter replica."
+    }
+  ]
+}

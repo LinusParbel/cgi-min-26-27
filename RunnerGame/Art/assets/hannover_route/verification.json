@@ -1,0 +1,65 @@
+{
+  "crs": "EPSG:25832; source height DE_DHHN92_NH",
+  "origin_ENH": [
+    550000.0,
+    5803000.0,
+    55.0
+  ],
+  "engine_transform": "X=E-550000,Y=H-55,Z=-(N-5803000)",
+  "clip_lonlat": [
+    9.7315,
+    52.3735,
+    9.7445,
+    52.3785
+  ],
+  "selection_bbox_EN": [
+    549798.5210380999,
+    5802833.046885844,
+    550677.7890764156,
+    5803398.213576253
+  ],
+  "selection": "whole buildings intersecting rectangle, deduplicated by GML ID",
+  "buildings": 504,
+  "vertices": 28115,
+  "triangles": 54274,
+  "polygon_holes": 149,
+  "engine_bounds": [
+    [
+      -264.7599999989616,
+      -5.909999999999997,
+      -462.73000000044703
+    ],
+    [
+      721.472000000067,
+      73.49906921386719,
+      250.45999999996275
+    ]
+  ],
+  "minimum_triangle_area_m2": 6.897875307269537e-06,
+  "tests": [
+    "ZIP tile CRC verified",
+    "constrained triangulation area matches every source polygon incl holes",
+    "source winding preserved under proper coordinate rotation",
+    "all vertices and UV finite",
+    "all face indices valid",
+    "all triangles nondegenerate",
+    "100000 triangle budget"
+  ],
+  "texture": "authored opaque grey swatch 512x512; no imagery pixels",
+  "readback": {
+    "vertices": 28115,
+    "unit_normals": 54274,
+    "uvs": 1,
+    "triangles": 54274,
+    "normals_match_winding": true,
+    "all_indices_valid": true,
+    "all_geometry_finite": true,
+    "texture_alpha_opaque": true,
+    "sha256": {
+      "HannoverRoute.mtl": "b5ce1c525152183ed5b38363fe0a219227d1cf594d93cff247de6c54c7976f39",
+      "HannoverRoute.obj": "7644e05fdbe344191078a5184586af8016dfff899dac4bbb4aeaa9d0842bf0ce",
+      "HannoverRoute.png": "abf83991a02469e7ed916aba8c5efcf2c3cad831cc48e67ab556c9ffc501f2a2",
+      "HannoverRoute_parts.json": "ec8537b074699244bbf22c8f5aefeefd66d9ac46a777607ac5b80602702a4180"
+    }
+  }
+}

@@ -1,0 +1,307 @@
+{
+  "cityManifest": "HannoverRoute_parts.json",
+  "groundManifest": "PedestrianGround_parts.json",
+  "route": "route.json",
+  "groundY": -1,
+  "clock": {
+    "x": 270.0,
+    "z": 50.0
+  },
+  "title": "Hannover public realm v2 - first Kroepcke facade pass",
+  "sceneProps": [
+    {
+      "kind": "tree",
+      "x": -112.0,
+      "z": -113.5,
+      "yaw": 0,
+      "scale": 1
+    },
+    {
+      "kind": "tree",
+      "x": -118.5,
+      "z": -128.5,
+      "yaw": 0,
+      "scale": 1
+    },
+    {
+      "kind": "tree",
+      "x": -126.0,
+      "z": -143.0,
+      "yaw": 0,
+      "scale": 1
+    },
+    {
+      "kind": "tree",
+      "x": -139.0,
+      "z": -103.0,
+      "yaw": 0,
+      "scale": 1
+    },
+    {
+      "kind": "tree",
+      "x": -121.0,
+      "z": -82.0,
+      "yaw": 0,
+      "scale": 1
+    },
+    {
+      "kind": "tree",
+      "x": 391.5,
+      "z": -138.5,
+      "yaw": 0,
+      "scale": 1
+    },
+    {
+      "kind": "tree",
+      "x": 415.0,
+      "z": -119.5,
+      "yaw": 0,
+      "scale": 1
+    },
+    {
+      "kind": "tree",
+      "x": 431.5,
+      "z": -111.0,
+      "yaw": 0,
+      "scale": 1
+    },
+    {
+      "kind": "tree",
+      "x": 402.0,
+      "z": -96.0,
+      "yaw": 0,
+      "scale": 1
+    },
+    {
+      "kind": "tree",
+      "x": -90.0,
+      "z": -98.7,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -93.9488,
+      "z": -89.5127,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -76.0,
+      "z": -92.68,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -79.9488,
+      "z": -83.4927,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -48.0,
+      "z": -80.64,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -51.9488,
+      "z": -71.4527,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -34.0,
+      "z": -74.62,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -37.9488,
+      "z": -65.4327,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -20.0,
+      "z": -68.6,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -23.9488,
+      "z": -59.4127,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -6.0,
+      "z": -62.58,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -9.9488,
+      "z": -53.3927,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 7.6051,
+      "z": -55.6413,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 3.6563,
+      "z": -46.454,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 24.6272,
+      "z": -51.5877,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 20.6784,
+      "z": -42.4004,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 36.0,
+      "z": -27.64,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 39.1761,
+      "z": -37.1222,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 50.0,
+      "z": -22.95,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 53.1761,
+      "z": -32.4322,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 64.0,
+      "z": -18.26,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 67.1761,
+      "z": -27.7422,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 78.0,
+      "z": -13.57,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 81.1761,
+      "z": -23.0522,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 92.0,
+      "z": -8.88,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 95.1761,
+      "z": -18.3622,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 106.0,
+      "z": -4.19,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 109.1761,
+      "z": -13.6722,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 120.0,
+      "z": 0.5,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 123.1761,
+      "z": -8.9822,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 134.0,
+      "z": 5.19,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 137.1761,
+      "z": -4.2922,
+      "yaw": 0,
+      "scale": 1.5
+    }
+  ],
+  "extraManifests": [
+    {
+      "key": "facades",
+      "manifest": "KroepckeFacades_parts.json"
+    }
+  ],
+  "shadows": true
+}

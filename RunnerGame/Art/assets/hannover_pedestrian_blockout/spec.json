@@ -1,0 +1,13 @@
+{
+  "crs": "EPSG:25832",
+  "localTransform": "X=E-550000; Z=-(N-5803000)",
+  "laneSpacing_m": 1.5,
+  "playerHalfWidth_m": 0.3,
+  "buildingMargin_m": 0.3,
+  "openingMargin_m": 0.5,
+  "maximumProposalDeviation_m": 40,
+  "upperGroundY": -1,
+  "lowerDepth_m": 3,
+  "heightStatus": "flat playable blockout assumptions, not survey terrain",
+  "status": "SE upper corridor exported; source NW blocked audit retained"
+}

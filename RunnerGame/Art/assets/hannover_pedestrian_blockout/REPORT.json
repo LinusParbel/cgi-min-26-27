@@ -1,0 +1,17 @@
+{
+  "route_length_m": 714.2760882703527,
+  "nodes": 52,
+  "building_clearance_from_player_tube_m": 1.0381329857519916,
+  "opening_clearance_from_player_tube_m": 1.0739100526673098,
+  "clock_clearance_from_player_tube_m": 5.597954428224378,
+  "ground_area_m2": 12774.035567318142,
+  "ground_triangles": 5052,
+  "negative_fixture": true,
+  "curve": "20% trim, quadratic Bezier; sampled <=0.15 m along control polygon",
+  "assumptions": [
+    "Flat upper floor H54 / engine Y-1",
+    "Lower floor 3m below upper, not measured",
+    "Opening polygons retained exactly as manual aerial proposal",
+    "Route adjusted inside 40m corridor; no survey accuracy claimed"
+  ]
+}

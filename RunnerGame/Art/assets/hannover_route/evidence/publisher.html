@@ -1,0 +1,1594 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+
+
+
+        <meta charset="UTF-8">
+        <link rel="preload" href="/build/fonts/Noto-Sans-Display-Italic.73e0aad7.woff2" as="font" crossOrigin="anonymous" />
+        <link rel="preload" href="/build/fonts/Noto-Sans-Display-Light-Italic.37348792.woff2" as="font" crossOrigin="anonymous" />
+        <link rel="preload" href="/build/fonts/Noto-Sans-Display-Regular.587d8477.woff2" as="font" crossOrigin="anonymous" />
+        <link rel="preload" href="/build/fonts/Noto-Sans-Display-SemiBold.2e2fe37b.woff2" as="font" crossOrigin="anonymous" />
+        <link rel="preload" href="/build/fonts/Noto-Serif-Display-Bold-Italic.7cd47ea0.woff2" as="font" crossOrigin="anonymous" />
+        <link rel="preload" href="/build/fonts/Noto-Serif-Display-Italic.6ded7a4f.woff2" as="font" crossOrigin="anonymous" />
+        <link rel="preload" href="/build/foundation-webfonticons.da6356fa3c73151bba8d270ae6c385d6.woff2" as="font" crossOrigin="anonymous" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+                                    <title>Digitales 3D-Stadtmodell - Hannover.de</title>
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+    <link rel="canonical" href="https://www.hannover.de/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover/Dezernate-und-Fachbereiche-der-LHH/Stadtentwicklung-und-Bauen/Fachbereich-Planen-und-Stadtentwicklung/Geoinformation/Open-GeoData/3D-Stadtmodell-und-Geländemodell/Digitales-3D-Stadtmodell">
+<meta property="og:title" content="" />
+<meta property="og:description" content="" />
+<meta name="twitter:title" content="" />
+<meta name="twitter:description" content="" />
+
+            
+                            <link href="/api/v1/jsonld/761954" rel="alternate" type="application/ld+json" />
+                    
+                    <link rel="apple-touch-icon" sizes="128x128" href="/bundles/hannoverfrontend/images/favicons/touch-icon.png">
+            <link rel="icon" href="/build/images/favicon.ico">
+        
+        <link rel="stylesheet" href="/build/hde.cfff9c1d.css">
+        <link crossorigin rel="stylesheet" href="/assets/storybook/build/assets/search-index-Bh-dWUif.css"><link crossorigin rel="stylesheet" href="/assets/storybook/build/assets/hannover-DtBDjZyn.css"><link crossorigin rel="modulepreload" href="/assets/storybook/build/assets/rolldown-runtime-B0Z9INg1.js"><link crossorigin rel="modulepreload" href="/assets/storybook/build/assets/copyright-CvGTwZYw.js"><link crossorigin rel="modulepreload" href="/assets/storybook/build/assets/jsx-runtime-uZeeR8e4.js"><link crossorigin rel="modulepreload" href="/assets/storybook/build/assets/defineProperty-nZplVG00.js"><link crossorigin rel="modulepreload" href="/assets/storybook/build/assets/search-index-BL0jDN7d.js"><link crossorigin rel="modulepreload" href="/assets/storybook/build/assets/__vite-browser-external-CV6URZNE.js"><link crossorigin rel="modulepreload" href="/assets/storybook/build/assets/run-js-lifecycle-iio9MWgc.js">
+        
+        
+<script type="text/javascript">"use strict";function _typeof(t){return(_typeof="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(t){return typeof t}:function(t){return t&&"function"==typeof Symbol&&t.constructor===Symbol&&t!==Symbol.prototype?"symbol":typeof t})(t)}!function(){var t=function(){var t,e,o=[],n=window,r=n;for(;r;){try{if(r.frames.__tcfapiLocator){t=r;break}}catch(t){}if(r===n.top)break;r=r.parent}t||(!function t(){var e=n.document,o=!!n.frames.__tcfapiLocator;if(!o)if(e.body){var r=e.createElement("iframe");r.style.cssText="display:none",r.name="__tcfapiLocator",e.body.appendChild(r)}else setTimeout(t,5);return!o}(),n.__tcfapi=function(){for(var t=arguments.length,n=new Array(t),r=0;r<t;r++)n[r]=arguments[r];if(!n.length)return o;"setGdprApplies"===n[0]?n.length>3&&2===parseInt(n[1],10)&&"boolean"==typeof n[3]&&(e=n[3],"function"==typeof n[2]&&n[2]("set",!0)):"ping"===n[0]?"function"==typeof n[2]&&n[2]({gdprApplies:e,cmpLoaded:!1,cmpStatus:"stub"}):o.push(n)},n.addEventListener("message",(function(t){var e="string"==typeof t.data,o={};if(e)try{o=JSON.parse(t.data)}catch(t){}else o=t.data;var n="object"===_typeof(o)&&null!==o?o.__tcfapiCall:null;n&&window.__tcfapi(n.command,n.version,(function(o,r){var a={__tcfapiReturn:{returnValue:o,success:r,callId:n.callId}};t&&t.source&&t.source.postMessage&&t.source.postMessage(e?JSON.stringify(a):a,"*")}),n.parameter)}),!1))};"undefined"!=typeof module?module.exports=t:t()}();</script>
+
+<script>window.startTime = Date.now();</script>
+<script type="text/javascript" src="https://static.rndtech.de/cmp/2.x.x.js"></script>
+<script>
+    RND.CMP.initialize({
+        debug: false,
+        enableEmbedConsent: true,
+        privacyLink: 'https://www.hannover.de/Datenschutz',
+        privacyManagerId: 397368,
+        sp: {
+            config: {
+                accountId: 1281,
+                baseEndpoint: 'https://cmp-sp.hannover.de',
+                propertyHref: 'https://www.hannover.de'
+            }
+        }
+    });
+</script>
+<script src="https://cmp-sp.hannover.de/wrapperMessagingWithoutDetection.js"></script>
+
+                                                <script type="text/javascript">
+    var pageWidth = window.innerWidth;
+    var breakpoints = {1: '992', 2: '1080'};
+
+    var tabletbreakpoint = 2;
+    var mobilebreakpoint = 1;
+    var device = 'desktop';
+
+    for (var i of Object.keys(breakpoints)) {
+        if (pageWidth < breakpoints[i]) {
+            if ( i <= tabletbreakpoint) {
+                device = 'tablet';
+            }
+            if (i <= mobilebreakpoint) {
+                device = 'mobile';
+            }
+            break;
+        }
+    }
+</script>
+<script type="text/javascript">
+    if (typeof device !== 'undefined') {
+        if(device === 'desktop') {
+            domainName = ".hannover.de";
+        } else {
+            domainName = ".hannover.de";
+        }
+
+        if(!document.getElementById('IOMmBundle')) {
+            var link1 = document.createElement('link');
+            var link2 = document.createElement('link');
+            link1.id = 'IOMmBundle';
+            link1.rel = 'preload';
+            link1.as = 'script';
+            link1.href = '//' + domainName + '/iomm/latest/manager/base/es6/bundle.js';
+            document.head.appendChild(link1);
+            link2.rel = 'preload';
+            link2.as = 'script';
+            link2.href = '//' + domainName + '/iomm/latest/bootstrap/loader.js';
+            document.head.appendChild(link2);
+
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = '//' + domainName + '/iomm/latest/bootstrap/loader.js';
+            document.head.appendChild(script);
+        }
+    }
+</script>
+                            
+            </head>
+    <body class="theme-h_de" data-xrowtracking-view="/api/v1/tracking/view/761954">
+        <xrow-matomo server-url="https://matomo.hannover.de" site-id="1"></xrow-matomo>
+        
+                                    <xrow-cmp data-plugin-name="rnd" data-vendor-list='[{"identifier":"matomo","name":"Matomo","id":"5eeb2904325dff29c923433d"}]'></xrow-cmp>
+            
+        
+        <div class="main-wrapper">
+            <div class="container-fluid">
+                <div class="row justify-content-center">
+                    <!-- Column for Content -->
+                    <div class="main-content">
+                        <!-- Main Content -->
+                        <div class="main-content-wrapper">
+                            
+<header id="top-menu" class="d-print-none">
+    <div id="aria-live" class="" aria-live="polite"></div>
+    <!-- Desktop Nav Section -->
+    <div class="nav-container d-flex align-items-center">
+        <!-- Nav -->
+        <nav class="nav-container__nav d-flex">
+            <div id="skip-to-content">
+                <ul>
+                    <li>
+                        <a href="#content">Zum Inhalt springen</a>
+                    </li>
+                    <li>
+                        <a href="#" class="toggleNav" role="button">
+                            Zur Hauptnavigation springen
+                        </a>
+                    </li>
+                </ul>
+            </div>
+                            <!-- Language Switcher on top menu -->
+                                    <div class="nav__icon">
+                                                                                                                                                                                                                <a href="/"
+                                 id="s_homepage_anchor" >
+                                                            <span class="icon icon-home-dkl"></span>
+                                                        Start
+                        </a>
+                    </div>
+                                            <!-- Language Switcher on top menu -->
+                                    <div class="nav__icon">
+                                                                                                                                                                                                                <a href="/Karte"
+                                >
+                                                            <span class="icon icon-karte-dkl"></span>
+                                                        Karte
+                        </a>
+                    </div>
+                                            <!-- Language Switcher on top menu -->
+                                    <div class="nav__icon">
+                                                                                                                                                                                                                <a href="/Veranstaltungskalender"
+                                >
+                                                            <span class="icon icon-veranstaltungskalender-dkl"></span>
+                                                        Veranstaltungen
+                        </a>
+                    </div>
+                                            <!-- Language Switcher on top menu -->
+                                    <div id="conword-menu" class="nav-dropdown-selector">
+    <div class="nav__icon nav-dropdown language-switcher">
+        <button class="lang-switch" aria-label="Sprache Ausklappliste">
+            <span class="icon icon-sprache-dkl"></span>
+            Sprache
+        </button>
+    </div>
+            <ul class="nav-dropdown-list d-none" translate="no">
+
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="de"
+                       href="#">
+                        <img src="/build/images/flags/ger-DE.png"
+                             alt="Deutsch" aria-hidden="true" loading="lazy"/>
+                        Deutsch
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="en"
+                       href="#">
+                        <img src="/build/images/flags/eng-GB.png"
+                             alt="English" aria-hidden="true" loading="lazy"/>
+                        English
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="zh"
+                       href="#">
+                        <img src="/build/images/flags/chi-CN.png"
+                             alt="中文" aria-hidden="true" loading="lazy"/>
+                        中文
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="da"
+                       href="#">
+                        <img src="/build/images/flags/dan-DK.png"
+                             alt="Danish" aria-hidden="true" loading="lazy"/>
+                        Danish
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="et"
+                       href="#">
+                        <img src="/build/images/flags/est-EE.png"
+                             alt="Eesti" aria-hidden="true" loading="lazy"/>
+                        Eesti
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="es"
+                       href="#">
+                        <img src="/build/images/flags/esl-ES.png"
+                             alt="Español" aria-hidden="true" loading="lazy"/>
+                        Español
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="fi"
+                       href="#">
+                        <img src="/build/images/flags/fin-FI.png"
+                             alt="Suomi" aria-hidden="true" loading="lazy"/>
+                        Suomi
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="fr"
+                       href="#">
+                        <img src="/build/images/flags/fre-FR.png"
+                             alt="Français" aria-hidden="true" loading="lazy"/>
+                        Français
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="it"
+                       href="#">
+                        <img src="/build/images/flags/ita-IT.png"
+                             alt="Italiano" aria-hidden="true" loading="lazy"/>
+                        Italiano
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="ja"
+                       href="#">
+                        <img src="/build/images/flags/jpn-JP.png"
+                             alt="日本語" aria-hidden="true" loading="lazy"/>
+                        日本語
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="ko"
+                       href="#">
+                        <img src="/build/images/flags/kor-KR.png"
+                             alt="한국" aria-hidden="true" loading="lazy"/>
+                        한국
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="nl"
+                       href="#">
+                        <img src="/build/images/flags/dut-NL.png"
+                             alt="Nederlands" aria-hidden="true" loading="lazy"/>
+                        Nederlands
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="nb"
+                       href="#">
+                        <img src="/build/images/flags/nor-NO.png"
+                             alt="Norge" aria-hidden="true" loading="lazy"/>
+                        Norge
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="pl"
+                       href="#">
+                        <img src="/build/images/flags/pol-PL.png"
+                             alt="Polski" aria-hidden="true" loading="lazy"/>
+                        Polski
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="pt"
+                       href="#">
+                        <img src="/build/images/flags/por-PT.png"
+                             alt="Portugues" aria-hidden="true" loading="lazy"/>
+                        Portugues
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="ru"
+                       href="#">
+                        <img src="/build/images/flags/rus-RU.png"
+                             alt="Русский" aria-hidden="true" loading="lazy"/>
+                        Русский
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="sv"
+                       href="#">
+                        <img src="/build/images/flags/swe-SE.png"
+                             alt="Svenska" aria-hidden="true" loading="lazy"/>
+                        Svenska
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="tr"
+                       href="#">
+                        <img src="/build/images/flags/tur-TR.png"
+                             alt="Türkçe" aria-hidden="true" loading="lazy"/>
+                        Türkçe
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="ar"
+                       href="#">
+                        <img src="/build/images/flags/ar-AE.png"
+                             alt="العربية" aria-hidden="true" loading="lazy"/>
+                        العربية
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="ro"
+                       href="#">
+                        <img src="/build/images/flags/ro-RO.png"
+                             alt="Română" aria-hidden="true" loading="lazy"/>
+                        Română
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="bg"
+                       href="#">
+                        <img src="/build/images/flags/bg-BG.png"
+                             alt="български" aria-hidden="true" loading="lazy"/>
+                        български
+                    </a>
+                </li>
+                    </ul>
+    </div>
+
+                                            <!-- Language Switcher on top menu -->
+                                    <div class="nav__icon">
+                                                                                                                                                                                                                <a href="/Leichte-Sprache"
+                                >
+                                                            <span class="icon icon-leichte-sprache-dkl"></span>
+                                                        Leichte Sprache
+                        </a>
+                    </div>
+                                            <!-- Language Switcher on top menu -->
+                                    <div class="nav__icon">
+                                                                                                                                                                                                                <a href="/Leben-in-der-Region-Hannover/Bürger-Service/Service-Portale-Behördenführer"
+                                >
+                                                            <span class="icon icon-behoerden-service2"></span>
+                                                        Online-Amt
+                        </a>
+                    </div>
+                                            <!-- Language Switcher on top menu -->
+                                    <div class="nav__icon">
+                                                                                                                                                    <a href="/karriere"
+                                >
+                                                            <span class="icon icon-logo-karriere-black"></span>
+                                                        Karriere
+                        </a>
+                    </div>
+                                    </nav>
+
+        <!-- Dropdown -->
+                    <div class="ml-auto mr-auto nav-dropdown-selector">
+                <div class="nav__icon nav-dropdown portal-dropdown-wrapper">
+                    <button class="portal-link icon btn" aria-label="Portal wählen Ausklappliste">
+                        Portal wählen
+                    </button>
+                </div>
+
+                <ul class="nav-dropdown-list dropdown-portal d-none">
+                                            <a class="nav-dropdown-item text-left" href="https://www.visit-hannover.com">
+                            <li>www.visit-hannover.com</li>
+                        </a>
+                                            <a class="nav-dropdown-item text-left" href="https://www.herrenhausen.de">
+                            <li>www.herrenhausen.de</li>
+                        </a>
+                                            <a class="nav-dropdown-item text-left" href="https://wissen.hannover.de">
+                            <li>wissen.hannover.de</li>
+                        </a>
+                                            <a class="nav-dropdown-item text-left" href="https://www.wirtschaftsfoerderung-hannover.de">
+                            <li>www.wirtschaftsfoerderung-hannover.de</li>
+                        </a>
+                                    </ul>
+            </div>
+        
+        <!-- Actions -->
+        <div class="nav-container__actions d-flex align-items-center">
+            
+                        <div class="action__icon">
+                <a href="/suche" type="button">
+                    <span class="icon icon-icon_navigation_suche-dkl" aria-hidden="true"></span>
+                    Suche
+                </a>
+            </div>
+                        <div class="action__icon">
+                <button
+                        id="menu_open"
+                        data-labelBase="Menü Ausklappliste"
+                        data-labelOpen="aufgeklappt"
+                        data-labelClosed="Schalter Schließen"
+                        aria-label="Menü Ausklappliste"
+                >
+                    <div class="bars">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                    Menü
+                </button>
+            </div>
+        </div>
+    </div>
+    <div class="sidemenu-container">
+        <!-- Sidemenu wrapper -->
+        <div class="sidemenu-wrapper" id="sidemenu">
+                        <div class="sidemenu__list" id="sidemenu-block" data-query= "/api/v1/menu/list/761954" ></div>
+                        <div class="sidemenu__content" id="menu-sidemenu-content">
+                            </div>
+        </div>
+    </div>
+    <!-- Mobile Nav Section -->
+    <div id="mobile_nav" class="nav-container__mobile-section">
+        <div class="mobile-nav__links d-flex align-items-center">
+            <div class="mobile-nav__navigation d-flex align-items-center">
+                                                                                                                                                                                                                                                    <a aria-label="Start" href="/">
+                                                            <img src="/build/images/logo-menu-black.svg" alt="Start" />
+                                                    </a>
+                                                                                                                                                                                                                                                                        <a aria-label="Karte" href="/Karte">
+                                                            <span class="icon icon-karte-dkl"></span>
+                                                    </a>
+                                                                                                                                                                                                                                                                        <a aria-label="Veranstaltungen" href="/Veranstaltungskalender">
+                                                            <span class="icon icon-veranstaltungskalender-dkl"></span>
+                                                    </a>
+                                                                                <div id="conword-menu" class="mobile-nav-language nav-language-selector">
+    <div class="nav__icon nav-dropdown language-switcher">
+        <button class="lang-switch" aria-label="Sprache Ausklappliste">
+            <span class="icon icon-sprache-dkl"></span>
+            
+        </button>
+    </div>
+            <ul class="nav-dropdown-list d-none language-dropdown" translate="no">
+
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="de"
+                       href="#">
+                        <img src="/build/images/flags/ger-DE.png"
+                             alt="Deutsch" aria-hidden="true" loading="lazy"/>
+                        Deutsch
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="en"
+                       href="#">
+                        <img src="/build/images/flags/eng-GB.png"
+                             alt="English" aria-hidden="true" loading="lazy"/>
+                        English
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="zh"
+                       href="#">
+                        <img src="/build/images/flags/chi-CN.png"
+                             alt="中文" aria-hidden="true" loading="lazy"/>
+                        中文
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="da"
+                       href="#">
+                        <img src="/build/images/flags/dan-DK.png"
+                             alt="Danish" aria-hidden="true" loading="lazy"/>
+                        Danish
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="et"
+                       href="#">
+                        <img src="/build/images/flags/est-EE.png"
+                             alt="Eesti" aria-hidden="true" loading="lazy"/>
+                        Eesti
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="es"
+                       href="#">
+                        <img src="/build/images/flags/esl-ES.png"
+                             alt="Español" aria-hidden="true" loading="lazy"/>
+                        Español
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="fi"
+                       href="#">
+                        <img src="/build/images/flags/fin-FI.png"
+                             alt="Suomi" aria-hidden="true" loading="lazy"/>
+                        Suomi
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="fr"
+                       href="#">
+                        <img src="/build/images/flags/fre-FR.png"
+                             alt="Français" aria-hidden="true" loading="lazy"/>
+                        Français
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="it"
+                       href="#">
+                        <img src="/build/images/flags/ita-IT.png"
+                             alt="Italiano" aria-hidden="true" loading="lazy"/>
+                        Italiano
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="ja"
+                       href="#">
+                        <img src="/build/images/flags/jpn-JP.png"
+                             alt="日本語" aria-hidden="true" loading="lazy"/>
+                        日本語
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="ko"
+                       href="#">
+                        <img src="/build/images/flags/kor-KR.png"
+                             alt="한국" aria-hidden="true" loading="lazy"/>
+                        한국
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="nl"
+                       href="#">
+                        <img src="/build/images/flags/dut-NL.png"
+                             alt="Nederlands" aria-hidden="true" loading="lazy"/>
+                        Nederlands
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="nb"
+                       href="#">
+                        <img src="/build/images/flags/nor-NO.png"
+                             alt="Norge" aria-hidden="true" loading="lazy"/>
+                        Norge
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="pl"
+                       href="#">
+                        <img src="/build/images/flags/pol-PL.png"
+                             alt="Polski" aria-hidden="true" loading="lazy"/>
+                        Polski
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="pt"
+                       href="#">
+                        <img src="/build/images/flags/por-PT.png"
+                             alt="Portugues" aria-hidden="true" loading="lazy"/>
+                        Portugues
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="ru"
+                       href="#">
+                        <img src="/build/images/flags/rus-RU.png"
+                             alt="Русский" aria-hidden="true" loading="lazy"/>
+                        Русский
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="sv"
+                       href="#">
+                        <img src="/build/images/flags/swe-SE.png"
+                             alt="Svenska" aria-hidden="true" loading="lazy"/>
+                        Svenska
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="tr"
+                       href="#">
+                        <img src="/build/images/flags/tur-TR.png"
+                             alt="Türkçe" aria-hidden="true" loading="lazy"/>
+                        Türkçe
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="ar"
+                       href="#">
+                        <img src="/build/images/flags/ar-AE.png"
+                             alt="العربية" aria-hidden="true" loading="lazy"/>
+                        العربية
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="ro"
+                       href="#">
+                        <img src="/build/images/flags/ro-RO.png"
+                             alt="Română" aria-hidden="true" loading="lazy"/>
+                        Română
+                    </a>
+                </li>
+                            <li>
+                    <a class="nav-dropdown-item text-left conword" lang="bg"
+                       href="#">
+                        <img src="/build/images/flags/bg-BG.png"
+                             alt="български" aria-hidden="true" loading="lazy"/>
+                        български
+                    </a>
+                </li>
+                    </ul>
+    </div>
+
+                                                                                                                                                                                                                                                                        <a aria-label="Leichte Sprache" href="/Leichte-Sprache">
+                                                            <span class="icon icon-leichte-sprache-dkl"></span>
+                                                    </a>
+                                                                                                                                                                                                                                                                        <a aria-label="Online-Amt" href="/Leben-in-der-Region-Hannover/Bürger-Service/Service-Portale-Behördenführer">
+                                                            <span class="icon icon-behoerden-service2"></span>
+                                                    </a>
+                                                                                                                                                                                                            <a aria-label="Karriere" href="/karriere">
+                                                            <span class="icon icon-logo-karriere-black"></span>
+                                                    </a>
+                                                </div>
+        </div>
+
+        <div class="mobile-nav__actions d-flex align-items-center">
+            <div class="action__icon action__icon--search">
+                <a href="/suche">
+                    <span class="icon icon-icon_navigation_suche-dkl" aria-hidden="true"></span>
+                    <span class="sr-only">Suche</span>
+                </a>
+            </div>
+            <div class="action__icon action__icon--menu">
+                <a aria-label="open-menu" href="#" id="menu_open_mobile">
+                    <div class="bars">
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                        <div class="bar"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    
+    
+<nav aria-label="Auflistung Seitenleiste" id="sidebar-accessible">
+    <ul><li>
+                    <a href="mailto:?subject=https://www.hannover.de/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover/Dezernate-und-Fachbereiche-der-LHH/Stadtentwicklung-und-Bauen/Fachbereich-Planen-und-Stadtentwicklung/Geoinformation/Open-GeoData/3D-Stadtmodell-und-Gel%C3%A4ndemodell/Digitales-3D-Stadtmodell">Seite als E-Mail versenden</a>
+                </li><li>
+                        <a href="https://www.facebook.com/sharer/sharer.php?u=https://www.hannover.de/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover/Dezernate-und-Fachbereiche-der-LHH/Stadtentwicklung-und-Bauen/Fachbereich-Planen-und-Stadtentwicklung/Geoinformation/Open-GeoData/3D-Stadtmodell-und-Gel%C3%A4ndemodell/Digitales-3D-Stadtmodell" target="_blank">Auf Facebook teilen</a>
+                    </li><li>
+                        <a href="https://twitter.com/intent/tweet?url=https://www.hannover.de/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover/Dezernate-und-Fachbereiche-der-LHH/Stadtentwicklung-und-Bauen/Fachbereich-Planen-und-Stadtentwicklung/Geoinformation/Open-GeoData/3D-Stadtmodell-und-Gel%C3%A4ndemodell/Digitales-3D-Stadtmodell" target="_blank">Auf X teilen</a>
+                    </li><li>
+                    <button type="button" class="social-share-chain">Seitenlink Kopieren</button>
+                </li><li>
+                    <button type="button" class="print-article">Seite Drucken</button>
+                </li></ul>
+    <div id="copy-state" aria-live="polite" class="sr-only"></div>
+</nav></header>
+<div class="header-spacer"></div>
+
+
+<div class="sticky-sidebar">
+    <div></div>
+    <div class="sticky-sidebar__link-wrapper">                <a type="button" class="btn btn-slider sticky-sidebar__envelope"
+                   aria-label="Seite als E-Mail versenden" role="link" tabindex="0">
+                    <span class="icon icon-envelope ico" title="E-Mail Icon"></span>
+                    <div class="slide-text">Seite als E-Mail versenden</div>
+                </a><button type="button" class="btn btn-slider slide-share"
+                        aria-label="Seite teilen">
+                    <span class="icon icon-share ico" title="Teilen Icon"></span>
+                    <span class="slide-btn"><a type="button" class="btn btn-tertiary sticky-sidebar__share-social-fb"
+                               aria-label="Auf Facebook teilen" role="button">
+                                <span class="icon icon-social-fb" title="Facebook Icon"></span>
+                            </a><a type="button" class="btn btn-tertiary sticky-sidebar__share-social-x"
+                               aria-label="Auf X teilen" role="button">
+                                <span class="icon icon-social-x" title="X Icon"></span>
+                            </a></span>
+                </button>
+                            <a type="button" class="btn btn-slider sticky-sidebar__social-share-chain"
+                   aria-label="Seitenlink Kopieren" role="button" tabindex="0">
+                    <span class="icon icon-social-share-chain ico" title="Link Icon"></span>
+                    <div class="slide-text">Seitenlink kopieren</div>
+                </a>                <a type="button" class="btn btn-slider sticky-sidebar__print-article"
+                   aria-label="Seite Drucken" role="button" tabindex="0">
+                    <span class="icon icon-print-article ico" title="Drucker Icon"></span>
+                    <div class="slide-text">Seite drucken</div>
+                </a></div>
+    <div class="sticky-sidebar__scroll-wrapper">
+        <a type="button" class="btn btn-slider btn-scrollUp" aria-label="Seite nach oben Scrollen" role="button" tabindex="0">
+            <span class="icon icon-arrow_upward ico" title="Pfeil nach oben zeigend"></span>
+            <div class="slide-text">Nach oben</div>
+        </a>
+    </div>
+</div>
+
+
+                                                                                                                                                                                        <nav class="breadcrumbs" itemscope itemtype="https://schema.org/BreadcrumbList" aria-label="Navigationspfad">
+        <ol class="d-flex align-items-center flex-wrap">
+                                                            <li class="breadcrumb__anchor d-flex align-items-center"
+                    itemprop="itemListElement"
+                    itemscope itemtype="http://schema.org/ListItem"
+                >
+                    <a class="breadcrumb__link" href="/" itemprop="item">
+                        <span itemprop="name">Hannover.de <span aria-hidden="true">//</span>                         </span>
+                        <meta itemprop="position" content="1"/>
+                    </a>
+                </li>
+                                                            <li class="breadcrumb__anchor d-flex align-items-center"
+                    itemprop="itemListElement"
+                    itemscope itemtype="http://schema.org/ListItem"
+                >
+                    <a class="breadcrumb__link" href="/Leben-in-der-Region-Hannover" itemprop="item">
+                        <span itemprop="name">Leben in der Region Hannover                        </span>
+                        <meta itemprop="position" content="2"/>
+                    </a>
+                </li>
+                                                            <li class="breadcrumb__anchor d-flex align-items-center"
+                    itemprop="itemListElement"
+                    itemscope itemtype="http://schema.org/ListItem"
+                >
+                    <a class="breadcrumb__link" href="/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen" itemprop="item">
+                        <span itemprop="name">Verwaltungen &amp; Kommunen                        </span>
+                        <meta itemprop="position" content="3"/>
+                    </a>
+                </li>
+                                                            <li class="breadcrumb__anchor d-flex align-items-center"
+                    itemprop="itemListElement"
+                    itemscope itemtype="http://schema.org/ListItem"
+                >
+                    <a class="breadcrumb__link" href="/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover" itemprop="item">
+                        <span itemprop="name">Die Verwaltung der Landeshauptstadt Hannover                        </span>
+                        <meta itemprop="position" content="4"/>
+                    </a>
+                </li>
+                                                            <li class="breadcrumb__anchor d-flex align-items-center"
+                    itemprop="itemListElement"
+                    itemscope itemtype="http://schema.org/ListItem"
+                >
+                    <a class="breadcrumb__link" href="/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover/Dezernate-und-Fachbereiche-der-LHH" itemprop="item">
+                        <span itemprop="name">Dezernate und Fachbereiche der LHH                        </span>
+                        <meta itemprop="position" content="5"/>
+                    </a>
+                </li>
+                                                            <li class="breadcrumb__anchor d-flex align-items-center"
+                    itemprop="itemListElement"
+                    itemscope itemtype="http://schema.org/ListItem"
+                >
+                    <a class="breadcrumb__link" href="/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover/Dezernate-und-Fachbereiche-der-LHH/Stadtentwicklung-und-Bauen" itemprop="item">
+                        <span itemprop="name">Stadtentwicklung und Bauen                        </span>
+                        <meta itemprop="position" content="6"/>
+                    </a>
+                </li>
+                                                            <li class="breadcrumb__anchor d-flex align-items-center"
+                    itemprop="itemListElement"
+                    itemscope itemtype="http://schema.org/ListItem"
+                >
+                    <a class="breadcrumb__link" href="/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover/Dezernate-und-Fachbereiche-der-LHH/Stadtentwicklung-und-Bauen/Fachbereich-Planen-und-Stadtentwicklung" itemprop="item">
+                        <span itemprop="name">Fachbereich Planen und Stadtentwicklung                        </span>
+                        <meta itemprop="position" content="7"/>
+                    </a>
+                </li>
+                                                            <li class="breadcrumb__anchor d-flex align-items-center"
+                    itemprop="itemListElement"
+                    itemscope itemtype="http://schema.org/ListItem"
+                >
+                    <a class="breadcrumb__link" href="/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover/Dezernate-und-Fachbereiche-der-LHH/Stadtentwicklung-und-Bauen/Fachbereich-Planen-und-Stadtentwicklung/Geoinformation" itemprop="item">
+                        <span itemprop="name">Geoinformation                        </span>
+                        <meta itemprop="position" content="8"/>
+                    </a>
+                </li>
+                                                            <li class="breadcrumb__anchor d-flex align-items-center"
+                    itemprop="itemListElement"
+                    itemscope itemtype="http://schema.org/ListItem"
+                >
+                    <a class="breadcrumb__link" href="/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover/Dezernate-und-Fachbereiche-der-LHH/Stadtentwicklung-und-Bauen/Fachbereich-Planen-und-Stadtentwicklung/Geoinformation/Open-GeoData" itemprop="item">
+                        <span itemprop="name">Open GeoData                        </span>
+                        <meta itemprop="position" content="9"/>
+                    </a>
+                </li>
+                                                            <li class="breadcrumb__anchor d-flex align-items-center"
+                    itemprop="itemListElement"
+                    itemscope itemtype="http://schema.org/ListItem"
+                >
+                    <a class="breadcrumb__link" href="/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover/Dezernate-und-Fachbereiche-der-LHH/Stadtentwicklung-und-Bauen/Fachbereich-Planen-und-Stadtentwicklung/Geoinformation/Open-GeoData/3D-Stadtmodell-und-Geländemodell" itemprop="item">
+                        <span itemprop="name">3D-Stadtmodell und Geländemodell                        </span>
+                        <meta itemprop="position" content="10"/>
+                    </a>
+                </li>
+                                                                                                <li class="breadcrumb__anchor d-flex align-items-center"
+                    itemprop="itemListElement"
+                    itemscope itemtype="http://schema.org/ListItem"
+                >
+                    <a class="breadcrumb__link" href="#" itemprop="item" aria-current="page">
+                        <span itemprop="name">Digitales 3D-Stadtmodell                        </span>
+                        <meta itemprop="position" content="11"/>
+                    </a>
+                </li>
+                    </ol>
+    </nav>
+
+
+                                                                                                                                        
+                                                                                                                                                                                                
+                                                                                        
+                                
+    <div class="content-detail-wrapper d-flex align-items-start border-0">
+        <meta itemprop="publisher" content="hannover.de" />
+                    <title>Digitales 3D-Stadtmodell - Hannover.de</title>
+<meta name="description" content="" />
+<meta name="keywords" content="" />
+    <link rel="canonical" href="https://www.hannover.de/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover/Dezernate-und-Fachbereiche-der-LHH/Stadtentwicklung-und-Bauen/Fachbereich-Planen-und-Stadtentwicklung/Geoinformation/Open-GeoData/3D-Stadtmodell-und-Geländemodell/Digitales-3D-Stadtmodell">
+<meta property="og:title" content="" />
+<meta property="og:description" content="" />
+<meta name="twitter:title" content="" />
+<meta name="twitter:description" content="" />
+
+                <main class="content-detail-container" id="content">
+                        <div class="row">
+                <article class="content-detail detail-wide col-md-12 col-lg-8 offset-lg-2">
+                    <div class="content-detail__header text-center">
+                                                <hgroup>
+                            <h3 class="content-detail__category" itemprop="headline">Open GeoData</h3>
+                            <h1 class="content-detail__title">Digitales 3D-Stadtmodell</h1>
+                        </hgroup>
+                        
+                                                        <div id="header_toolbar" class="header-toolbar mb-4">
+        <div class="row align-items-center">
+            
+            
+            
+                    </div>
+    </div>
+
+                        
+                            
+
+                        
+                        <div class="content-detail__summary ezrichtext-field" itemprop="description"><p>Das 3D-Stadtmodell bildet die Landeshauptstadt Hannover digital und dreidimensional ab. Es liegt in zwei Detaillierungsgraden, sogenanntem Level of Detail (LoD), vor und basiert auf einer Laserscanning-Befliegung des Jahres 2010.</p>
+</div>
+
+                                                                    </div>
+                                                
+
+                        <div class="content-content embed-articles editor-content article-full-view-main-text ezrichtext-field" itemprop="articlebody"><p>Insgesamt sind je LoD-Stufe rund 135.800 Geb&auml;ude in einem automatisierten Verfahren erstellt worden. Geb&auml;ude mit geringer Grundrissfl&auml;che (kleiner als 15m&sup2;) und Bereiche in Kleing&auml;rten sind in den Daten nicht enthalten.&nbsp;</p><h2>LoD1 (&bdquo;Kl&ouml;tzchenmodell&ldquo;)</h2>            
+<div  class="object-left ibexa-embed-type-image">
+    
+    
+                                                
+                                                            
+            <div class="content-view-embed attribute-image ibexa-embed-type-image embed-alias_400x300px">
+                                                                                                                                    
+                                                                                                                                        
+                                                        <figure class="alias_400x300px" >
+                <div class="image-copyright-block">
+                    <img class="fullwidth image-zoomable" src="https://www.hannover.de/var/storage/images/_aliases/alias_400x300px/media/01-data-neu/bilder/landeshauptstadt-hannover/verwaltungen/baureferat/geoinformation/open-geodata-bilder/3d-stadtmodell-und-gel&auml;ndemodell/kl&ouml;tzchenmodell-muster_lod1-digitales-stadtmodell/15208145-3-ger-DE/Kl&ouml;tzchenmodell-Muster_LOD1-Digitales-Stadtmodell.jpg.webp" alt="Digitales Stadtmodell - Kl&ouml;tzchenmodell" data-copyright-text="LHH"  data-large-image="https://www.hannover.de/var/storage/images/_aliases/full/media/01-data-neu/bilder/landeshauptstadt-hannover/verwaltungen/baureferat/geoinformation/open-geodata-bilder/3d-stadtmodell-und-gel&auml;ndemodell/kl&ouml;tzchenmodell-muster_lod1-digitales-stadtmodell/15208145-3-ger-DE/Kl&ouml;tzchenmodell-Muster_LOD1-Digitales-Stadtmodell.jpg.webp"                    loading="lazy" />
+                                            <button class="copyright">
+                            <span class="symbol">&copy; </span><span class="ai"></span><span class="text">                                LHH
+                            </span>
+                        </button>                </div><figcaption>
+                        <div class="caption">
+                                                            <div class="ezrichtext-field">
+                                    <p>Muster LOD1</p>
+                                </div>
+                                                    </div>
+                    </figcaption></figure>
+                        
+                                                        </div>
+    
+</div>
+<p>Das LoD1 - Modell ist ein &bdquo;Kl&ouml;tzchenmodell&ldquo;,&nbsp; bei dem die Geb&auml;udeh&ouml;hen aus den Durchschnittsh&ouml;hen der Trauf- und Firsth&ouml;hen des LOD2-Modells abgeleitet werden. Die H&ouml;hengenauigkeit betr&auml;gt ca. +/- 5m.</p><h2>LoD2 (Geb&auml;ude mit generalisierten Dachformen)</h2>            
+<div  class="object-left ibexa-embed-type-image">
+    
+    
+                                                
+                                                            
+            <div class="content-view-embed attribute-image ibexa-embed-type-image embed-alias_400x300px">
+                                                                                                                                    
+                                                                                                                                        
+                                                        <figure class="alias_400x300px" >
+                <div class="image-copyright-block">
+                    <img class="fullwidth image-zoomable" src="https://www.hannover.de/var/storage/images/_aliases/alias_400x300px/media/01-data-neu/bilder/landeshauptstadt-hannover/verwaltung/baureferat/geoinformation/open-geodata-bilder/3d-stadtmodell-und-gel&auml;ndemodell/geb&auml;ude-mit-generalisieren-dachformen-muster_lod2-digitales-stadtmodell/15208145-7-ger-DE/Geb&auml;ude-mit-generalisieren-Dachformen-Muster_LOD2-Digitales-Stadtmodell.jpg.webp" alt="Digitales Stadtmodell - Geb&auml;ude mit generalisieren Dachformen
+" data-copyright-text="LHH"  data-large-image="https://www.hannover.de/var/storage/images/_aliases/full/media/01-data-neu/bilder/landeshauptstadt-hannover/verwaltung/baureferat/geoinformation/open-geodata-bilder/3d-stadtmodell-und-gel&auml;ndemodell/geb&auml;ude-mit-generalisieren-dachformen-muster_lod2-digitales-stadtmodell/15208145-7-ger-DE/Geb&auml;ude-mit-generalisieren-Dachformen-Muster_LOD2-Digitales-Stadtmodell.jpg.webp"                    loading="lazy" />
+                                            <button class="copyright">
+                            <span class="symbol">&copy; </span><span class="ai"></span><span class="text">                                LHH
+                            </span>
+                        </button>                </div><figcaption>
+                        <div class="caption">
+                                                            <div class="ezrichtext-field">
+                                    <p>Muster LOD2</p>
+                                </div>
+                                                    </div>
+                    </figcaption></figure>
+                        
+                                                        </div>
+    
+</div>
+<p>Im LoD2-Modell werden den Geb&auml;uden standardisierte Dachformen zugeordnet, die entsprechend dem tats&auml;chlichen Firstverlauf ausgerichtet sind. Die H&ouml;hengenauigkeit betr&auml;gt ca. +/- 1m.</p><h2>Metadaten</h2><div class="table-responsive"><table class="table table-bordered table-striped"><tr><td>Herausgeber</td><td>Landeshauptstadt Hannover, FB Planen und Stadtentwicklung, Bereich Geoinformation</td></tr><tr><td>Ver&ouml;ffentlichungsdatum</td><td>20.01.2026</td></tr><tr><td>&Auml;nderungsdatum</td><td>05.12.2024</td></tr><tr><td>Aktualisierungszyklus</td><td>J&auml;hrlich</td></tr><tr><td>Darstellungsgebiet</td><td>Stadtgebiet Landeshauptstadt Hannover</td></tr><tr><td>Ausgaben</td><td>Level of Detail 1 (LoD1), Level of Detail 2 (LoD2)</td></tr><tr><td>Lagebezugssystem</td><td>ETRS89 (UTM), EPSG-Code 25832</td></tr><tr><td>Bereitstellung</td><td>CityGML 2.0</td></tr><tr><td>&nbsp;</td><td>Vektordaten: dwg (Version 2004)</td></tr><tr><td>Lizenz</td><td><a href="https://creativecommons.org/licenses/by/4.0/deed.de">Creative Commons Namensnennung 4.0 DE</a>&nbsp;</td></tr><tr><td>Ansprechpartner</td><td>Servicecenter Geoinformation</td></tr><tr><td>E-Mail</td><td><a href="mailto:Geoservice@Hannover-Stadt.de">Geoservice@hannover-stadt.de</a></td></tr><tr><td>Metadatenauskunftssystem</td><td><a href="https://e-government.hannover-stadt.de/geonetwork/srv/ger/catalog.search#/search">https://e-government.hannover-stadt.de/geonetwork/srv/ger/catalog.search#/search</a></td></tr></table></div><h2 class="h-without-margin">Informationen und Testdaten</h2>    
+<div  class="">
+    
+    <article class="d-lg-flex interesting-single embed-view-content download-program-single position-relative">
+                            
+    <div  class="col-md-12 col-lg-3 link-to-file-detail interesting-single__image">
+                
+                    <a href="/content/download/641518/file/Produktblatt_3DStadtmodell.pdf" tabindex="-1">
+                                                <div class="content-view-embed attribute-image  embed-alias_300xVariabel"><div class="image-copyright-block"><img class="fullwidth pdfpreview" src="https://www.hannover.de/var/storage/images/_aliases/alias_300xVariabel/media/01-data-neu/bilder/landeshauptstadt-hannover/verwaltungen/baureferat/geoinformation/open-geodata-bilder/3d-stadtmodell-und-gel&auml;ndemodell/produktinfo-digitales-stadtmodell/15208308-4-ger-DE/Produktinfo-Digitales-Stadtmodell.jpg.webp" alt="Digitales Stadtmodell Produktinfo " data-copyright-text="&copy; LHH"  data-large-image="https://www.hannover.de/var/storage/images/_aliases/full/media/01-data-neu/bilder/landeshauptstadt-hannover/verwaltungen/baureferat/geoinformation/open-geodata-bilder/3d-stadtmodell-und-gel&auml;ndemodell/produktinfo-digitales-stadtmodell/15208308-4-ger-DE/Produktinfo-Digitales-Stadtmodell.jpg.webp"                         loading="lazy" /><button class="copyright"><span class="symbol">&copy; </span><span class="ai"></span><span class="text">                                LHH
+                            </span></button></div></div>
+            
+    </a>
+
+        
+        
+            </div>
+
+    
+    <div class="col-md-12 col-lg-8 download-program__content">
+        <h4 class="download-program__title">
+                            
+    <div >
+                
+        
+                        <h4 class="content-single__title">
+        Produktinformation
+    </h4>
+
+        
+            </div>
+
+        </h4>
+        <div class="download-program__description">
+            <p>
+                                                        Ausf&uuml;hrliche Produktbeschreibung des&nbsp;Digitales 3D-Stadtmodells.
+
+
+    
+                            </p>
+            <p>
+                                                    
+    <div >
+                        <p class="text-muted">
+        <sub>
+            Dateityp: pdf  Gr&ouml;&szlig;e: 262,06 kB
+        </sub>
+    </p>
+
+                
+        
+        
+            </div>
+
+                            </p>
+        </div>
+        <div class="download-program__link">
+                                            
+    <div >
+                
+        
+        
+                        <a
+            href="/content/download/641518/file/Produktblatt_3DStadtmodell.pdf"            aria-label="Produktinformation downloaden"
+    >
+        <span class="icon icon-download-doc" aria-hidden="true"></span> <ins>Download</ins>
+    </a>
+
+            </div>
+
+                    </div>
+    </div>
+</article>
+
+</div>
+    
+<div  class="">
+    
+    <article class="d-lg-flex interesting-single embed-view-content download-program-single position-relative">
+                            
+    <div  class="col-md-12 col-lg-3 link-to-file-detail interesting-single__image">
+                
+                    <a href="/content/download/641519/file/Testdaten_3D_Stadtmodell.zip" tabindex="-1">
+                                                <div class="content-view-embed attribute-image  embed-alias_300xVariabel"><div class="image-copyright-block"><img class="fullwidth pdfpreview" src="https://www.hannover.de/var/storage/images/_aliases/alias_300xVariabel/zip/15205012-1-ger-DE/ZIP.jpg.webp" alt="" data-copyright-text="&copy; "  data-large-image="https://www.hannover.de/var/storage/images/_aliases/full/zip/15205012-1-ger-DE/ZIP.jpg.webp"                         loading="lazy" /></div></div>
+            
+    </a>
+
+        
+        
+            </div>
+
+    
+    <div class="col-md-12 col-lg-8 download-program__content">
+        <h4 class="download-program__title">
+                            
+    <div >
+                
+        
+                        <h4 class="content-single__title">
+        Testdaten des 3D-Stadtmodells  LoD1 und LoD2
+    </h4>
+
+        
+            </div>
+
+        </h4>
+        <div class="download-program__description">
+            <p>
+                                                        Enthalte Dateien: Musterdaten LoD1 und LoD2 in den Datenformaten dwg und gml
+
+
+    
+                            </p>
+            <p>
+                                                    
+    <div >
+                        <p class="text-muted">
+        <sub>
+            Dateityp: zip  Gr&ouml;&szlig;e: 23,7 MB
+        </sub>
+    </p>
+
+                
+        
+        
+            </div>
+
+                            </p>
+        </div>
+        <div class="download-program__link">
+                                            
+    <div >
+                
+        
+        
+                        <a
+            href="/content/download/641519/file/Testdaten_3D_Stadtmodell.zip"            aria-label="Testdaten des 3D-Stadtmodells  LoD1 und LoD2 downloaden"
+    >
+        <span class="icon icon-download-doc" aria-hidden="true"></span> <ins>Download</ins>
+    </a>
+
+            </div>
+
+                    </div>
+    </div>
+</article>
+
+</div>
+<h2 class="h-without-margin">&Uuml;bersicht und Download-Links</h2><p>Aufgrund der hohen Dateigr&ouml;&szlig;e wurde der stadtweite Gesamtdatenbestand auf &nbsp;215 Teilbereiche in 1x1 km gekachelt und in "zip-Archiven&ldquo; zusammengefasst.&nbsp;</p>    
+<div  class="">
+    
+    <article class="d-lg-flex interesting-single embed-view-content download-program-single position-relative">
+                            
+    <div  class="col-md-12 col-lg-3 link-to-file-detail interesting-single__image">
+                
+                    <a href="/content/download/641520/file/LHH_Open%20GeoData_Uebersicht_3D-Stadtmodell.pdf" tabindex="-1">
+                <figure class="download-program__image ">
+                                                                                                    <div class="icon-250 icon-250-center icon-mimetype-application-pdf"></div>
+
+        </figure>
+    </a>
+
+        
+        
+            </div>
+
+    
+    <div class="col-md-12 col-lg-8 download-program__content">
+        <h4 class="download-program__title">
+                            
+    <div >
+                
+        
+                        <h4 class="content-single__title">
+        &Uuml;bersicht des Gesamtbestandes
+    </h4>
+
+        
+            </div>
+
+        </h4>
+        <div class="download-program__description">
+            <p>
+                                                        &Uuml;bersicht der Teilbereiche 1x1km.
+
+
+    
+                            </p>
+            <p>
+                                                    
+    <div >
+                        <p class="text-muted">
+        <sub>
+            Dateityp: pdf  Gr&ouml;&szlig;e: 7,11 MB
+        </sub>
+    </p>
+
+                
+        
+        
+            </div>
+
+                            </p>
+        </div>
+        <div class="download-program__link">
+                                            
+    <div >
+                
+        
+        
+                        <a
+            href="/content/download/641520/file/LHH_Open%20GeoData_Uebersicht_3D-Stadtmodell.pdf"            aria-label="&Uuml;bersicht des Gesamtbestandes downloaden"
+    >
+        <span class="icon icon-download-doc" aria-hidden="true"></span> <ins>Download</ins>
+    </a>
+
+            </div>
+
+                    </div>
+    </div>
+</article>
+
+</div>
+<p><strong>Die nachfolgenden Links enthalten jeweils die vollst&auml;ndigen stadtweiten Datens&auml;tze, aufgeteilt nach LoD-Stufe und Dateiformat.</strong></p>    
+<div  class="">
+    
+    
+                            <article class="d-lg-flex interesting-single embed-view-content">
+                                                                                                                
+                                        
+                                                                                <div class="image-copyright-block">
+                    <img class="fullwidth" src="https://www.hannover.de/var/storage/images/_aliases/alias_300x225px/zip/15205012-1-ger-DE/ZIP.jpg.webp" alt="" data-copyright-text="&copy; "                          loading="lazy" />
+                                    </div>
+                        
+
+                            <div class="col-md-12 col-lg-9 interesting-single__content">
+            <p class="interesting-single__category">
+                                                                </p>
+            <h2 class="interesting-single__title">
+                                    Stadtmodell Hannover CityGML LOD1
+                            </h2>
+            <div class="interesting-single__description">
+                <p>
+                                                                3D-Stadtmodell, dreidimensionales Modell des Stadtgebiets in der Detaillierungsstufe LoD1 im Datenformat gml.&nbsp;Dateityp (zip) Gr&ouml;&szlig;e: 125 MB
+
+
+    
+                                    </p>
+                                    <a  target="_blank" rel="noopener noreferrer" href="https://opengeodata.hannover-stadt.de/Stadtmodell_Hannover_CityGML_LOD1.zip" class="content__read-more" aria-label="Stadtmodell Hannover CityGML LOD1">
+                        <span class="icon icon-arrow-right"></span>
+                        <span class="content__read-more-text stretched-link">lesen</span>
+                    </a>
+                            </div>
+                            <div class="metadata">
+                    <div class="metadata__count-wrap">
+                        
+                    </div>
+                </div>
+                    </div>
+    </article>
+
+    
+</div>
+    
+<div  class="">
+    
+    
+                            <article class="d-lg-flex interesting-single embed-view-content">
+                                                                                                                
+                                        
+                                                                                <div class="image-copyright-block">
+                    <img class="fullwidth" src="https://www.hannover.de/var/storage/images/_aliases/alias_300x225px/zip/15205012-1-ger-DE/ZIP.jpg.webp" alt="" data-copyright-text="&copy; "                          loading="lazy" />
+                                    </div>
+                        
+
+                            <div class="col-md-12 col-lg-9 interesting-single__content">
+            <p class="interesting-single__category">
+                                                                </p>
+            <h2 class="interesting-single__title">
+                                    Stadtmodell Hannover CityGML LOD2
+                            </h2>
+            <div class="interesting-single__description">
+                <p>
+                                                                3D-Stadtmodell, dreidimensionales Modell des Stadtgebiets in der Detaillierungsstufe LoD2 im Datenformat gml.&nbsp;Dateityp (zip) Gr&ouml;&szlig;e: 307 MB
+
+
+    
+                                    </p>
+                                    <a  target="_blank" rel="noopener noreferrer" href="https://opengeodata.hannover-stadt.de/Stadtmodell_Hannover_CityGML_LOD2.zip" class="content__read-more" aria-label="Stadtmodell Hannover CityGML LOD2">
+                        <span class="icon icon-arrow-right"></span>
+                        <span class="content__read-more-text stretched-link">lesen</span>
+                    </a>
+                            </div>
+                            <div class="metadata">
+                    <div class="metadata__count-wrap">
+                        
+                    </div>
+                </div>
+                    </div>
+    </article>
+
+    
+</div>
+    
+<div  class="">
+    
+    
+                            <article class="d-lg-flex interesting-single embed-view-content">
+                                                                                                                
+                                        
+                                                                                <div class="image-copyright-block">
+                    <img class="fullwidth" src="https://www.hannover.de/var/storage/images/_aliases/alias_300x225px/zip/15205012-1-ger-DE/ZIP.jpg.webp" alt="" data-copyright-text="&copy; "                          loading="lazy" />
+                                    </div>
+                        
+
+                            <div class="col-md-12 col-lg-9 interesting-single__content">
+            <p class="interesting-single__category">
+                                                                </p>
+            <h2 class="interesting-single__title">
+                                    Stadtmodell Hannover DWG LOD1
+                            </h2>
+            <div class="interesting-single__description">
+                <p>
+                                                                3D-Stadtmodell, dreidimensionales Modell des Stadtgebiets in der Detaillierungsstufe LoD2 im Datenformat dwg. Dateityp (zip) Gr&ouml;&szlig;e: 101 MB
+
+
+    
+                                    </p>
+                                    <a  target="_blank" rel="noopener noreferrer" href="https://opengeodata.hannover-stadt.de/Stadtmodell_Hannover_DWG_LOD1.zip" class="content__read-more" aria-label="Stadtmodell Hannover DWG LOD1">
+                        <span class="icon icon-arrow-right"></span>
+                        <span class="content__read-more-text stretched-link">lesen</span>
+                    </a>
+                            </div>
+                            <div class="metadata">
+                    <div class="metadata__count-wrap">
+                        
+                    </div>
+                </div>
+                    </div>
+    </article>
+
+    
+</div>
+    
+<div  class="">
+    
+    
+                            <article class="d-lg-flex interesting-single embed-view-content">
+                                                                                                                
+                                        
+                                                                                <div class="image-copyright-block">
+                    <img class="fullwidth" src="https://www.hannover.de/var/storage/images/_aliases/alias_300x225px/zip/15205012-1-ger-DE/ZIP.jpg.webp" alt="" data-copyright-text="&copy; "                          loading="lazy" />
+                                    </div>
+                        
+
+                            <div class="col-md-12 col-lg-9 interesting-single__content">
+            <p class="interesting-single__category">
+                                                                </p>
+            <h2 class="interesting-single__title">
+                                    Stadtmodell Hannover DWG LOD2
+                            </h2>
+            <div class="interesting-single__description">
+                <p>
+                                                                3D-Stadtmodell, dreidimensionales Modell des Stadtgebiets in der Detaillierungsstufe LoD2 im Datenformat dwg. Dateityp (zip) Gr&ouml;&szlig;e: 162 MB
+
+
+    
+                                    </p>
+                                    <a  target="_blank" rel="noopener noreferrer" href="https://opengeodata.hannover-stadt.de/Stadtmodell_Hannover_DWG_LOD2.zip" class="content__read-more" aria-label="Stadtmodell Hannover DWG LOD2">
+                        <span class="icon icon-arrow-right"></span>
+                        <span class="content__read-more-text stretched-link">lesen</span>
+                    </a>
+                            </div>
+                            <div class="metadata">
+                    <div class="metadata__count-wrap">
+                        
+                    </div>
+                </div>
+                    </div>
+    </article>
+
+    
+</div>
+
+</div>
+
+                    
+                                                    <div class="ezlandingpage-field">                
+
+<div class="landing-page__zones ">
+        <div class="landing-page__zone landing-page__zone--3041935 m-page-builder__zone" data-ibexa-zone-id="3041935">
+                    </div>
+
+</div>
+    </div>
+    
+                    
+                    <div class="clearfix"></div>
+                        
+                </article>
+
+                            </div>
+                    </main>
+    </div>
+
+            
+    
+                                                                                                <div class="article-section container-fluid main-section-container mt-3">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="landing-page__zones">
+                <div class="landing-page__zone landing-page__zone--2665070" data-ibexa-zone-id="2665070">
+                                            <div class="landing-page__block" data-ez-block-id="7928036">
+                                        <section class="related-interesting-section">
+            <div class="container">
+                
+                <div class="row section-content__row">
+                    <div class="col-sm-12">
+                                                                                
+    <article class="d-lg-flex interesting-single line-view-content">
+        <!-- Line view for content type: organisation -->
+                                                            <figure class="col-md-12 col-lg-3 interesting-single__image default-image">
+                                                            </figure>
+                        
+    
+            <div class="col-md-12 col-lg-8 interesting-single__content">
+                                                            
+
+                    <h2 class="interesting-single__title cnw_skip_translation">Servicecenter Geoinformation  </h2>
+
+                        <div class="address-detail">
+        <div class="body-address cnw_skip_translation">
+            <p>Rudolf-Hillebrecht-Platz 1</p>,
+            <p>30159 Hannover</p>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                            <div class="info-single d-flex align-items-center">
+            <span class="icon icon-phone"></span>
+            <p>
+                <span class="ezstring-field">+49 511 168-42217</span>
+            </p>
+        </div>
+    
+                    
+            </div>
+
+            <div class="col-md-6">
+                            <div class="info-single d-flex align-items-center">
+            <span class="icon icon-print-article"></span>
+            <p>
+                <span class="ezstring-field">+49 511 168-46575</span>
+            </p>
+        </div>
+    
+                    
+            </div>
+        </div>
+    </div>
+
+                                     <div class="interesting-single__description">
+                        <p>
+                                
+                        </p>
+                                                    <a  href="/Media/02-GIS-Objekte/Organisationsdatenbank/Landeshauptstadt-Hannover/Planen,-Bauen,-Wohnen/Fachbereich-Planen-und-Stadtentwicklung/Servicecenter-Geoinformation" class="content__read-more">
+                                <span class="icon icon-arrow-right"></span>
+                                <span class="content__read-more-text stretched-link">lesen</span>
+                           </a>
+                                            </div>
+                
+                            </div>
+
+                            <div class="col-sm-12 col-md-2 col-lg-1 interesting-single__action text-center">
+                    <a  href="/Media/02-GIS-Objekte/Organisationsdatenbank/Landeshauptstadt-Hannover/Planen,-Bauen,-Wohnen/Fachbereich-Planen-und-Stadtentwicklung/Servicecenter-Geoinformation">
+                        <span class="icon icon-arrow-right"></span>
+                        <span class="sr-only sr-only-focusable">Servicecenter Geoinformation  </span>
+                    </a>
+                </div>
+                        </article>
+
+                                                                        </div>
+                </div>
+            </div>
+        </section>
+    
+                        </div>
+                                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+                                                                                    </div>
+                                                <a href="#content" type="button" class="tab-only btn btn-slider btn-scrollUp" aria-label="Seite nach oben Scrollen" role="button" tabindex="0" style="">
+    <span class="icon icon-arrow_upward ico" title="Pfeil nach oben zeigend"></span>
+    <div class="slide-text">Nach oben</div>
+</a>
+<footer class="d-print-none">
+    <!-- Social Section -->
+    <div id="social-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 d-lg-flex align-items-center">
+                    <div class="social-platforms d-flex align-items-center">
+                                <p>Besuchen Sie uns auf</p>
+                    <a rel="noreferrer" title="Facebook" href="https://www.hannover.de/Social-Media" class="d-flex align-items-center justify-content-center" target="_blank">
+            <span class="icon icon-social-fb icon-social-fb-color"></span>
+        </a>
+                    <a rel="noreferrer" title="Instagram" href="https://www.hannover.de/Social-Media" class="d-flex align-items-center justify-content-center" target="_blank">
+            <span class="icon icon-social-instagram icon-social-instagram-color"></span>
+        </a>
+                    <a rel="noreferrer" title="X" href="https://www.hannover.de/Social-Media" class="d-flex align-items-center justify-content-center" target="_blank">
+            <span class="icon icon-social-twitter icon-social-twitter-color"></span>
+        </a>
+    
+                    </div>
+                    <p class="site-update-status">
+                                                                                    Zuletzt aktualisiert:
+                                28.01.2026
+                                                                        </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+        <div class="container">
+    <xrow-theme-svg src="/build/images/theme/footer-bg.svg"></xrow-theme-svg>
+    <div class="row footer-row--main">
+        <div class="col-sm-12 col-md-6 px-md-5">
+            <div class="row">
+                <div class="col-sm-12 footer--nav">
+                    <ul>
+                                                                            <li>
+                                <a href="/Impressum" >
+                                    Impressum
+                                </a>
+                            </li>
+                                                    <li>
+                                <a href="/AGB-und-Rechtliches" >
+                                    AGB und Rechtliches
+                                </a>
+                            </li>
+                                                    <li>
+                                <a href="/Datenschutz" >
+                                    Datenschutz
+                                </a>
+                            </li>
+                                                    <li>
+                                <a href="/Leben-in-der-Region-Hannover/Soziales/Menschen-mit-Behinderung/Barriere­freiheits­erklärung" >
+                                    Barriere­freiheits­erklärung
+                                </a>
+                            </li>
+                                                    <li>
+                                <a href="/Netiquette" >
+                                    Netiquette
+                                </a>
+                            </li>
+                                                    <li>
+                                <a href="/Werben-auf-Hannover.de" >
+                                    Werben auf Hannover.de
+                                </a>
+                            </li>
+                                                    <li>
+                                <a href="/Kontakt" >
+                                    Kontakt
+                                </a>
+                            </li>
+                                                <li>
+                            <a href="#" data-cmp-privacy-manager-link>Datenschutz-Einstellungen</a>
+                        </li>
+                        <li class="footer--info">
+                                                                                    <p>
+                                 Haben Sie eine Frage und finden auf dieser Website keine Antwort?
+                            </p>
+                            <a href="https://www.hannover.de/lhh" target="" class="content-list-item d-flex align-items-center">
+                                <span class="icon icon-arrow-right"></span>
+                                <span class="content-list-text">Landeshauptstadt Hannover</span>
+                            </a>
+                            <a href="https://www.hannover.de/region-hannover" target="" class="content-list-item d-flex align-items-center">
+                                <span class="icon icon-arrow-right"></span>
+                                <span class="content-list-text">Region Hannover</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/login" class="footer--info__editorial-login">Redaktions-Login</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 footer--logo d-flex justify-content-end">
+            <div class="footer-logo-wrapper">
+                <img src="/build/images/logos/hannover-black.svg" alt="Logo" />
+            </div>
+        </div>
+    </div>
+
+    <div class="row footer-row--find-us">
+        <div class="col-sm-12 d-lg-flex align-items-center justify-content-center">
+            <div class="footer-row-visit">
+                <span>Redaktionelle Verantwortung:</span> <span class="cnw_skip_translation"> Landeshauptstadt Hannover</span>
+                                    <span> | Besuchen Sie uns auf</span>
+                                                                    <a rel="noreferrer" title="Facebook" href="https://www.hannover.de/Social-Media" target="_blank">
+                            <span class="icon icon-social-fb icon-social-fb-color"></span>
+                        </a>
+                                                                    <a rel="noreferrer" title="Instagram" href="https://www.hannover.de/Social-Media" target="_blank">
+                            <span class="icon icon-social-instagram icon-social-instagram-color"></span>
+                        </a>
+                                                                    <a rel="noreferrer" title="X" href="https://www.hannover.de/Social-Media" target="_blank">
+                            <span class="icon icon-social-twitter icon-social-twitter-color"></span>
+                        </a>
+                                                </div>
+        </div>
+    </div>
+
+    <div class="row footer-row--copyright-info theme-text">
+        <div class="col-sm-12 text-center">
+            <p>
+                                    © HANNOVER.DE - Offizielles Portal der Landeshauptstadt und Region Hannover in Zusammenarbeit mit der Madsack Mediengruppe | 2026
+                            </p>
+        </div>
+    </div>
+</div>
+</footer>
+
+    <script src="/build/runtime.89448a4a.js" defer></script><script src="/build/conword.241eb63f.js" defer></script>
+                    </div>
+                    <!-- Column for Ad banner -->
+                    <div class="ad-content">
+  <div class="ad-container text-center">
+    <div class="ad-wrapper">
+          </div>
+  </div>
+</div>
+                </div>
+            </div>
+        </div>
+                    <script>
+    setTimeout( function() {
+        if (typeof device !== 'undefined' && typeof iom !== 'undefined') {
+            var ivwletter = '';
+            var ivw_identifier = 'hannovin';
+        if (device === 'tablet') {
+            ivwletter = 't';
+        }
+        if (device === 'mobile') {
+            ivwletter = 'm';
+            ivw_identifier = 'mobhanno';
+        }
+
+        <!-- IVW IOMm="1.0" -->
+        if(typeof IOMm !== 'undefined') {
+            if (device !== 'desktop') {
+                var iomm_data = {
+                    st: ivw_identifier,
+                    dn: ".hannover.de",
+                    dc: "web",
+                    mh: 5
+                };
+
+                var iomm_view = {
+                    cp: "nachrichten_" + ivwletter
+                };
+            } else {
+                var iomm_data = {
+                    st: ivw_identifier,
+                    dn: ".hannover.de",
+                    dc: "web",
+                    mh: 5
+                };
+
+                var iomm_view = {
+                    cp: "nachrichten"
+                };
+            }
+
+            IOMm('configure', iomm_data);
+            IOMm('pageview', iomm_view);
+        }
+    }
+}, 3000);
+</script>
+                <script src="/build/hde.7493198c.js" defer></script>
+        <script crossorigin type="module" src="/assets/storybook/build/assets/hannover-BeqFgu_z.js"></script>
+        <script src="/build/xrow-tracking.6a0c1ada.js" defer></script>
+                  <script src="/build/xrow-cmp.da5d4eb0.js" defer></script>
+                <script src="/build/site-tracker.8f50a1de.js" defer></script>
+                    </body>
+</html>

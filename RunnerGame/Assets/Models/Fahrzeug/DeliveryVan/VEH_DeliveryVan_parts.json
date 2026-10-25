@@ -1,0 +1,50 @@
+{
+  "texture": "VEH_DeliveryVan.png",
+  "parts": [
+    {
+      "name": "body",
+      "obj": "VEH_DeliveryVan_body.obj",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "front_left",
+      "obj": "VEH_DeliveryVan_front_left.obj",
+      "pivot": [
+        -0.9072,
+        1.68,
+        0.3931
+      ]
+    },
+    {
+      "name": "front_right",
+      "obj": "VEH_DeliveryVan_front_right.obj",
+      "pivot": [
+        0.9072,
+        1.68,
+        0.3931
+      ]
+    },
+    {
+      "name": "rear_left",
+      "obj": "VEH_DeliveryVan_rear_left.obj",
+      "pivot": [
+        -0.9072,
+        -1.72,
+        0.3931
+      ]
+    },
+    {
+      "name": "rear_right",
+      "obj": "VEH_DeliveryVan_rear_right.obj",
+      "pivot": [
+        0.9072,
+        -1.72,
+        0.3931
+      ]
+    }
+  ]
+}

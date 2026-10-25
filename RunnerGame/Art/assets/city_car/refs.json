@@ -1,0 +1,36 @@
+{
+  "photos": [
+    {
+      "title": "Volkswagen Golf VII GTI (side) white.JPG",
+      "author": "Overlaet",
+      "licence": "CC BY-SA 3.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Volkswagen_Golf_VII_GTI_(side)_white.JPG",
+      "file": "ref/01.jpg",
+      "size": [
+        1280,
+        634
+      ],
+      "view": "side_left",
+      "key": true,
+      "landmarks": {},
+      "camera": null,
+      "use": "Category/pose reference only; original generic design, no photo pixels"
+    },
+    {
+      "title": "Volkswagen Golf VII (rear quarter).JPG",
+      "author": "Overlaet",
+      "licence": "CC BY-SA 3.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Volkswagen_Golf_VII_(rear_quarter).JPG",
+      "file": "ref/02.jpg",
+      "size": [
+        1280,
+        890
+      ],
+      "view": "rear_34",
+      "key": true,
+      "landmarks": {},
+      "camera": null,
+      "use": "Category/pose reference only; original generic design, no photo pixels"
+    }
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "triangles": 10616,
+  "budget": 25000,
+  "indicesValid": true,
+  "allFinite": true,
+  "uvInsideAtlas": true,
+  "nondegenerate": true,
+  "minimumArea_m2": 0.0005801810556182425,
+  "normalLengthMaxError": 6.357177007032533e-10,
+  "normalWindingAligned": true,
+  "groundContactY": -1.0439665,
+  "bounds": [
+    [
+      232.12024,
+      -1.0439665,
+      1.0504217
+    ],
+    [
+      317.6961384,
+      28.1,
+      192.3695529
+    ]
+  ],
+  "opaqueTexture": true,
+  "textureSize": [
+    1024,
+    1024
+  ],
+  "noPhotoPixels": "generator only draws numerical RGB swatches; reference images never opened by build.py",
+  "sourceCoverage": "every triangle of both complete source building meshes included in finished shell; glazing outward0.125m versus shell0.045m, trim0.22-0.38m"
+}

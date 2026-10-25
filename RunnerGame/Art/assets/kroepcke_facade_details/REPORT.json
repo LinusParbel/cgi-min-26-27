@@ -1,0 +1,59 @@
+{
+  "triangles": 10616,
+  "vertices": 30898,
+  "components": {
+    "building_0271_complete_stone_shell": 588,
+    "building_0307_complete_stone_shell": 140,
+    "building_0307_magis_facade": 1578,
+    "building_0271_center_facade": 6720,
+    "building_0271_redeveloped_roof_cap": 88,
+    "building_0307_magis_rounded_corner_and_stair_tower": 1502
+  },
+  "buildings": {
+    "magis": {
+      "id": "ID_70b50309-6ff3-339a-86ff-888669208df5",
+      "tile": "5500_5802.gml",
+      "lo": [
+        550232.77,
+        5802973.59,
+        56.121
+      ],
+      "hi": [
+        550260.16,
+        5802998.24,
+        84.01
+      ],
+      "polygons": 33,
+      "name": "building_0307",
+      "face_start": 28375,
+      "face_count": 140
+    },
+    "center": {
+      "id": "ID_0a25725c-24e1-3239-8d49-0b0bb20eb212",
+      "tile": "5500_5802.gml",
+      "lo": [
+        550239.7670000009,
+        5802808.009999691,
+        55.77
+      ],
+      "hi": [
+        550317.3181000007,
+        5802926.196899692,
+        84.7994613647461
+      ],
+      "polygons": 153,
+      "name": "building_0271",
+      "face_start": 22323,
+      "face_count": 588
+    }
+  },
+  "texture": "authored RGB opaque1024x1024",
+  "sourceGeometrySha256": "7644e05fdbe344191078a5184586af8016dfff899dac4bbb4aeaa9d0842bf0ce",
+  "limitations": [
+    "Magis building identity deduced from adjacent street position and distinctive 7.63m podium/22.92m main wall/27.89m tower source profile; no present brand survey",
+    "Center2010 source envelope outdated; new29.1m facade envelope reconstructed with five upper window rows and ground arcade, matching photo count but not surveyed current heights",
+    "Hidden walls receive continuation of known material grammar, not claimed photographed replica",
+    "No photo pixels, logos or storefront imagery in runtime texture",
+    "Magis continuous rounded skin projects about2m beyond oldsource parcel on two visible sides to cover squareLoD2 corner; interpreted architectural replacement envelope, not surveyed footprint"
+  ]
+}

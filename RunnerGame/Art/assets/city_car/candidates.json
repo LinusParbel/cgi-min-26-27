@@ -1,0 +1,35 @@
+{
+  "status": "selected source inspected, adapted and exported; independent review candidate awaiting user approval",
+  "selected_for_inspection": {
+    "title": "Blue five-door compact hatchback",
+    "author": "Innerscene",
+    "source_url": "https://www.innerscene.com/tools/library/3d-parts/blue-five-door-compact-hatchback-5b95b2a0",
+    "download_url": "https://www.innerscene.com/api/library/blue-five-door-compact-hatchback-5b95b2a0/download",
+    "licence": "CC0 1.0, explicitly stated on source page",
+    "retrieved": "2026-10-22",
+    "local": ".model-research/city-car-candidates/innerscene-hatchback.glb",
+    "sha256": "107410e01453abbce452fabbe6d51436fb98a0920672643a893263a8861873d7",
+    "source_triangles": 130902,
+    "mesh_count": 314,
+    "glb_generator": "Khronos glTF Blender I/O v5.2.40",
+    "source_description": "Original unbranded five-door compact, 4.281 x 2.160 x 1.490 metres including mirrors",
+    "assessment": "Correct category and plausible proportions. Body shell 8670 triangles but wheels and hidden interior dominate total. Inspect visually, drop hidden interior and simplify wheel details before deciding whether <=12000 export preserves shape. No evidence of an external AI mesh generator is given on source page or glTF metadata; do not claim independent authorship verification."
+  },
+  "alternatives": [
+    {
+      "title": "Low Poly Hatchback (LOD Included)",
+      "author": "MrJaneLAB",
+      "url": "https://mrjanelab.itch.io/low-poly-hatchback-lod-included",
+      "licence": "CC0",
+      "triangles": 3378,
+      "assessment": "Artist explicitly says no generative AI; stylized rather than requested semi-realistic. Not downloaded."
+    },
+    {
+      "title": "Compact Hatchback",
+      "author": "RCC Design",
+      "url": "https://sketchfab.com/3d-models/compact-hatchback-abbd4e65bbf1475b866d84735088b8ff",
+      "assessment": "Source access returned403; licence unverified, excluded."
+    }
+  ],
+  "fallback": "Original generic lofted hatchback using the existing free-licensed category references, not a branded replica."
+}

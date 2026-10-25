@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "runtimePixels": "entirely original procedural atlas",
+  "googleUse": "user scope only, no traced geometry or pixels",
+  "geometrySource": "official city LoD2 footprints plus manual interpretation of official CC BY 4.0 DOP20",
+  "sourceCitySha256": "7644e05fdbe344191078a5184586af8016dfff899dac4bbb4aeaa9d0842bf0ce",
+  "derivativeCitySha256": "65e8606c12a2b47038253fd247cfc918b74aee98dcecc81fd6425cca86762157",
+  "aerialGeoref": "aerial-reference-provenance.json",
+  "placements": "placements-source.json",
+  "sourceCredits": "SOURCE_CREDITS.txt",
+  "groundMethod": "disjoint authored public paving polygons and full map context, constrained triangulation per UV cell; all upper holes removed",
+  "route": "recomputed v2; old blocked route is negative fixture; full tube and >=4m turn radius checked",
+  "materialReference": "paving-material-report.json",
+  "pavingZones": [
+    "context",
+    "warm granite",
+    "gray Georg central pavers",
+    "light plaza slabs",
+    "charcoal boundaries",
+    "terracotta tree-row brick strips"
+  ]
+}

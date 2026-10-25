@@ -1,0 +1,17 @@
+{
+  "source": "RunnerGame/Art/assets/kroepcke_facade_details",
+  "copied_files": [
+    {
+      "name": "KroepckeFacades.obj",
+      "sha256": "c22d54e2b01d4658ff989a91b997e3ed771f5853f80737beb9058afc7cb9f839"
+    },
+    {
+      "name": "KroepckeFacades.png",
+      "sha256": "cb207e1b28c61c59b941112d6a4a69a5a127cea7bfcdb8cc6dd83095be65174c"
+    },
+    {
+      "name": "KroepckeFacades_parts.json",
+      "sha256": "80693c694bac21528edfae0a39439a503d6aa13b223aae32fb9d56834cf5840d"
+    }
+  ]
+}

@@ -1,0 +1,104 @@
+{
+  "metres_per_pixel_at_axle_plane": 0.001381074168797954,
+  "pixels_04": {
+    "rear_axle": [
+      456,
+      674
+    ],
+    "front_axle": [
+      1238,
+      660
+    ],
+    "bottom_bracket": [
+      779,
+      710
+    ],
+    "seat_cluster": [
+      610,
+      350
+    ],
+    "head_top": [
+      1050,
+      330
+    ],
+    "head_bottom": [
+      1090,
+      405
+    ],
+    "seatpost_top": [
+      588,
+      276
+    ],
+    "saddle_top": [
+      535,
+      220
+    ],
+    "rear_rack_back": [
+      285,
+      397
+    ],
+    "rear_rack_front": [
+      575,
+      386
+    ],
+    "front_rack_back": [
+      1120,
+      430
+    ],
+    "front_rack_front": [
+      1365,
+      343
+    ]
+  },
+  "derived_yz": {
+    "rear_axle": [
+      0.54,
+      0.34
+    ],
+    "front_axle": [
+      -0.54,
+      0.34
+    ],
+    "bottom_bracket": [
+      0.09391,
+      0.2823
+    ],
+    "seat_cluster": [
+      0.32731,
+      0.78366
+    ],
+    "head_top": [
+      -0.28036,
+      0.8004
+    ],
+    "head_bottom": [
+      -0.3356,
+      0.69583
+    ],
+    "seatpost_top": [
+      0.3577,
+      0.8864
+    ],
+    "saddle_top": [
+      0.4309,
+      0.96505
+    ],
+    "rear_rack_back": [
+      0.77616,
+      0.72679
+    ],
+    "rear_rack_front": [
+      0.37565,
+      0.73481
+    ],
+    "front_rack_back": [
+      -0.37703,
+      0.66056
+    ],
+    "front_rack_front": [
+      -0.7154,
+      0.77466
+    ]
+  },
+  "cross_widths": "inferred from ref/03 and06; not a measured replica"
+}

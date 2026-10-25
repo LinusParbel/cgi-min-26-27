@@ -1,0 +1,14 @@
+{
+  "texture": "CHR_ScooterRider.png",
+  "parts": [
+    {
+      "name": "ride",
+      "obj": "CHR_ScooterRider_ride.obj",
+      "pivot": [
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

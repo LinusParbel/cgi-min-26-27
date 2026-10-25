@@ -1,0 +1,48 @@
+{
+  "route": "B",
+  "detail_level": "custom",
+  "tri_budget": 18000,
+  "target_triangles": 12000,
+  "tex_res": 2048,
+  "workflow": "sections",
+  "dims": {
+    "length": {
+      "value": 5.7048,
+      "source": "source evaluated geometry"
+    },
+    "width": {
+      "value": 2.4372,
+      "source": "authored mirror projection adjustment only; source2.624m"
+    },
+    "height": {
+      "value": 2.5056,
+      "source": "retained shell geometry"
+    },
+    "wheelbase": {
+      "value": 3.4,
+      "source": "source axle bounding centres"
+    },
+    "wheel_radius": {
+      "value": 0.3931,
+      "source": "source tread envelope"
+    }
+  },
+  "colors": {
+    "paint": {
+      "linear": [
+        0.62,
+        0.64,
+        0.63
+      ],
+      "source": "authored opaque white, category photos"
+    },
+    "glass": {
+      "linear": [
+        0.055,
+        0.105,
+        0.15
+      ],
+      "source": "authored opaque dark blue glass"
+    }
+  }
+}

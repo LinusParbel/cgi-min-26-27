@@ -1,0 +1,123 @@
+{
+  "crs": "EPSG:25832",
+  "extent_m": [
+    549750,
+    5802800,
+    550650,
+    5803400
+  ],
+  "pixel_size_m": 0.5,
+  "pixel_transform": [
+    0.5,
+    0,
+    549750.25,
+    0,
+    -0.5,
+    5803399.75
+  ],
+  "width": 1800,
+  "height": 1200,
+  "north_up": true,
+  "reference_only": true,
+  "source": "https://opengeodata.hannover-stadt.de/DOP20_Teil_Mitte.zip",
+  "license": "https://creativecommons.org/licenses/by/4.0/deed.de",
+  "survey_date": "2025-03-06",
+  "publication_date": "2026-01-20",
+  "retrieved_utc": "2026-10-23T20:27:49.728259+00:00",
+  "official_page_sha256": "88669c9b4ad392f8addc0175348ae0d0b38f32bd31940b412a3dd2c3db5cb047",
+  "files": [
+    {
+      "name": "4903d.jgw",
+      "zip_range": [
+        263739250,
+        263739336
+      ],
+      "crc32": "0a2544fe",
+      "sha256": "7fe42eed818a4e29edcc3e717dbba4e26678ff442d4a872be6e72d948648f627"
+    },
+    {
+      "name": "4903d.jpg",
+      "zip_range": [
+        263739337,
+        266590631
+      ],
+      "crc32": "5b881991",
+      "sha256": "f1a4ab0ac2598a5dfb14817e93fbb7f0be59273a8ed485d67cb12ec9558b0dd9"
+    },
+    {
+      "name": "5002a.jgw",
+      "zip_range": [
+        311887316,
+        311887401
+      ],
+      "crc32": "7a6791ad",
+      "sha256": "e47e4ebe8c704e2c334e93a9a080ecdcd54088495d382c3f15ab741c02e3ecdc"
+    },
+    {
+      "name": "5002a.jpg",
+      "zip_range": [
+        311887402,
+        314854088
+      ],
+      "crc32": "ed393d40",
+      "sha256": "fea0aed4eb09a2f4a09a87c448ce55fbc8ca2398cb4021528f2b8dd69418c6b5"
+    },
+    {
+      "name": "5003b.jgw",
+      "zip_range": [
+        326735053,
+        326735252
+      ],
+      "crc32": "930b4456",
+      "sha256": "389a27850d885b8194b2d0d98c08c53bb0e2d021477417dc0382904a7a0f57bc"
+    },
+    {
+      "name": "5003c.jpg",
+      "zip_range": [
+        329847910,
+        332765573
+      ],
+      "crc32": "4cd7bade",
+      "sha256": "16be918045990153c0767570e7b06a18831a89b7c54e7416aeff09b758cdef9a"
+    },
+    {
+      "name": "5003c.jgw",
+      "zip_range": [
+        329847823,
+        329848022
+      ],
+      "crc32": "28017230",
+      "sha256": "d5a86bcf34fa262e6befab2913056ccfc04303c434266aa8fdbefd0e23c46853"
+    },
+    {
+      "name": "5003d.jgw",
+      "zip_range": [
+        332765574,
+        332765660
+      ],
+      "crc32": "6f05365a",
+      "sha256": "1485bf367d3dd2eab5eadc5e60de26ad098e2d0ebbbe7a63f14eb7d27f36a0f2"
+    },
+    {
+      "name": "5003d.jpg",
+      "zip_range": [
+        332765661,
+        335708235
+      ],
+      "crc32": "8d2cd174",
+      "sha256": "45ceb1e1b03796740f85152fa69f15ae829de191ee374425d0af6bf5f7c7d6e2"
+    },
+    {
+      "name": "5003a.jgw",
+      "zip_range": [
+        323670787,
+        323671872
+      ],
+      "crc32": "d40f003c",
+      "sha256": "fe18b4ee15747d2b372f5ef3bfebdaebd810d69ba00f0daf9d89efcb9adeee57"
+    }
+  ],
+  "official_page_url": "https://www.hannover.de/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover/Dezernate-und-Fachbereiche-der-LHH/Stadtentwicklung-und-Bauen/Fachbereich-Planen-und-Stadtentwicklung/Geoinformation/Open-GeoData/Digitale-Orthophotos-DOP20/Digitale-Orthophotos-2025",
+  "attribution": "Digitale Orthophotos 2025, Landeshauptstadt Hannover, FB Planen und Stadtentwicklung, Bereich Geoinformation, CC BY 4.0; cropped, resampled, and annotated.",
+  "runtime_restriction": "Reference images only. Do not use imagery pixels in runtime textures."
+}

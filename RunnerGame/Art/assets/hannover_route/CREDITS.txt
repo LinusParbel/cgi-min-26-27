@@ -1,0 +1,6 @@
+3D-Stadtmodell Hannover LoD2 - Landeshauptstadt Hannover, FB Planen und Stadtentwicklung, Bereich Geoinformation.
+Source: https://www.hannover.de/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover/Dezernate-und-Fachbereiche-der-LHH/Stadtentwicklung-und-Bauen/Fachbereich-Planen-und-Stadtentwicklung/Geoinformation/Open-GeoData/3D-Stadtmodell-und-Gel%C3%A4ndemodell/Digitales-3D-Stadtmodell
+Licence: CC BY 4.0 International - https://creativecommons.org/licenses/by/4.0/
+Changes: route-area selection, polygon triangulation, coordinate conversion, neutral authored material.
+Base survey 2010; source modified 5 December 2024, published 20 January 2026.
+Generalized roofs, approximate height accuracy +/-1 m. No facade texture or claim of current surveyed detail.

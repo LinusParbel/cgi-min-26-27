@@ -1,0 +1,149 @@
+{
+  "crs": "EPSG:25832",
+  "status": "proposal for parent geometry review",
+  "method": "Manually measured from official orthophoto; no street-map geometry used. Upper NW side of recessed Niki-de-Saint-Phalle-Promenade selected. Shadows and vegetation limit exact edge visibility.",
+  "waypoints": [
+    {
+      "id": 0,
+      "label": "Station forecourt",
+      "easting": 550420,
+      "northing": 5803165
+    },
+    {
+      "id": 1,
+      "label": "West of forecourt opening",
+      "easting": 550381,
+      "northing": 5803120
+    },
+    {
+      "id": 2,
+      "label": "Upper NW corridor start",
+      "easting": 550362,
+      "northing": 5803092,
+      "visibility": "partly shadowed; proposed center on upper NW strip"
+    },
+    {
+      "id": 3,
+      "label": "Upper corridor",
+      "easting": 550336,
+      "northing": 5803057,
+      "visibility": "partly shadowed; proposed center on upper NW strip"
+    },
+    {
+      "id": 4,
+      "label": "Upper corridor",
+      "easting": 550307,
+      "northing": 5803022,
+      "visibility": "partly shadowed; proposed center on upper NW strip"
+    },
+    {
+      "id": 5,
+      "label": "Upper corridor",
+      "easting": 550282,
+      "northing": 5802982,
+      "visibility": "partly shadowed; proposed center on upper NW strip"
+    },
+    {
+      "id": 6,
+      "label": "Kroepcke clock vicinity",
+      "easting": 550270,
+      "northing": 5802950
+    },
+    {
+      "id": 7,
+      "label": "Georgstrasse turn",
+      "easting": 550250,
+      "northing": 5802965
+    },
+    {
+      "id": 8,
+      "label": "Georgstrasse",
+      "easting": 550200,
+      "northing": 5802990
+    },
+    {
+      "id": 9,
+      "label": "Georgstrasse",
+      "easting": 550140,
+      "northing": 5803008
+    },
+    {
+      "id": 10,
+      "label": "Georgstrasse",
+      "easting": 550080,
+      "northing": 5803033
+    },
+    {
+      "id": 11,
+      "label": "Georgstrasse",
+      "easting": 550010,
+      "northing": 5803059
+    },
+    {
+      "id": 12,
+      "label": "Georgstrasse",
+      "easting": 549940,
+      "northing": 5803087
+    },
+    {
+      "id": 13,
+      "label": "Steintor square",
+      "easting": 549850,
+      "northing": 5803115
+    }
+  ],
+  "clearance": {
+    "desired_clear_width_m": 6.0,
+    "opening_margin_m": 0.5,
+    "confidence": "Upper NW sidewalk is visibly continuous but shadow and roof displacement prevent certifying a full 6 m strip everywhere; check buffer against official building footprints.",
+    "lower_depth_m": 3.0,
+    "lower_depth_status": "blockout assumption, not measured from orthophoto"
+  },
+  "opening_polygons": [
+    {
+      "id": "promenade_main",
+      "confidence": "approximate lip measured manually; shadow obscures parts",
+      "coordinates": [
+        [
+          550365,
+          5803094.5
+        ],
+        [
+          550278.25,
+          5802970.25
+        ],
+        [
+          550289.25,
+          5802963.75
+        ],
+        [
+          550376.25,
+          5803084.5
+        ]
+      ]
+    },
+    {
+      "id": "forecourt_entrance",
+      "confidence": "visible aerial entrance footprint, approximate",
+      "coordinates": [
+        [
+          550398.75,
+          5803121.5
+        ],
+        [
+          550420,
+          5803140.5
+        ],
+        [
+          550423,
+          5803136.5
+        ],
+        [
+          550405.75,
+          5803116.25
+        ]
+      ]
+    }
+  ],
+  "landmark_accuracy": "Station forecourt and clock vicinity are aerial interpretation, not surveyed POIs; clock position approximate."
+}

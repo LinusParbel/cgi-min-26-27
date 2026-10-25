@@ -1,0 +1,36 @@
+{
+  "licence": "CC0 1.0, explicitly stated on primary source page",
+  "author": "Innerscene",
+  "url": "https://www.innerscene.com/tools/library/3d-parts/high-roof-cargo-panel-van-c4d5145f",
+  "retrieved": "2026-10-23",
+  "source_sha256": "b0d26a40bdb39c67224259213faafef71f9396c0ba658a1bb68cc1626a34ef36",
+  "source_triangles": 135896,
+  "meshes": 344,
+  "generator": "Khronos glTF Blender I/O v5.2.40",
+  "route": "B: adopt generic unbranded base; light category reference comparison, not exact Sprinter replica",
+  "evidence": {
+    ".model-research\\delivery-van\\photo-api.json": "f0657ab18a03ad02ccd4d3f775d75992d32c2497520643cff6b861e04a1c68ab",
+    ".model-research\\delivery-van\\source-page.html": "77fe873d4b04f15311324292b1bf25b4d51aaa2e8b64a5fcc661d0b34d2ab631",
+    ".model-research\\delivery-van\\source-preview.png": "1b1afaf2663c0985fe48e745a4027b743afdfef90dd7508108594e9e3c414c09",
+    ".model-research\\delivery-van\\source.glb": "b0d26a40bdb39c67224259213faafef71f9396c0ba658a1bb68cc1626a34ef36"
+  },
+  "changes_planned": [
+    "remove hidden interior and tiny fittings",
+    "preserve cargo body silhouette and doors/lamps/mirrors",
+    "targeted family reduction",
+    "opaque authored colours/no source-photo pixels",
+    "four axle-pivoted wheel parts and one shared2048atlas"
+  ],
+  "changes_completed": [
+    "Hidden cabin/interior, brakes, tyre tread blocks, tiny fittings and redundant optical inserts removed",
+    "Source front -X remapped to Blender +Y; metres retained",
+    "Continuous shell, door perimeters and curved fittings selectively reduced by family",
+    "Four tyres rebuilt with 40 segment six ring profiles around source axle positions; rim geometry independently reduced",
+    "Only mirror projection beyond 0.96m attachment compressed by 0.260/0.352: source actual width2.624m -> output2.437192m; body not scaled",
+    "All source materials replaced with authored opaque procedural flat colours; shared2048RGBatlas baked32samples8threads",
+    "OBJ normal vectors normalized after serialization; UV coordinates unchanged; zero serialized degenerate faces removed"
+  ],
+  "output_triangles": 15532,
+  "target_tradeoff": "12k target exceeded by3532 to retain shell contour and door/hinge/bumper details; hard18000 satisfied",
+  "installed": false
+}

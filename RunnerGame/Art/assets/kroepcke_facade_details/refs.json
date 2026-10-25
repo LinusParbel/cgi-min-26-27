@@ -1,0 +1,97 @@
+{
+  "photos": [
+    {
+      "file": "../hannover_street_references/ref/03.jpg",
+      "title": "File:Kroepcke Center department store Kroepcke square Hanover Germany 01.jpg",
+      "author": "ChristianSchd",
+      "licence": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Kroepcke_Center_department_store_Kroepcke_square_Hanover_Germany_01.jpg",
+      "original_url": "https://upload.wikimedia.org/wikipedia/commons/8/85/Kroepcke_Center_department_store_Kroepcke_square_Hanover_Germany_01.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "original_file": ".model-research/hannover_street_references/03_original.jpg",
+      "sha256": "2e1d4fe0a17b4fe6d67541a9acc28c5eb303bc6968211f86379841fac049965b",
+      "commons_sha1": "2d764c3794cf0ba3a631b0176d4a9bf3a056145a",
+      "photo_date": "2014-07-10 21:44:25",
+      "size": [
+        1600,
+        1067
+      ],
+      "view": "street_level",
+      "key": false,
+      "camera_z_range": [
+        1,
+        2
+      ],
+      "license_proof_file": ".model-research/hannover_street_references/api.json",
+      "reference_only": true,
+      "role": "Kroepcke_Center_supplement",
+      "shows": "Kroepcke-Center angular rounded prow: pale stone vertical bays, upper recessed windows, double-height corner arcade and long stepped retail facade.",
+      "does_not_show": "Different building from Magis/Hugendubel corner; 2014 evening lighting affects colors.",
+      "date_warning": "Capture date is historical, not current 2026 survey.",
+      "sections": {
+        "vertical_bays": [
+          400,
+          140,
+          1200,
+          850
+        ],
+        "rounded_prow": [
+          1100,
+          100,
+          1240,
+          1000
+        ]
+      }
+    },
+    {
+      "file": "../hannover_street_references/ref/04.jpg",
+      "title": "File:Magis department store Hanover Germany 02.jpg",
+      "author": "ChristianSchd",
+      "licence": "CC BY-SA 3.0",
+      "license_url": "https://creativecommons.org/licenses/by-sa/3.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Magis_department_store_Hanover_Germany_02.jpg",
+      "original_url": "https://upload.wikimedia.org/wikipedia/commons/f/fb/Magis_department_store_Hanover_Germany_02.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+      "original_file": ".model-research/hannover_street_references/04_original.jpg",
+      "sha256": "a9da1acb60297777c2b2e9de25491aa57c59d3db313e857c13545b39611e1268",
+      "commons_sha1": "81bd90a64dcc84fcebc01a740cfa202914805750",
+      "photo_date": "2014-03-28 13:29:26",
+      "size": [
+        1600,
+        1067
+      ],
+      "view": "front_34",
+      "key": true,
+      "camera_z_range": [
+        1,
+        2
+      ],
+      "license_proof_file": ".model-research/hannover_street_references/api.json",
+      "reference_only": true,
+      "role": "Bahnhofstrasse_Georgstrasse_Magis_corner",
+      "shows": "Rounded Bahnhofstrasse/Georgstrasse corner seen from Kroepcke: continuous horizontal window ribbons, cream cladding bands, curved roofline, tall narrow glazed stair tower on right return.",
+      "does_not_show": "Storefront reads H&M in this 2014 image; do not treat signs as current. Does not establish Bahnhofstrasse far-end facades or hidden side.",
+      "date_warning": "Capture date is historical, not current 2026 survey.",
+      "sections": {
+        "ribbon_facade": [
+          365,
+          285,
+          1155,
+          830
+        ],
+        "stair_tower": [
+          1207,
+          105,
+          1319,
+          872
+        ],
+        "podium": [
+          320,
+          766,
+          1240,
+          1025
+        ]
+      }
+    }
+  ],
+  "usage": "Photos are reference only. Do not copy photo pixels to model textures. Dates describe historic capture; storefronts may have changed."
+}

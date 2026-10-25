@@ -1,0 +1,56 @@
+[
+  {
+    "name": "5500_5803.gml",
+    "method": 8,
+    "crc": 1599083074,
+    "compressed": 4296260,
+    "uncompressed": 31313966,
+    "offset": 47325108,
+    "sha256": "5b92299050dd27a84d3a3744fb188c668c726e120ba968b114813a338be4f450"
+  },
+  {
+    "name": "5510_5803.gml",
+    "method": 8,
+    "crc": 1301991792,
+    "compressed": 4466042,
+    "uncompressed": 32028748,
+    "offset": 55724532,
+    "sha256": "191c97f3455d736058030f470e371368ba92fc9f2fe429e499bcb668c6690c9c"
+  },
+  {
+    "name": "5510_5802.gml",
+    "method": 8,
+    "crc": 3838005802,
+    "compressed": 4417081,
+    "uncompressed": 32564754,
+    "offset": 60190665,
+    "sha256": "eb6763934b11d153380118bf478ab054e4abcf5868dc1bb35a1c001dd0d671ae"
+  },
+  {
+    "name": "5490_5803.gml",
+    "method": 8,
+    "crc": 1219181474,
+    "compressed": 4524260,
+    "uncompressed": 33069484,
+    "offset": 64607837,
+    "sha256": "b980b42f96313586dd60bc378b27278358724f2fa0b79ff403bf74e37fe6008d"
+  },
+  {
+    "name": "5500_5802.gml",
+    "method": 8,
+    "crc": 2808352948,
+    "compressed": 4786337,
+    "uncompressed": 33608945,
+    "offset": 69132188,
+    "sha256": "0b7d3690408a93f83bc2fbe7621eb617fe9f1f8c24b781cffaa5b3326eff6a03"
+  },
+  {
+    "name": "5490_5802.gml",
+    "method": 8,
+    "crc": 171700123,
+    "compressed": 3358872,
+    "uncompressed": 24031804,
+    "offset": 288705193,
+    "sha256": "1e7d9ac26b5b48d602ee1cbb1635258cdaf95944ed76139cc215f85463295545"
+  }
+]

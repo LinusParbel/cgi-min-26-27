@@ -1,0 +1,389 @@
+{
+  "detail_level": "replica",
+  "tri_budget": 25000,
+  "tex_res": 2048,
+  "facing": "-Y",
+  "ruler": {
+    "photo": "ref/04.jpg",
+    "from": "front_axle",
+    "to": "rear_axle",
+    "metres": 1.08,
+    "note": "Standard 28-inch city commuter bicycle wheelbase"
+  },
+  "dims": {
+    "wheel_d": {
+      "value": 0.68,
+      "source": "Standard 28 inch (622mm) commuter tire diameter"
+    },
+    "wheel_w": {
+      "value": 0.042,
+      "source": "City tire width 42mm"
+    },
+    "wheelbase": {
+      "value": 1.08,
+      "source": "Axle-to-axle distance in ref/04"
+    },
+    "bar_w": {
+      "value": 0.58,
+      "source": "Handlebar width from ref/06"
+    },
+    "saddle_h": {
+      "value": 0.98,
+      "source": "Saddle height from ground in ref/04"
+    },
+    "bottom_bracket_yz": {
+      "value": [
+        0.09391,
+        0.2823
+      ],
+      "source": "ref/04.jpg pixel [779, 710]; axle-line roll corrected, 1.08 m wheelbase ruler; front rack depth resolved in ref/03"
+    },
+    "seat_cluster_yz": {
+      "value": [
+        0.32731,
+        0.78366
+      ],
+      "source": "ref/04.jpg pixel [610, 350]; axle-line roll corrected, 1.08 m wheelbase ruler; front rack depth resolved in ref/03"
+    },
+    "head_top_yz": {
+      "value": [
+        -0.28036,
+        0.8004
+      ],
+      "source": "ref/04.jpg pixel [1050, 330]; axle-line roll corrected, 1.08 m wheelbase ruler; front rack depth resolved in ref/03"
+    },
+    "head_bottom_yz": {
+      "value": [
+        -0.3356,
+        0.69583
+      ],
+      "source": "ref/04.jpg pixel [1090, 405]; axle-line roll corrected, 1.08 m wheelbase ruler; front rack depth resolved in ref/03"
+    },
+    "seatpost_top_yz": {
+      "value": [
+        0.3577,
+        0.8864
+      ],
+      "source": "ref/04.jpg pixel [588, 276]; axle-line roll corrected, 1.08 m wheelbase ruler; front rack depth resolved in ref/03"
+    },
+    "saddle_top_yz": {
+      "value": [
+        0.4309,
+        0.96505
+      ],
+      "source": "ref/04.jpg pixel [535, 220]; axle-line roll corrected, 1.08 m wheelbase ruler; front rack depth resolved in ref/03"
+    },
+    "rear_rack_back_yz": {
+      "value": [
+        0.77616,
+        0.72679
+      ],
+      "source": "ref/04.jpg pixel [285, 397]; axle-line roll corrected, 1.08 m wheelbase ruler; front rack depth resolved in ref/03"
+    },
+    "rear_rack_front_yz": {
+      "value": [
+        0.37565,
+        0.73481
+      ],
+      "source": "ref/04.jpg pixel [575, 386]; axle-line roll corrected, 1.08 m wheelbase ruler; front rack depth resolved in ref/03"
+    },
+    "front_rack_back_yz": {
+      "value": [
+        -0.37703,
+        0.66056
+      ],
+      "source": "ref/04.jpg pixel [1120, 430]; axle-line roll corrected, 1.08 m wheelbase ruler; front rack depth resolved in ref/03"
+    },
+    "front_rack_front_yz": {
+      "value": [
+        -0.7154,
+        0.77466
+      ],
+      "source": "ref/04.jpg pixel [1365, 343]; axle-line roll corrected, 1.08 m wheelbase ruler; front rack depth resolved in ref/03"
+    },
+    "top_tube_r": {
+      "value": 0.017,
+      "source": "ref/04 frame grid: diameter approx 24px / axle spacing782px"
+    },
+    "down_tube_r": {
+      "value": 0.026,
+      "source": "ref/04 frame grid: diameter approx38px; larger oval down tube"
+    },
+    "seat_tube_r": {
+      "value": 0.019,
+      "source": "ref/04 frame grid: approx28px outside tube diameter"
+    },
+    "head_tube_r": {
+      "value": 0.027,
+      "source": "ref/04 frame grid: approx40px outside head tube diameter"
+    },
+    "stay_r": {
+      "value": 0.01,
+      "source": "ref/04 frame grid: paired rear stays approx14px"
+    },
+    "fork_r": {
+      "value": 0.014,
+      "source": "ref/04 and ref/03 fork legs approx20px"
+    },
+    "hub_w": {
+      "value": 0.105,
+      "source": "ref/03 inferred cross-bike hub width, not physically measured"
+    },
+    "spoke_count": {
+      "value": 36,
+      "source": "ref/03 and ref/04 thin crossed wire spokes, count estimated from visible pattern"
+    },
+    "spoke_r": {
+      "value": 0.0011,
+      "source": "Thin wire appearance in ref/03; game-readable approximation"
+    },
+    "rim_outer_r": {
+      "value": 0.319,
+      "source": "ref/04 side image: aluminium rim inside tyre of radius .34"
+    },
+    "rim_inner_r": {
+      "value": 0.308,
+      "source": "ref/04 bright rim band roughly8px deep"
+    },
+    "mudguard_r": {
+      "value": 0.356,
+      "source": "ref/04 mudguard clearance about12px above outer tyre"
+    },
+    "mudguard_w": {
+      "value": 0.055,
+      "source": "ref/03 transverse mudguard width slightly wider than42mm tyre"
+    },
+    "mudguard_thick": {
+      "value": 0.002,
+      "source": "Thin sheet mudguard interpretation"
+    },
+    "rack_tube_r": {
+      "value": 0.006,
+      "source": "ref/03 and04 rack tube diameter about9px at rear"
+    },
+    "rear_rack_w": {
+      "value": 0.145,
+      "source": "ref/03 rear platform transverse width inferred from perspective"
+    },
+    "rear_rack_len": {
+      "value": 0.4,
+      "source": "ref/04 rear carrier approx290px /782px wheelbase"
+    },
+    "rear_rack_h": {
+      "value": 0.735,
+      "source": "ref/04 rear carrier height above axle approx285px"
+    },
+    "front_rack_w": {
+      "value": 0.3,
+      "source": "ref/03 broad front platform about twice rear rack width"
+    },
+    "front_rack_len": {
+      "value": 0.34,
+      "source": "ref/03 rack reaches over front tyre; ref/04 perspective shortening"
+    },
+    "front_rack_h": {
+      "value": 0.755,
+      "source": "ref/03 platform just above front mudguard"
+    },
+    "front_rack_y": {
+      "value": -0.58,
+      "source": "ref/03 platform centered above front wheel"
+    },
+    "front_rack_back_h": {
+      "value": 1.065,
+      "source": "ref/03 tall upright rack back reaches near handlebar stem"
+    },
+    "rear_rack_y": {
+      "value": 0.58,
+      "source": "ref/04 rear platform centered above rear wheel"
+    },
+    "bar_h": {
+      "value": 1.105,
+      "source": "ref/03/04 handlebar upper contour compared with wheel diameter"
+    },
+    "bar_y": {
+      "value": -0.235,
+      "source": "ref/03 swept-back city handlebar behind steering axis"
+    },
+    "bar_tube_r": {
+      "value": 0.011,
+      "source": "ref/06 chrome city handlebar diameter interpretation"
+    },
+    "grip_len": {
+      "value": 0.115,
+      "source": "ref/03 black grips relative to580mm handlebar width"
+    },
+    "grip_r": {
+      "value": 0.016,
+      "source": "ref/03 rubber grips larger than chrome tube"
+    },
+    "saddle_w": {
+      "value": 0.205,
+      "source": "ref/03 broad comfort saddle, cross-bike width inferred"
+    },
+    "saddle_len": {
+      "value": 0.265,
+      "source": "ref/04 saddle approx190px /782px wheelbase"
+    },
+    "saddle_thick": {
+      "value": 0.05,
+      "source": "ref/04 raised rear padding contour"
+    },
+    "chaincase_thick": {
+      "value": 0.036,
+      "source": "ref/03 enclosed chaincase transverse depth"
+    },
+    "chaincase_x": {
+      "value": -0.073,
+      "source": "ref/03 right side of bicycle; with front -Y the rider right is -X"
+    },
+    "chaincase_profile": {
+      "value": [
+        [
+          0.54,
+          0.265
+        ],
+        [
+          0.59,
+          0.3
+        ],
+        [
+          0.58,
+          0.365
+        ],
+        [
+          0.52,
+          0.385
+        ],
+        [
+          0.12,
+          0.385
+        ],
+        [
+          0.045,
+          0.36
+        ],
+        [
+          0.015,
+          0.315
+        ],
+        [
+          0.025,
+          0.255
+        ],
+        [
+          0.08,
+          0.23
+        ],
+        [
+          0.18,
+          0.235
+        ],
+        [
+          0.48,
+          0.255
+        ]
+      ],
+      "source": "ref/04 silhouette around rear sprocket and front chainring, in longitudinal Y/Z metres"
+    },
+    "crank_len": {
+      "value": 0.17,
+      "source": "ref/03/04 pedal-crank radius compared with wheel diameter"
+    },
+    "pedal_w": {
+      "value": 0.095,
+      "source": "ref/03 transverse pedal width interpretation"
+    },
+    "pedal_len": {
+      "value": 0.075,
+      "source": "ref/03 pedal fore-aft width interpretation"
+    },
+    "chainring_cover_r": {
+      "value": 0.064,
+      "source": "ref/03 and04 circular silver crank cover on enclosed chaincase; interpreted radius relative .68m wheel"
+    },
+    "chainring_cover_t": {
+      "value": 0.004,
+      "source": "ref/03 shallow silver crank cover proud of right chaincase face"
+    },
+    "chaincase_strip_r": {
+      "value": 0.003,
+      "source": "ref/03 and04 narrow inset guard decoration above crank axis; interpreted 6mm strip width"
+    },
+    "rack_corner_r": {
+      "value": 0.026,
+      "source": "ref/03 tubular front carrier has rounded upper corners; interpreted bend centre radius"
+    },
+    "kickstand_r": {
+      "value": 0.008,
+      "source": "ref/03 deployed twin-leg centre stand"
+    }
+  },
+  "colors": {
+    "paint": {
+      "linear": [
+        0.014,
+        0.019,
+        0.032
+      ],
+      "source": "ref/04 frame: near-black navy in overcast light, interpreted without photo pixels"
+    },
+    "fender": {
+      "linear": [
+        0.014,
+        0.019,
+        0.032
+      ],
+      "source": "ref/04 frame: near-black navy in overcast light, interpreted without photo pixels"
+    },
+    "metal": {
+      "linear": [
+        0.42,
+        0.44,
+        0.47
+      ],
+      "source": "ref/03/04 silver rims, chrome handlebar and hub shells; interpreted midtone"
+    },
+    "rubber": {
+      "linear": [
+        0.018,
+        0.02,
+        0.024
+      ],
+      "source": "ref/04 dark tyres and grips"
+    },
+    "saddle": {
+      "linear": [
+        0.022,
+        0.024,
+        0.029
+      ],
+      "source": "ref/03 and04 visibly black comfort saddle; corrects earlier brown placeholder"
+    },
+    "pedal": {
+      "linear": [
+        0.04,
+        0.04,
+        0.04
+      ],
+      "source": "Black composite pedal body"
+    },
+    "light_front": {
+      "linear": [
+        0.95,
+        0.95,
+        0.9
+      ],
+      "source": "LED headlight lens"
+    },
+    "reflector_red": {
+      "linear": [
+        0.85,
+        0.02,
+        0.02
+      ],
+      "source": "Rear red reflector"
+    }
+  },
+  "measurement_limits": "Wheelbase is an existing assumed ruler, not a published Batavus measurement. Cross-bike widths and obscured details are inferred. Aim for recognisable reference silhouette, not a measured factory replica."
+}

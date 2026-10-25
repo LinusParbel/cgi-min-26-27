@@ -1,0 +1,164 @@
+{
+  "route": "B: fresh MPFB base + official verified CC0 system assets",
+  "url": "https://github.com/makehumancommunity/mpfb2",
+  "author": "MakeHuman Community; Data Collection AB; Joel Palmius; Jonas Hauquier",
+  "licence": "CC0 1.0 Universal assets; addon source separately GPLv3",
+  "verification_date": "2026-10-22",
+  "retrieved": "Existing locally preserved official sources, not re-downloaded",
+  "licence_evidence": [
+    "source/LICENSE.md sections C,D",
+    "source/LICENSE.ASSETS.md",
+    "CC0 September 2020 headers on adopted MHCLO and materials"
+  ],
+  "changes": [
+    "Fresh civilian macro body, no officer targets or equipment",
+    "Original top texture replaced by plain teal; connected denim trousers retained as geometry",
+    "Shoes01 trimmed to low upper with each rigid shoe bound to foot",
+    "Hair/brows low-alpha polygons removed once; opaque output",
+    "Analytic constrained scooter riding/crouch; fixed hands, tandem supported soles",
+    "One ride-only 2048 atlas; coordinates-only duck deformation"
+  ],
+  "sources": [
+    {
+      "path": ".model-research/mpfb2-2.0.18/LICENSE.ASSETS.md",
+      "sha256": "f6089cba01cb570a24712b41ab8a586ccd3cc5ef53dc266ca50b95c288956d2c"
+    },
+    {
+      "path": ".model-research/mpfb2-2.0.18/LICENSE.md",
+      "sha256": "5cefb60680cb9efd4550a2e65d719021cfbec9dad3658481d11d48ae863ce04d"
+    },
+    {
+      "path": ".model-research/mpfb2-2.0.18/src/mpfb/data/3dobjs/base.obj",
+      "sha256": "8e761e6624b8f54536409135d1636da63b32486a90d4897f84e121d144f6fb4c"
+    },
+    {
+      "path": ".model-research/mpfb2-2.0.18/src/mpfb/data/rigs/standard/rig.game_engine.json",
+      "sha256": "b324ddb4b707721c19630bfadb87c3e3b38eed3b6e4590bb3cead43ea918f799"
+    },
+    {
+      "path": ".model-research/mpfb2-2.0.18/src/mpfb/data/rigs/standard/weights.game_engine.json",
+      "sha256": "9f4a773e74ce5ba08415b4f30070338e9f75bae5971b5075b10cd6b9caa58473"
+    },
+    {
+      "path": ".model-research/system-assets/clothes/male_casualsuit02/male_casualsuit02.mhclo",
+      "sha256": "f9e6821704a1508a02d5e416b2360785b705cfe5a130c359021a4b4570dcc43a"
+    },
+    {
+      "path": ".model-research/system-assets/clothes/male_casualsuit02/male_casualsuit02.mhmat",
+      "sha256": "20ab695fd8f6986e243427e03f8f9ec5a1c394ce8736eb6359f135a129ffb36a"
+    },
+    {
+      "path": ".model-research/system-assets/clothes/male_casualsuit02/male_casualsuit02.obj",
+      "sha256": "e07cbd1a43d21bd700e6598f01f74341a9dd66eac4e035c8be8de2650eac380f"
+    },
+    {
+      "path": ".model-research/system-assets/clothes/male_casualsuit02/male_casualsuit02.thumb",
+      "sha256": "e994394780be666443e70349b7f9e55704895e699054a45b4113037fdbab8e68"
+    },
+    {
+      "path": ".model-research/system-assets/clothes/male_casualsuit02/male_casualsuit02_ao.png",
+      "sha256": "ef7f75de0868fdbe01c05e3c8ac3ec2a59a35247b501473b3aba79e7901dfbd9"
+    },
+    {
+      "path": ".model-research/system-assets/clothes/male_casualsuit02/male_casualsuit02_diffuse.png",
+      "sha256": "8e1e63c471a8eb6ea8be48f2d540c15c81d2e7744ff80c8fdac86a6e6fde3179"
+    },
+    {
+      "path": ".model-research/system-assets/clothes/male_casualsuit02/male_casualsuit02_normal.png",
+      "sha256": "1c31a7a5fbbef1ee40176114295038703f370d163a3cf040f55b60c85369d12c"
+    },
+    {
+      "path": ".model-research/system-assets/clothes/shoes01/shoes01.mhclo",
+      "sha256": "7994e38f7cdcee0bd5f55101660badcce0162fcdfc7f432218dd1eb301626252"
+    },
+    {
+      "path": ".model-research/system-assets/clothes/shoes01/shoes01.mhmat",
+      "sha256": "db1711e2dfea4dd8c24459643603a190d9a9da603fd26da5542002a73d740be8"
+    },
+    {
+      "path": ".model-research/system-assets/clothes/shoes01/shoes01.mhw",
+      "sha256": "b377d91e6d0264521f672c3990c366b2631103accba4921fc3965c2ed5ce395b"
+    },
+    {
+      "path": ".model-research/system-assets/clothes/shoes01/shoes01.obj",
+      "sha256": "eac355a842a8eb8ae2f09fac8dd18a877a24ef2521ed2d6bf38559b42ce4b49a"
+    },
+    {
+      "path": ".model-research/system-assets/clothes/shoes01/shoes01.thumb",
+      "sha256": "a118291fe3e83e3c616febf52fdb480186c816e7cd4d77d331adffd457421cbb"
+    },
+    {
+      "path": ".model-research/system-assets/clothes/shoes01/shoes01_diffuse.png",
+      "sha256": "50c9a406a7f1cb6aa7b42912348e78f09d0252aa3963c8229cf18dfe8353cdbf"
+    },
+    {
+      "path": ".model-research/system-assets/clothes/shoes01/shoes01_normal.png",
+      "sha256": "a9bfd7223e98b8f93100e89596135e3a94e6044f9db11b4d23cec625c37a4599"
+    },
+    {
+      "path": ".model-research/system-assets/eyebrows/eyebrow001/eyebrow001.mhclo",
+      "sha256": "54c8892c2ba577f4152d779ce1f20f7cd323beb8cbd9cb701796165c221b4f5b"
+    },
+    {
+      "path": ".model-research/system-assets/eyebrows/eyebrow001/eyebrow001.mhmat",
+      "sha256": "976e5f4f1d3922d7a11c6e2db233f8b4584b068d00619d5749687e81c92d61fc"
+    },
+    {
+      "path": ".model-research/system-assets/eyebrows/eyebrow001/eyebrow001.obj",
+      "sha256": "88b13146395133f3901715e11706cdfd293e5d6087ad7c5e01efe1485a26b513"
+    },
+    {
+      "path": ".model-research/system-assets/eyebrows/eyebrow001/eyebrow001.png",
+      "sha256": "9940f7d0b1b223709a19b05156ba6f6e9e4dbdbced02d7574f4d51d72c58967b"
+    },
+    {
+      "path": ".model-research/system-assets/eyebrows/eyebrow001/eyebrow001.thumb",
+      "sha256": "98b68eccf50977ff00242a33eb1dc6e3eaf4cc262e1f6c4ceca5c1c564f6c745"
+    },
+    {
+      "path": ".model-research/system-assets/eyes/low-poly/low-poly.mhclo",
+      "sha256": "68582e28e9176cba7cfcf35208f671b6201b8d1bc95c32decff61a3160ec34d8"
+    },
+    {
+      "path": ".model-research/system-assets/eyes/low-poly/low-poly.obj",
+      "sha256": "783fe1e6331162c876520b4c2bed7a8ca06354ca15497e8ebd68bb1b59f4d3de"
+    },
+    {
+      "path": ".model-research/system-assets/eyes/low-poly/low-poly.thumb",
+      "sha256": "27b09c5a2bd792671c99a00016ec836855278f199bc4753c3018f1ac73068c72"
+    },
+    {
+      "path": ".model-research/system-assets/hair/short01/short01.mhclo",
+      "sha256": "ae1ffaa98da5753b803b3a173bede4895d2215e6bb94763f3765a71f0e984f35"
+    },
+    {
+      "path": ".model-research/system-assets/hair/short01/short01.mhmat",
+      "sha256": "01e2e12ce3f3d3c859225456660acadcdd27d4f4b4d888bcbd6f11998cadd975"
+    },
+    {
+      "path": ".model-research/system-assets/hair/short01/short01.obj",
+      "sha256": "d998d8416f9b5d5591f1d756f4d292288d000a6951bc0f4d2e8e72727bbc44fa"
+    },
+    {
+      "path": ".model-research/system-assets/hair/short01/short01.thumb",
+      "sha256": "7e942d29322841a07a8a3feaf438fb9efb6b54f5b733909cecc51e79dcaca995"
+    },
+    {
+      "path": ".model-research/system-assets/hair/short01/short01_diffuse.png",
+      "sha256": "f34a0957184e3d1e911ed59245f874f8d4843f61ee44ff49f43edb4be0196949"
+    },
+    {
+      "path": ".model-research/system-assets/skins/middleage_caucasian_male/middleage_caucasian_male.mhmat",
+      "sha256": "113326b7670cb273610314b91e2597b228711adf5f0666660b16fef269bfbe72"
+    },
+    {
+      "path": ".model-research/system-assets/skins/middleage_caucasian_male/middleage_caucasian_male.thumb",
+      "sha256": "0edd08641ae1bc1f832fe17a54d519445c73b8ba1024606e4c25ccaaca6d2279"
+    },
+    {
+      "path": ".model-research/system-assets/skins/middleage_caucasian_male/middleage_lightskinned_male_diffuse.png",
+      "sha256": "3f94f3f6a5cab92dedf5cce392a87332312fc435f1cb44c6e7b897daef9a5fbb"
+    }
+  ],
+  "reference_photos": "refs.json: pose/context reference only, no image pixels used in textures; not adopted model data"
+}

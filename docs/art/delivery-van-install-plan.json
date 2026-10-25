@@ -1,0 +1,48 @@
+{
+  "status": "approved and installed",
+  "files": [
+    {
+      "source": "RunnerGame/Art/assets/delivery_van/out/VEH_DeliveryVan.png",
+      "target": "RunnerGame/Assets/Models/Fahrzeug/DeliveryVan/VEH_DeliveryVan.png",
+      "sha256": "f299173716877ff937b8477b7b2167fb16a8cf9f62fc79d98c41cca00adfd983",
+      "bytes": 1874393
+    },
+    {
+      "source": "RunnerGame/Art/assets/delivery_van/out/VEH_DeliveryVan_body.obj",
+      "target": "RunnerGame/Assets/Models/Fahrzeug/DeliveryVan/VEH_DeliveryVan_body.obj",
+      "sha256": "9c114e358a090f334c27688cc5cc7d86edc15434b4871681cd4136efc309b3d0",
+      "bytes": 2035310
+    },
+    {
+      "source": "RunnerGame/Art/assets/delivery_van/out/VEH_DeliveryVan_front_left.obj",
+      "target": "RunnerGame/Assets/Models/Fahrzeug/DeliveryVan/VEH_DeliveryVan_front_left.obj",
+      "sha256": "332c5afd0cbe2ccfb6cafef784a5ac275222207c987d2bd0dcab03464e7675e2",
+      "bytes": 97235
+    },
+    {
+      "source": "RunnerGame/Art/assets/delivery_van/out/VEH_DeliveryVan_front_right.obj",
+      "target": "RunnerGame/Assets/Models/Fahrzeug/DeliveryVan/VEH_DeliveryVan_front_right.obj",
+      "sha256": "d776742026b4b4f85f80077f7e5af66d675527a3f02f529d78d89a7d50084b42",
+      "bytes": 97586
+    },
+    {
+      "source": "RunnerGame/Art/assets/delivery_van/out/VEH_DeliveryVan_parts.json",
+      "target": "RunnerGame/Assets/Models/Fahrzeug/DeliveryVan/VEH_DeliveryVan_parts.json",
+      "sha256": "cae609679e3eaac990eb59d9812cdb4117c4afdaad937a997979269f69a370dd",
+      "bytes": 879
+    },
+    {
+      "source": "RunnerGame/Art/assets/delivery_van/out/VEH_DeliveryVan_rear_left.obj",
+      "target": "RunnerGame/Assets/Models/Fahrzeug/DeliveryVan/VEH_DeliveryVan_rear_left.obj",
+      "sha256": "4b5e67d70b53408be8295e32880b4332de541994e48f7eb54c39d95b835fd925",
+      "bytes": 97697
+    },
+    {
+      "source": "RunnerGame/Art/assets/delivery_van/out/VEH_DeliveryVan_rear_right.obj",
+      "target": "RunnerGame/Assets/Models/Fahrzeug/DeliveryVan/VEH_DeliveryVan_rear_right.obj",
+      "sha256": "67fb6099d91c43b502dc32c9caa941aca9c6eda5ef4cee0fb6b74f8c0ec7fb93",
+      "bytes": 97674
+    }
+  ],
+  "approval": "User: okay looks good lets continue, 2026-10-23"
+}

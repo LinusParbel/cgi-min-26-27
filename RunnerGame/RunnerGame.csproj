@@ -13,6 +13,8 @@
 
   <ItemGroup>
     <None Update="Assets\**" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="CREDITS.md" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="README.md" CopyToOutputDirectory="PreserveNewest" />
     <EmbeddedResource Include="Materials\**\*.glsl" />
   </ItemGroup>
 </Project>

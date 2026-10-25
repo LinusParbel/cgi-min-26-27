@@ -1,0 +1,14 @@
+{
+  "texture": "PROP_CityToken.png",
+  "parts": [
+    {
+      "name": "token",
+      "obj": "PROP_CityToken_token.obj",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ]
+}

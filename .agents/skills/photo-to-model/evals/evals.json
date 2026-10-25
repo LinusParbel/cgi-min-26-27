@@ -1,0 +1,46 @@
+{
+  "skill_name": "photo-to-model",
+  "metrics_to_log_per_run": ["rounds to 'no double image' per part/section", "agent tokens + images viewed", "user rejections at gates A/B/C", "tests that stayed green under mutation", "final triangles vs budget"],
+  "evals": [
+    {
+      "id": 1,
+      "name": "wheelie-bin-medium-sections",
+      "prompt": "Model the Hannover Abfallwirtschaft grey wheelie bin from photos so it looks like the real one. It is just street dressing in the runner, medium detail is enough.",
+      "expected_output": "Gate A recommends class medium + sections loop; a curved-body build (lathe/loft) with a separate lid pivot; <= 12k tris, 1024^2; no parts loop needed; at most one combined B+C gate.",
+      "tests": "curved/organic shapes, sections loop alone, moving part (lid)",
+      "files": []
+    },
+    {
+      "id": 2,
+      "name": "tram-hero-custom-parts",
+      "prompt": "Make a really detailed replica of a Hannover Stadtbahn TW 3000 for the hero moment at the end of the level, budget is not a concern up to about 40k triangles.",
+      "expected_output": "Gate A offers custom class (40k, 2048 or 4096), parts loop with same-named sections in every key photo, loop on both key photos, escalation only for parts that hit the round limit.",
+      "tests": "custom class above 25k, long object, few clean side views, parts loop",
+      "files": []
+    },
+    {
+      "id": 3,
+      "name": "weak-photo-pack",
+      "prompt": "Model the Aegidienkirche ruin from photos. I only found two photos on Commons, both from the same corner.",
+      "expected_output": "Gate A flags that no true second angle exists, asks whether to search more or accept estimates marked 'estimate' in spec sources; does not extrapolate hidden faces silently.",
+      "tests": "missing key photo, estimate marking, user-visible Gate A questions",
+      "files": []
+    },
+    {
+      "id": 4,
+      "name": "raise-class-later",
+      "prompt": "Continue the finished Kroepcke clock: it now sits at the end of the track, raise it from replica to custom 35k triangles and add the missing leg rib detail.",
+      "expected_output": "Budget in spec.json is raised at the gate; only the affected parts (legs) get another parts-loop round; tests read the new tri_budget from the spec; no full rebuild of other parts.",
+      "tests": "raising the class later, targeted re-loop",
+      "files": []
+    }
+  ],
+  "trigger_queries": [
+    {"query": "can you model the hannover wheelie bin from photos, the real grey ones with the AÜH logo", "should_trigger": true},
+    {"query": "i found 3 pictures of the Opernhaus on commons, build a 3d model of it for the game", "should_trigger": true},
+    {"query": "make a traffic cone for the runner", "should_trigger": false},
+    {"query": "rig and animate the Ordnungsamt officer so he runs", "should_trigger": false},
+    {"query": "generate a barrier model for the construction site level", "should_trigger": false},
+    {"query": "replicate the Kröpcke clock exactly, I have reference photos", "should_trigger": true}
+  ]
+}

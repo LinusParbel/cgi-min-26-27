@@ -1,0 +1,169 @@
+{
+  "texture": "CHR_Ordnungsamt.png",
+  "loop": true,
+  "forward": "Blender -Y / engine +Z",
+  "fps": 50,
+  "duration_ms": 800,
+  "frames": [
+    {
+      "obj": "CHR_Ordnungsamt_run_01.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_02.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_03.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_04.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_05.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_06.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_07.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_08.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_09.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_10.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_11.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_12.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_13.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_14.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_15.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_16.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_17.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_18.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_19.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_20.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_21.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_22.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_23.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_24.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_25.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_26.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_27.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_28.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_29.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_30.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_31.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_32.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_33.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_34.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_35.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_36.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_37.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_38.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_39.obj",
+      "duration_ms": 20
+    },
+    {
+      "obj": "CHR_Ordnungsamt_run_40.obj",
+      "duration_ms": 20
+    }
+  ]
+}

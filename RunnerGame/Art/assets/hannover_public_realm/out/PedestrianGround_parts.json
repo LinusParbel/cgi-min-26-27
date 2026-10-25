@@ -1,0 +1,14 @@
+{
+  "texture": "PedestrianGround.png",
+  "parts": [
+    {
+      "name": "pedestrian_ground",
+      "obj": "PedestrianGround.obj",
+      "pivot": [
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

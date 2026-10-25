@@ -1,0 +1,12 @@
+3D-Stadtmodell Hannover LoD2 - Landeshauptstadt Hannover, FB Planen und Stadtentwicklung, Bereich Geoinformation.
+Source: https://www.hannover.de/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover/Dezernate-und-Fachbereiche-der-LHH/Stadtentwicklung-und-Bauen/Fachbereich-Planen-und-Stadtentwicklung/Geoinformation/Open-GeoData/3D-Stadtmodell-und-Gel%C3%A4ndemodell/Digitales-3D-Stadtmodell
+Licence: CC BY 4.0 International - https://creativecommons.org/licenses/by/4.0/
+Changes: route-area selection, polygon triangulation, coordinate conversion, neutral authored material.
+Base survey 2010; source modified 5 December 2024, published 20 January 2026.
+Generalized roofs, approximate height accuracy +/-1 m. No facade texture or claim of current surveyed detail.
+
+Digitale Orthophotos 2025, Landeshauptstadt Hannover, FB Planen und Stadtentwicklung, Bereich Geoinformation. CC BY 4.0. https://creativecommons.org/licenses/by/4.0/
+Source https://opengeodata.hannover-stadt.de/DOP20_Teil_Mitte.zip ; survey 2025-03-06. Manual interpretation of paving edges, opening lip, tree centres; no aerial or Google pixels in runtime.
+Original procedural texture atlas by project authors.
+
+Material architectural reference only: Allee in der Georgstrasse von Hannover (2019-12-08), Bernd Schwabe in Hannover, CC BY-SA4.0. https://commons.wikimedia.org/wiki/File:2019-12-08_Allee_in_der_Georgstra%C3%9Fe_von_Hannover.jpg . No photo pixels used; gray-center/red-brick-row material arrangement interpreted, original procedural pixels. See paving-material-report.json.

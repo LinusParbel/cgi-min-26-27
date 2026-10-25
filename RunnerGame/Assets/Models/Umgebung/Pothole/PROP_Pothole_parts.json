@@ -1,0 +1,14 @@
+{
+  "texture": "PROP_Pothole.png",
+  "parts": [
+    {
+      "name": "patch",
+      "obj": "PROP_Pothole_patch.obj",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ]
+}

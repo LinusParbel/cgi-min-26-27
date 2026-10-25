@@ -12,3 +12,13 @@ tools/asset-spike/ref/*
 !tools/asset-spike/ref/signs/
 __pycache__/
 *.pyc
+
+# Local frozen playable checkpoints (runtime assets and binaries)
+/preserved-game-states/
+
+# Download caches, workstation settings and generated review media
+/.model-research/
+/.claude/settings.local.json
+/docs/art/previews/
+*.blend[1-9]
+*.log

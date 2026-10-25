@@ -1,0 +1,32 @@
+{
+  "texture": "PROP_Pavement.png",
+  "parts": [
+    {
+      "name": "rack",
+      "obj": "PROP_Pavement_rack.obj",
+      "pivot": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "table",
+      "obj": "PROP_Pavement_table.obj",
+      "pivot": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "chair",
+      "obj": "PROP_Pavement_chair.obj",
+      "pivot": [
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

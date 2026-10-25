@@ -1,0 +1,204 @@
+{
+  "status": "approved and installed 2026-10-23",
+  "groups": [
+    {
+      "asset": "street_kit",
+      "target": "RunnerGame/Assets/Models/Umgebung/StreetKit",
+      "files": [
+        {
+          "source": "RunnerGame/Art/assets/street_kit/out/ST_Street.png",
+          "target": "RunnerGame/Assets/Models/Umgebung/StreetKit/ST_Street.png",
+          "sha256": "aaae560ab0aede75cbe11039346837e044155b21d620c4ab6caf52a32e7d400c",
+          "bytes": 3211290
+        },
+        {
+          "source": "RunnerGame/Art/assets/street_kit/out/ST_Street_curb_left.obj",
+          "target": "RunnerGame/Assets/Models/Umgebung/StreetKit/ST_Street_curb_left.obj",
+          "sha256": "d0d4b49172d1e72687ba2abcd784117d9680a0e6497c52251eeaf366927cffc5",
+          "bytes": 1509
+        },
+        {
+          "source": "RunnerGame/Art/assets/street_kit/out/ST_Street_curb_right.obj",
+          "target": "RunnerGame/Assets/Models/Umgebung/StreetKit/ST_Street_curb_right.obj",
+          "sha256": "75fe6a565f88ecd6797637c417a884f3df743f1ef147714378751902ca4cd14d",
+          "bytes": 1502
+        },
+        {
+          "source": "RunnerGame/Art/assets/street_kit/out/ST_Street_parts.json",
+          "target": "RunnerGame/Assets/Models/Umgebung/StreetKit/ST_Street_parts.json",
+          "sha256": "03d9655ee9ddb5c8fa3bc93bb0ea5c0f8dccde563b297274b03827fb64af5842",
+          "bytes": 823
+        },
+        {
+          "source": "RunnerGame/Art/assets/street_kit/out/ST_Street_pavement_left.obj",
+          "target": "RunnerGame/Assets/Models/Umgebung/StreetKit/ST_Street_pavement_left.obj",
+          "sha256": "ac5417e824df7627b06234e1f2b44cd768cd5f2504bd8bcc274dec16283b4e67",
+          "bytes": 1248
+        },
+        {
+          "source": "RunnerGame/Art/assets/street_kit/out/ST_Street_pavement_right.obj",
+          "target": "RunnerGame/Assets/Models/Umgebung/StreetKit/ST_Street_pavement_right.obj",
+          "sha256": "4ba8bdd8f2db52b9cc2b956ac23bb25113dacb199cc00ca2d5943adae5411ecb",
+          "bytes": 1241
+        },
+        {
+          "source": "RunnerGame/Art/assets/street_kit/out/ST_Street_road.obj",
+          "target": "RunnerGame/Assets/Models/Umgebung/StreetKit/ST_Street_road.obj",
+          "sha256": "25046c8e46a6a4c7228a16b5cb3e39c62ef18d442110bb1b1fb377bcd89ea09c",
+          "bytes": 1235
+        }
+      ]
+    },
+    {
+      "asset": "shopfront_kit",
+      "target": "RunnerGame/Assets/Models/Gebaeude/ShopfrontKit",
+      "files": [
+        {
+          "source": "RunnerGame/Art/assets/shopfront_kit/out/AR_Shopfront.png",
+          "target": "RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront.png",
+          "sha256": "375e28058dcef97d350fc94113e7b6f09e1e4534b5ff4d313243261d44ff7c98",
+          "bytes": 4139845
+        },
+        {
+          "source": "RunnerGame/Art/assets/shopfront_kit/out/AR_Shopfront_brick_upper.obj",
+          "target": "RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_brick_upper.obj",
+          "sha256": "13413c3792e0454c2c956437e808933ed0d9626a23460a3ae328d3b07e402cc0",
+          "bytes": 54875
+        },
+        {
+          "source": "RunnerGame/Art/assets/shopfront_kit/out/AR_Shopfront_parts.json",
+          "target": "RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+          "sha256": "2f502f1612fe1993e28167e7d2b5ba68b47e60f7dea3cafd95bf66006cb60b4b",
+          "bytes": 523
+        },
+        {
+          "source": "RunnerGame/Art/assets/shopfront_kit/out/AR_Shopfront_sandstone_upper.obj",
+          "target": "RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_sandstone_upper.obj",
+          "sha256": "126d8f20dd0445a85f2614bf4c26e17871ab7a03c09daa3e29eb9bb9eb4a422a",
+          "bytes": 54879
+        },
+        {
+          "source": "RunnerGame/Art/assets/shopfront_kit/out/AR_Shopfront_shop_ground.obj",
+          "target": "RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_shop_ground.obj",
+          "sha256": "5d5bc9a01190bdc92102f174eef01c01c019de04b2539a1ce1b68dad384fa843",
+          "bytes": 54871
+        }
+      ]
+    },
+    {
+      "asset": "scooter_rider",
+      "target": "RunnerGame/Assets/Models/Charakter/ScooterRider",
+      "files": [
+        {
+          "source": "RunnerGame/Art/assets/scooter_rider/out/CHR_ScooterRider.png",
+          "target": "RunnerGame/Assets/Models/Charakter/ScooterRider/CHR_ScooterRider.png",
+          "sha256": "661d7ca02a01e26f2c2df01728eaf9df5070283cc21e58b1c3655c03136a5932",
+          "bytes": 2436741
+        },
+        {
+          "source": "RunnerGame/Art/assets/scooter_rider/out/CHR_ScooterRider_duck.obj",
+          "target": "RunnerGame/Assets/Models/Charakter/ScooterRider/CHR_ScooterRider_duck.obj",
+          "sha256": "c8b6e0c11b54678c82bdd74df5baa40f63dcb84439de6e233c73774d4ccb43a3",
+          "bytes": 2596182
+        },
+        {
+          "source": "RunnerGame/Art/assets/scooter_rider/out/CHR_ScooterRider_duck_parts.json",
+          "target": "RunnerGame/Assets/Models/Charakter/ScooterRider/CHR_ScooterRider_duck_parts.json",
+          "sha256": "ecc62cbf78f17db0f3372b7de56936d2b568da43345cb6e91b44ece957e2f513",
+          "bytes": 203
+        },
+        {
+          "source": "RunnerGame/Art/assets/scooter_rider/out/CHR_ScooterRider_poses.json",
+          "target": "RunnerGame/Assets/Models/Charakter/ScooterRider/CHR_ScooterRider_poses.json",
+          "sha256": "7c1bdb98c4a4f81830897348d55a5adadc433194121cca28e8c49a7ab0a8a1d1",
+          "bytes": 432
+        },
+        {
+          "source": "RunnerGame/Art/assets/scooter_rider/out/CHR_ScooterRider_ride.obj",
+          "target": "RunnerGame/Assets/Models/Charakter/ScooterRider/CHR_ScooterRider_ride.obj",
+          "sha256": "6e5025bbaee96bdcf37d01b9bc6d1f0274f8bec98b88cf3e3e13e4eca9909336",
+          "bytes": 2599188
+        },
+        {
+          "source": "RunnerGame/Art/assets/scooter_rider/out/CHR_ScooterRider_ride_parts.json",
+          "target": "RunnerGame/Assets/Models/Charakter/ScooterRider/CHR_ScooterRider_ride_parts.json",
+          "sha256": "33899b48a3527910e246d7476fec8342cb56f63316618204db4c2f84ffcb3dae",
+          "bytes": 203
+        }
+      ]
+    },
+    {
+      "asset": "city_car",
+      "target": "RunnerGame/Assets/Models/Fahrzeug/CityCar",
+      "files": [
+        {
+          "source": "RunnerGame/Art/assets/city_car/out/VEH_CityCar.png",
+          "target": "RunnerGame/Assets/Models/Fahrzeug/CityCar/VEH_CityCar.png",
+          "sha256": "acbc5ad637d7349b6352c3ec80cf703c9a9d6c77489a2076e3eb616e52bf2c79",
+          "bytes": 1486956
+        },
+        {
+          "source": "RunnerGame/Art/assets/city_car/out/VEH_CityCar_body.obj",
+          "target": "RunnerGame/Assets/Models/Fahrzeug/CityCar/VEH_CityCar_body.obj",
+          "sha256": "d30297f9b3ed1a68fddd8ac2b0affa997ff3c198efdd1c48108da1579707cdbc",
+          "bytes": 2024121
+        },
+        {
+          "source": "RunnerGame/Art/assets/city_car/out/VEH_CityCar_front_left.obj",
+          "target": "RunnerGame/Assets/Models/Fahrzeug/CityCar/VEH_CityCar_front_left.obj",
+          "sha256": "1c85f31d243821b98fb86b39f8bddd4630345e6f630f09a8a3e2bc5f33043302",
+          "bytes": 96534
+        },
+        {
+          "source": "RunnerGame/Art/assets/city_car/out/VEH_CityCar_front_right.obj",
+          "target": "RunnerGame/Assets/Models/Fahrzeug/CityCar/VEH_CityCar_front_right.obj",
+          "sha256": "84fb37de77196e00af65b70ba5e00249cff28074382d8f7b6c7a788d53819cbd",
+          "bytes": 96236
+        },
+        {
+          "source": "RunnerGame/Art/assets/city_car/out/VEH_CityCar_parts.json",
+          "target": "RunnerGame/Assets/Models/Fahrzeug/CityCar/VEH_CityCar_parts.json",
+          "sha256": "f4a4b18643d207c85558c8763ac8e03145fc1fb552a51d9556f908acd8f7807a",
+          "bytes": 863
+        },
+        {
+          "source": "RunnerGame/Art/assets/city_car/out/VEH_CityCar_rear_left.obj",
+          "target": "RunnerGame/Assets/Models/Fahrzeug/CityCar/VEH_CityCar_rear_left.obj",
+          "sha256": "7289525aa631bc9894f7f16765c1e544946d21091f9cade135003ccc7ffe0613",
+          "bytes": 96151
+        },
+        {
+          "source": "RunnerGame/Art/assets/city_car/out/VEH_CityCar_rear_right.obj",
+          "target": "RunnerGame/Assets/Models/Fahrzeug/CityCar/VEH_CityCar_rear_right.obj",
+          "sha256": "a2074709734a301b09fe35111ef6c31f0add73093b86a797fb8791555a608409",
+          "bytes": 95913
+        }
+      ]
+    },
+    {
+      "asset": "city_token",
+      "target": "RunnerGame/Assets/Models/Pickup/CityToken",
+      "files": [
+        {
+          "source": "RunnerGame/Art/assets/city_token/out/PROP_CityToken.png",
+          "target": "RunnerGame/Assets/Models/Pickup/CityToken/PROP_CityToken.png",
+          "sha256": "e609724d76ad5c85d37263cacf7ee2468a1c6b3b39e23c1390123f5307aced79",
+          "bytes": 98196
+        },
+        {
+          "source": "RunnerGame/Art/assets/city_token/out/PROP_CityToken_parts.json",
+          "target": "RunnerGame/Assets/Models/Pickup/CityToken/PROP_CityToken_parts.json",
+          "sha256": "cbe658f315812db475bfc2a2f36e1694421c778444256f13c6522dfe8ec95f6b",
+          "bytes": 207
+        },
+        {
+          "source": "RunnerGame/Art/assets/city_token/out/PROP_CityToken_token.obj",
+          "target": "RunnerGame/Assets/Models/Pickup/CityToken/PROP_CityToken_token.obj",
+          "sha256": "597d7cf6c84a49da368c158a91f2085821737e2a181a45f39526ffd96e08a7db",
+          "bytes": 64173
+        }
+      ]
+    }
+  ],
+  "approval": "User: it looks good for now lets move on"
+}

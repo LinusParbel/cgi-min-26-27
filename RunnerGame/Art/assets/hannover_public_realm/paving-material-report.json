@@ -1,0 +1,47 @@
+{
+  "materialReference": {
+    "file": "ref/01.jpg",
+    "title": "File:2019-12-08 Allee in der Georgstraße von Hannover.jpg",
+    "author": "Bernd Schwabe in Hannover",
+    "licence": "CC BY-SA 4.0",
+    "license_url": "https://creativecommons.org/licenses/by-sa/4.0",
+    "source_url": "https://commons.wikimedia.org/wiki/File:2019-12-08_Allee_in_der_Georgstra%C3%9Fe_von_Hannover.jpg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/1/13/2019-12-08_Allee_in_der_Georgstra%C3%9Fe_von_Hannover.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=original",
+    "original_file": ".model-research/hannover_street_references/01_original.jpg",
+    "sha256": "dee52933497676891a7443bfacf54857d5b602f3a2a3c234c63f2ffe8cafb6aa",
+    "commons_sha1": "f71585c4e4dc461b473566503727871298b4c281",
+    "photo_date": "8 December 2019 (according to Exif data)",
+    "size": [
+      1600,
+      1200
+    ],
+    "view": "street_level",
+    "key": true,
+    "camera_z_range": [
+      1,
+      2
+    ],
+    "license_proof_file": ".model-research/hannover_street_references/api.json",
+    "reference_only": true,
+    "role": "Georgstrasse_from_Kroepcke_toward_Steintor",
+    "shows": "Street-level axis toward Steintor: two ranks of deciduous trees, red brick side strips, gray center paving, paired concrete entry posts, shop glazing, varied commercial facades.",
+    "does_not_show": "Does not show full Steintor terminus or roof footprints; winter foliage; 2019 storefront names may differ today.",
+    "date_warning": "Capture date is historical, not current 2026 survey."
+  },
+  "sourceUse": "Architectural material feature only: gray center paving and red longitudinal tree-row strips. All runtime pixels original procedural, no photo or aerial pixels. Historical2019 reference, not current stone survey.",
+  "brickBandWidth_m": 2,
+  "brickArea_m2": 916.2812039944274,
+  "grayGeorgPavingArea_m2": 4832.7330295490965,
+  "atlasSwatches": 6,
+  "zoneOverlap_m2": 1.4695948809381656e-08,
+  "topGroundOverOpenings_m2": 0,
+  "triangles": 32745,
+  "protectedSha256": {
+    "map.json": "0149e2aa87e757ff367e97677276aba2246a956e3fd2454e011540bdca7b5a2a",
+    "route.json": "04b399f16f745e3828ab91ccdfa1c56e889c84b6963f7b5b70599e286b51d5ba",
+    "HannoverRoute.obj": "65e8606c12a2b47038253fd247cfc918b74aee98dcecc81fd6425cca86762157",
+    "KroepckeFacades.obj": "c22d54e2b01d4658ff989a91b997e3ed771f5853f80737beb9058afc7cb9f839"
+  },
+  "allProtectedFilesUnchanged": true,
+  "scope": "Ground material zones and original atlas only; no route/tree/city/metadata changes"
+}

@@ -1,0 +1,1 @@
+{"units":"metres","up":"Z","front":"-Y","rack_long_axis":"Y","rack":{"tube_diameter":0.05,"tube_length":0.8,"footprint_length":0.88,"height":0.8,"budget_triangles":3000},"table":{"diameter":0.7,"height":0.74},"chair":{"width":0.45,"seat_top":0.45,"back_top":0.821017},"table_two_chairs_budget":6000,"atlas_resolution":1024,"opaque":true,"samples":32,"threads":8}

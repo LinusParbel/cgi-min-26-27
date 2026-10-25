@@ -1,0 +1,40 @@
+{
+    "dims":  {
+                 "length":  {
+                                "value":  20
+                            },
+                 "road_width":  {
+                                    "value":  7.5
+                                },
+                 "pavement_width":  {
+                                        "value":  2
+                                    },
+                 "curb_width":  {
+                                    "value":  0.18
+                                },
+                 "pavement_height":  {
+                                         "value":  0.15
+                                     },
+                 "base_depth":  {
+                                    "value":  0.12
+                                },
+                 "curb_chamfer":  {
+                                      "value":  0.03
+                                  },
+                 "stripe_width":  {
+                                      "value":  0.12
+                                  },
+                 "dash_period":  {
+                                     "value":  5
+                                 },
+                 "dash_length":  {
+                                     "value":  3
+                                 }
+             },
+    "colors":  {
+
+               },
+    "atlas":  2048,
+    "triangle_budget":  3000,
+    "orientation":  "Blender Y longitudinal, Z up; OBJ -Z longitudinal, Y up"
+}

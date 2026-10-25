@@ -1,0 +1,388 @@
+{
+  "camera": [
+    0,
+    2.8,
+    6
+  ],
+  "target": [
+    0,
+    1.4,
+    -10
+  ],
+  "fov": 60,
+  "light": [
+    -12,
+    26,
+    10
+  ],
+  "models": [
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Umgebung/StreetKit/ST_Street_parts.json"
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Umgebung/StreetKit/ST_Street_parts.json",
+      "offset": [
+        0,
+        0,
+        -20
+      ]
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Fahrzeug/ScooterVoi/VEH_ScooterVoi_parts.json",
+      "offset": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Wahrzeichen/KroepckeUhr/PRP_KroepckeUhr_parts.json",
+      "offset": [
+        -4.5,
+        0.15,
+        -23
+      ]
+    },
+    {
+      "obj": "../../RunnerGame/Assets/Models/Mull/Tonne/PROP_WheelieBin_120L_papier.obj",
+      "texture": "../../RunnerGame/Assets/Models/Mull/Tonne/PROP_WheelieBin_120L_papier.png",
+      "offset": [
+        4.8,
+        0.15,
+        -4
+      ]
+    },
+    {
+      "obj": "../../RunnerGame/Assets/Models/Baustelle/Absperrschranke/PROP_Absperrschranke_rotweiss.obj",
+      "texture": "../../RunnerGame/Assets/Models/Baustelle/Absperrschranke/PROP_Absperrschranke_rotweiss.png",
+      "offset": [
+        -2.5,
+        0,
+        -7
+      ]
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "shop_ground"
+      ],
+      "offset": [
+        6.15,
+        0.15,
+        -3
+      ],
+      "yaw": -90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "sandstone_upper"
+      ],
+      "offset": [
+        6.15,
+        3.35,
+        -3
+      ],
+      "yaw": -90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "brick_upper"
+      ],
+      "offset": [
+        6.15,
+        6.55,
+        -3
+      ],
+      "yaw": -90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "shop_ground"
+      ],
+      "offset": [
+        6.15,
+        0.15,
+        -9
+      ],
+      "yaw": -90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "sandstone_upper"
+      ],
+      "offset": [
+        6.15,
+        3.35,
+        -9
+      ],
+      "yaw": -90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "brick_upper"
+      ],
+      "offset": [
+        6.15,
+        6.55,
+        -9
+      ],
+      "yaw": -90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "shop_ground"
+      ],
+      "offset": [
+        6.15,
+        0.15,
+        -15
+      ],
+      "yaw": -90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "sandstone_upper"
+      ],
+      "offset": [
+        6.15,
+        3.35,
+        -15
+      ],
+      "yaw": -90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "brick_upper"
+      ],
+      "offset": [
+        6.15,
+        6.55,
+        -15
+      ],
+      "yaw": -90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "shop_ground"
+      ],
+      "offset": [
+        6.15,
+        0.15,
+        -21
+      ],
+      "yaw": -90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "sandstone_upper"
+      ],
+      "offset": [
+        6.15,
+        3.35,
+        -21
+      ],
+      "yaw": -90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "brick_upper"
+      ],
+      "offset": [
+        6.15,
+        6.55,
+        -21
+      ],
+      "yaw": -90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "shop_ground"
+      ],
+      "offset": [
+        -6.15,
+        0.15,
+        -3
+      ],
+      "yaw": 90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "sandstone_upper"
+      ],
+      "offset": [
+        -6.15,
+        3.35,
+        -3
+      ],
+      "yaw": 90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "brick_upper"
+      ],
+      "offset": [
+        -6.15,
+        6.55,
+        -3
+      ],
+      "yaw": 90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "shop_ground"
+      ],
+      "offset": [
+        -6.15,
+        0.15,
+        -9
+      ],
+      "yaw": 90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "sandstone_upper"
+      ],
+      "offset": [
+        -6.15,
+        3.35,
+        -9
+      ],
+      "yaw": 90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "brick_upper"
+      ],
+      "offset": [
+        -6.15,
+        6.55,
+        -9
+      ],
+      "yaw": 90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "shop_ground"
+      ],
+      "offset": [
+        -6.15,
+        0.15,
+        -15
+      ],
+      "yaw": 90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "sandstone_upper"
+      ],
+      "offset": [
+        -6.15,
+        3.35,
+        -15
+      ],
+      "yaw": 90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "brick_upper"
+      ],
+      "offset": [
+        -6.15,
+        6.55,
+        -15
+      ],
+      "yaw": 90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "shop_ground"
+      ],
+      "offset": [
+        -6.15,
+        0.15,
+        -21
+      ],
+      "yaw": 90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "sandstone_upper"
+      ],
+      "offset": [
+        -6.15,
+        3.35,
+        -21
+      ],
+      "yaw": 90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json",
+      "parts": [
+        "brick_upper"
+      ],
+      "offset": [
+        -6.15,
+        6.55,
+        -21
+      ],
+      "yaw": 90
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Charakter/ScooterRider/CHR_ScooterRider_ride_parts.json"
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Fahrzeug/CityCar/VEH_CityCar_parts.json",
+      "offset": [
+        2.5,
+        0,
+        -9
+      ]
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Pickup/CityToken/PROP_CityToken_parts.json",
+      "offset": [
+        0,
+        0.9,
+        -3
+      ]
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Pickup/CityToken/PROP_CityToken_parts.json",
+      "offset": [
+        0,
+        0.9,
+        -4.25
+      ]
+    },
+    {
+      "manifest": "../../RunnerGame/Assets/Models/Pickup/CityToken/PROP_CityToken_parts.json",
+      "offset": [
+        0,
+        0.9,
+        -5.5
+      ]
+    }
+  ]
+}

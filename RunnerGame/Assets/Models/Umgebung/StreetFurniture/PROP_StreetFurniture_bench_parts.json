@@ -1,0 +1,14 @@
+{
+  "texture": "PROP_StreetFurniture.png",
+  "parts": [
+    {
+      "name": "bench",
+      "obj": "PROP_StreetFurniture_bench.obj",
+      "pivot": [
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

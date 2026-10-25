@@ -1,0 +1,14 @@
+{
+  "texture": "CHR_ScooterRider.png",
+  "parts": [
+    {
+      "name": "duck",
+      "obj": "CHR_ScooterRider_duck.obj",
+      "pivot": [
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

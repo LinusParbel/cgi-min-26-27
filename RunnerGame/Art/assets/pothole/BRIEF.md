@@ -1,0 +1,2 @@
+# Pothole visual patch
+Original generic jagged asphalt damage, approximately 1.1 x 0.8 metres. Continuous opaque triangulated surface with broken lip, dark bowl impression and sparse embedded aggregate. Source Z up, front -Y; exported Y up, forward -Z. Ground origin is zero, all visible geometry >=2mm above the current opaque road. This is a visual overlay, not actual excavation, collision or a gameplay trigger. 1500 triangle ceiling, 512 opaque atlas. Deterministic spec/build and independent actual export checks. No references or external assets used.

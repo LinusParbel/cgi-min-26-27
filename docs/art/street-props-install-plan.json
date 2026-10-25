@@ -1,0 +1,91 @@
+{
+  "status": "approved and installed 2026-10-23",
+  "groups": [
+    {
+      "asset": "street_furniture",
+      "files": [
+        {
+          "source": "RunnerGame/Art/assets/street_furniture/out/PROP_StreetFurniture.png",
+          "target": "RunnerGame/Assets/Models/Umgebung/StreetFurniture/PROP_StreetFurniture.png",
+          "sha256": "3c89ee6b4960e4b3e196ccf1f3c0cda03b14903e43c47b490165fa2df32df926"
+        },
+        {
+          "source": "RunnerGame/Art/assets/street_furniture/out/PROP_StreetFurniture_bench.obj",
+          "target": "RunnerGame/Assets/Models/Umgebung/StreetFurniture/PROP_StreetFurniture_bench.obj",
+          "sha256": "9a6206b09f947263d676916d45ea8572fd1ce959821d78bc832a9901d53c31fc"
+        },
+        {
+          "source": "RunnerGame/Art/assets/street_furniture/out/PROP_StreetFurniture_bench_parts.json",
+          "target": "RunnerGame/Assets/Models/Umgebung/StreetFurniture/PROP_StreetFurniture_bench_parts.json",
+          "sha256": "aba4f688b108fe2ed45996efa8b82afef8e63952b1ec414bfb23b1b8f0563db1"
+        },
+        {
+          "source": "RunnerGame/Art/assets/street_furniture/out/PROP_StreetFurniture_lamp.obj",
+          "target": "RunnerGame/Assets/Models/Umgebung/StreetFurniture/PROP_StreetFurniture_lamp.obj",
+          "sha256": "87f0f49fb9102b97e219c1ac9ccadaa7f3c30a7423ad054a372779aa05e545ee"
+        },
+        {
+          "source": "RunnerGame/Art/assets/street_furniture/out/PROP_StreetFurniture_lamp_parts.json",
+          "target": "RunnerGame/Assets/Models/Umgebung/StreetFurniture/PROP_StreetFurniture_lamp_parts.json",
+          "sha256": "49df74cf89571ee5f4a18941ae1501fcb25814789d20679a39c585acf1e0549a"
+        },
+        {
+          "source": "RunnerGame/Art/assets/street_furniture/out/PROP_StreetFurniture_parts.json",
+          "target": "RunnerGame/Assets/Models/Umgebung/StreetFurniture/PROP_StreetFurniture_parts.json",
+          "sha256": "de57c5043388c8ae936917c6a35d804f89b3cbd81f0056cc1a5dfee3736478a7"
+        },
+        {
+          "source": "RunnerGame/Art/assets/street_furniture/out/PROP_StreetFurniture_planter.obj",
+          "target": "RunnerGame/Assets/Models/Umgebung/StreetFurniture/PROP_StreetFurniture_planter.obj",
+          "sha256": "127d5d9e4efcd2b932043ea7c3d84efb0a9c43aa210af64770228ca43d83ff07"
+        },
+        {
+          "source": "RunnerGame/Art/assets/street_furniture/out/PROP_StreetFurniture_planter_parts.json",
+          "target": "RunnerGame/Assets/Models/Umgebung/StreetFurniture/PROP_StreetFurniture_planter_parts.json",
+          "sha256": "5fd1bada565a91cda2791e2284f1bfbe1c33c214eedcc6632c3c3b8af86cf55f"
+        }
+      ]
+    },
+    {
+      "asset": "pothole",
+      "files": [
+        {
+          "source": "RunnerGame/Art/assets/pothole/out/PROP_Pothole.png",
+          "target": "RunnerGame/Assets/Models/Umgebung/Pothole/PROP_Pothole.png",
+          "sha256": "9f6cb3d51a3f810a194c9c0e67fc9ceb07044bb52da71071bfac9c4c8c882eaf"
+        },
+        {
+          "source": "RunnerGame/Art/assets/pothole/out/PROP_Pothole_parts.json",
+          "target": "RunnerGame/Assets/Models/Umgebung/Pothole/PROP_Pothole_parts.json",
+          "sha256": "166500091e2d0738eda9d7a089d444d40cd8787c072600e2db948c9a7fa47e62"
+        },
+        {
+          "source": "RunnerGame/Art/assets/pothole/out/PROP_Pothole_patch.obj",
+          "target": "RunnerGame/Assets/Models/Umgebung/Pothole/PROP_Pothole_patch.obj",
+          "sha256": "a335c3ceb8062f14d6ed7082256ee1cdbfdd1a2aaec79370833c7efca44f543f"
+        }
+      ]
+    },
+    {
+      "asset": "street_tree",
+      "files": [
+        {
+          "source": "RunnerGame/Art/assets/street_tree/out/ENV_StreetTree.obj",
+          "target": "RunnerGame/Assets/Models/Umgebung/StreetTree/ENV_StreetTree.obj",
+          "sha256": "ad07bddedd7eff415b048c017d2b4a7572bf6487c63b3a200d52431291873bed"
+        },
+        {
+          "source": "RunnerGame/Art/assets/street_tree/out/ENV_StreetTree.png",
+          "target": "RunnerGame/Assets/Models/Umgebung/StreetTree/ENV_StreetTree.png",
+          "sha256": "fe28a802f610a69a3590a74d75ec1a942431cb9d480f898e0d5c9ab189906787"
+        },
+        {
+          "source": "RunnerGame/Art/assets/street_tree/out/ENV_StreetTree_parts.json",
+          "target": "RunnerGame/Assets/Models/Umgebung/StreetTree/ENV_StreetTree_parts.json",
+          "sha256": "49e21ba2dd7f4c97ae59717260590a607b1190bd6f30e83e4b8a657a54161905"
+        }
+      ]
+    }
+  ],
+  "approval": "User: okay after reopening the street-props visual review"
+}

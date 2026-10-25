@@ -1,0 +1,14 @@
+{
+  "texture": "CHR_ScooterRider.png",
+  "display": "mutually_exclusive",
+  "default": "ride",
+  "forward": "Blender +Y / engine -Z",
+  "origin": "Common scooter axle-midpoint at ground; pivot [0,0,0]",
+  "poses": {
+    "ride": "CHR_ScooterRider_ride_parts.json",
+    "duck": "CHR_ScooterRider_duck_parts.json"
+  },
+  "triangles_per_pose": 26706,
+  "resident_triangles_both_poses": 53412,
+  "atlas_baked_from": "ride"
+}

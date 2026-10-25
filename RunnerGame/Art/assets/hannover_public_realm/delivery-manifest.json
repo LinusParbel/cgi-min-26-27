@@ -1,0 +1,71 @@
+{
+  "status": "candidate; visual checkpoint; not installed",
+  "files": [
+    {
+      "file": "HannoverRoute.obj",
+      "sha256": "65e8606c12a2b47038253fd247cfc918b74aee98dcecc81fd6425cca86762157",
+      "bytes": 5560258
+    },
+    {
+      "file": "HannoverRoute.png",
+      "sha256": "abf83991a02469e7ed916aba8c5efcf2c3cad831cc48e67ab556c9ffc501f2a2",
+      "bytes": 2203
+    },
+    {
+      "file": "HannoverRoute_parts.json",
+      "sha256": "ec8537b074699244bbf22c8f5aefeefd66d9ac46a777607ac5b80602702a4180",
+      "bytes": 204
+    },
+    {
+      "file": "KroepckeFacades.obj",
+      "sha256": "c22d54e2b01d4658ff989a91b997e3ed771f5853f80737beb9058afc7cb9f839",
+      "bytes": 3733416
+    },
+    {
+      "file": "KroepckeFacades.png",
+      "sha256": "cb207e1b28c61c59b941112d6a4a69a5a127cea7bfcdb8cc6dd83095be65174c",
+      "bytes": 65656
+    },
+    {
+      "file": "KroepckeFacades_parts.json",
+      "sha256": "80693c694bac21528edfae0a39439a503d6aa13b223aae32fb9d56834cf5840d",
+      "bytes": 212
+    },
+    {
+      "file": "PedestrianGround.obj",
+      "sha256": "83dfff00c18c8c9b139d1bc09cbf3e020000351f100d471cbe9d59f0ea8c3bb7",
+      "bytes": 7080295
+    },
+    {
+      "file": "PedestrianGround.png",
+      "sha256": "4bbf3d54ea2b4bfbc008e8d6c83e10d0435a3bd367786eac1138c700c7a397f2",
+      "bytes": 4238
+    },
+    {
+      "file": "PedestrianGround_parts.json",
+      "sha256": "387dda3c08ef908e31315ece9246fc83be85620486b16a48702be086ede07d97",
+      "bytes": 211
+    },
+    {
+      "file": "SOURCE_CREDITS.md",
+      "sha256": "fcba040e4efe4e22fd35b83a58683f5babe78f637ecd83a189a69e4af9b3a4e0",
+      "bytes": 23151
+    },
+    {
+      "file": "STREET_REFERENCE_CREDITS.md",
+      "sha256": "3926e1762bf1a0b57217eb6357dc9f935a2cc6d1a44a2ecc82c0ebb3d4ffc315",
+      "bytes": 4933
+    },
+    {
+      "file": "map.json",
+      "sha256": "0149e2aa87e757ff367e97677276aba2246a956e3fd2454e011540bdca7b5a2a",
+      "bytes": 5146
+    },
+    {
+      "file": "route.json",
+      "sha256": "04b399f16f745e3828ab91ccdfa1c56e889c84b6963f7b5b70599e286b51d5ba",
+      "bytes": 2106
+    }
+  ],
+  "limitations": "Only two first-pass facade reconstructions; surrounding frontages unfinished. Photo pack reference-only, source dates/uncertainty in professor note."
+}

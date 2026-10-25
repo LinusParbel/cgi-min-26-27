@@ -1,0 +1,55 @@
+{
+  "route": "B",
+  "detail_level": "custom",
+  "tri_budget": 35000,
+  "tex_res": 2048,
+  "workflow": "sections",
+  "poses": [
+    "ride",
+    "duck"
+  ],
+  "display": "mutually_exclusive",
+  "facing": "Blender +Y",
+  "origin": [
+    0,
+    0,
+    0
+  ],
+  "grip_axis_midpoints": [
+    [
+      -0.235,
+      0.2681990457,
+      0.982
+    ],
+    [
+      0.235,
+      0.2681990457,
+      0.982
+    ]
+  ],
+  "grip_radius": 0.018,
+  "deck": {
+    "x": [
+      -0.09,
+      0.09
+    ],
+    "y": [
+      -0.291,
+      0.214
+    ],
+    "top_z": 0.184
+  },
+  "contact_source": "scooter_voi/build.py and spec.json; exact measured formulas documented in rider scout",
+  "macro": {
+    "gender": 1,
+    "age": 0.38,
+    "muscle": 0.4,
+    "weight": 0.48,
+    "height": 0.4
+  },
+  "pose_frames": {
+    "ride": 1,
+    "duck": 2
+  },
+  "author_choices": "generic civilian proportions/wardrobe, photo1 riding category and pose; photo2 context only"
+}

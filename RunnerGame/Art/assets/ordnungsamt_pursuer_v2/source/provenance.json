@@ -1,0 +1,67 @@
+{
+  "uniform_references": [
+    {
+      "title": "Ordnungsdienst â€” Stadt Hannover",
+      "url": "https://www.hannover.de/Media/01-DATA-Neu/Bilder/Landeshauptstadt-Hannover/Verwaltung/FB-%C3%96ffentliche-Ordnung/Ordnungsdienst",
+      "use": "Visual reference only: navy textile, two-line white lettering, rectangular dark backing. No photo pixels in model textures."
+    },
+    {
+      "title": "Auf den Boden spucken kostet 50 Euro: Neue Regeln in Hannover â€” NDR",
+      "url": "https://www.ndr.de/nachrichten/niedersachsen/hannover_weser-leinegebiet/auf-boden-spucken-kostet-bis-zu-50-euro-neue-regeln-in-hannover,ordnungsregeln-100.html",
+      "use": "Visual reference only: shoulder tabs, navy jacket, collar and sleeve shield placement. No photographed person's likeness is reproduced."
+    },
+    {
+      "title": "Ordnungsdienst erteilt 2800 Platzverweise in sieben Monaten â€” HAZ",
+      "url": "https://www.haz.de/lokales/hannover/ordnungsdienst-erteilt-2800-platzverweise-in-sieben-monaten-3OPYKNBPL2ZZ33RUPASH7UBZTU.html",
+      "use": "Visual reference only: plain navy duty trousers, black belt and lace-up footwear. Summer polo differs from the selected jacket outfit. Exact footwear brand and tread cannot be identified."
+    }
+  ],
+  "incorporated_artwork": {
+    "file": "hannover-arms.svg",
+    "derived_file": "hannover-arms.png",
+    "title": "Coat of arms of Hannover",
+    "source": "https://commons.wikimedia.org/wiki/File:Coat_of_arms_of_Hannover.svg",
+    "original_url": "https://upload.wikimedia.org/wikipedia/commons/4/43/Coat_of_arms_of_Hannover.svg",
+    "artist": "Wilhelm Metzig; vector extracted/edited by Ludger1961, optimized by subsequent Commons contributors",
+    "copyright_status_as_listed": "Public domain, PD-Coa-Germany",
+    "adaptation": "SVG rasterized to PNG; mapped onto navy sleeve shield geometry. Public-domain copyright status does not itself grant endorsement or unrestricted official insignia use."
+  },
+  "human_and_wardrobe": {
+    "generator": "Official MakeHuman MPFB 2.0.18",
+    "assets": [
+      "male_casualsuit01",
+      "shoes03",
+      "short01",
+      "eyebrow001",
+      "low-poly eyes",
+      "teeth_base",
+      "middleage_caucasian_male skin"
+    ],
+    "asset_license": "CC0, official MakeHuman system assets",
+    "generator_license": "Separate software license; not the asset license"
+  },
+  "vest_references": [
+    {
+      "title": "User-supplied Dortmund patrol rear photograph",
+      "local_reference": "User attachment, 24742123-die-polizei-in-dortmund-rechnet-im-jahr-2020-mit-weniger-straftaten-2ie9Rm5oed70.jpg",
+      "use": "Primary silhouette reference: dark separate external carrier, shoulder straps, arm openings, side bands, single-line ORDNUNGSAMT rear label, lower rear reinforcement and cargo trousers. No photo pixels incorporated."
+    },
+    {
+      "title": "Neue Mitarbeiter beim Dortmunder Ordnungsamt",
+      "url": "https://www.radio912.de/artikel/neue-mitarbeiter-beim-dortmunder-ordnungsamt-1185794",
+      "credit": "Stadt Dortmund, published by Radio 91.2",
+      "use": "Reference only: additional rear view confirms separate vest shell and broad adjustable shoulders."
+    },
+    {
+      "title": "Moderne Kommunikationslösung im Ordnungsamt der Stadt Lüdenscheid",
+      "url": "https://www.selectric.de/news/artikel/moderne-kommunikationsloesung-im-ordnungsamt-der-stadt-luedenscheid/",
+      "use": "Reference only: comparable carrier front with center zip, pocket flaps, authority label and radio mounting. Reflective light panels are not adopted; user requested all-dark carrier."
+    },
+    {
+      "title": "CEST Armor Basic Stichschutzweste Blue K3",
+      "url": "https://www.darkbull.eu/de/cest-armor-basic-stichschutzweste-blue-k3.html",
+      "use": "Reference only: rounded neckline, broad hook-and-loop shoulder adjustments and side fastening. This does not establish the maker/model worn in the user photo."
+    }
+  ],
+  "vest_interpretation": "Custom modeled geometry. Dortmund-inspired external carrier over the existing fictional Hannover-based uniform. Exact unseen Dortmund front is not claimed; front details use comparable real municipal carriers."
+}

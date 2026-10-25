@@ -1,0 +1,10 @@
+﻿# Independent review — pavement props
+
+PASS for user preview. Review covers only the authored rack, table and chair candidate; installation and gameplay approval remain separate.
+
+1. Must fix: none found. Independently parsed the actual three OBJ exports and opened the actual PNG with Pillow: rack 612 triangles, table 596, chair 924; table plus two chairs 2,444. All inspected faces are triangles with valid vertex indices, positions finite, UVs within 0..1, and minimum engine Y exactly zero. Bounds are rack 0.15 x 0.80 x 0.88 m (engine XYZ), table 0.70 x 0.74 x 0.70 m, chair 0.45 x 0.821017 x 0.465782 m. Atlas is 1024 square with alpha uniformly 255.
+2. Structure and appearance: inspected build.py, verify_source.py, structural_checks.json, export_checks.json, bake_offsets.json, REPORT.md and PROVENANCE.md. Rack tube passes into both mounting plates; table top, support, pedestal and four radial feet form a coherent assembly; chair seat boards meet bearer rails and back boards meet both posts. Source bounding-box contact tests and their negative fixtures support this inspection but are not exact mesh intersection or physical load tests. Viewed engine_sheet.png and engine_complete.png: plausible proportions, grounded supports and no visible floating pieces or major coplanar overlaps. Complete engine image resolves the cropped foot in the per-object sheet.
+3. Could fix, optional: wood reads mostly as a flat brown material at this preview scale. More grain variation could strengthen close-up appearance, but is unnecessary for this generic street prop and does not warrant another bake.
+4. Evidence limits: the chair origin follows the seat centre; its leaning back extends the footprint 35.782 mm farther rearward than forward. This is a sensible placement pivot, with ground Y zero, rather than the exact centre of its overall bounding box. Reviewed single-bake/post-bake rack adjustment disclosure in REPORT.md; concealed tube-end AO limitation is acceptable. New parent street placement and interactive user presentation remain outside this asset-only pass.
+
+No source, engine, runtime library or installation files changed by reviewer.

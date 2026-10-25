@@ -1,0 +1,32 @@
+{
+  "texture": "AR_Shopfront.png",
+  "parts": [
+    {
+      "name": "shop_ground",
+      "obj": "AR_Shopfront_shop_ground.obj",
+      "pivot": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "sandstone_upper",
+      "obj": "AR_Shopfront_sandstone_upper.obj",
+      "pivot": [
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "name": "brick_upper",
+      "obj": "AR_Shopfront_brick_upper.obj",
+      "pivot": [
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

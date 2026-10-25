@@ -1,0 +1,102 @@
+{
+  "title": "Hannover route grey massing from official LoD2 CityGML",
+  "author": "Landeshauptstadt Hannover, FB Planen und Stadtentwicklung, Bereich Geoinformation",
+  "url": "https://www.hannover.de/Leben-in-der-Region-Hannover/Verwaltungen-Kommunen/Die-Verwaltung-der-Landeshauptstadt-Hannover/Dezernate-und-Fachbereiche-der-LHH/Stadtentwicklung-und-Bauen/Fachbereich-Planen-und-Stadtentwicklung/Geoinformation/Open-GeoData/3D-Stadtmodell-und-Gel%C3%A4ndemodell/Digitales-3D-Stadtmodell",
+  "download_url": "https://opengeodata.hannover-stadt.de/Stadtmodell_Hannover_CityGML_LOD2.zip",
+  "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+  "licence_url": "https://creativecommons.org/licenses/by/4.0/",
+  "publisher_licence_link": "https://creativecommons.org/licenses/by/4.0/deed.de",
+  "licence_note": "Publisher label 4.0 DE links to German-language deed of International 4.0, not a Germany port.",
+  "retrieved_utc": "2026-10-23T20:16:39.875026+00:00",
+  "source_dates": {
+    "base_laser_survey": 2010,
+    "modification_date": "2024-12-05",
+    "publication_date": "2026-01-20"
+  },
+  "accuracy_limitations": "Official generalized LoD2 roof shapes, approximate height accuracy +/-1m; no facade textures, not a 2026 survey or exact current station appearance.",
+  "what_we_changed": "Selected whole buildings intersecting route rectangle; deduplicated by GML ID; triangulated polygon surfaces with holes; translated origin and rotated coordinates; authored flat opaque grey texture. Source polygon winding and coordinates retained.",
+  "archive_note": "Partial initial ZIP download stopped once central route tiles were available. ZIP tail fetched with HTTP Range; remaining tile fetched as a single local record. Extracted tiles verified by original ZIP CRC32. No full-archive SHA256 claimed.",
+  "archives": [
+    {
+      "file": ".model-research\\hannover_route\\source\\publisher.html",
+      "sha256": "9c231e0298fbe5f0959085e11e002386da151bd312c95ea8401810c388ba7496",
+      "bytes": 87233
+    },
+    {
+      "file": ".model-research\\hannover_route\\source\\licence.html",
+      "sha256": "45dff7ab704da7e3f65904fbc38ad4dabf4c8e9c4101b85aaf6f7a955ae5ef0e",
+      "bytes": 32960
+    },
+    {
+      "file": ".model-research\\hannover_route\\source\\zip_tail.bin",
+      "sha256": "3ca1c58ea7115e865570a1280dbf6d73ea2f18c2ec593f8b6bbf588761d3b9e2",
+      "bytes": 131072
+    },
+    {
+      "file": ".model-research\\hannover_route\\source\\tile_manifest.json",
+      "sha256": "cbfb4fb1e78af784b76dde1b9de6847e6fac2c7813e71a356a74e84410693b36",
+      "bytes": 1497
+    },
+    {
+      "file": ".model-research\\hannover_route\\source\\download_log.json",
+      "sha256": "f235318429bc44c1291e881f1f79b72429eda96ce477e5112f4ff3d46d511fe4",
+      "bytes": 1889
+    }
+  ],
+  "tiles": [
+    {
+      "name": "5500_5803.gml",
+      "method": 8,
+      "crc": 1599083074,
+      "compressed": 4296260,
+      "uncompressed": 31313966,
+      "offset": 47325108,
+      "sha256": "5b92299050dd27a84d3a3744fb188c668c726e120ba968b114813a338be4f450"
+    },
+    {
+      "name": "5510_5803.gml",
+      "method": 8,
+      "crc": 1301991792,
+      "compressed": 4466042,
+      "uncompressed": 32028748,
+      "offset": 55724532,
+      "sha256": "191c97f3455d736058030f470e371368ba92fc9f2fe429e499bcb668c6690c9c"
+    },
+    {
+      "name": "5510_5802.gml",
+      "method": 8,
+      "crc": 3838005802,
+      "compressed": 4417081,
+      "uncompressed": 32564754,
+      "offset": 60190665,
+      "sha256": "eb6763934b11d153380118bf478ab054e4abcf5868dc1bb35a1c001dd0d671ae"
+    },
+    {
+      "name": "5490_5803.gml",
+      "method": 8,
+      "crc": 1219181474,
+      "compressed": 4524260,
+      "uncompressed": 33069484,
+      "offset": 64607837,
+      "sha256": "b980b42f96313586dd60bc378b27278358724f2fa0b79ff403bf74e37fe6008d"
+    },
+    {
+      "name": "5500_5802.gml",
+      "method": 8,
+      "crc": 2808352948,
+      "compressed": 4786337,
+      "uncompressed": 33608945,
+      "offset": 69132188,
+      "sha256": "0b7d3690408a93f83bc2fbe7621eb617fe9f1f8c24b781cffaa5b3326eff6a03"
+    },
+    {
+      "name": "5490_5802.gml",
+      "method": 8,
+      "crc": 171700123,
+      "compressed": 3358872,
+      "uncompressed": 24031804,
+      "offset": 288705193,
+      "sha256": "1e7d9ac26b5b48d602ee1cbb1635258cdaf95944ed76139cc215f85463295545"
+    }
+  ]
+}

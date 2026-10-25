@@ -1,0 +1,14 @@
+{
+  "frontFaceConvention": "CCW, geometric cross product; ray determinant positive only",
+  "floorTriangleCount": 117,
+  "verticalFloorRayDistances_m": [
+    6.0,
+    6.0
+  ],
+  "insideWallRayCount": 8,
+  "wallNormalsFaceInside": true,
+  "railSideNormalsFaceOutside": true,
+  "floorNormalsUp": true,
+  "negativeMissingFloorDetected": true,
+  "negativeReversedWallsDetected": true
+}

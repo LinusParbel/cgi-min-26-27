@@ -1,0 +1,50 @@
+{
+  "status": "candidate under Art, not installed",
+  "files": [
+    {
+      "file": "HannoverRoute.obj",
+      "bytes": 5560258,
+      "sha256": "65e8606c12a2b47038253fd247cfc918b74aee98dcecc81fd6425cca86762157"
+    },
+    {
+      "file": "HannoverRoute.png",
+      "bytes": 2203,
+      "sha256": "abf83991a02469e7ed916aba8c5efcf2c3cad831cc48e67ab556c9ffc501f2a2"
+    },
+    {
+      "file": "HannoverRoute_parts.json",
+      "bytes": 204,
+      "sha256": "ec8537b074699244bbf22c8f5aefeefd66d9ac46a777607ac5b80602702a4180"
+    },
+    {
+      "file": "map.json",
+      "bytes": 262,
+      "sha256": "592831935af187f88bc22ee58dfbce3b8aae5fa01451e14a775079be321f4447"
+    },
+    {
+      "file": "PedestrianGround.obj",
+      "bytes": 1049624,
+      "sha256": "e0f9b64b222d9912ee4d80dcaffb89b287d1f714e2c096bfe52239cbfbc311e9"
+    },
+    {
+      "file": "PedestrianGround.png",
+      "bytes": 2506,
+      "sha256": "494a0a77e4b30d40c84fc79a77a110429006762f788991945b65bd7424e40e6b"
+    },
+    {
+      "file": "PedestrianGround_parts.json",
+      "bytes": 211,
+      "sha256": "387dda3c08ef908e31315ece9246fc83be85620486b16a48702be086ede07d97"
+    },
+    {
+      "file": "route.json",
+      "bytes": 7595,
+      "sha256": "2fb997c3e716735c005618120a60dcfdd9a59025860b4236c97939682f9bdb70"
+    },
+    {
+      "file": "SOURCE_CREDITS.md",
+      "bytes": 3331,
+      "sha256": "55792bbce1996dbe45e7844d51730ff69d2f3df8922cce793398925ef1c15b30"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "publicArea_m2": 29372.816327172146,
+  "backgroundArea_m2": 759959.8025025112,
+  "routeLength_m": 718.4049080493922,
+  "minimumTurnRadius_m": 11.322937116254932,
+  "oldRouteBlockedByRevisedOpening": true,
+  "oldRouteOpeningOverlap_m2": 7.538407569238025,
+  "negativeBuildingRouteFixtureDetected": true,
+  "routeBuildingClearance_m": 1.5450410148522165,
+  "routeOpeningClearance_m": 0.6861301287871353,
+  "routeSupported": true,
+  "openingTopGroundOverlap_m2": 0.0,
+  "zonePairOverlap_m2": 7.366724717137183e-08,
+  "entireCityExtentSupportedExceptOpenings": true,
+  "negativeOpeningFixtureDetected": true,
+  "negativeOutsideRealmFixtureDetected": true,
+  "acceptedTrees": 41,
+  "rejectedTrees": 53,
+  "triangles": 32745,
+  "limitations": [
+    "2010 generalized building footprints vs March 2025 aerial conflict; no fabricated survey certainty",
+    "Opening lip manually revised from legal aerial, approximately +/-2m; lower depth remains assumed 3m",
+    "Route recomputed across full public polygon with complete swept-tube clearance and broad runtime-rounded corners",
+    "Existing city meshes remain grey LoD2, facades pending",
+    "Paving patterns authored representative zones, not exact stone-by-stone reconstruction",
+    "No surveyed terrain; flat upper datum H54, engine Y=-1"
+  ],
+  "lowerGeometryFix": {
+    "retainingWallWinding": "reversed to face inside opening",
+    "railSideWinding": "reversed to face away from cuboid centre",
+    "lowerFloor": "upward; split into 117 triangles for UV-bounded 8m cells",
+    "verification": "lower-visibility-verification.json"
+  },
+  "pairedAvenue": {
+    "stations": 16,
+    "avenueTrees": 32,
+    "authoredHeight_m": 9.75,
+    "normalRowSeparation_m": 10,
+    "placementsStatus": "inferred representative aerial-fit +/-3m, not tree inventory",
+    "details": "paired-avenue-report.json"
+  },
+  "pavingMaterialUpdate": "paving-material-report.json"
+}

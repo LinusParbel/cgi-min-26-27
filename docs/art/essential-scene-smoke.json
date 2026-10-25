@@ -1,0 +1,14 @@
+{
+  "camera": [16, 16, 25],
+  "target": [0, 0.8, -9],
+  "fov": 54,
+  "light": [-12, 26, 10],
+  "models": [
+    {"manifest": "../../RunnerGame/Art/assets/street_kit/out/ST_Street_parts.json"},
+    {"manifest": "../../RunnerGame/Art/assets/street_kit/out/ST_Street_parts.json", "offset": [0,0,-20]},
+    {"manifest": "../../RunnerGame/Art/assets/scooter_voi/out/VEH_ScooterVoi_parts.json", "offset": [0,0,0]},
+    {"manifest": "../../RunnerGame/Art/assets/kroepcke_uhr/out/PRP_KroepckeUhr_parts.json", "offset": [-4.5,0.15,-23]},
+    {"obj": "../../RunnerGame/Assets/Models/Mull/Tonne/PROP_WheelieBin_120L_papier.obj", "texture": "../../RunnerGame/Assets/Models/Mull/Tonne/PROP_WheelieBin_120L_papier.png", "offset": [4.8,0.15,-4]},
+    {"obj": "../../RunnerGame/Assets/Models/Baustelle/Absperrschranke/PROP_Absperrschranke_rotweiss.obj", "texture": "../../RunnerGame/Assets/Models/Baustelle/Absperrschranke/PROP_Absperrschranke_rotweiss.png", "offset": [-2.5,0,-7]}
+  ]
+}

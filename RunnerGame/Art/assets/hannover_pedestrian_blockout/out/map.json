@@ -1,0 +1,11 @@
+{
+  "cityManifest": "HannoverRoute_parts.json",
+  "groundManifest": "PedestrianGround_parts.json",
+  "route": "route.json",
+  "groundY": -1,
+  "clock": {
+    "x": 270.0,
+    "z": 50.0
+  },
+  "title": "Hauptbahnhof \u2013 Kr\u00f6pcke \u2013 Steintor"
+}

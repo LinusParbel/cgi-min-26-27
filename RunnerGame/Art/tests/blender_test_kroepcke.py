@@ -146,7 +146,7 @@ class KroepckeBuildTest(unittest.TestCase):
 
     def test_four_corner_legs_waisted(self):
         ped = self.spec.d("pedestal")
-        c = self.spec.d("pedestal")["apron"]["w"] / 2 - ped["w"] / 2
+        c = self.spec.d("pedestal")["apron"]["w"] / 2 - ped["w"] / 2 - ped.get("inset", 0.0)
         prof = dict((round(z, 2), w) for z, w in ped["profile"])
         zs = sorted(prof)                       # sample heights come from the spec profile, not fixed numbers
         z_bot = zs[0]

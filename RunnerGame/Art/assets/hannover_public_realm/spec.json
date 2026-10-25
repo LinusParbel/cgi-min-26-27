@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "groundY": -1,
+  "lowerY": -4,
+  "pavingZones": [
+    "context",
+    "facade-edge granite",
+    "boulevard field",
+    "plaza slabs",
+    "edge bands"
+  ],
+  "routeStatus": "replanned v2, 1.5m lane spacing and verified swept tube",
+  "build": "python RunnerGame/Art/assets/hannover_public_realm/build.py",
+  "sourceGeometry": "../hannover_route/footprints.geojson"
+}

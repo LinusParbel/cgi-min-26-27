@@ -1,0 +1,30 @@
+{
+  "pairedStations": 16,
+  "avenueTrees": 32,
+  "totalSceneProps": 41,
+  "rejectedPairs": 1,
+  "rowNormalSeparation_m": 10,
+  "heightCounts": {
+    "9.75": 32
+  },
+  "minimumTrunkTubeMargin_m": 0.2331160883608707,
+  "minimumCrownFacadeMargin_m": 0.26615716156162494,
+  "overheadCanopyMargin_m": 2.1770000000000005,
+  "sourceStatus": "INFERRED representative aerial-fit placement +/-3m; not exact inventory",
+  "routeAndMeshesChanged": false,
+  "unchangedGeometrySha256": {
+    "route.json": "04b399f16f745e3828ab91ccdfa1c56e889c84b6963f7b5b70599e286b51d5ba",
+    "PedestrianGround.obj": "005c1709998517e0599ec847d7d775a88bb54904a2d690d7f422b6e8261b38da",
+    "KroepckeFacades.obj": "c22d54e2b01d4658ff989a91b997e3ed771f5853f80737beb9058afc7cb9f839"
+  },
+  "mapMetadataPreserved": [
+    "cityManifest",
+    "groundManifest",
+    "route",
+    "groundY",
+    "clock",
+    "title",
+    "extraManifests",
+    "shadows"
+  ]
+}

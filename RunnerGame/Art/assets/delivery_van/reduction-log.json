@@ -1,0 +1,2066 @@
+[
+  {
+    "name": "107 reused Alloy_five_spoke_rim",
+    "before": 3716,
+    "after": 260,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "107 reused Alloy_five_spoke_rim.001",
+    "before": 3716,
+    "after": 260,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "107 reused Alloy_five_spoke_rim.002",
+    "before": 3716,
+    "after": 260,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "107 reused Alloy_five_spoke_rim.003",
+    "before": 3716,
+    "after": 260,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "107 reused Center_cap",
+    "before": 312,
+    "after": 40,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "107 reused Center_cap.001",
+    "before": 312,
+    "after": 40,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "107 reused Center_cap.002",
+    "before": 312,
+    "after": 40,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "107 reused Center_cap.003",
+    "before": 312,
+    "after": 40,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "107 reused Lug_1",
+    "before": 628,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Lug_1.001",
+    "before": 628,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Lug_1.002",
+    "before": 628,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Lug_1.003",
+    "before": 628,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Lug_2",
+    "before": 628,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Lug_2.001",
+    "before": 628,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Lug_2.002",
+    "before": 628,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Lug_2.003",
+    "before": 628,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Lug_3",
+    "before": 628,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Lug_3.001",
+    "before": 628,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Lug_3.002",
+    "before": 628,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Lug_3.003",
+    "before": 628,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Lug_4",
+    "before": 628,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Lug_4.001",
+    "before": 628,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Lug_4.002",
+    "before": 628,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Lug_4.003",
+    "before": 628,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Lug_5",
+    "before": 628,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Lug_5.001",
+    "before": 628,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Lug_5.002",
+    "before": 628,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Lug_5.003",
+    "before": 628,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Sculpted_tyre",
+    "before": 4428,
+    "after": 480,
+    "action": "preserve"
+  },
+  {
+    "name": "107 reused Sculpted_tyre.001",
+    "before": 4428,
+    "after": 480,
+    "action": "preserve"
+  },
+  {
+    "name": "107 reused Sculpted_tyre.002",
+    "before": 4428,
+    "after": 480,
+    "action": "preserve"
+  },
+  {
+    "name": "107 reused Sculpted_tyre.003",
+    "before": 4428,
+    "after": 480,
+    "action": "preserve"
+  },
+  {
+    "name": "107 reused Valve_stem",
+    "before": 312,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Valve_stem.001",
+    "before": 312,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Valve_stem.002",
+    "before": 312,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "107 reused Valve_stem.003",
+    "before": 312,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Air vent surround",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Air vent surround.001",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Blank light registration plate",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Brake caliper",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Brake caliper.001",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Brake caliper.002",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Brake caliper.003",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Brake rotor hat",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Brake rotor hat.001",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Brake rotor hat.002",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Brake rotor hat.003",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Broad contoured rear step bumper anti-slip tread rib",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Broad contoured rear step bumper anti-slip tread rib.001",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Broad contoured rear step bumper anti-slip tread rib.002",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Broad contoured rear step bumper anti-slip tread rib.003",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Broad contoured rear step bumper anti-slip tread rib.004",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Broad contoured rear step bumper anti-slip tread rib.005",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Broad contoured rear step bumper anti-slip tread rib.006",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Broad contoured rear step bumper anti-slip tread rib.007",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Broad contoured rear step bumper anti-slip tread rib.008",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Broad contoured rear step bumper anti-slip tread rib.009",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Broad contoured rear step bumper anti-slip tread rib.010",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Broad contoured rear step bumper anti-slip tread rib.011",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Broad contoured rear step bumper anti-slip tread rib.012",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Broad contoured rear step bumper anti-slip tread rib.013",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Broad contoured rear step bumper anti-slip tread rib.014",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Broad contoured rear step bumper anti-slip tread rib.015",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Broad contoured rear step bumper anti-slip tread rib.016",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Broad contoured rear step bumper anti-slip tread rib.017",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Broad contoured rear step bumper main manufactured bar",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Broad contoured rear step bumper rounded corner end cap",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Broad contoured rear step bumper rounded corner end cap.001",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Broad contoured rear step bumper step tread insert",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Cabin floor",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Cabin row 0 contoured backrest",
+    "before": 360,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Cabin row 0 contoured backrest.001",
+    "before": 360,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Cabin row 0 head restraint",
+    "before": 224,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Cabin row 0 head restraint.001",
+    "before": 224,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Cabin row 0 headrest pin",
+    "before": 380,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Cabin row 0 headrest pin.001",
+    "before": 380,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Cabin row 0 headrest pin.002",
+    "before": 380,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Cabin row 0 headrest pin.003",
+    "before": 380,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Cabin row 0 seat pedestal",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Cabin row 0 seat pedestal.001",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Cabin row 0 upholstered cushion",
+    "before": 360,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Cabin row 0 upholstered cushion.001",
+    "before": 360,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Cargo cabin partition",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Central media screen",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Clear foglamp cover",
+    "before": 124,
+    "after": 64,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Clear foglamp cover.001",
+    "before": 124,
+    "after": 64,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Continuous headlamp lower optical guide",
+    "before": 44,
+    "after": 44,
+    "action": "preserve"
+  },
+  {
+    "name": "Continuous headlamp lower optical guide.001",
+    "before": 44,
+    "after": 44,
+    "action": "preserve"
+  },
+  {
+    "name": "Convex mirror lower partition",
+    "before": 28,
+    "after": 28,
+    "action": "preserve"
+  },
+  {
+    "name": "Convex mirror lower partition.001",
+    "before": 28,
+    "after": 28,
+    "action": "preserve"
+  },
+  {
+    "name": "Curved satin grille blade",
+    "before": 76,
+    "after": 76,
+    "action": "preserve"
+  },
+  {
+    "name": "Curved satin grille blade.001",
+    "before": 76,
+    "after": 76,
+    "action": "preserve"
+  },
+  {
+    "name": "Curved satin grille blade.002",
+    "before": 76,
+    "after": 76,
+    "action": "preserve"
+  },
+  {
+    "name": "Curved satin grille blade.003",
+    "before": 76,
+    "after": 76,
+    "action": "preserve"
+  },
+  {
+    "name": "Curved satin grille blade.004",
+    "before": 76,
+    "after": 76,
+    "action": "preserve"
+  },
+  {
+    "name": "Curved satin grille blade.005",
+    "before": 76,
+    "after": 76,
+    "action": "preserve"
+  },
+  {
+    "name": "Dark open exhaust bore",
+    "before": 124,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Dark wheel house inner return",
+    "before": 844,
+    "after": 150,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Dark wheel house inner return.001",
+    "before": 844,
+    "after": 150,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Dark wheel house inner return.002",
+    "before": 844,
+    "after": 150,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Dark wheel house inner return.003",
+    "before": 844,
+    "after": 150,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Dashboard vent slat",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Dashboard vent slat.001",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Dashboard vent slat.002",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Dashboard vent slat.003",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Dashboard vent slat.004",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Dashboard vent slat.005",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Dashboard vent slat.006",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Dashboard vent slat.007",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Door pull handle recessed escutcheon",
+    "before": 528,
+    "after": 64,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Door pull handle recessed escutcheon.001",
+    "before": 528,
+    "after": 64,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Door pull handle satin pull",
+    "before": 44,
+    "after": 44,
+    "action": "preserve"
+  },
+  {
+    "name": "Door pull handle satin pull.001",
+    "before": 44,
+    "after": 44,
+    "action": "preserve"
+  },
+  {
+    "name": "Exposed rear barn door hinge",
+    "before": 92,
+    "after": 92,
+    "action": "preserve"
+  },
+  {
+    "name": "Exposed rear barn door hinge.001",
+    "before": 92,
+    "after": 92,
+    "action": "preserve"
+  },
+  {
+    "name": "Exposed rear barn door hinge.002",
+    "before": 92,
+    "after": 92,
+    "action": "preserve"
+  },
+  {
+    "name": "Exposed rear barn door hinge.003",
+    "before": 92,
+    "after": 92,
+    "action": "preserve"
+  },
+  {
+    "name": "Fog lamp reflector",
+    "before": 124,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Fog lamp reflector.001",
+    "before": 124,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Fog lamp sculpted recess",
+    "before": 728,
+    "after": 64,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Fog lamp sculpted recess.001",
+    "before": 728,
+    "after": 64,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Formed wheel arch fender lip",
+    "before": 844,
+    "after": 150,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Formed wheel arch fender lip.001",
+    "before": 844,
+    "after": 150,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Formed wheel arch fender lip.002",
+    "before": 844,
+    "after": 150,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Formed wheel arch fender lip.003",
+    "before": 844,
+    "after": 150,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Front door quarter-glass pillar",
+    "before": 28,
+    "after": 28,
+    "action": "preserve"
+  },
+  {
+    "name": "Front door quarter-glass pillar.001",
+    "before": 28,
+    "after": 28,
+    "action": "preserve"
+  },
+  {
+    "name": "Front door shut line",
+    "before": 780,
+    "after": 140,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Front door shut line.001",
+    "before": 780,
+    "after": 140,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Front door window curved transparent pane -1",
+    "before": 192,
+    "after": 140,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Front door window curved transparent pane 1",
+    "before": 192,
+    "after": 140,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Front door window extruded EPDM surround -1",
+    "before": 64,
+    "after": 64,
+    "action": "preserve"
+  },
+  {
+    "name": "Front door window extruded EPDM surround 1",
+    "before": 64,
+    "after": 64,
+    "action": "preserve"
+  },
+  {
+    "name": "Fuel filler flap perimeter",
+    "before": 140,
+    "after": 140,
+    "action": "preserve"
+  },
+  {
+    "name": "Grille cavity shadow",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Grille inner vertical mesh",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Grille inner vertical mesh.001",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Grille inner vertical mesh.002",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Grille inner vertical mesh.003",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Grille inner vertical mesh.004",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Grille inner vertical mesh.005",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Grille inner vertical mesh.006",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Grille inner vertical mesh.007",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Grille inner vertical mesh.008",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Grille inner vertical mesh.009",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Grille inner vertical mesh.010",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Grille inner vertical mesh.011",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Grille inner vertical mesh.012",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Grille inner vertical mesh.013",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Grille inner vertical mesh.014",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Grille inner vertical mesh.015",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Grille inner vertical mesh.016",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Grille inner vertical mesh.017",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Grille inner vertical mesh.018",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Headlamp amber end optic",
+    "before": 28,
+    "after": 28,
+    "action": "preserve"
+  },
+  {
+    "name": "Headlamp amber end optic.001",
+    "before": 28,
+    "after": 28,
+    "action": "preserve"
+  },
+  {
+    "name": "High roof rain gutter",
+    "before": 700,
+    "after": 90,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "High roof rain gutter.001",
+    "before": 700,
+    "after": 90,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "High-mounted reflective red stop lens",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "High-mounted stop lamp rear housing",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Inset non-emissive projector optic",
+    "before": 124,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Inset non-emissive projector optic.001",
+    "before": 124,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Inset non-emissive projector optic.002",
+    "before": 124,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Inset non-emissive projector optic.003",
+    "before": 124,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Inset projector silver reflector bowl",
+    "before": 124,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Inset projector silver reflector bowl.001",
+    "before": 124,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Inset projector silver reflector bowl.002",
+    "before": 124,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Inset projector silver reflector bowl.003",
+    "before": 124,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "License plate inset shadow",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "License plate screw",
+    "before": 44,
+    "after": 44,
+    "action": "preserve"
+  },
+  {
+    "name": "License plate screw.001",
+    "before": 44,
+    "after": 44,
+    "action": "preserve"
+  },
+  {
+    "name": "Lower bumper intake shadow",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Lower intake vertical bar",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Lower intake vertical bar.001",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Lower intake vertical bar.002",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Lower intake vertical bar.003",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Lower intake vertical bar.004",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Lower intake vertical bar.005",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Lower intake vertical bar.006",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Lower intake vertical bar.007",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Lower intake vertical bar.008",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Lower intake vertical bar.009",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Lower intake vertical bar.010",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Lower intake vertical bar.011",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Lower intake vertical bar.012",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Lower intake vertical bar.013",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Lower intake vertical bar.014",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Projector polished annular reflector",
+    "before": 960,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Projector polished annular reflector.001",
+    "before": 960,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Projector polished annular reflector.002",
+    "before": 960,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Projector polished annular reflector.003",
+    "before": 960,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rear barn door perimeter",
+    "before": 460,
+    "after": 139,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Rear barn door perimeter.001",
+    "before": 460,
+    "after": 140,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Rear barn-door central shut line",
+    "before": 300,
+    "after": 140,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Rear door handle pocket",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Rear door handle pocket.001",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Rear door vertical pull",
+    "before": 380,
+    "after": 64,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Rear door vertical pull.001",
+    "before": 380,
+    "after": 64,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Rocker moulding",
+    "before": 28,
+    "after": 28,
+    "action": "preserve"
+  },
+  {
+    "name": "Rocker moulding.001",
+    "before": 28,
+    "after": 28,
+    "action": "preserve"
+  },
+  {
+    "name": "Rolled exhaust outlet rim",
+    "before": 960,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.001",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.002",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.003",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.004",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.005",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.006",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.007",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.008",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.009",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.010",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.011",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.012",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.013",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.014",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.015",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.016",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.017",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.018",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.019",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.020",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.021",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.022",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.023",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.024",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.025",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.026",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.027",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.028",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.029",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.030",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.031",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.032",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.033",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.034",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.035",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.036",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.037",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.038",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.039",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.040",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.041",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.042",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.043",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.044",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.045",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.046",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.047",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.048",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.049",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.050",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.051",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.052",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.053",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.054",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.055",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.056",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.057",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.058",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.059",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.060",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.061",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.062",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.063",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.064",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.065",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.066",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.067",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.068",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.069",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.070",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rotor drill recess.071",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rubber cargo load floor",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Rubber windscreen wiper blade",
+    "before": 28,
+    "after": 28,
+    "action": "preserve"
+  },
+  {
+    "name": "Rubber windscreen wiper blade.001",
+    "before": 28,
+    "after": 28,
+    "action": "preserve"
+  },
+  {
+    "name": "Satin instrument cluster",
+    "before": 188,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Satin mirror reflective inset",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Satin mirror reflective inset.001",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Sculpted dashboard",
+    "before": 1360,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Short flexible roof antenna",
+    "before": 380,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Short mirror housing mount",
+    "before": 44,
+    "after": 44,
+    "action": "preserve"
+  },
+  {
+    "name": "Short mirror housing mount.001",
+    "before": 44,
+    "after": 44,
+    "action": "preserve"
+  },
+  {
+    "name": "Siped tread blocks",
+    "before": 2304,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Siped tread blocks.001",
+    "before": 2304,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Siped tread blocks.002",
+    "before": 2304,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Siped tread blocks.003",
+    "before": 2304,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Sliding cargo door perimeter",
+    "before": 1356,
+    "after": 140,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Sliding cargo door perimeter.001",
+    "before": 1356,
+    "after": 140,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Sliding door horizontal recessed guide rail",
+    "before": 540,
+    "after": 64,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Sliding door horizontal recessed guide rail.001",
+    "before": 540,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Sliding door pull handle recessed escutcheon",
+    "before": 528,
+    "after": 64,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Sliding door pull handle recessed escutcheon.001",
+    "before": 528,
+    "after": 64,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Sliding door pull handle satin pull",
+    "before": 44,
+    "after": 44,
+    "action": "preserve"
+  },
+  {
+    "name": "Sliding door pull handle satin pull.001",
+    "before": 44,
+    "after": 44,
+    "action": "preserve"
+  },
+  {
+    "name": "Steering column",
+    "before": 380,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Steering wheel hub",
+    "before": 360,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Steering wheel spoke",
+    "before": 380,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Steering wheel spoke.001",
+    "before": 380,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Steering wheel spoke.002",
+    "before": 380,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Swept recessed headlamp continuous formed optical lens",
+    "before": 24,
+    "after": 24,
+    "action": "preserve"
+  },
+  {
+    "name": "Swept recessed headlamp continuous formed optical lens.001",
+    "before": 24,
+    "after": 24,
+    "action": "preserve"
+  },
+  {
+    "name": "Swept recessed headlamp flush gasket",
+    "before": 112,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Swept recessed headlamp flush gasket.001",
+    "before": 112,
+    "after": 64,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Swept recessed headlamp folded satin reflector",
+    "before": 24,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Swept recessed headlamp folded satin reflector.001",
+    "before": 24,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Swept recessed headlamp recessed dark optical bucket",
+    "before": 24,
+    "after": 24,
+    "action": "preserve"
+  },
+  {
+    "name": "Swept recessed headlamp recessed dark optical bucket.001",
+    "before": 24,
+    "after": 24,
+    "action": "preserve"
+  },
+  {
+    "name": "Tail cluster clear reverse segment",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Tail cluster clear reverse segment.001",
+    "before": 188,
+    "after": 63,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Tail lamp flush side wrap",
+    "before": 12,
+    "after": 12,
+    "action": "preserve"
+  },
+  {
+    "name": "Tail lamp flush side wrap.001",
+    "before": 12,
+    "after": 12,
+    "action": "preserve"
+  },
+  {
+    "name": "Tail lamp internal optical horizontal flute",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Tail lamp internal optical horizontal flute.001",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Tail lamp internal optical horizontal flute.002",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Tail lamp internal optical horizontal flute.003",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Tapered aerodynamic rectangular mirror cap",
+    "before": 316,
+    "after": 140,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Tapered aerodynamic rectangular mirror cap.001",
+    "before": 316,
+    "after": 140,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Textured protective lower side rubbing strip",
+    "before": 28,
+    "after": 28,
+    "action": "preserve"
+  },
+  {
+    "name": "Textured protective lower side rubbing strip.001",
+    "before": 28,
+    "after": 28,
+    "action": "preserve"
+  },
+  {
+    "name": "Textured protective lower side rubbing strip.002",
+    "before": 28,
+    "after": 28,
+    "action": "preserve"
+  },
+  {
+    "name": "Textured protective lower side rubbing strip.003",
+    "before": 28,
+    "after": 28,
+    "action": "preserve"
+  },
+  {
+    "name": "Textured protective lower side rubbing strip.004",
+    "before": 28,
+    "after": 28,
+    "action": "preserve"
+  },
+  {
+    "name": "Textured protective lower side rubbing strip.005",
+    "before": 28,
+    "after": 28,
+    "action": "preserve"
+  },
+  {
+    "name": "Three-spoke steering wheel",
+    "before": 960,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Underbody exhaust outlet",
+    "before": 380,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Van continuous hollow 12-station steel shell",
+    "before": 18456,
+    "after": 3599,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Van raked panoramic windscreen curved laminated transparent pane",
+    "before": 464,
+    "after": 139,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Van raked panoramic windscreen recessed rubber gasket",
+    "before": 352,
+    "after": 140,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Ventilated brake rotor",
+    "before": 252,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Ventilated brake rotor.001",
+    "before": 252,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Ventilated brake rotor.002",
+    "before": 252,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Ventilated brake rotor.003",
+    "before": 252,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Vertical corner wrap tail lamp continuous formed optical lens",
+    "before": 28,
+    "after": 28,
+    "action": "preserve"
+  },
+  {
+    "name": "Vertical corner wrap tail lamp continuous formed optical lens.001",
+    "before": 28,
+    "after": 28,
+    "action": "preserve"
+  },
+  {
+    "name": "Vertical corner wrap tail lamp flush gasket",
+    "before": 128,
+    "after": 64,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Vertical corner wrap tail lamp flush gasket.001",
+    "before": 128,
+    "after": 64,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Vertical corner wrap tail lamp folded satin reflector",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Vertical corner wrap tail lamp folded satin reflector.001",
+    "before": 28,
+    "after": 0,
+    "action": "drop hidden interior / tiny fitting / redundant optical insert"
+  },
+  {
+    "name": "Vertical corner wrap tail lamp recessed dark optical bucket",
+    "before": 28,
+    "after": 28,
+    "action": "preserve"
+  },
+  {
+    "name": "Vertical corner wrap tail lamp recessed dark optical bucket.001",
+    "before": 28,
+    "after": 28,
+    "action": "preserve"
+  },
+  {
+    "name": "Wide moulded front bumper fascia",
+    "before": 752,
+    "after": 300,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Wiper pivot arm",
+    "before": 380,
+    "after": 64,
+    "action": "targeted family reduction"
+  },
+  {
+    "name": "Wiper pivot arm.001",
+    "before": 380,
+    "after": 64,
+    "action": "targeted family reduction"
+  }
+]

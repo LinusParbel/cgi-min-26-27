@@ -1,0 +1,14 @@
+{
+  "texture": "PROP_StreetFurniture.png",
+  "parts": [
+    {
+      "name": "lamp",
+      "obj": "PROP_StreetFurniture_lamp.obj",
+      "pivot": [
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

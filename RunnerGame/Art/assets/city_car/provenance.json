@@ -1,0 +1,20 @@
+{
+  "author": "Innerscene",
+  "source_url": "https://www.innerscene.com/tools/library/3d-parts/blue-five-door-compact-hatchback-5b95b2a0",
+  "download_url": "https://www.innerscene.com/api/library/blue-five-door-compact-hatchback-5b95b2a0/download",
+  "licence": "CC0 1.0, explicitly stated on source page",
+  "retrieved": "2026-10-22",
+  "sha256": "107410e01453abbce452fabbe6d51436fb98a0920672643a893263a8861873d7",
+  "changes": [
+    "Normalize source -X front to Blender +Y; preserve metre scale",
+    "Remove opaque-hidden interior, brakes, tread blocks, screws and tiny fittings",
+    "Reduce visible parts by named geometric family; replace tyres with smooth matching profiles",
+    "Replace all material nodes with opaque procedural constant colours; no source pixels",
+    "Export five axle-pivoted parts sharing one opaque 2048 atlas"
+  ],
+  "evidence": {
+    ".model-research\\city-car-candidates\\innerscene-hatchback.glb": "107410e01453abbce452fabbe6d51436fb98a0920672643a893263a8861873d7",
+    ".model-research\\city-car-candidates\\source-page.html": "a9c1a753e4b8dd8cf80a8d5e2602d9e95475a12714057a90d6f9be7157a9f7ea",
+    ".model-research\\city-car-candidates\\source-preview.png": "5cb849658cdd76bade14a3a3dd064284f302091ed93ea4bbc0cf68d41cfab239"
+  }
+}

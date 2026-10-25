@@ -1,0 +1,26 @@
+{
+  "artifactChecks": "PASS",
+  "routeReplannedAgainstNewGeometry": true,
+  "minimumTurnRadius_m": 11.321856912671167,
+  "buildingClearance_m": 1.5450458623983085,
+  "openingClearance_m": 0.686189362724923,
+  "oldRouteBlockedNegativeFixture": true,
+  "geometryChecks": "PASS",
+  "gameplayRouteStatus": "PASS: 1.8m swept tube supported, 1.5m lane spacing, building/opening margins and >=4m radius",
+  "sha256": {
+    "facade-provenance.json": "d6e062b21dfff92d6af85aa3684a65e066b83a60917df14eb291f6aa9a1147cc",
+    "HannoverRoute.obj": "65e8606c12a2b47038253fd247cfc918b74aee98dcecc81fd6425cca86762157",
+    "HannoverRoute.png": "abf83991a02469e7ed916aba8c5efcf2c3cad831cc48e67ab556c9ffc501f2a2",
+    "HannoverRoute_parts.json": "ec8537b074699244bbf22c8f5aefeefd66d9ac46a777607ac5b80602702a4180",
+    "KroepckeFacades.obj": "c22d54e2b01d4658ff989a91b997e3ed771f5853f80737beb9058afc7cb9f839",
+    "KroepckeFacades.png": "cb207e1b28c61c59b941112d6a4a69a5a127cea7bfcdb8cc6dd83095be65174c",
+    "KroepckeFacades_parts.json": "80693c694bac21528edfae0a39439a503d6aa13b223aae32fb9d56834cf5840d",
+    "map.json": "0149e2aa87e757ff367e97677276aba2246a956e3fd2454e011540bdca7b5a2a",
+    "PedestrianGround.obj": "83dfff00c18c8c9b139d1bc09cbf3e020000351f100d471cbe9d59f0ea8c3bb7",
+    "PedestrianGround.png": "4bbf3d54ea2b4bfbc008e8d6c83e10d0435a3bd367786eac1138c700c7a397f2",
+    "PedestrianGround_parts.json": "387dda3c08ef908e31315ece9246fc83be85620486b16a48702be086ede07d97",
+    "route.json": "04b399f16f745e3828ab91ccdfa1c56e889c84b6963f7b5b70599e286b51d5ba",
+    "SOURCE_CREDITS.md": "fcba040e4efe4e22fd35b83a58683f5babe78f637ecd83a189a69e4af9b3a4e0",
+    "STREET_REFERENCE_CREDITS.md": "3926e1762bf1a0b57217eb6357dc9f935a2cc6d1a44a2ecc82c0ebb3d4ffc315"
+  }
+}

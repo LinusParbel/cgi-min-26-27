@@ -1,0 +1,36 @@
+{
+  "photos": [
+    {
+      "title": "Guy with an electric VOI scooter in Helsinki, Finland, 2019.jpg",
+      "author": "Ilkka Jukarainen",
+      "licence": "CC BY-SA 2.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Guy_with_an_electric_VOI_scooter_in_Helsinki,_Finland,_2019.jpg",
+      "file": "ref/01.jpg",
+      "size": [
+        1280,
+        876
+      ],
+      "view": "rider_pose",
+      "key": true,
+      "landmarks": {},
+      "camera": null,
+      "use": "Category/pose reference only; original generic design, no photo pixels"
+    },
+    {
+      "title": "Man riding electric scooter on the B3042 - geograph.org.uk - 6774026.jpg",
+      "author": "Roger Cornfoot",
+      "licence": "CC BY-SA 2.0",
+      "source_url": "https://commons.wikimedia.org/wiki/File:Man_riding_electric_scooter_on_the_B3042_-_geograph.org.uk_-_6774026.jpg",
+      "file": "ref/02.jpg",
+      "size": [
+        1024,
+        788
+      ],
+      "view": "context",
+      "key": false,
+      "landmarks": {},
+      "camera": null,
+      "use": "Distant context only; unsuitable for anatomy/proportion fitting"
+    }
+  ]
+}

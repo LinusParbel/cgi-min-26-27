@@ -1,0 +1,6 @@
+{
+  "bad_index": "correctly rejected",
+  "zero_area": "correctly rejected",
+  "bad_normal": "correctly rejected",
+  "floating_wheel": "correctly rejected"
+}

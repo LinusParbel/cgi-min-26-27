@@ -1,0 +1,61 @@
+{
+  "status": "BLOCKED: source building footprints and manually interpreted opening leave no connected upper NW route",
+  "required_center_to_building_m": 2.1,
+  "required_center_to_opening_m": 2.3,
+  "attempts": [
+    {
+      "grid_m": 0.75,
+      "building_buffer_m": 2.35,
+      "opening_buffer_m": 2.65,
+      "result": "disconnected"
+    },
+    {
+      "grid_m": 0.25,
+      "building_buffer_m": 2.15,
+      "opening_buffer_m": 2.35,
+      "result": "disconnected"
+    }
+  ],
+  "nearby_buildings": [
+    {
+      "id": "ID_1e235bc6-b73b-3550-9530-08365ae3bc61",
+      "object": "building_0372",
+      "distance_to_NW_lip_m": 3.029826868836038,
+      "opening_overlap_m2": 9.271399998740666,
+      "opening_overlap_bounds": [
+        550358.76,
+        5803078.7,
+        550362.98,
+        5803083.1
+      ]
+    },
+    {
+      "id": "ID_14c354f3-fa99-38bf-90fa-b30df8600601",
+      "object": "building_0421",
+      "distance_to_NW_lip_m": 3.7533109801130538,
+      "opening_overlap_m2": 0.0,
+      "opening_overlap_bounds": null
+    },
+    {
+      "id": "ID_e9d88775-5857-3f92-8523-8f7e450282d5",
+      "object": "building_0428",
+      "distance_to_NW_lip_m": 4.3253474663661535,
+      "opening_overlap_m2": 0.0,
+      "opening_overlap_bounds": null
+    },
+    {
+      "id": "ID_a8ec46b5-104f-3422-ac72-2fbe54884984",
+      "object": "building_0453",
+      "distance_to_NW_lip_m": 0.0,
+      "opening_overlap_m2": 6.168373118222253,
+      "opening_overlap_bounds": [
+        550354.0294947599,
+        5803078.787201429,
+        550364.5348000005,
+        5803093.681087087
+      ]
+    }
+  ],
+  "proposed_route_hole_intersection_area_m2": 15.784732814556133,
+  "recommendation": "Reinterpret uncertain opening polygon against stronger evidence, or explicitly choose SE corridor with a larger proposal deviation. Do not shrink footprints/openings to force fit."
+}

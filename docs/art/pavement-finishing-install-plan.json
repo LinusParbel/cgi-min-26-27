@@ -1,0 +1,54 @@
+{
+  "status": "approved and installed",
+  "files": [
+    {
+      "source": "RunnerGame/Art/assets/pavement_props/out/PROP_Pavement.png",
+      "target": "RunnerGame/Assets/Models/Umgebung/PavementProps/PROP_Pavement.png",
+      "sha256": "bfcc4785329570cddbfacc5ba3cd5daba48bfad56258635d0e8c0b743d1c37de",
+      "bytes": 858600
+    },
+    {
+      "source": "RunnerGame/Art/assets/pavement_props/out/PROP_Pavement_chair.obj",
+      "target": "RunnerGame/Assets/Models/Umgebung/PavementProps/PROP_Pavement_chair.obj",
+      "sha256": "07e5f1aeb5b543fc42c17d8378aa892892881284ced3828ef2e18e74719e86c6",
+      "bytes": 78784
+    },
+    {
+      "source": "RunnerGame/Art/assets/pavement_props/out/PROP_Pavement_parts.json",
+      "target": "RunnerGame/Assets/Models/Umgebung/PavementProps/PROP_Pavement_parts.json",
+      "sha256": "9544430d3e9d8951c07f3cd2752cf5184980095a21284bae195cee24ad167b07",
+      "bytes": 481
+    },
+    {
+      "source": "RunnerGame/Art/assets/pavement_props/out/PROP_Pavement_rack.obj",
+      "target": "RunnerGame/Assets/Models/Umgebung/PavementProps/PROP_Pavement_rack.obj",
+      "sha256": "0ed8a5a1b774ab3878b0482dc8e3b626102bb4e6180c21de0dc74f4e76d7fc51",
+      "bytes": 52482
+    },
+    {
+      "source": "RunnerGame/Art/assets/pavement_props/out/PROP_Pavement_table.obj",
+      "target": "RunnerGame/Assets/Models/Umgebung/PavementProps/PROP_Pavement_table.obj",
+      "sha256": "c9ce891c615e8c8f3d429a0a71337d8eb36f50593be4cf8875ddb5e4a4728a48",
+      "bytes": 49080
+    },
+    {
+      "source": "RunnerGame/Art/assets/duck_barrier/out/PROP_DuckBarrier.png",
+      "target": "RunnerGame/Assets/Models/Baustelle/DuckBarrier/PROP_DuckBarrier.png",
+      "sha256": "97e368ef71b424d6547e0dcdf2761a93dc5882e39a615784e69253fc34dda0b6",
+      "bytes": 321826
+    },
+    {
+      "source": "RunnerGame/Art/assets/duck_barrier/out/PROP_DuckBarrier_barrier.obj",
+      "target": "RunnerGame/Assets/Models/Baustelle/DuckBarrier/PROP_DuckBarrier_barrier.obj",
+      "sha256": "630d0d0b07c70ae7f5b9ef2e571b8b42e3a87f98a2ae08e9e05be271224b94d7",
+      "bytes": 66736
+    },
+    {
+      "source": "RunnerGame/Art/assets/duck_barrier/out/PROP_DuckBarrier_parts.json",
+      "target": "RunnerGame/Assets/Models/Baustelle/DuckBarrier/PROP_DuckBarrier_parts.json",
+      "sha256": "02df268ee0ac656510c4bbe07a1a7b41d5efb3abf578b4ca74ebd1c6dcc4dbf4",
+      "bytes": 464
+    }
+  ],
+  "approval": "User: good, after live viewer review, 2026-10-23"
+}

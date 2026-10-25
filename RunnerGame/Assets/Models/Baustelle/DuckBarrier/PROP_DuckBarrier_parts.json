@@ -1,0 +1,27 @@
+{
+  "texture": "PROP_DuckBarrier.png",
+  "parts": [
+    {
+      "name": "barrier",
+      "obj": "PROP_DuckBarrier_barrier.obj",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ],
+  "units": "metres",
+  "source_axes": "Z up, front -Y",
+  "export_axes": "Y up, front +Z",
+  "dimensions": [
+    2.4,
+    0.74,
+    1.695
+  ],
+  "clear_opening": {
+    "width": 1.9,
+    "height": 1.43
+  },
+  "gameplay_collider": false
+}

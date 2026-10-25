@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "routeLength_m": 718.4050160713297,
+  "minimumTurnRadius_m": 11.321856914020623,
+  "playerTubeRadius_m": 1.8,
+  "heroTubeClearances_m": {
+    "building_0271": 27.379947570859954,
+    "building_0307": 6.292364522436838
+  },
+  "unsupportedTubeArea_m2": 0.0,
+  "treeCount": 41,
+  "minimumFullTreeClearance_m": 0.2661703062288387,
+  "blockedTreeNegativeDetected": true,
+  "limitations": "All-height horizontal projection; not a front-face or GPU visibility test.",
+  "sha256": {
+    "RunnerGame\\Art\\assets\\hannover_public_realm\\out\\route.json": "04b399f16f745e3828ab91ccdfa1c56e889c84b6963f7b5b70599e286b51d5ba",
+    "RunnerGame\\Art\\assets\\hannover_public_realm\\out\\map.json": "0149e2aa87e757ff367e97677276aba2246a956e3fd2454e011540bdca7b5a2a",
+    "RunnerGame\\Art\\assets\\hannover_public_realm\\out\\KroepckeFacades.obj": "c22d54e2b01d4658ff989a91b997e3ed771f5853f80737beb9058afc7cb9f839",
+    "RunnerGame\\Art\\assets\\hannover_public_realm\\out\\PedestrianGround.obj": "83dfff00c18c8c9b139d1bc09cbf3e020000351f100d471cbe9d59f0ea8c3bb7",
+    "RunnerGame\\Assets\\Models\\Umgebung\\StreetTree\\ENV_StreetTree.obj": "ad07bddedd7eff415b048c017d2b4a7572bf6487c63b3a200d52431291873bed"
+  }
+}

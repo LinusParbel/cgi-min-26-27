@@ -1,0 +1,50 @@
+{
+  "texture": "ST_Street.png",
+  "parts": [
+    {
+      "name": "road",
+      "obj": "ST_Street_road.obj",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "pavement_left",
+      "obj": "ST_Street_pavement_left.obj",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "pavement_right",
+      "obj": "ST_Street_pavement_right.obj",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "curb_left",
+      "obj": "ST_Street_curb_left.obj",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "curb_right",
+      "obj": "ST_Street_curb_right.obj",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    }
+  ]
+}

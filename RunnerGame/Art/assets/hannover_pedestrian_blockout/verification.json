@@ -1,0 +1,19 @@
+{
+  "HannoverRoute": {
+    "vertices": 28115,
+    "triangles": 54274,
+    "minimum_area_m2": 6.89648467878658e-06,
+    "minimum_angle_degrees": 0.003818162421349125,
+    "indices_uv_normals_finite_and_valid": true
+  },
+  "PedestrianGround": {
+    "vertices": 15156,
+    "triangles": 5052,
+    "minimum_area_m2": 0.0005309999999970408,
+    "minimum_angle_degrees": 0.00244199068994718,
+    "indices_uv_normals_finite_and_valid": true
+  },
+  "ground_support": "complete player swept tube supported; upper floor has no overlap with openings",
+  "source_city_untouched": true,
+  "route_to_original_proposal_hausdorff_m": 22.867040609905967
+}

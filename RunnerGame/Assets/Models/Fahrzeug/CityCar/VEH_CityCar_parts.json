@@ -1,0 +1,50 @@
+{
+  "texture": "VEH_CityCar.png",
+  "parts": [
+    {
+      "name": "body",
+      "obj": "VEH_CityCar_body.obj",
+      "pivot": [
+        0.0,
+        0.0,
+        0.0
+      ]
+    },
+    {
+      "name": "front_left",
+      "obj": "VEH_CityCar_front_left.obj",
+      "pivot": [
+        -0.775,
+        1.2321,
+        0.31205
+      ]
+    },
+    {
+      "name": "front_right",
+      "obj": "VEH_CityCar_front_right.obj",
+      "pivot": [
+        0.775,
+        1.2321,
+        0.31205
+      ]
+    },
+    {
+      "name": "rear_left",
+      "obj": "VEH_CityCar_rear_left.obj",
+      "pivot": [
+        -0.775,
+        -1.3505,
+        0.31205
+      ]
+    },
+    {
+      "name": "rear_right",
+      "obj": "VEH_CityCar_rear_right.obj",
+      "pivot": [
+        0.775,
+        -1.3505,
+        0.31205
+      ]
+    }
+  ]
+}

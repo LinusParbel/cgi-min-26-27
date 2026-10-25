@@ -1,6 +1,7 @@
-# Session context (compaction summary for Claude)
+Read docs/handoff/session-context.md first, then continue.# Session context (compaction summary for Claude)
 
 ## User and goal
+
 - Student (Windows, repo `C:\Users\Saturn\Desktop\Studium\Master\ws_26_27\CGI\cgi-min-26-27`), uni CGI course, C#/OpenTK engine,
   runner game "Hannover Rush Hour". Team of 2 Blender beginners, deadline ~late Nov 2026, AI use fully allowed.
 - Core goal of this session: build and continuously improve the project skill **`/photo-to-model`**
@@ -12,6 +13,7 @@
   `cmd //c start "" "<path>"`, or the viewer) before installing. Replies short, plain language.
 
 ## Ground rules
+
 - Branch `feature/photo-to-model` (user: keep it, don't merge). Commit messages end with
   `Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`. Push is impossible from here: GitHub 403 (account `Ar000sh`
   lacks write access to `LinusParbel/cgi-min-26-27`) and Claude Code's classifier blocks pushes — user must push himself.
@@ -24,6 +26,7 @@
   landmark errors ref/04 with level+shift fit, `signed_k01.py` = ref/01, `starts.py` = multi-start camera fit).
 
 ## Tools (ours, all tested)
+
 - `RunnerGame/Art/lib/photo_tools.py`: fetch / sheet / grid / color / measure / **crops** (2× crop per part per key photo
   → `A/previews/crops/crop_<part>_<NN>.png`). Unit tests 14/14.
 - `RunnerGame/Art/lib/photo_lib.py`: Spec, landmark, tube, arc_shell, match_camera, project_landmarks,
@@ -33,6 +36,7 @@
 - `tools/asset-viewer`: `dotnet run --project tools/asset-viewer -- <parts.json> <prefix> 0,35 --pitch 5` or `--show`.
 
 ## Skill workflow (current)
+
 Gate A (photos + detail level backdrop/medium/replica + facing + camera_z_range) → parts with the same names in every
 key photo, measured as profiles on 1:1 grids → sonnet builder from filled `builder_brief.md` with the part crops → main
 session proves each new test can fail by mutating BUILD code (`# MUTATION`, check it reaches geometry, restore) →
@@ -40,6 +44,7 @@ session proves each new test can fail by mutating BUILD code (`# MUTATION`, chec
 review + one fix batch → Gate C → install to `RunnerGame/Assets/Models/<Category>/<Asset>/`.
 
 ## History of lessons (already in SKILL.md "Mistakes that cost extra rounds")
+
 - Scooter (installed): need a true side view; perspective bias; sunlit colours too light; viewer far plane; token routing;
   builder/reviewer loop; stop format; adaptive loop limits.
 - Rathaus (installed, Maschteich front, ~24.5k tris): agree detail level first; outline RMS is blind inside the silhouette
@@ -51,6 +56,7 @@ review + one fix batch → Gate C → install to `RunnerGame/Assets/Models/<Cate
 - Proposed but not built (user chose hand corrections): a joint fit of key dims + both cameras.
 
 ## Current task: Kröpcke-Uhr (`RunnerGame/Art/assets/kroepcke_uhr/`, prefix `PRP_KroepckeUhr`, replica, ≤ 25k tris, 2048²)
+
 - Photos: ref/04 (straight front, key, lens_shift, cut at bottom), ref/01 (3/4, key), ref/02, ref/05 (scale).
   Parts in refs.json: top, head, glass, legs. Cameras: ref/04 close level shift camera (~8.8 m, 42 mm), ref/01 far.
 - Model ~24k tris, 26/26 tests (each verified RED/GREEN). RMS ref/04 10.5 px (1.0 %), ref/01 23.8 px (2.0 %).
@@ -61,6 +67,7 @@ review + one fix batch → Gate C → install to `RunnerGame/Assets/Models/<Cate
 - Last commit: `9bbfdc5` (handoff doc). Long handoff: `docs/handoff/2026-10-18-photo-to-model-handoff.md`.
 
 ## Next
+
 1. Evaluate part_legs_r1, fix, re-check. 2. Read-only review → Gate C (engine view vs both photos).
-3. Install to `Models/Wahrzeichen/KroepckeUhr/` (ASSETS.md row only after the other session's edits are resolved — ask).
-4. Add new lessons to SKILL.md, commit; remind user to push. 5. Next model to test the skill (user picks).
+2. Install to `Models/Wahrzeichen/KroepckeUhr/` (ASSETS.md row only after the other session's edits are resolved — ask).
+3. Add new lessons to SKILL.md, commit; remind user to push. 5. Next model to test the skill (user picks).

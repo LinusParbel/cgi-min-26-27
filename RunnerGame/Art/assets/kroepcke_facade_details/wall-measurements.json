@@ -1,0 +1,1632 @@
+[
+  {
+    "building": "building_0307",
+    "wall": 0,
+    "length_m": 18.11676847546735,
+    "height_range": [
+      25.049,
+      26.889000000000003
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0307",
+    "wall": 1,
+    "length_m": 1.091100361849634,
+    "height_range": [
+      -1.0,
+      25.068999999999996
+    ],
+    "tower": true
+  },
+  {
+    "building": "building_0307",
+    "wall": 2,
+    "length_m": 4.377761985453851,
+    "height_range": [
+      -1.0,
+      23.249000000000002
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0307",
+    "wall": 3,
+    "length_m": 2.827905324718554,
+    "height_range": [
+      -1.0,
+      26.889000000000003
+    ],
+    "tower": true
+  },
+  {
+    "building": "building_0307",
+    "wall": 4,
+    "length_m": 14.17378566214348,
+    "height_range": [
+      -1.0,
+      6.628999999999998
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0307",
+    "wall": 5,
+    "length_m": 5.730078533565572,
+    "height_range": [
+      25.068999999999996,
+      26.889000000000003
+    ],
+    "tower": true
+  },
+  {
+    "building": "building_0307",
+    "wall": 6,
+    "length_m": 2.327444951009178,
+    "height_range": [
+      6.628999999999998,
+      6.668999999999997
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0307",
+    "wall": 7,
+    "length_m": 11.39762255549202,
+    "height_range": [
+      -1.0,
+      26.889000000000003
+    ],
+    "tower": true
+  },
+  {
+    "building": "building_0307",
+    "wall": 8,
+    "length_m": 2.336535897435746,
+    "height_range": [
+      -1.0,
+      25.068999999999996
+    ],
+    "tower": true
+  },
+  {
+    "building": "building_0307",
+    "wall": 9,
+    "length_m": 18.116768475654148,
+    "height_range": [
+      6.628999999999998,
+      21.919000000000004
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0307",
+    "wall": 10,
+    "length_m": 9.259773215374626,
+    "height_range": [
+      -1.0,
+      24.44899999999999
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0307",
+    "wall": 11,
+    "length_m": 11.880709867790362,
+    "height_range": [
+      24.44899999999999,
+      26.889000000000003
+    ],
+    "tower": true
+  },
+  {
+    "building": "building_0307",
+    "wall": 12,
+    "length_m": 3.6778313690860074,
+    "height_range": [
+      -1.0,
+      25.068999999999996
+    ],
+    "tower": true
+  },
+  {
+    "building": "building_0307",
+    "wall": 13,
+    "length_m": 4.55052744221903,
+    "height_range": [
+      6.668999999999997,
+      22.829
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0307",
+    "wall": 14,
+    "length_m": 9.56326229359901,
+    "height_range": [
+      -1.0,
+      24.44899999999999
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0307",
+    "wall": 15,
+    "length_m": 2.738539756519671,
+    "height_range": [
+      6.628999999999998,
+      25.068999999999996
+    ],
+    "tower": true
+  },
+  {
+    "building": "building_0307",
+    "wall": 16,
+    "length_m": 24.403370665570584,
+    "height_range": [
+      -1.0,
+      26.889000000000003
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0307",
+    "wall": 17,
+    "length_m": 5.293958821197544,
+    "height_range": [
+      -1.0,
+      6.668999999999997
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0307",
+    "wall": 18,
+    "length_m": 4.415427499192558,
+    "height_range": [
+      23.249000000000002,
+      25.068999999999996
+    ],
+    "tower": true
+  },
+  {
+    "building": "building_0307",
+    "wall": 19,
+    "length_m": 20.71301441490232,
+    "height_range": [
+      6.668999999999997,
+      25.049
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0307",
+    "wall": 20,
+    "length_m": 3.4279148180308034,
+    "height_range": [
+      6.628999999999998,
+      26.889000000000003
+    ],
+    "tower": true
+  },
+  {
+    "building": "building_0307",
+    "wall": 21,
+    "length_m": 1.3380956619526279,
+    "height_range": [
+      -1.0,
+      6.628999999999998
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0307",
+    "wall": 22,
+    "length_m": 0.677790528009343,
+    "height_range": [
+      -1.0,
+      23.249000000000002
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 0,
+    "length_m": 56.58621847233817,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 1,
+    "length_m": 0.699683253828207,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 2,
+    "length_m": 0.6002021973558853,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 3,
+    "length_m": 0.7412494594206565,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 4,
+    "length_m": 0.6348041785097704,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 5,
+    "length_m": 0.5915459808330701,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 6,
+    "length_m": 0.5116854863624416,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 7,
+    "length_m": 0.49465070658307975,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 8,
+    "length_m": 0.4328943924635571,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 9,
+    "length_m": 0.5134871997483849,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 10,
+    "length_m": 0.4843560807279828,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 11,
+    "length_m": 0.5566042114876366,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 12,
+    "length_m": 0.5556559949958367,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 13,
+    "length_m": 28.37282453515568,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 14,
+    "length_m": 10.893696023415472,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 16,
+    "length_m": 2.2257017618080126,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 17,
+    "length_m": 0.3059832677118268,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 18,
+    "length_m": 0.3058839343684776,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 19,
+    "length_m": 0.3060032979854001,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 20,
+    "length_m": 0.30592393074259355,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 21,
+    "length_m": 0.3059827767443165,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 22,
+    "length_m": 0.3059320590132949,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 23,
+    "length_m": 41.5826541677899,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 24,
+    "length_m": 0.5497550722331048,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 25,
+    "length_m": 0.6647126442628921,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 26,
+    "length_m": 0.7547138265498432,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 27,
+    "length_m": 0.7307222745507579,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 28,
+    "length_m": 0.8073536994577264,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 29,
+    "length_m": 0.8580067839822052,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 30,
+    "length_m": 0.735731782556811,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 31,
+    "length_m": 0.8014266951887576,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 32,
+    "length_m": 0.7469685972111466,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 33,
+    "length_m": 0.7107140868739223,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 34,
+    "length_m": 0.32338078652170754,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 35,
+    "length_m": 44.4273278043688,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 36,
+    "length_m": 0.24503205821087476,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 37,
+    "length_m": 0.20683392006620394,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 38,
+    "length_m": 0.25231848567870946,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 39,
+    "length_m": 0.253627317983352,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 40,
+    "length_m": 0.2350227124958041,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 41,
+    "length_m": 0.24262276900906465,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 42,
+    "length_m": 31.238255894176493,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 43,
+    "length_m": 0.2276766866499375,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 44,
+    "length_m": 0.24127253212913255,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 45,
+    "length_m": 0.25368838016064754,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 46,
+    "length_m": 0.2633583635223874,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 47,
+    "length_m": 0.2374913976178438,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 48,
+    "length_m": 31.23240421948303,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 49,
+    "length_m": 0.273140924457475,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 50,
+    "length_m": 0.29535882964801363,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 51,
+    "length_m": 0.26173134701984485,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 52,
+    "length_m": 0.26967080116703607,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 53,
+    "length_m": 0.30046309097236495,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 54,
+    "length_m": 0.2523053825566637,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 55,
+    "length_m": 1.0867745889340208,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 56,
+    "length_m": 1.086749741236276,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 57,
+    "length_m": 1.086823261425716,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 58,
+    "length_m": 1.0867104939078351,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 59,
+    "length_m": 1.0868056778214312,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 60,
+    "length_m": 39.34091510760553,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 61,
+    "length_m": 2.4112969542319944,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 62,
+    "length_m": 1.0577337235809063,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 64,
+    "length_m": 0.7809231719950583,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 65,
+    "length_m": 0.8029551677653934,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 66,
+    "length_m": 0.803652286662363,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 67,
+    "length_m": 0.8036578883584067,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 68,
+    "length_m": 0.8048254465839422,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 69,
+    "length_m": 0.801887774043903,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 70,
+    "length_m": 0.8055538459037437,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 71,
+    "length_m": 0.8027066710983659,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 72,
+    "length_m": 0.8044078568936405,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 73,
+    "length_m": 0.8039465160040382,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 74,
+    "length_m": 0.80255217828283,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 75,
+    "length_m": 0.6126826265932767,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 76,
+    "length_m": 0.19262673497298427,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 77,
+    "length_m": 3.3550156466567955,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 78,
+    "length_m": 2.014975188397395,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 79,
+    "length_m": 3.665258791088075,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 80,
+    "length_m": 20.183558902787382,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 82,
+    "length_m": 1.9411183430689989,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 83,
+    "length_m": 0.38984560875125773,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 84,
+    "length_m": 0.3897935104221521,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 85,
+    "length_m": 0.38977472964449056,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 86,
+    "length_m": 0.38986338540278465,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 87,
+    "length_m": 0.3897609529111919,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 88,
+    "length_m": 0.38986964407077157,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 89,
+    "length_m": 0.8529111674375438,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 90,
+    "length_m": 10.009340937330096,
+    "height_range": [
+      -0.9999999999999929,
+      5.104092102050778
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 91,
+    "length_m": 2.995838446216436,
+    "height_range": [
+      -0.9999999999999929,
+      5.104092102050778
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 92,
+    "length_m": 3.0138767388983547,
+    "height_range": [
+      -0.9999999999999929,
+      5.104092102050778
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 93,
+    "length_m": 2.998175780577182,
+    "height_range": [
+      -0.9999999999999929,
+      4.822155456542966
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 94,
+    "length_m": 2.9981757805771814,
+    "height_range": [
+      -0.9999999999999929,
+      4.822155456542966
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 95,
+    "length_m": 6.365632254780927,
+    "height_range": [
+      -0.9999999999999929,
+      4.822155456542966
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 96,
+    "length_m": 24.288412251117215,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 97,
+    "length_m": 10.407835006283632,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 98,
+    "length_m": 9.755626187558805,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 99,
+    "length_m": 10.096104184030345,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 100,
+    "length_m": 23.513689135741497,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 101,
+    "length_m": 5.970568467256283,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 102,
+    "length_m": 23.849746640292047,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 103,
+    "length_m": 22.348069603479857,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 104,
+    "length_m": 3.1493034155536863,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 105,
+    "length_m": 1.9768684990258225,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 106,
+    "length_m": 0.38840263976495204,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 107,
+    "length_m": 0.3884518252878993,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 108,
+    "length_m": 0.38837188318485893,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 109,
+    "length_m": 0.3884464573058221,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 110,
+    "length_m": 0.3884422860669429,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 111,
+    "length_m": 0.3884003735769911,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 112,
+    "length_m": 2.0018203207342875,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 114,
+    "length_m": 22.5195284143327,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 115,
+    "length_m": 0.1900578844953543,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 116,
+    "length_m": 3.2945555094988017,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 117,
+    "length_m": 0.9480280443128749,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 118,
+    "length_m": 0.948047699030315,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 119,
+    "length_m": 0.9480068877279754,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 120,
+    "length_m": 0.9480690118140278,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 121,
+    "length_m": 0.9479936969816684,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 122,
+    "length_m": 0.9480503405528091,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 123,
+    "length_m": 3.4892480411361966,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 124,
+    "length_m": 17.80761056580073,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 125,
+    "length_m": 57.77080914160602,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 126,
+    "length_m": 3.5321862912058695,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 127,
+    "length_m": 1.024081052378585,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 128,
+    "length_m": 1.0240156893250458,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 129,
+    "length_m": 1.0241377738712452,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 130,
+    "length_m": 1.0240415715865618,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 131,
+    "length_m": 1.0240801002669235,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 132,
+    "length_m": 1.023949968302135,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 133,
+    "length_m": 1.0241344551971394,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 134,
+    "length_m": 1.024020317600444,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 135,
+    "length_m": 3.584192516285228,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 136,
+    "length_m": 11.67302861409566,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 137,
+    "length_m": 10.076435927079464,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 138,
+    "length_m": 36.71619262568322,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 139,
+    "length_m": 1.1098090178095599,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 140,
+    "length_m": 1.1099175194487443,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 141,
+    "length_m": 1.1097908508329528,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 142,
+    "length_m": 1.1098839665795088,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  },
+  {
+    "building": "building_0271",
+    "wall": 143,
+    "length_m": 1.1098406223615993,
+    "height_range": [
+      -1.0,
+      28.1
+    ],
+    "tower": false
+  }
+]

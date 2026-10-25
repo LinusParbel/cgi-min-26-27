@@ -56,7 +56,8 @@
   "pedestal": {
    "value": {
     "legs": 4,
-    "positions": "corners only, outer faces flush with the apron corners",
+    "positions": "corners only, outer faces inset 0.08 m from the apron corners (ref/04 1:1 grid: apron 332-752 px, legs 350-450 and 636-734 px, gap 0.83 m)",
+    "inset": 0.08,
     "w": 0.46,
     "z0": 0.42,
     "z1": 1.05,

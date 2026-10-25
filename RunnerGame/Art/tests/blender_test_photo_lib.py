@@ -11,6 +11,7 @@ import bpy
 import numpy as np
 
 sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "lib"))
+import geom_probe  # noqa: E402
 import photo_lib  # noqa: E402
 
 CAM = {"loc": [0, -5, 0], "look_at": [0, 0, 0], "lens_mm": 50, "roll_deg": 0}
@@ -184,6 +185,28 @@ class CompareImageTest(unittest.TestCase):
             self.assertEqual(sheet.size[1], 2 * photo_lib.SECTION_ROW_H)       # one row per section
             self.assertEqual(sheet.size[0], 3 * 2 * photo_lib.SECTION_ROW_H)    # widest row: 3 panels of a 2:1 section
 
+
+
+class GeomProbeTest(unittest.TestCase):
+    def setUp(self):
+        photo_lib.al.clear_scene()
+        bpy.ops.mesh.primitive_cube_add(size=2, location=(0, 0, 1))      # x,y in [-1, 1], z in [0, 2]
+        self.parts = {"cube": [bpy.context.object]}
+
+    def test_counts_and_slice(self):
+        self.assertEqual(geom_probe.tri_count(self.parts), 12)
+        self.assertAlmostEqual(geom_probe.width_at(self.parts, 1.0), 2.0, delta=1e-6)
+        self.assertEqual(geom_probe.bounds(self.parts)[1][2], 2.0)
+
+    def test_ray_hits_surface_and_misses_gap(self):
+        hit = geom_probe.ray_hit((0, -5, 1), (0, 1, 0))
+        self.assertAlmostEqual(hit.y, -1.0, delta=1e-6)
+        self.assertIsNone(geom_probe.ray_hit((3, -5, 1), (0, 1, 0)))
+
+    def test_fingerprint_changes_with_geometry(self):
+        before = geom_probe.fingerprint(self.parts)
+        self.parts["cube"][0].data.vertices[0].co.x -= 0.1
+        self.assertNotEqual(before, geom_probe.fingerprint(self.parts))
 
 
 if __name__ == "__main__":

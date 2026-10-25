@@ -466,7 +466,7 @@ def build(spec):
     apron = ped["apron"]
     prof = ped["profile"]
     S["iron"].box(-apron["w"] / 2, apron["w"] / 2, -apron["w"] / 2, apron["w"] / 2, apron["z0"], apron["z1"])
-    centre = apron["w"] / 2 - ped["w"] / 2                  # outer leg faces flush with the apron corners
+    centre = apron["w"] / 2 - ped["w"] / 2 - ped.get("inset", 0.0)   # outer leg faces inset from the apron corners
 
     def leg_w(z):
         for (za, wa), (zb, wb) in zip(prof, prof[1:]):

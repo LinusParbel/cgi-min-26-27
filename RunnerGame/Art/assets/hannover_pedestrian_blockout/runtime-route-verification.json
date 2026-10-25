@@ -1,0 +1,13 @@
+{
+  "command": "dotnet run --project RunnerGame.RouteTests --no-restore -- <absolute out/route.json> 714.2760882703527",
+  "result": "PASS",
+  "nodes": 52,
+  "CSharpLength_m": 714.27637,
+  "PythonLength_m": 714.2760882703527,
+  "maximumSampledCurvature_per_m": 0.21855,
+  "minimumSampledRadius_m": 4.57566,
+  "minimumRadiusAtDistance_m": 243.125,
+  "laneReverseStepsMinus1_5": 0,
+  "laneReverseStepsPlus1_5": 0,
+  "revision": "One bounded batch: increase maximum straight-segment densification length from 5m to 15m; runtime helper unchanged; all route clearances and ground support independently reverified."
+}

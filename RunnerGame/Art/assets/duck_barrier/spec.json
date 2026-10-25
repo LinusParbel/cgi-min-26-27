@@ -1,0 +1,2 @@
+{"name":"PROP_DuckBarrier","provenance":"Original scripted geometry and procedural materials; no third-party sources","units":"metres","front":"-Y","up":"Z","dimensions":[2.4,0.74,1.695],"clear_width":1.9,"crossbar_bottom":1.43,"crossbar_top":1.68,"rider_ride_top":1.674661,"rider_duck_top":1.316786,"triangle_budget":5000,"atlas":512,"samples":32,"threads":8}
+

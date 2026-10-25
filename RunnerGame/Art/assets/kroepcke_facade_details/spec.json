@@ -1,0 +1,135 @@
+{
+  "route": "A photos plus official LoD2 base",
+  "detail_level": "replica",
+  "workflow": "sections",
+  "tri_budget": 25000,
+  "tex_res": 1024,
+  "groundY": -1,
+  "origin_ENH": [
+    550000,
+    5803000,
+    54
+  ],
+  "sourceGeometry": "../hannover_route/out/HannoverRoute.obj",
+  "buildingIds": {
+    "magis": "building_0307",
+    "center": "building_0271"
+  },
+  "sourceNote": "Source2010 ground footprint and base retained; Center envelope rebuilt to29.1m to match six-storey2014 photo and documented2009-2013redevelopment.",
+  "measurements": {
+    "magis": {
+      "source": "photo04 manual landmarks against source LoD2 height ruler27.889m",
+      "tower_pixel_y": [
+        112,
+        1027
+      ],
+      "main_front_pixel_y": [
+        290,
+        1027
+      ],
+      "profile_normalized_height_width": [
+        [
+          0,
+          1.0
+        ],
+        [
+          0.12,
+          1.0
+        ],
+        [
+          0.24,
+          0.92
+        ],
+        [
+          0.44,
+          0.92
+        ],
+        [
+          0.68,
+          0.92
+        ],
+        [
+          0.84,
+          0.92
+        ],
+        [
+          1,
+          0.18
+        ]
+      ],
+      "visible_upper_ribbons": 4,
+      "source_footprint_EN_bounds": [
+        550232.77,
+        5802973.59,
+        550260.16,
+        5802998.24
+      ],
+      "main_facade_height_m": 22.92,
+      "podium_height_m": 7.629,
+      "tower_height_m": 27.889,
+      "ribbon_glass_height_m": 1.95,
+      "ribbon_stone_height_m": 1.28,
+      "mullion_pitch_m": 0.9,
+      "mullion_width_m": 0.045,
+      "stair_mullion_pitch_m": 0.7,
+      "corner_skin_radius_m": 2.04,
+      "source_footprint_normal_skin_offset_m": 2.04,
+      "stair_drum_radius_m": 1.68,
+      "skin_explanation": "2m projecting continuous tangent skin needed to cover square2010LoD2 corner beneath photo-informed rounded facade; not surveyed current footprint"
+    },
+    "center": {
+      "source": "photo03 count and source LoD2 height ruler29.029m, source facades22.57m",
+      "source_footprint_EN_bounds": [
+        550239.767,
+        5802808.01,
+        550317.318,
+        5802926.197
+      ],
+      "double_height_arcade_m": 5.8,
+      "upper_vertical_bay_pitch_m": 2.65,
+      "pier_width_m": 0.6,
+      "visible_window_rows_photo": 5,
+      "adapted_window_rows_source": 5,
+      "prow_radius_m": 3.8,
+      "rebuilt_envelope_height_m": 29.1
+    }
+  },
+  "colors": {
+    "cream": [
+      188,
+      183,
+      170
+    ],
+    "glass": [
+      67,
+      88,
+      98
+    ],
+    "glassLight": [
+      110,
+      130,
+      136
+    ],
+    "frame": [
+      87,
+      86,
+      80
+    ],
+    "roof": [
+      99,
+      104,
+      105
+    ]
+  },
+  "limitations": [
+    "Magis building identity deduced from adjacent street position and distinctive 7.63m podium/22.92m main wall/27.89m tower source profile; no present brand survey",
+    "Center2010 source envelope outdated; new29.1m facade envelope reconstructed with five upper window rows and ground arcade, matching photo count but not surveyed current heights",
+    "Hidden walls receive continuation of known material grammar, not claimed photographed replica",
+    "No photo pixels, logos or storefront imagery in runtime texture",
+    "Magis continuous rounded skin projects about2m beyond oldsource parcel on two visible sides to cover squareLoD2 corner; interpreted architectural replacement envelope, not surveyed footprint"
+  ],
+  "architectureProof": [
+    "https://www.hofmann-naturstein.com/de/referenz/kroepcke-center/ six storeys, limestoneTrosselfelsbeige",
+    "https://www.zwp.de/de/projekte/einkaufszentren/kroepcke-center-hannover/ redevelopment2009-2013"
+  ]
+}

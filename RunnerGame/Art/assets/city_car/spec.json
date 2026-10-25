@@ -1,0 +1,58 @@
+{
+  "route": "B",
+  "detail_level": "custom",
+  "tri_budget": 18000,
+  "tri_target": 12000,
+  "tex_res": 2048,
+  "workflow": "sections",
+  "dims": {
+    "length": {
+      "value": 4.281,
+      "source": "selected source authored category design; not an exact real car"
+    },
+    "width_mirrors": {
+      "value": 2.16,
+      "source": "selected source; no narrowing"
+    },
+    "height": {
+      "value": 1.49,
+      "source": "source roof excluding removed antenna"
+    },
+    "wheel_radius": {
+      "value": 0.31205,
+      "source": "source sculpted tyre bounds"
+    },
+    "axle_front_y": {
+      "value": 1.2321,
+      "source": "source tyre bounds"
+    },
+    "axle_rear_y": {
+      "value": -1.3505,
+      "source": "source tyre bounds"
+    }
+  },
+  "colors": {
+    "body": {
+      "linear": [
+        0.015,
+        0.105,
+        0.24
+      ],
+      "source": "restrained blue from source/category refs; authored procedural colour"
+    },
+    "glass": {
+      "linear": [
+        0.055,
+        0.105,
+        0.15
+      ],
+      "source": "authored opaque blue grey"
+    }
+  },
+  "orientation": "source headlamps/hood -X; normalize (x,y,z) -> (y,-x,z); Blender +Y forward; engine -Z",
+  "limitations": [
+    "target12000 exceeded to preserve visible shape; hard18000 respected",
+    "No exact Golf or branded replica claim",
+    "No independent authoring-process verification beyond source metadata"
+  ]
+}

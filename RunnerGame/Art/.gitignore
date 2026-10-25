@@ -1,2 +1,25 @@
 # Build outputs; the installed copies live in RunnerGame/Assets/Models/
 assets/*/out/
+
+# These map deliveries are loaded directly by --map, not installed in Assets.
+!assets/hannover_pedestrian_blockout/out/
+!assets/hannover_public_realm/out/
+
+# Generated review renders, package duplicates and intermediate Blender saves.
+assets/*/previews/
+assets/*/checkpoints/
+assets/*/*.zip
+assets/*/*.blend
+# Retain editable character sources that cannot be recreated without MPFB setup.
+!assets/scooter_rider/rider_rig.blend
+!assets/scooter_rider/final_assembly.blend
+!assets/ordnungsamt_pursuer_v2/officer_v2.blend
+!assets/ordnungsamt_pursuer_v2/officer_v2_run_preview.blend
+assets/*/source/mpfb-user/logs/
+
+# Abandoned bicycle-base experiments; final bicycle is built from measurements.
+assets/bike_commuter/bike_bushido.glb
+assets/bike_commuter/pybullet/
+assets/bike_commuter/assemble_pybullet.py
+assets/hannover_pedestrian_blockout/checkpoint-tight-bend/
+assets/*/source/mpfb-user/config/

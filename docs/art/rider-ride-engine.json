@@ -1,0 +1,26 @@
+{
+  "camera": [
+    2,
+    1.45,
+    -3
+  ],
+  "target": [
+    0,
+    0.95,
+    0
+  ],
+  "fov": 43,
+  "light": [
+    -3,
+    6,
+    -4
+  ],
+  "models": [
+    {
+      "manifest": "../../RunnerGame/Art/assets/scooter_voi/out/VEH_ScooterVoi_parts.json"
+    },
+    {
+      "manifest": "../../RunnerGame/Art/assets/scooter_rider/out/CHR_ScooterRider_ride_parts.json"
+    }
+  ]
+}

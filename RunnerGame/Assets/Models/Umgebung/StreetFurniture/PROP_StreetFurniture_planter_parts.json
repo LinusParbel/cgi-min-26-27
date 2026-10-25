@@ -1,0 +1,14 @@
+{
+  "texture": "PROP_StreetFurniture.png",
+  "parts": [
+    {
+      "name": "planter",
+      "obj": "PROP_StreetFurniture_planter.obj",
+      "pivot": [
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}

@@ -1,0 +1,891 @@
+{
+  "source": "../hannover_route_reference/overview-clean.png, licensed official DOP20; source frame in placements-source.json",
+  "method": "Representative two-row feature inferred from legal aerial row fits; 10m normal spacing. User photo used for architectural paired-row feature, never traced geometry. Original source canopy centres vary and March shadows obscure exact inventory.",
+  "coordinateFrame": "X=E-550000;Z=5803000-N",
+  "uncertainty_m": 3,
+  "rows": [
+    {
+      "segment": "west",
+      "stationX": -90,
+      "status": "INFERRED representative paired row, not exact inventory",
+      "pairLocalXZ": [
+        [
+          -90.0,
+          -98.7
+        ],
+        [
+          -93.94884315840706,
+          -89.51269148714916
+        ]
+      ],
+      "normalSeparation_m": 10,
+      "adjustment_m": [
+        -0.0,
+        0.0
+      ],
+      "metrics": [
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 1.5445186772764576,
+          "canopyToFacade_m": 12.497713295174592
+        },
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 4.278769979336538,
+          "canopyToFacade_m": 22.45270558205673
+        }
+      ],
+      "uncertainty_m": 3,
+      "scale": 1.5,
+      "authoredHeight_m": 9.75,
+      "heightStatus": "Authoring choice for mature avenue feature visible in licensed street photo; not surveyed"
+    },
+    {
+      "segment": "west",
+      "stationX": -76,
+      "status": "INFERRED representative paired row, not exact inventory",
+      "pairLocalXZ": [
+        [
+          -76.0,
+          -92.68
+        ],
+        [
+          -79.94884315840706,
+          -83.49269148714916
+        ]
+      ],
+      "normalSeparation_m": 10,
+      "adjustment_m": [
+        -0.0,
+        0.0
+      ],
+      "metrics": [
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 0.30755338674600874,
+          "canopyToFacade_m": 10.690148031700913
+        },
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 5.523983093351381,
+          "canopyToFacade_m": 12.081880347001011
+        }
+      ],
+      "uncertainty_m": 3,
+      "scale": 1.5,
+      "authoredHeight_m": 9.75,
+      "heightStatus": "Authoring choice for mature avenue feature visible in licensed street photo; not surveyed"
+    },
+    {
+      "segment": "west",
+      "stationX": -48,
+      "status": "INFERRED representative paired row, not exact inventory",
+      "pairLocalXZ": [
+        [
+          -48.0,
+          -80.64
+        ],
+        [
+          -51.94884315840706,
+          -71.45269148714915
+        ]
+      ],
+      "normalSeparation_m": 10,
+      "adjustment_m": [
+        -0.0,
+        0.0
+      ],
+      "metrics": [
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 0.49862453329347517,
+          "canopyToFacade_m": 8.813709869041599
+        },
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 5.3113302689458886,
+          "canopyToFacade_m": 10.137527946767081
+        }
+      ],
+      "uncertainty_m": 3,
+      "scale": 1.5,
+      "authoredHeight_m": 9.75,
+      "heightStatus": "Authoring choice for mature avenue feature visible in licensed street photo; not surveyed"
+    },
+    {
+      "segment": "west",
+      "stationX": -34,
+      "status": "INFERRED representative paired row, not exact inventory",
+      "pairLocalXZ": [
+        [
+          -34.0,
+          -74.62
+        ],
+        [
+          -37.94884315840706,
+          -65.43269148714916
+        ]
+      ],
+      "normalSeparation_m": 10,
+      "adjustment_m": [
+        -0.0,
+        0.0
+      ],
+      "metrics": [
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 1.9841630430523782,
+          "canopyToFacade_m": 8.626211746103149
+        },
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 3.8096094482259044,
+          "canopyToFacade_m": 18.489782888570186
+        }
+      ],
+      "uncertainty_m": 3,
+      "scale": 1.5,
+      "authoredHeight_m": 9.75,
+      "heightStatus": "Authoring choice for mature avenue feature visible in licensed street photo; not surveyed"
+    },
+    {
+      "segment": "west",
+      "stationX": -20,
+      "status": "INFERRED representative paired row, not exact inventory",
+      "pairLocalXZ": [
+        [
+          -20.0,
+          -68.6
+        ],
+        [
+          -23.94884315840706,
+          -59.41269148714914
+        ]
+      ],
+      "normalSeparation_m": 10,
+      "adjustment_m": [
+        -0.0,
+        0.0
+      ],
+      "metrics": [
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 3.5079850346702774,
+          "canopyToFacade_m": 8.189274220214825
+        },
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 2.285787456541751,
+          "canopyToFacade_m": 17.496822664400362
+        }
+      ],
+      "uncertainty_m": 3,
+      "scale": 1.5,
+      "authoredHeight_m": 9.75,
+      "heightStatus": "Authoring choice for mature avenue feature visible in licensed street photo; not surveyed"
+    },
+    {
+      "segment": "west",
+      "stationX": -6,
+      "status": "INFERRED representative paired row, not exact inventory",
+      "pairLocalXZ": [
+        [
+          -6.0,
+          -62.58
+        ],
+        [
+          -9.948843158407058,
+          -53.39269148714914
+        ]
+      ],
+      "normalSeparation_m": 10,
+      "adjustment_m": [
+        -0.0,
+        0.0
+      ],
+      "metrics": [
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 5.031807026288186,
+          "canopyToFacade_m": 5.007142775863889
+        },
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 0.7619654648575841,
+          "canopyToFacade_m": 14.999872926738945
+        }
+      ],
+      "uncertainty_m": 3,
+      "scale": 1.5,
+      "authoredHeight_m": 9.75,
+      "heightStatus": "Authoring choice for mature avenue feature visible in licensed street photo; not surveyed"
+    },
+    {
+      "segment": "west",
+      "stationX": 8,
+      "status": "INFERRED representative paired row, not exact inventory",
+      "pairLocalXZ": [
+        [
+          7.605115684159294,
+          -55.64126914871492
+        ],
+        [
+          3.656272525752235,
+          -46.453960635864064
+        ]
+      ],
+      "normalSeparation_m": 10,
+      "adjustment_m": [
+        -0.39488431584070594,
+        0.9187308512850854
+      ],
+      "metrics": [
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 5.560656402718208,
+          "canopyToFacade_m": 3.8854527716027274
+        },
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 0.2331160883608707,
+          "canopyToFacade_m": 13.869782090656742
+        }
+      ],
+      "uncertainty_m": 3,
+      "scale": 1.5,
+      "authoredHeight_m": 9.75,
+      "heightStatus": "Authoring choice for mature avenue feature visible in licensed street photo; not surveyed"
+    },
+    {
+      "segment": "west",
+      "stationX": 22,
+      "status": "INFERRED representative paired row, not exact inventory",
+      "pairLocalXZ": [
+        [
+          24.627230334251582,
+          -51.58769307088876
+        ],
+        [
+          20.678387175844524,
+          -42.400384558037906
+        ]
+      ],
+      "normalSeparation_m": 10,
+      "adjustment_m": [
+        2.627230334251583,
+        -1.0476930708887588
+      ],
+      "metrics": [
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 10.269690972992436,
+          "canopyToFacade_m": 3.084266613753397
+        },
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 0.31836831581634956,
+          "canopyToFacade_m": 9.046283765749633
+        }
+      ],
+      "uncertainty_m": 3,
+      "scale": 1.5,
+      "authoredHeight_m": 9.75,
+      "heightStatus": "Authoring choice for mature avenue feature visible in licensed street photo; not surveyed"
+    },
+    {
+      "segment": "east",
+      "stationX": 36,
+      "status": "INFERRED representative paired row, not exact inventory",
+      "pairLocalXZ": [
+        [
+          36.0,
+          -27.64
+        ],
+        [
+          39.17607463863102,
+          -37.12222283485496
+        ]
+      ],
+      "normalSeparation_m": 10,
+      "adjustment_m": [
+        0.0,
+        0.0
+      ],
+      "metrics": [
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 2.102944436723473,
+          "canopyToFacade_m": 11.895314026234383
+        },
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 3.7123653207546345,
+          "canopyToFacade_m": 1.895947631321504
+        }
+      ],
+      "uncertainty_m": 3,
+      "scale": 1.5,
+      "authoredHeight_m": 9.75,
+      "heightStatus": "Authoring choice for mature avenue feature visible in licensed street photo; not surveyed"
+    },
+    {
+      "segment": "east",
+      "stationX": 50,
+      "status": "INFERRED representative paired row, not exact inventory",
+      "pairLocalXZ": [
+        [
+          50.0,
+          -22.950000000000003
+        ],
+        [
+          53.17607463863102,
+          -32.43222283485496
+        ]
+      ],
+      "normalSeparation_m": 10,
+      "adjustment_m": [
+        0.0,
+        0.0
+      ],
+      "metrics": [
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 1.4501900548447777,
+          "canopyToFacade_m": 8.282752136420592
+        },
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 4.4056313997464045,
+          "canopyToFacade_m": 1.9164774107482483
+        }
+      ],
+      "uncertainty_m": 3,
+      "scale": 1.5,
+      "authoredHeight_m": 9.75,
+      "heightStatus": "Authoring choice for mature avenue feature visible in licensed street photo; not surveyed"
+    },
+    {
+      "segment": "east",
+      "stationX": 64,
+      "status": "INFERRED representative paired row, not exact inventory",
+      "pairLocalXZ": [
+        [
+          64.0,
+          -18.26
+        ],
+        [
+          67.17607463863102,
+          -27.74222283485496
+        ]
+      ],
+      "normalSeparation_m": 10,
+      "adjustment_m": [
+        0.0,
+        0.0
+      ],
+      "metrics": [
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 1.8078273033115073,
+          "canopyToFacade_m": 7.8487927344565716
+        },
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 4.046147196368422,
+          "canopyToFacade_m": 4.202309899625234
+        }
+      ],
+      "uncertainty_m": 3,
+      "scale": 1.5,
+      "authoredHeight_m": 9.75,
+      "heightStatus": "Authoring choice for mature avenue feature visible in licensed street photo; not surveyed"
+    },
+    {
+      "segment": "east",
+      "stationX": 78,
+      "status": "INFERRED representative paired row, not exact inventory",
+      "pairLocalXZ": [
+        [
+          78.0,
+          -13.57
+        ],
+        [
+          81.17607463863102,
+          -23.05222283485496
+        ]
+      ],
+      "normalSeparation_m": 10,
+      "adjustment_m": [
+        0.0,
+        0.0
+      ],
+      "metrics": [
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 2.436922049287138,
+          "canopyToFacade_m": 8.032863655054902
+        },
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 3.4170524503811968,
+          "canopyToFacade_m": 13.637769906521577
+        }
+      ],
+      "uncertainty_m": 3,
+      "scale": 1.5,
+      "authoredHeight_m": 9.75,
+      "heightStatus": "Authoring choice for mature avenue feature visible in licensed street photo; not surveyed"
+    },
+    {
+      "segment": "east",
+      "stationX": 92,
+      "status": "INFERRED representative paired row, not exact inventory",
+      "pairLocalXZ": [
+        [
+          92.0,
+          -8.880000000000003
+        ],
+        [
+          95.17607463863102,
+          -18.36222283485496
+        ]
+      ],
+      "normalSeparation_m": 10,
+      "adjustment_m": [
+        0.0,
+        0.0
+      ],
+      "metrics": [
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 3.066016795262765,
+          "canopyToFacade_m": 8.212724671958409
+        },
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 2.787957704393976,
+          "canopyToFacade_m": 3.8004590111548255
+        }
+      ],
+      "uncertainty_m": 3,
+      "scale": 1.5,
+      "authoredHeight_m": 9.75,
+      "heightStatus": "Authoring choice for mature avenue feature visible in licensed street photo; not surveyed"
+    },
+    {
+      "segment": "east",
+      "stationX": 106,
+      "status": "INFERRED representative paired row, not exact inventory",
+      "pairLocalXZ": [
+        [
+          106.0,
+          -4.189999999999998
+        ],
+        [
+          109.17607463863102,
+          -13.672222834854956
+        ]
+      ],
+      "normalSeparation_m": 10,
+      "adjustment_m": [
+        0.0,
+        0.0
+      ],
+      "metrics": [
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 3.6951115412384015,
+          "canopyToFacade_m": 8.449047256776183
+        },
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 2.158862958406749,
+          "canopyToFacade_m": 0.6992578430781411
+        }
+      ],
+      "uncertainty_m": 3,
+      "scale": 1.5,
+      "authoredHeight_m": 9.75,
+      "heightStatus": "Authoring choice for mature avenue feature visible in licensed street photo; not surveyed"
+    },
+    {
+      "segment": "east",
+      "stationX": 120,
+      "status": "INFERRED representative paired row, not exact inventory",
+      "pairLocalXZ": [
+        [
+          120.0,
+          0.5
+        ],
+        [
+          123.17607463863102,
+          -8.982222834854959
+        ]
+      ],
+      "normalSeparation_m": 10,
+      "adjustment_m": [
+        0.0,
+        0.0
+      ],
+      "metrics": [
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 4.324206287214031,
+          "canopyToFacade_m": 8.60467370464494
+        },
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 1.5297682124195238,
+          "canopyToFacade_m": 0.47858556856482615
+        }
+      ],
+      "uncertainty_m": 3,
+      "scale": 1.5,
+      "authoredHeight_m": 9.75,
+      "heightStatus": "Authoring choice for mature avenue feature visible in licensed street photo; not surveyed"
+    },
+    {
+      "segment": "east",
+      "stationX": 134,
+      "status": "INFERRED representative paired row, not exact inventory",
+      "pairLocalXZ": [
+        [
+          134.0,
+          5.189999999999998
+        ],
+        [
+          137.17607463863104,
+          -4.292222834854961
+        ]
+      ],
+      "normalSeparation_m": 10,
+      "adjustment_m": [
+        0.0,
+        0.0
+      ],
+      "metrics": [
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 4.953301033189657,
+          "canopyToFacade_m": 8.57885660546409
+        },
+        {
+          "fullLowerTrunkSupported": true,
+          "trunkToTube_m": 0.9006734664323015,
+          "canopyToFacade_m": 0.26615716156162494
+        }
+      ],
+      "uncertainty_m": 3,
+      "scale": 1.5,
+      "authoredHeight_m": 9.75,
+      "heightStatus": "Authoring choice for mature avenue feature visible in licensed street photo; not surveyed"
+    }
+  ],
+  "rejectedPairs": [
+    {
+      "segment": "west",
+      "stationX": -62,
+      "reason": "No inferred pair within <=2.83m adjustment clears actual lower-trunk tube, public support and full crown/source+hero facade projection"
+    }
+  ],
+  "overheadCanopyClearance": {
+    "sourceCanopyUnderside_m": 2.568,
+    "riderEnvelopeTop_m": 1.675,
+    "requiredHeadMargin_m": 0.2,
+    "actualHeadMargin_m": 2.1770000000000005,
+    "passes": true,
+    "scaledCanopyUnderside_m": 3.8520000000000003
+  },
+  "geometryChecks": "Actual scaled triangle edges clipped at rider envelope1.875m, convex projection of lower collision geometry clears player tube by>=.2m; full scaled tree crown convex projection clears union of source buildings and hero facade triangles by>=.2m. Lower trunk fully supported.",
+  "keptOtherProps": [
+    {
+      "kind": "tree",
+      "x": -112.0,
+      "z": -113.5,
+      "yaw": 0,
+      "scale": 1
+    },
+    {
+      "kind": "tree",
+      "x": -118.5,
+      "z": -128.5,
+      "yaw": 0,
+      "scale": 1
+    },
+    {
+      "kind": "tree",
+      "x": -126.0,
+      "z": -143.0,
+      "yaw": 0,
+      "scale": 1
+    },
+    {
+      "kind": "tree",
+      "x": -139.0,
+      "z": -103.0,
+      "yaw": 0,
+      "scale": 1
+    },
+    {
+      "kind": "tree",
+      "x": -121.0,
+      "z": -82.0,
+      "yaw": 0,
+      "scale": 1
+    },
+    {
+      "kind": "tree",
+      "x": 391.5,
+      "z": -138.5,
+      "yaw": 0,
+      "scale": 1
+    },
+    {
+      "kind": "tree",
+      "x": 415.0,
+      "z": -119.5,
+      "yaw": 0,
+      "scale": 1
+    },
+    {
+      "kind": "tree",
+      "x": 431.5,
+      "z": -111.0,
+      "yaw": 0,
+      "scale": 1
+    },
+    {
+      "kind": "tree",
+      "x": 402.0,
+      "z": -96.0,
+      "yaw": 0,
+      "scale": 1
+    }
+  ],
+  "newAvenueProps": [
+    {
+      "kind": "tree",
+      "x": -90.0,
+      "z": -98.7,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -93.9488,
+      "z": -89.5127,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -76.0,
+      "z": -92.68,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -79.9488,
+      "z": -83.4927,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -48.0,
+      "z": -80.64,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -51.9488,
+      "z": -71.4527,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -34.0,
+      "z": -74.62,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -37.9488,
+      "z": -65.4327,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -20.0,
+      "z": -68.6,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -23.9488,
+      "z": -59.4127,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -6.0,
+      "z": -62.58,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": -9.9488,
+      "z": -53.3927,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 7.6051,
+      "z": -55.6413,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 3.6563,
+      "z": -46.454,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 24.6272,
+      "z": -51.5877,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 20.6784,
+      "z": -42.4004,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 36.0,
+      "z": -27.64,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 39.1761,
+      "z": -37.1222,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 50.0,
+      "z": -22.95,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 53.1761,
+      "z": -32.4322,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 64.0,
+      "z": -18.26,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 67.1761,
+      "z": -27.7422,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 78.0,
+      "z": -13.57,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 81.1761,
+      "z": -23.0522,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 92.0,
+      "z": -8.88,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 95.1761,
+      "z": -18.3622,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 106.0,
+      "z": -4.19,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 109.1761,
+      "z": -13.6722,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 120.0,
+      "z": 0.5,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 123.1761,
+      "z": -8.9822,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 134.0,
+      "z": 5.19,
+      "yaw": 0,
+      "scale": 1.5
+    },
+    {
+      "kind": "tree",
+      "x": 137.1761,
+      "z": -4.2922,
+      "yaw": 0,
+      "scale": 1.5
+    }
+  ]
+}

@@ -1,0 +1,7 @@
+exec(open(__file__.replace('diagnostic_view.py','build.py')).read().split('step=')[0])
+im=Image.new('RGB',(1000,1100),'white');d=ImageDraw.Draw(im)
+def p(q):return ((q[0]-550240)*5,1050-(q[1]-5802950)*5)
+for f in feats:d.polygon([p(q) for q in shape(f['geometry']).exterior.coords],fill='gray')
+for h in holes.geoms:d.polygon([p(q) for q in h.exterior.coords],fill='black')
+d.line([p(q) for q in original],fill='red',width=4)
+im.save(A/'diagnostic.png')

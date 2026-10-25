@@ -1,0 +1,14 @@
+{
+  "texture": "HannoverRoute.png",
+  "parts": [
+    {
+      "name": "hannover_massing",
+      "obj": "HannoverRoute.obj",
+      "pivot": [
+        0,
+        0,
+        0
+      ]
+    }
+  ]
+}
