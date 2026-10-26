@@ -5,7 +5,7 @@ using OpenTK.Graphics.OpenGL4;
 namespace Engine.OpenGL;
 
 // GPU copy of a MeshData: vertex buffer, index buffer and the matching vertex array object.
-// Attribute locations: 0 = position, 1 = normal, 2 = texture coordinate.
+// Attribute locations: 0 = position, 1 = normal, 2 = texture coordinate, 3 = tangent, 4 = bitangent.
 public sealed class Mesh : IDisposable
 {
     private int _vertexArray;
@@ -34,6 +34,8 @@ public sealed class Mesh : IDisposable
         SetAttribute(0, 3, nameof(Vertex.Position));
         SetAttribute(1, 3, nameof(Vertex.Normal));
         SetAttribute(2, 2, nameof(Vertex.TexCoord));
+        SetAttribute(3, 3, nameof(Vertex.Tangent));
+        SetAttribute(4, 3, nameof(Vertex.Bitangent));
 
         GL.BindVertexArray(0);
         GL.BindBuffer(BufferTarget.ArrayBuffer, 0);

@@ -1,3 +1,4 @@
+using Engine.Lighting;
 using Engine.Materials;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
@@ -11,7 +12,14 @@ public sealed class OpenGlRenderer : IDisposable
     private readonly Dictionary<ShaderSource, ShaderProgram> _shaders = new();
     private float _aspectRatio = 1.0f;
 
-    public Vector3 LightPosition { get; set; } = new(3.0f, 4.0f, 5.0f);
+    private DirectionalLight _directionalLight = new();
+
+    // The light of the scene; it is passed to every shader that uses the uLight... uniforms.
+    public DirectionalLight DirectionalLight
+    {
+        get => _directionalLight;
+        set => _directionalLight = value ?? throw new ArgumentNullException(nameof(value));
+    }
 
     public OpenGlRenderer()
     {
@@ -44,11 +52,23 @@ public sealed class OpenGlRenderer : IDisposable
         shader.SetMatrix4("uView", camera.ViewMatrix);
         shader.SetMatrix4("uProjection", camera.GetProjectionMatrix(_aspectRatio));
         if (shader.HasUniform("uCameraPosition")) shader.SetVector3("uCameraPosition", camera.Position);
-        if (shader.HasUniform("uLightPosition")) shader.SetVector3("uLightPosition", LightPosition);
+        SetLightUniforms(shader);
 
         GL.BindVertexArray(mesh.VertexArray);
         GL.DrawElements(PrimitiveType.Triangles, mesh.IndexCount, DrawElementsType.UnsignedInt, 0);
         GL.BindVertexArray(0);
+
+        // Materials with several textures switch the active texture unit; reset it for the next draw call.
+        GL.ActiveTexture(TextureUnit.Texture0);
+    }
+
+    // Only shaders that use lighting declare these uniforms; all others are left untouched.
+    private void SetLightUniforms(ShaderProgram shader)
+    {
+        if (shader.HasUniform("uLightDirection")) shader.SetVector3("uLightDirection", DirectionalLight.Direction);
+        if (shader.HasUniform("uLightAmbientColor")) shader.SetVector3("uLightAmbientColor", DirectionalLight.AmbientColor);
+        if (shader.HasUniform("uLightDiffuseColor")) shader.SetVector3("uLightDiffuseColor", DirectionalLight.DiffuseColor);
+        if (shader.HasUniform("uLightSpecularColor")) shader.SetVector3("uLightSpecularColor", DirectionalLight.SpecularColor);
     }
 
     private ShaderProgram GetShader(ShaderSource source)

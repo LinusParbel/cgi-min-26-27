@@ -7,7 +7,8 @@ namespace Engine.Materials;
 // only referenced; whoever created them has to dispose of them.
 //
 // Every material shader must use uModel, uView and uProjection.
-// The renderer only sets uCameraPosition and uLightPosition if the shader uses them.
+// The renderer only sets uCameraPosition and the light uniforms (uLightDirection, uLightAmbientColor,
+// uLightDiffuseColor, uLightSpecularColor) if the shader uses them.
 public abstract class Material
 {
     protected internal abstract ShaderSource ShaderSource { get; }

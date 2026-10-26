@@ -1,8 +1,9 @@
 # CGI-MIN 26/27
 
 A small starting point for computer graphics with C# and OpenTK: a rotating
-model with reflection mapping. The engine also contains materials for plain
-texturing, wave distortion and Phong lighting (ambient, diffuse and specular).
+model lit by a directional light (ambient, diffuse and specular, Blinn-Phong).
+The engine also contains materials for plain texturing, wave distortion and
+reflection mapping.
 
 ## Structure
 
@@ -15,12 +16,17 @@ texturing, wave distortion and Phong lighting (ambient, diffuse and specular).
   (texture without lighting), `WaveDistortion/` (texture without lighting,
   vertices displaced by a sine wave; the phase `Wobble` is increased in `Update`),
   `ReflectionMapping/` (texture coordinates calculated from the normal in view
-  space, so an environment texture appears reflected on the surface) and `Phong/`
-  (single color with lighting). The shaders are embedded into
+  space, so an environment texture appears reflected on the surface) and
+  `AmbientDiffuseSpecular/` (texture lit by a directional light: ambient, diffuse
+  and specular with the halfway vector, Blinn-Phong), `NormalMapping/` (like
+  AmbientDiffuseSpecular, but the normal of every pixel comes from a normal map in
+  tangent space) and `LitTexture/` (texture with Phong lighting using the
+  reflection vector, contributed by a student). The shaders are embedded into
   `Engine.dll` as `EmbeddedResource`.
 - `Engine/Geometry/` contains geometry in main memory, without OpenGL: `Vertex`
-  (position, normal, texture coordinate), `MeshData` (vertices and triangle
-  indices) and `Primitives` (e.g. `CreateCube()`). `Loaders/ObjLoader` reads the
+  (position, normal, texture coordinate, tangent, bitangent), `MeshData` (vertices
+  and triangle indices; it calculates the tangents and bitangents from positions
+  and UVs and averages them at shared vertices) and `Primitives` (e.g. `CreateCube()`). `Loaders/ObjLoader` reads the
   geometry from Wavefront .obj files (`v`, `vt`, `vn`, `f`, including polygons and
   faces without UVs or normals) and also returns `MeshData`; `.mtl` files are ignored.
 - `Engine/OpenGL/` contains `Mesh` (vertex and index buffer on the GPU),
@@ -32,10 +38,11 @@ texturing, wave distortion and Phong lighting (ambient, diffuse and specular).
   during the build.
 - `CgiMin.sln` loads both projects together.
 
-The example loads the duck from `Assets/duck_smooth.obj` with `ObjLoader` and
-draws it with the `ReflectionMappingMaterial` and `Assets/environment.png`. The
-other textures, materials and meshes (cube, star, flat-shaded duck) are commented
-out in `Initialize` and can be switched quickly. The mesh is drawn with
+The example shows a hall (`Assets/hall.obj`) and a rotating cube in its middle,
+both drawn with the `NormalMappingMaterial` and lit by the directional light that
+is set in `Initialize`; the camera circles around the middle. The other textures,
+materials and meshes for the object in the middle (duck, star, …) are commented
+out in `Initialize` and can be switched quickly. Every mesh is drawn with
 `renderer.Draw(mesh, material, modelMatrix, camera)`. The animation only changes
 the model matrix; the camera is not a global static class. Materials and cameras
 do not draw themselves. A scene model will follow in a later step.
@@ -44,7 +51,13 @@ A material only holds surface values and refers to its `ShaderSource`. It only
 references textures; whoever created a texture has to dispose of it. The renderer
 compiles each material shader once on the first `Draw` and releases it in
 `Dispose`. Every material shader must use `uModel`, `uView` and `uProjection`;
-`uCameraPosition` and `uLightPosition` are optional.
+`uCameraPosition` and the light uniforms are optional.
+
+The light of the scene is a `DirectionalLight` (`Engine/Lighting/`): a direction
+towards the light and an ambient, diffuse and specular color. It is set on the
+renderer (`renderer.DirectionalLight = …`), and the renderer passes it as
+`uLightDirection`, `uLightAmbientColor`, `uLightDiffuseColor` and
+`uLightSpecularColor` to every shader that uses these uniforms.
 
 ## Frame sequence
 

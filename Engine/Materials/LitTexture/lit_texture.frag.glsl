@@ -6,7 +6,7 @@ in vec2 uv;
 out vec4 outColor;
 
 uniform vec3 uCameraPosition;
-uniform vec3 uLightPosition;
+uniform vec3 uLightDirection;   // directional light, set by the renderer
 uniform sampler2D uTexture;
 uniform vec3 uTint;
 uniform float uAmbientStrength;
@@ -20,7 +20,7 @@ void main()
 
     // Calculate fake lighting
     vec3 N = normalize(worldNormal);
-    vec3 L = normalize(uLightPosition - worldPosition);
+    vec3 L = uLightDirection;
     vec3 V = normalize(uCameraPosition - worldPosition);
     vec3 R = reflect(-L, N);
 
