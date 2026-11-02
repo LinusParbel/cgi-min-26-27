@@ -1,6 +1,6 @@
 # Possible opening animations
 
-The chosen opening is [ConeHat](../Assets/Animations/ConeHat/README.md), concept ID `cone_hat`. Its specification lives only in its animation folder.
+The chosen opening is [ConeHat](../Assets/Animations/ConeHat/animation.md), concept ID `cone_hat`. Its specification lives only in its animation folder.
 
 ## Alternative openings
 
@@ -15,4 +15,4 @@ opening can replace the cone scene or join a future selection of intros.
 | `poster_moustache` | The rider draws a moustache on a public poster. | They notice the officer in the glass reflection and hide a marker that still squeaks. | Poster, marker, drawing and hiding gestures; reflection or another readable reveal. |
 | `cafe_chair` | The rider takes a cafe chair to use as a scooter seat. | They notice the officer, carefully replace and straighten the chair, then bolt. | Chair carrying/placing, scooter-seat gag and reaction. |
 
-To develop another idea, create `Assets/Animations/<AnimationName>/README.md` with its specific requirements and link it here. Update the chosen-opening link when switching. Recording an idea does not implement it or add it to a random selection pool.
+To develop another idea, create `Assets/Animations/<AnimationName>/animation.md` with its specific requirements and link it here. Update the chosen-opening link when switching. Recording an idea does not implement it or add it to a random selection pool.

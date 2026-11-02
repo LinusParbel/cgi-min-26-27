@@ -1,7 +1,7 @@
 # Hannover Rush Hour — first playable
 
 The chosen opening is specified in
-[Animations/ConeHat/README.md](Assets/Animations/ConeHat/README.md); other ideas
+[Animations/ConeHat/animation.md](Assets/Animations/ConeHat/animation.md); other ideas
 live in [Art/ANIMATION_IDEAS.md](Art/ANIMATION_IDEAS.md). This is planned work;
 the current game still starts with the controls described below.
 
