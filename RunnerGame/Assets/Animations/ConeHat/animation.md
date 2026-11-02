@@ -47,4 +47,37 @@ This folder owns the cone intro specification and future scene-specific runtime 
 
 Duration, staging location for supported maps and street mode, camera shots, animation method, sound sourcing, and first-play, restart and skip behaviour. The scene sequence and sound cues above are proposals to refine before implementation.
 
+## Timing proposal for discussion
+
+This is a proposed 12-second cut, not an approved duration or finished clip.
+
+| Time | Action and purpose |
+|---|---|
+| 0-3 s | Casual approach, pick up cone, put it on and swagger. Establish the scooter nearby so the escape direction reads. |
+| 3-6 s | Officer interruption, freeze, eye contact and slow cone removal. Hold the awkward silence long enough for the joke to register. |
+| 6-10 s | Drop and wobble, sudden sprint, clumsy scooter mount and badly timed beep. |
+| 10-12 s | Pull away, officer starts running, camera blends into the chase view and player control begins. |
+
+Keep the cone's broad opening over the rider's head and test visibility before
+committing to a shot through the opening. If the opening hides the face,
+stage the officer reveal with a head turn and readable body reaction instead.
+
+## Current implementation findings
+
+Repository inspection on 2026-11-02:
+
+- The game renders exported OBJ poses rather than a skeletal animation system.
+  The street renderer samples four officer run poses from the installed set.
+- Editable rider files include `rider_rig.blend` and `final_assembly.blend` under
+  `Art/assets/scooter_rider/`. Inspect the actual rig before choosing how to
+  author the new actions; filenames alone do not establish rig readiness.
+- No audio playback implementation was found in the Engine or RunnerGame C#
+  code. Sound cue timing needs playback support as well as licensed audio.
+- Gameplay currently has Ready, Running, Paused and Caught phases. The intro
+  needs an explicit playback and input handoff design so its animation time
+  cannot advance gameplay obstacles, scoring or damage before control begins.
+
+Next design step: settle pacing and storyboard, inspect the rider rig and cone,
+then choose the clip export and playback approach before implementation.
+
 See [../README.md](../README.md) for the animation folder convention and [../../../Art/ANIMATION_IDEAS.md](../../../Art/ANIMATION_IDEAS.md) for other opening concepts.
