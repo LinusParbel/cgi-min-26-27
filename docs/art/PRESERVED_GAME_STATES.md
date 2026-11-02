@@ -13,4 +13,4 @@ The checkpoint includes a gameplay/engine source ZIP, credits, and SHA-256 inven
 
 This is a local checkpoint excluded from Git, not an external backup. Copy the entire checkpoint folder elsewhere to back it up. Art authoring sources remain in the main workspace; the ZIP preserves application/engine source, not the complete art research archive.
 
-Normal development still supports both modes: no `--map` uses the original streets; `--map RunnerGame/Art/assets/hannover_public_realm/out` uses the evolving Hannover map.
+Normal development still supports both modes: no `--map` uses the original streets; `--map RunnerGame/Assets/Maps/HannoverPublicRealm` uses the evolving Hannover map.

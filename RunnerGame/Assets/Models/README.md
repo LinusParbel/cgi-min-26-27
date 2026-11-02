@@ -30,14 +30,13 @@ The C# gameplay, input, rendering and route tests remain tracked.
 
 ## Map packages
 
-Two experimental maps currently use the older delivery paths:
+Runtime map packages use `RunnerGame/Assets/Maps/<Map>/`:
 
 ```text
-RunnerGame/Art/assets/hannover_pedestrian_blockout/out/
-RunnerGame/Art/assets/hannover_public_realm/out/
+RunnerGame/Assets/Maps/HannoverPedestrianBlockout/
+RunnerGame/Assets/Maps/HannoverPublicRealm/
 ```
 
-Their meshes, textures and route metadata are runtime inputs to `--map` and
-remain tracked. They are complete map packages rather than individual model
-folders. A future move to `RunnerGame/Assets/Maps/<Map>/` must update map launch
-commands, test inputs and any path references together.
+Their meshes, textures, route metadata and credits remain together in each map
+folder. They are runtime inputs to `--map` and are copied into the build output
+alongside the model assets. Generation sources stay under `Art/assets/`.

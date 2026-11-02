@@ -7,7 +7,7 @@ User approved a real-location pedestrian opening and requested professor-facing 
 - Self-contained printable source note: `docs/art/HANNOVER_MAP_SOURCES_AND_METHOD.html`.
 - Editable source note: same name with `.md`.
 - Actual engine captures: `docs/art/previews/hannover-route-overview.bmp` and `hannover-route-start.bmp`.
-- Candidate launch from repository root: `RunnerGame/bin/Debug/net10.0/RunnerGame.exe --map RunnerGame/Art/assets/hannover_pedestrian_blockout/out --overview`.
+- Candidate launch from repository root: `RunnerGame/bin/Debug/net10.0/RunnerGame.exe --map RunnerGame/Assets/Maps/HannoverPedestrianBlockout --overview`.
 
 Enter starts riding in chase view. Tab switches overview/chase and pauses an active run. Enter resumes. A/D change provisional steering position, Space jumps, S ducks, Esc pauses, R restarts. Preview ends at Steintor. Three positions at1.5mspacing are temporary; no road lane markings are present. The proposed offence/introduction sequence is still future story work; current first-hit/second-hit pursuit mechanics remain.
 

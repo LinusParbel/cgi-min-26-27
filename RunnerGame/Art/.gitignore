@@ -1,9 +1,7 @@
 # Build outputs; the installed copies live in RunnerGame/Assets/Models/
 assets/*/out/
 
-# These map deliveries are loaded directly by --map, not installed in Assets.
-!assets/hannover_pedestrian_blockout/out/
-!assets/hannover_public_realm/out/
+# Runtime map packages are installed under RunnerGame/Assets/Maps/.
 
 # Generated review renders, package duplicates and intermediate Blender saves.
 assets/*/previews/

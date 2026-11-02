@@ -1,3 +1,4 @@
 # Preserve delivered asset bytes: provenance inventories use SHA-256 hashes.
 RunnerGame/Assets/Models/** -text whitespace=cr-at-eol
+RunnerGame/Assets/Maps/** -text whitespace=cr-at-eol
 RunnerGame/Art/assets/** -text whitespace=cr-at-eol

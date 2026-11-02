@@ -54,7 +54,7 @@ First visual priorities for the original street mode are ground/contact shadows,
 From the repository root:
 
 ```powershell
-dotnet run --project RunnerGame -- --map RunnerGame/Art/assets/hannover_pedestrian_blockout/out --overview
+dotnet run --project RunnerGame -- --map RunnerGame/Assets/Maps/HannoverPedestrianBlockout --overview
 ```
 
 **Enter** starts riding from Hauptbahnhof and switches to the chase camera. **Tab** switches between chase and overview; opening the overview pauses an active run. **Enter** resumes riding, **R** resets. The finite route ends at Steintor. The other runner controls remain unchanged. Run without `--map` to see the original street mode.
@@ -66,15 +66,15 @@ Professor-facing sources, licensing, method, AI assistance and accuracy limits: 
 Additional checks:
 
 ```powershell
-dotnet run --project RunnerGame.RouteTests -- RunnerGame/Art/assets/hannover_pedestrian_blockout/out/route.json 714.276088
+dotnet run --project RunnerGame.RouteTests -- RunnerGame/Assets/Maps/HannoverPedestrianBlockout/route.json 714.276088
 ```
 
-Route tests require only .NET and also check all three movement paths for folds. Python model generation and review scripts are local, ignored tooling and are not required to run the game. The map remains a candidate under Art; it has not replaced the installed runtime asset collection. See `Assets/Models/README.md` for the asset folder convention.
+Route tests require only .NET and also check all three movement paths for folds. Python model generation and review scripts are local, ignored tooling and are not required to run the game. Runtime map packages live under `Assets/Maps/`; generation sources remain under `Art/assets/`. See `Assets/Models/README.md` for the asset folder convention.
 
 ### Public-realm revision v2
 
 ```powershell
-dotnet run --project RunnerGame -- --map RunnerGame/Art/assets/hannover_public_realm/out --inspect 245
+dotnet run --project RunnerGame -- --map RunnerGame/Assets/Maps/HannoverPublicRealm --inspect 245
 ```
 
 This opens near Kröpcke for architectural inspection. While ready/paused: **PageUp/PageDown** moves100m along the route; **right mouse drag** orbits; **mouse wheel** zooms. **Tab** shows the entire area. **Enter** returns to normal riding; **R** restarts. Capture a particular location with `--inspect metres --capture output.bmp`.
