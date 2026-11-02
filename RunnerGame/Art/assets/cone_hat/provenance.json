@@ -1,0 +1,13 @@
+{
+  "created": "2026-11-02",
+  "authorship": "Original cone-hat scene animation on existing project character rigs; existing model/texture provenance remains authoritative.",
+  "sources_unchanged": true,
+  "sha256": {
+    "RunnerGame/Art/assets/scooter_rider/rider_export.blend": "e277e66e87006238e8ddacc7791ca1f2227844d88d4ef41a60277ddf06cb0bd1",
+    "RunnerGame/Art/assets/ordnungsamt_pursuer_v2/officer_v2_export_preview.blend": "145bfb42088b6b7a894f478e69f367d0ee3855f586f61612593ac322779679a0",
+    "RunnerGame/Art/assets/cone_hat/cone_hat.blend": "f361c5733e5169e99856afdab3f0aca1a9db280f3bb68516ccbc8e89cf78bf95",
+    "RunnerGame/Assets/Animations/ConeHat/rider.vclip": "c3d2a9715a0330a0cfbb5f36b0434c498c5b1a72fa98011b753f48ff4dc9cf59",
+    "RunnerGame/Assets/Animations/ConeHat/officer_idle.obj": "480a567c41f997b61d3700ee3c4439b920bc77cc46f2581aae01f93129ac0494",
+    "RunnerGame/Assets/Animations/ConeHat/officer_react.obj": "ca55875d85f7b1c0b8b920dba1b9d1d0ae721fbb41d043ac1cecb77600c152eb"
+  }
+}
