@@ -5,8 +5,10 @@
 Concept ID: `cone_hat`. User selected the cone-hat premise on 2026-11-02.
 **Animation and audio are not implemented. All acceptance criteria are pending.**
 This is the authoritative scene specification; the storyboard illustrates it.
-The 12-second timing, camera staging and playback rules are proposed defaults
-for review, not decisions already approved by choosing the premise.
+The user approved the storyboard and proposed defaults with “okay lets go” on
+2026-11-02: 12-second timing, playback controls, continuous visual officer
+following independent of damage timers, and all three environments.
+Technical authoring/export choices remain the implementer's responsibility.
 
 [Storyboard](storyboard.svg) · [Folder convention](../README.md) ·
 [Other ideas](../../../Art/ANIMATION_IDEAS.md)
@@ -52,13 +54,13 @@ Stage on flat unobstructed ground, with a short approach and sprint path.
 The released cone must stay outside the riding corridor and must not become
 a gameplay obstacle. Preserve existing character identity, textures and scale.
 
-Proposed scope: original street mode, HannoverPedestrianBlockout and
+Approved scope: original street mode, HannoverPedestrianBlockout and
 HannoverPublicRealm. Exact stage anchors and camera clearance must be checked
 in each environment; the storyboard does not establish those placements.
 
-## Proposed playback and handoff contract
+## Playback and handoff contract
 
-These are defaults awaiting review, not existing engine behaviour.
+These defaults are approved requirements, not existing engine behaviour.
 
 1. Ready remains idle until Enter or Space starts the intro.
 2. During playback, movement/jump/duck cannot affect gameplay. Distance, score,
@@ -73,11 +75,10 @@ These are defaults awaiting review, not existing engine behaviour.
 6. Natural completion and skip invoke the same handoff exactly once: rider
    mounted, route aligned, cone outside corridor, normal chase camera, clean
    score/distance and normal initial gameplay speed (currently 12 m/s).
-7. Proposed default: officer remains visibly behind the player during the run,
+7. Officer remains visibly behind the player during the run,
    independently of the damage/pursuit timer, including after its clean escape
    interval. This changes the current renderer, which normally shows the officer
-   only during timed pursuit or capture. Confirm this visual behaviour before
-   implementation. Do not count the intro as a
+   only during timed pursuit or capture. Do not count the intro as a
    first collision or start the second-hit capture timer; preserve existing
    first-hit/second-hit gameplay rules.
 8. Do not carry intro-only input or animation time into gameplay. No duplicate
@@ -147,12 +148,20 @@ Inspected on 2026-11-02:
 Choose animation authoring/export after rig inspection and compare playback
 costs with the existing renderer. A timeline alone does not supply new motion.
 
-## Decisions to confirm before implementation
+## Approved defaults and remaining technical decisions
 
-- 12-second baseline and storyboard staging.
-- Playback, replay, skip and pause defaults.
-- Continuous officer visibility after handoff, separate from timed damage pursuit.
-- Three-environment delivery scope.
-- Animation authoring/export after rig inspection; sound sources before final production.
+- Approved: 12-second baseline and storyboard staging.
+- Approved: playback, replay, skip and pause defaults.
+- Approved: continuous officer visibility separate from timed damage pursuit.
+- Approved: three-environment delivery scope.
+- Technical choice: inspect rigs, choose animation export and sound production.
+
+Headless Blender inspection confirmed that `rider_rig.blend` contains the
+weighted civilian meshes and a 53-bone armature. `final_assembly.blend` contains
+static installed riding/ducking meshes, without an armature. The officer source
+also contains a 53-bone armature. Author new motion from the rigs, not by moving
+the entire installed riding mesh as a rigid object.
+
+The next implementation steps are in [implementation-plan.md](implementation-plan.md).
 
 These are tracked decisions, not permission to omit actions or acceptance evidence.
