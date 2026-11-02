@@ -1,5 +1,9 @@
 # Hannover Rush Hour — first playable
 
+Opening animation concepts and the chosen cone-hat intro are recorded in
+[START_ANIMATIONS.md](../docs/art/START_ANIMATIONS.md). This is planned work;
+the current game still starts with the controls described below.
+
 Run from the repository root:
 
 ```powershell
