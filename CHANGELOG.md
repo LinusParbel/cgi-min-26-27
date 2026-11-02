@@ -4,6 +4,18 @@ Each lecture state is tagged in Git. Update your own project with
 `git fetch upstream --tags` and `git merge --no-edit lecture-XX`.
 Changes that can break your own code are marked with **Breaking**.
 
+## lecture-06
+
+- New: `CubeTexture` (cube map from six images, +X, -X, +Y, -Y, +Z, -Z) and
+  `ShaderProgram.SetCubeTexture`.
+- New: `CubeReflectionMaterial` (normal map + cube map reflection) and
+  `NormalMappingCubeSpecularMaterial` (normal mapping, cube map as specular part).
+- New: `Frustum` with the sphere-in-frustum test, `renderer.GetFrustum(camera)` and
+  `MeshData.BoundingRadius` / `Mesh.BoundingRadius` for frustum culling.
+- New: `FlyCamera` – a camera steered with the keyboard.
+- Example: 200 rotating objects with frustum culling, fly camera and three materials
+  (keys 1/2/3); the hall scene of lecture 5 is still available in the tag `lecture-05`.
+
 ## lecture-05
 
 - New: `NormalMappingMaterial` (color texture + normal map in tangent space, lit by the

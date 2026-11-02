@@ -15,11 +15,15 @@ public sealed class Mesh : IDisposable
     internal int VertexArray => _vertexArray;
     public int IndexCount { get; }
 
+    // Radius of a sphere around the local origin that contains the whole mesh (see MeshData).
+    public float BoundingRadius { get; }
+
     public Mesh(MeshData data)
     {
         ArgumentNullException.ThrowIfNull(data);
 
         IndexCount = data.Indices.Length;
+        BoundingRadius = data.BoundingRadius;
         _vertexArray = GL.GenVertexArray();
         _vertexBuffer = GL.GenBuffer();
         _indexBuffer = GL.GenBuffer();

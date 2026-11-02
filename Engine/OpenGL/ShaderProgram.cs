@@ -77,6 +77,17 @@ public sealed class ShaderProgram : IDisposable
         GL.Uniform1(GetUniformLocation(name), unit);
     }
 
+    // Same for a cube map (samplerCube in GLSL).
+    public void SetCubeTexture(string name, CubeTexture texture, int unit)
+    {
+        ArgumentNullException.ThrowIfNull(texture);
+        ArgumentOutOfRangeException.ThrowIfNegative(unit);
+
+        GL.ActiveTexture(TextureUnit.Texture0 + unit);
+        GL.BindTexture(TextureTarget.TextureCubeMap, texture.Handle);
+        GL.Uniform1(GetUniformLocation(name), unit);
+    }
+
     private int GetUniformLocation(string name)
     {
         int location = FindUniformLocation(name);

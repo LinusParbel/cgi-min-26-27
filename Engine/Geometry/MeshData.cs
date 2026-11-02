@@ -10,6 +10,9 @@ public sealed class MeshData
     public Vertex[] Vertices { get; }
     public uint[] Indices { get; }
 
+    // Radius of a sphere around the local origin that contains all vertices (for frustum culling).
+    public float BoundingRadius { get; }
+
     public MeshData(Vertex[] vertices, uint[] indices)
     {
         ArgumentNullException.ThrowIfNull(vertices);
@@ -26,6 +29,12 @@ public sealed class MeshData
 
         Vertices = WithTangents(vertices, indices);
         Indices = indices;
+
+        // the largest distance of a vertex to the origin is the radius
+        float maxSquaredRadius = 0.0f;
+        foreach (Vertex v in vertices)
+            maxSquaredRadius = MathF.Max(maxSquaredRadius, v.Position.LengthSquared);
+        BoundingRadius = MathF.Sqrt(maxSquaredRadius);
     }
 
     // Calculates tangent and bitangent for each triangle from its edges and UV differences:

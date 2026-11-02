@@ -37,6 +37,14 @@ public sealed class OpenGlRenderer : IDisposable
         _aspectRatio = (float)width / height;
     }
 
+    // The view frustum of the camera with the current aspect ratio, for visibility tests.
+    // It has to be recalculated whenever the camera moves or rotates.
+    public Frustum GetFrustum(Camera camera)
+    {
+        ArgumentNullException.ThrowIfNull(camera);
+        return new Frustum(camera.ViewMatrix * camera.GetProjectionMatrix(_aspectRatio));
+    }
+
     public void Clear() => GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
     public void Draw(Mesh mesh, Material material, Matrix4 modelMatrix, Camera camera)

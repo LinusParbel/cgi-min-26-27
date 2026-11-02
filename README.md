@@ -1,9 +1,9 @@
 # CGI-MIN 26/27
 
-A small starting point for computer graphics with C# and OpenTK: a rotating
-model lit by a directional light (ambient, diffuse and specular, Blinn-Phong).
-The engine also contains materials for plain texturing, wave distortion and
-reflection mapping.
+A small starting point for computer graphics with C# and OpenTK: 200 rotating
+objects with normal mapping and cube mapping, a fly camera and frustum culling.
+The engine also contains materials for plain texturing, wave distortion,
+reflection mapping and Blinn-Phong lighting.
 
 ## Structure
 
@@ -11,6 +11,10 @@ reflection mapping.
   and drawing, similar to Unity (see below).
 - `Engine/Camera.cs` describes a view by position, target and projection.
   Multiple camera instances can exist independently of each other.
+  `Engine/FlyCamera.cs` steers a camera with the keyboard (arrow keys, W/S).
+- `Engine/Frustum.cs` contains the six clipping planes of a camera's view frustum
+  (Hessian normal form) and the sphere-in-frustum test for frustum culling;
+  `renderer.GetFrustum(camera)` creates it with the current aspect ratio.
 - `Engine/Materials/` contains the abstract base class `Material` and one
   subfolder per material type with its class and GLSL files: `UnlitTexture/`
   (texture without lighting), `WaveDistortion/` (texture without lighting,
@@ -20,17 +24,21 @@ reflection mapping.
   `AmbientDiffuseSpecular/` (texture lit by a directional light: ambient, diffuse
   and specular with the halfway vector, Blinn-Phong), `NormalMapping/` (like
   AmbientDiffuseSpecular, but the normal of every pixel comes from a normal map in
-  tangent space) and `LitTexture/` (texture with Phong lighting using the
-  reflection vector, contributed by a student). The shaders are embedded into
+  tangent space), `CubeReflection/` (mirror: the reflected view direction picks
+  the color from a cube map), `NormalMappingCubeSpecular/` (normal mapping with
+  the cube map reflection as specular part) and `LitTexture/` (texture with Phong
+  lighting using the reflection vector, contributed by a student). The shaders are embedded into
   `Engine.dll` as `EmbeddedResource`.
 - `Engine/Geometry/` contains geometry in main memory, without OpenGL: `Vertex`
   (position, normal, texture coordinate, tangent, bitangent), `MeshData` (vertices
   and triangle indices; it calculates the tangents and bitangents from positions
-  and UVs and averages them at shared vertices) and `Primitives` (e.g. `CreateCube()`). `Loaders/ObjLoader` reads the
+  and UVs and averages them at shared vertices, plus a bounding radius for
+  frustum culling) and `Primitives` (e.g. `CreateCube()`). `Loaders/ObjLoader` reads the
   geometry from Wavefront .obj files (`v`, `vt`, `vn`, `f`, including polygons and
   faces without UVs or normals) and also returns `MeshData`; `.mtl` files are ignored.
 - `Engine/OpenGL/` contains `Mesh` (vertex and index buffer on the GPU),
-  `Texture` (image as RGBA texture, loaded with StbImageSharp), `ShaderSource`
+  `Texture` (image as RGBA texture, loaded with StbImageSharp), `CubeTexture`
+  (cube map from six images), `ShaderSource`
   (where a shader comes from), `ShaderProgram` (GLSL compilation and uniforms) and
   `OpenGlRenderer` (OpenGL state, shader management and draw call).
 - `Example/` is the executable OpenTK application and references `Engine`.
@@ -38,11 +46,12 @@ reflection mapping.
   during the build.
 - `CgiMin.sln` loads both projects together.
 
-The example shows a hall (`Assets/hall.obj`) and a rotating cube in its middle,
-both drawn with the `NormalMappingMaterial` and lit by the directional light that
-is set in `Initialize`; the camera circles around the middle. The other textures,
-materials and meshes for the object in the middle (duck, star, …) are commented
-out in `Initialize` and can be switched quickly. Every mesh is drawn with
+The example places 200 rotating objects (cube, stone, torus) at random positions.
+In `Update` the fly camera is moved, the frustum is calculated and every object is
+tested with `frustum.IsVisible(mesh, model)`; `Render` only draws the visible ones.
+The window title shows how many objects are visible. Keys: arrows = fly camera,
+W/S = up/down, 1/2/3 = `NormalMapping`, `CubeReflection`,
+`NormalMappingCubeSpecular`, Escape = quit. Every mesh is drawn with
 `renderer.Draw(mesh, material, modelMatrix, camera)`. The animation only changes
 the model matrix; the camera is not a global static class. Materials and cameras
 do not draw themselves. A scene model will follow in a later step.
