@@ -67,11 +67,9 @@ Additional checks:
 
 ```powershell
 dotnet run --project RunnerGame.RouteTests -- RunnerGame/Art/assets/hannover_pedestrian_blockout/out/route.json 714.276088
-python RunnerGame/Art/assets/hannover_route/validate.py
-python RunnerGame/Art/assets/hannover_pedestrian_blockout/verify.py
 ```
 
-The last command reproduces and validates the candidate; it requires the archived sources and local Python geometry dependencies documented by the builders. Route tests require only .NET and also check all three movement paths for folds. The map remains a candidate under Art; it has not replaced the installed runtime asset collection.
+Route tests require only .NET and also check all three movement paths for folds. Python model generation and review scripts are local, ignored tooling and are not required to run the game. The map remains a candidate under Art; it has not replaced the installed runtime asset collection. See `Assets/Models/README.md` for the asset folder convention.
 
 ### Public-realm revision v2
 

@@ -13,6 +13,11 @@ tools/asset-spike/ref/*
 __pycache__/
 *.pyc
 
+# Local model generation, export and review tooling (runtime assets stay tracked)
+/RunnerGame/Art/**/*.py
+/tools/asset-spike/**/*.py
+/docs/art/*.py
+
 # Local frozen playable checkpoints (runtime assets and binaries)
 /preserved-game-states/
 
