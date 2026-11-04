@@ -27,12 +27,51 @@ Collect tokens for ten points each. Jump or change lanes around low hazards; duc
 
 ## Verification
 
+The street-mode [van crash](Assets/Animations/VanCrash/animation.md) is implemented:
+any van contact ends the run with a six-second collapsing-road gag. Other hazards
+keep the existing stumble/pursuit rules. The rider hangs above the hole, looks
+down, kicks, then drops before the scooter; a distant thump and final stone tick
+finish the scene. `R` returns to Ready; Esc/focus loss pause motion and sound.
+
+From the van-crash worktree root:
+
+```powershell
+dotnet run --project RunnerGame -- --van-crash-preview
+```
+
+Add `--mute` for silent playback. Normal runs trigger the same scene through real
+swept van contacts. Pedestrian maps continue to substitute planters for vans.
+The preview starts the run approaching one van; after R, normal seeded gameplay
+is restored. Re-run the command for the same immediate preview.
+
+Repeatable renderer evidence (after building):
+
+```powershell
+.\RunnerGame\bin\Debug\net10.0\RunnerGame.exe --van-crash-preview --capture docs/art/previews/van-crash-hang.bmp --crash-time 2.8 --mute
+.\RunnerGame\bin\Debug\net10.0\RunnerGame.exe --van-crash-preview --crash-contact Side --capture docs/art/previews/van-crash-side.bmp --crash-time 2.8 --mute
+.\RunnerGame\bin\Debug\net10.0\RunnerGame.exe --van-crash-preview --crash-contact Duck --capture docs/art/previews/van-crash-duck.bmp --mute
+.\RunnerGame\bin\Debug\net10.0\RunnerGame.exe --van-crash-preview --crash-contact Air --capture docs/art/previews/van-crash-air.bmp --mute
+.\RunnerGame\bin\Debug\net10.0\RunnerGame.exe --van-crash-preview --crash-film docs/art/previews/van-crash-frames --mute
+ffmpeg -y -framerate 30 -i docs/art/previews/van-crash-frames/frame-%04d.bmp -i RunnerGame/Assets/Animations/VanCrash/crash.wav -c:v libx264 -crf 19 -pix_fmt yuv420p -c:a aac -shortest docs/art/previews/van-crash.mp4
+```
+
+`--crash-time` selects 0–6 scene seconds after a real collision. Contact variants
+use actual movement/jump/duck and the normal collision path. Film export writes
+181 renderer BMP frames at 30 fps and stays silent; the encoding command muxes
+the authored sound at the same scene origin. It does not record device loopback.
+[Review notes](Assets/Animations/VanCrash/review.md) separate transport tests,
+renderer checks and subjective acceptance.
+
 These console harnesses require no external test framework; a failed check returns a nonzero exit code:
 
 ```powershell
 dotnet run --project RunnerGame.Tests
 dotnet run --project RunnerGame.InputTests
 dotnet run --project RunnerGame.Rendering.Tests
+dotnet run --project RunnerGame.AnimationTests
+dotnet run --project RunnerGame.RouteTests
+dotnet run --project RunnerGame.MapRenderTests
+dotnet run --project RunnerGame.AudioTests
 dotnet build CgiMin.sln
 ```
 
@@ -52,7 +91,7 @@ Gameplay is independent of OpenGL. The first traffic generator changes the safe 
 
 The renderer reuses installed meshes and textures, draws one rider pose at a time, and samples four officer animation poses to limit startup memory. A representative first view uses 37 cached meshes, 16 textures and about 212 draws. This is a workload count, not a benchmark of sustained frame rate. The title exposes FPS for the user's machine.
 
-First visual priorities for the original street mode are ground/contact shadows, hit feedback and reducing visible facade repetition. That mode has gamma-correct lighting and distance fog, with a flat sky. Daylight shadow maps are implemented in the Hannover map mode. Normal maps, audio and an on-screen HUD remain future work. Gameplay collider bounds intentionally simplify detailed meshes. No engine or approved art files were changed for this integration.
+First visual priorities for the original street mode are ground/contact shadows and reducing visible facade repetition. That mode has gamma-correct lighting and distance fog, with a flat sky. Daylight shadow maps are implemented in the Hannover map mode. Normal maps, general gameplay audio and an on-screen HUD remain future work. Van-crash audio is implemented on Windows. Gameplay collider bounds intentionally simplify detailed meshes. The crash adds a fixed-topology vertex upload method to the engine Mesh; existing shared art bytes remain unchanged.
 
 ## Geographic Hannover map candidate
 

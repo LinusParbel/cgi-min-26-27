@@ -19,14 +19,17 @@ public sealed class SceneRenderer : IRunnerScene
     private readonly Camera _camera = new(new Vector3(0, 2.8f, 5.5f), new Vector3(0, 1, -10))
         { NearPlane = .08f, FarPlane = 150, FieldOfViewDegrees = 58 };
     private bool _disposed;
-    public int MeshCount => _meshes.Count;
-    public int TextureCount => _textures.Count;
+    private readonly VanCrashRenderer _vanCrash;
+    private bool _crashDrawing;
+    public int MeshCount => _meshes.Count + _vanCrash.MeshCount;
+    public int TextureCount => _textures.Count + _vanCrash.TextureCount;
     public int DrawCount { get; private set; }
 
     /// <param name="assetsRoot">The installed Assets directory containing Models.</param>
     public SceneRenderer(string assetsRoot)
     {
         _renderer = new OpenGlRenderer { LightPosition = new Vector3(-20, 45, 15) };
+        _vanCrash = new VanCrashRenderer(assetsRoot);
         GL.ClearColor(.55f, .62f, .70f, 1);
         try
         {
@@ -93,8 +96,14 @@ public sealed class SceneRenderer : IRunnerScene
     private void Draw(string key, Vector3 position, float yaw = 0, float wheelAngle = 0, float scale = 1)
     {
         var transform = Matrix4.CreateScale(scale) * Matrix4.CreateRotationY(yaw) * Matrix4.CreateTranslation(position);
+        DrawTransform(key, transform, wheelAngle);
+    }
+
+    private void DrawTransform(string key, Matrix4 transform, float wheelAngle = 0)
+    {
         foreach (var part in _models[key])
         {
+            if (_crashDrawing && key == "street" && part.Name == "road") continue;
             var rotation = part.Name.StartsWith("wheel", StringComparison.Ordinal)
                 ? Matrix4.CreateRotationX(wheelAngle) : Matrix4.Identity;
             _renderer.Draw(part.Mesh, part.Material,
@@ -108,6 +117,9 @@ public sealed class SceneRenderer : IRunnerScene
         ObjectDisposedException.ThrowIf(_disposed, this);
         DrawCount = 0;
         _renderer.Clear();
+        _crashDrawing = state.VanCrash != null;
+        if (state.VanCrash is { } crash) _vanCrash.SetCamera(crash, _camera);
+        else _camera.LookAt(new Vector3(0,2.8f,5.5f),new Vector3(0,1,-10));
         float distance = (float)state.Distance;
         float time = (float)state.ElapsedTime;
         float streetOffset = distance % 20;
@@ -117,6 +129,7 @@ public sealed class SceneRenderer : IRunnerScene
             float z = 20 - i * 20 + streetOffset;
             if (z <= 20) Draw("street", new Vector3(0, 0, z));
         }
+        if (state.VanCrash is { } roadCrash) _vanCrash.RenderGround(roadCrash, _renderer, _camera);
         // A facade bay is exactly six metres wide. Rotate it onto each pavement edge.
         int firstBay = (int)MathF.Floor(distance / 6);
         for (int i = 0; i < 25; i++)
@@ -162,6 +175,12 @@ public sealed class SceneRenderer : IRunnerScene
             Draw(item.Kind.ToString(), new Vector3(item.X, coin ? 1.0f : 0, item.Z), coin ? time * 2.7f : 0);
         }
         var player = new Vector3(state.PlayerX, state.PlayerY, 0);
+        if (state.VanCrash is { } actorCrash)
+        {
+            _vanCrash.RenderActors(actorCrash, _renderer, _camera, (key, matrix) => DrawTransform(key, matrix));
+            DrawCount += _vanCrash.DrawCount;
+            return;
+        }
         Draw("scooter", player, wheelAngle: -distance / .127f);
         Draw(state.IsDucking ? "duck" : "ride", player);
         if (state.PursuitRemaining > 0 || state.Phase == RunPhase.Caught)
@@ -175,6 +194,7 @@ public sealed class SceneRenderer : IRunnerScene
     {
         if (_disposed) return;
         _disposed = true;
+        _vanCrash.Dispose();
         foreach (var mesh in _meshes.Values) mesh.Dispose();
         foreach (var surface in _textures.Values) surface.Texture.Dispose();
         _renderer.Dispose();

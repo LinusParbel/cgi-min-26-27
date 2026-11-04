@@ -1,6 +1,6 @@
 namespace RunnerGame.Gameplay;
 
-public enum RunPhase { Ready, Running, Paused, Caught }
+public enum RunPhase { Ready, Running, Paused, Caught, VanCrash }
 public enum ObjectKind { Cone, Bin, Pothole, HighBarrier, Car, Van, Coin, Planter }
 public sealed class TrackObject
 {
@@ -25,6 +25,8 @@ public sealed class RunSimulation
     const float PlayerHalfWidth = .30f, PlayerHalfLength = .80f;
     public RunSimulation(int seed = 2026, bool pedestrian = false) { this.seed = seed; this.pedestrian = pedestrian; worldView = objects.AsReadOnly(); Restart(); }
     public RunPhase Phase { get; private set; }
+    public VanCrashState? VanCrash { get; private set; }
+    private RunPhase resumePhase = RunPhase.Running;
     public float PlayerX { get; private set; }
     public float LaneSpacing => pedestrian ? 1.5f : 2.5f;
     public float PlayerY { get; private set; }
@@ -43,6 +45,7 @@ public sealed class RunSimulation
     public void Start() { if (Phase == RunPhase.Ready) Phase = RunPhase.Running; }
     public void Restart()
     {
+        VanCrash = null; resumePhase = RunPhase.Running;
         random = new Random(seed); nextId = 0; lane = 0; safeLane = random.Next(-1, 2); routeDirection = random.Next(2) == 0 ? -1 : 1;
         laneStart = laneTime = jumpTime = duckTime = stumbleTime = 0;
         jumping = fastFall = false; PlayerX = PlayerY = Distance = ElapsedTime = 0;
@@ -52,8 +55,20 @@ public sealed class RunSimulation
     }
     public void TogglePause()
     {
-        if (Phase == RunPhase.Running) Phase = RunPhase.Paused;
-        else if (Phase == RunPhase.Paused) Phase = RunPhase.Running;
+        if (Phase is RunPhase.Running or RunPhase.VanCrash) { resumePhase = Phase; Phase = RunPhase.Paused; }
+        else if (Phase == RunPhase.Paused) Phase = resumePhase;
+    }
+    /// <summary>Reproducible preview through the ordinary swept van collision.</summary>
+    public void PrepareVanCrashPreview(VanCrashPreviewContact contact = VanCrashPreviewContact.Rear)
+    {
+        Restart(); objects.Clear(); nextRowDistance = 1000;
+        objects.Add(new TrackObject { Id = nextId++, Kind = ObjectKind.Van,
+            X = contact == VanCrashPreviewContact.Side ? 2.5f : 0,
+            Z = contact == VanCrashPreviewContact.Side ? -1 : contact is VanCrashPreviewContact.Air or VanCrashPreviewContact.Duck ? -5.5f : -15 });
+        Start();
+        if(contact==VanCrashPreviewContact.Side)Move(1);
+        if(contact==VanCrashPreviewContact.Duck)Duck();
+        if(contact==VanCrashPreviewContact.Air)Jump();
     }
     public void Move(int direction)
     {
@@ -74,6 +89,13 @@ public sealed class RunSimulation
     }
     public void Step(float dt)
     {
+        if (!float.IsFinite(dt) || dt <= 0) return;
+        if (Phase == RunPhase.VanCrash)
+        {
+            VanCrash!.Advance(dt);
+            if (VanCrash.Complete) Phase = RunPhase.Caught;
+            return;
+        }
         if (Phase != RunPhase.Running || !float.IsFinite(dt) || dt <= 0) return;
         // Small deterministic slices bound lateral/vertical approximation; longitudinal interval is swept.
         int slices = Math.Max(1, (int)Math.Ceiling(dt / .002));
@@ -115,6 +137,13 @@ public sealed class RunSimulation
             float feet = Math.Min(oldY, PlayerY), head = Math.Max(oldY, PlayerY) + (IsDucking ? DuckHeight : RideHeight);
             if (feet >= top || head <= bottom) continue;
             if (obj.Kind == ObjectKind.Coin) { obj.Active = false; CoinCount++; }
+            else if (obj.Kind == ObjectKind.Van)
+            {
+                obj.HitConsumed = true;
+                VanCrash = new(PlayerX, PlayerY, IsDucking, obj.X, obj.Z);
+                Phase = RunPhase.VanCrash;
+                return;
+            }
             else if (InvulnerabilityRemaining <= 0)
             {
                 obj.HitConsumed = true;

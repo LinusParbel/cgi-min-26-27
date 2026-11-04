@@ -28,3 +28,4 @@ Reject(() => new ConeIntroController(new[] {new IntroCue("x", 5, "s"),new IntroC
 var boundaries = new[] {0f,1.5f,3f,4.25f,5f,6.5f,8f,10f};
 for (int i=0;i<boundaries.Length;i++) { var b=Controller(); b.HandleInput(Key(true)); b.Advance(boundaries[i]); Check(b.ShotId == $"S{i+1:00}", "Shot boundary"); }
 Console.WriteLine("PASS intro controller: start/hold/skip, cue crossing, pause/focus, reset, endpoints and validation");
+VanCrashChecks.Run();

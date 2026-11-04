@@ -1,0 +1,12 @@
+{
+  "format": "VCR1 zlib; uint vertices, indices, frames; float fps; UV float2; uint indices; per-frame half position3 normal3",
+  "vertices": 21807,
+  "indices": 80118,
+  "frames": 73,
+  "fps": 12,
+  "max_half_error_m": 0.00048828125,
+  "sha256": "d025a4d0f546d8822c9c77215a0e22de48c7416289d5834d6330334850fd0144",
+  "source": "Existing project cone_hat.blend rider rig and atlas topology, reauthored crash action. Original civilian provenance in ../scooter_rider/provenance.json. No officer or prop meshes copied.",
+  "review": "Numerical export only; renderer and motion review required.",
+  "duck_start_sha256": "f1a6b0fa278bea08ab83dd3cc7d691be50513465f173e13fcd39c4f6043980ad"
+}

@@ -15,6 +15,8 @@ Each scene animation has one folder: `Assets/Animations/<AnimationName>/`.
 The selected opening is [ConeHat](ConeHat/animation.md). Other possible openings
 live in [Art/ANIMATION_IDEAS.md](../../Art/ANIMATION_IDEAS.md).
 
+The terminal street-mode van collision is [VanCrash: The street gives up](VanCrash/animation.md).
+
 Future openings should share a defined transition into gameplay, so changing
 the opening does not require changing normal running gameplay. Playback,
 selection and skipping still require implementation; this folder convention

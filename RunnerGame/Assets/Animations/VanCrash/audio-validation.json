@@ -1,0 +1,42 @@
+{
+  "sample_rate": 44100,
+  "channels": 1,
+  "duration": 6,
+  "peak_dbfs": -1.7239686325804904,
+  "clipped_samples": 0,
+  "sha256": "8ae2b95323fe4f7495a9e489ef95a36c65c0a15bc4500c04483ee064ecc60e65",
+  "cues": [
+    {
+      "time": 0,
+      "sound": "metal impact"
+    },
+    {
+      "time": 0.48,
+      "sound": "cracks"
+    },
+    {
+      "time": 1.55,
+      "sound": "road collapse"
+    },
+    {
+      "time": 3.02,
+      "sound": "question squeak"
+    },
+    {
+      "time": 3.3,
+      "sound": "fall whistle"
+    },
+    {
+      "time": 3.58,
+      "sound": "scooter rattle"
+    },
+    {
+      "time": 4.45,
+      "sound": "distant thump"
+    },
+    {
+      "time": 5.7,
+      "sound": "stone tick"
+    }
+  ]
+}

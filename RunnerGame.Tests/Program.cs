@@ -20,6 +20,18 @@ static class Checks
     }
     public static int Main()
     {
+        Test("first van collision is immediately terminal",()=>{var s=Empty();Add(s,ObjectKind.Van,-3.5f);s.Step(.02f);Assert(s.Phase.ToString()=="VanCrash","van only stumbled");});
+        Test("side hit rebounds behind van before the street opens",()=>{var s=Empty();Add(s,ObjectKind.Van,-.1f);s.Step(.02f);Assert(s.VanCrash!=null && s.VanCrash.OpeningFrontZ>s.VanCrash.VanZ+2.7f,"hole intersects the van footprint");});
+        Test("van remains terminal during obstacle immunity",()=>{var s=Empty();Add(s,ObjectKind.Cone,-.9f);s.Step(.02f);Objects(s).Clear();Add(s,ObjectKind.Van,-3.5f);s.Step(.02f);Assert(s.Phase.ToString()=="VanCrash","immunity bypassed van");});
+        Test("preview contacts preserve side, duck and airborne states",()=>{
+            foreach(var contact in new[]{VanCrashPreviewContact.Side,VanCrashPreviewContact.Duck,VanCrashPreviewContact.Air}) {
+                var s=new RunSimulation();s.PrepareVanCrashPreview(contact);for(int i=0;i<300&&s.VanCrash==null;i++)s.Step(.02f);
+                Assert(s.Phase==RunPhase.VanCrash,"preview missed real contact");var c=s.VanCrash!;
+                if(contact==VanCrashPreviewContact.Side)Assert(c.PlayerX>1&&c.OpeningFrontZ>c.VanZ+2.7f,"side contact or clearance lost");
+                if(contact==VanCrashPreviewContact.Duck)Assert(c.WasDucking,"duck snapshot lost");
+                if(contact==VanCrashPreviewContact.Air)Assert(c.PlayerY>.1f,"airborne snapshot lost");
+            }
+        });
         Test("ready freezes and start moves",()=>{var s=new RunSimulation();s.Step(1);Assert(s.Distance==0,"ready moved");s.Start();s.Step(.02f);Assert(s.Distance>0 && s.Speed>=12,"start did not move");});
         Test("lane motion interpolates and clamps",()=>{var s=Empty();s.Move(1);s.Step(.02f);Assert(s.PlayerX>0&&s.PlayerX<2.5f,"teleported");Advance(s,.2f);Assert(MathF.Abs(s.PlayerX-2.5f)<.001f,"missed lane");s.Move(1);Advance(s,.2f);Assert(s.PlayerX==2.5f,"escaped lanes");});
         Test("jump has physical apex and lands",()=>{var s=Empty();s.Jump();Advance(s,.34f);Assert(s.PlayerY>1.39f&&s.PlayerY<=1.401f,"wrong apex");Advance(s,.38f);Assert(s.PlayerY==0,"did not land");});
@@ -93,7 +105,7 @@ static class Checks
         Test("hit obstacle remains visible until recycled",()=>{var s=Empty();Add(s,ObjectKind.Car,-.9f);s.Step(.02f);Assert(s.PursuitRemaining>0&&Objects(s).Single().Active,"hit obstacle hidden");});
         Test("same contact cannot hit twice after immunity but distinct contact catches",()=>
         {
-            var s=Empty();Set(s,"Speed",.1f);Add(s,ObjectKind.Van,-.9f);s.Step(.02f);
+            var s=Empty();Set(s,"Speed",.1f);Add(s,ObjectKind.Car,-.9f);s.Step(.02f);
             Advance(s,1.1f);
             Assert(s.Phase==RunPhase.Running&&s.InvulnerabilityRemaining==0,"same obstacle hit twice");
             Add(s,ObjectKind.Cone,-.9f);s.Step(.02f);

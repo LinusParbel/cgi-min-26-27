@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640">
+<rect width="1200" height="640" fill="#15212a"/>
+<style>text{font-family:Arial,sans-serif;fill:#f0f4f5} .title{font-size:24px;font-weight:bold}.label{font-size:17px}.note{font-size:14px;fill:#b7c6cc}.limb{stroke:#67c5be;stroke-width:9;fill:none;stroke-linecap:round}</style>
+<defs>
+<g id="van"><rect x="245" y="75" width="100" height="120" rx="9" fill="#e4e8e5"/><path d="M295 82V190" stroke="#5a656a"/><rect x="253" y="168" width="10" height="18" fill="#c75149"/><rect x="326" y="168" width="10" height="18" fill="#c75149"/><path d="M258 199H332" stroke="#242a30" stroke-width="12"/></g>
+<g id="rider"><circle cx="190" cy="106" r="12" fill="#c7a38c"/><path class="limb" d="M190 124V162M190 134L163 151M190 134L219 146M190 162L177 195M190 162L205 193"/></g>
+<g id="panel"><rect width="374" height="260" rx="8" fill="#273842"/><path d="M20 205H354" stroke="#789097" stroke-width="3"/><use href="#van"/></g>
+</defs>
+<text class="title" x="24" y="35">THE STREET GIVES UP — current timed storyboard</text>
+<text class="note" x="24" y="59">Schematic acting and framing; the running game and review captures establish final appearance.</text>
+<g transform="translate(20 80)"><use href="#panel"/><use href="#rider"/><path d="M208 193L237 184L240 153" stroke="#db7864" stroke-width="5" fill="none"/><text class="label" x="16" y="29">01 / 0.00–0.45 · BONG</text><text class="note" x="16" y="242">Abrupt stop; elbows fold, body recoils.</text></g>
+<g transform="translate(413 80)"><use href="#panel"/><use href="#rider"/><path d="M152 205L174 196L184 210L201 197L219 209L235 201" stroke="#111b22" stroke-width="4" fill="none"/><text class="label" x="16" y="29">02 / 0.45–1.50 · crackle</text><text class="note" x="16" y="242">Crack spreads; van stays perfectly still.</text></g>
+<g transform="translate(806 80)"><use href="#panel"/><path d="M130 205H241V225H130Z" fill="#090f16"/><path d="M130 205L160 229M241 205L215 229" stroke="#789097" stroke-width="6"/><use href="#rider"/><text class="label" x="16" y="29">03 / 1.50–2.30 · crunch</text><text class="note" x="16" y="242">Road flaps open; support van on intact road.</text></g>
+<g transform="translate(20 360)"><use href="#panel"/><rect x="130" y="205" width="111" height="20" fill="#090f16"/><use href="#rider" transform="translate(0 -8)"/><path d="M174 188q-20 -15 -7 -27M208 187q20 15 16 -3" stroke="#d7c691" stroke-width="2" fill="none"/><text class="label" x="16" y="29">04 / 2.30–3.30 · quiet … squeak</text><text class="note" x="16" y="242">Look down. Hold. Kick at empty air.</text></g>
+<g transform="translate(413 360)"><use href="#panel"/><rect x="130" y="205" width="111" height="28" fill="#090f16"/><use href="#rider" transform="translate(0 51)"/><path d="M213 160L230 155L235 127" stroke="#db7864" stroke-width="5" fill="none"/><path d="M146 145V183m-5 -7 5 7 5 -7" stroke="#d7c691" stroke-width="2" fill="none"/><text class="label" x="16" y="29">05 / 3.30–4.45 · descending whistle</text><text class="note" x="16" y="242">Rider falls first; scooter follows after 0.27 s.</text></g>
+<g transform="translate(806 360)"><use href="#panel"/><rect x="130" y="205" width="111" height="25" fill="#090f16"/><rect x="218" y="202" width="6" height="6" fill="#a5a7a7"/><text class="label" x="16" y="29">06 / 4.45–6.00 · thump … tick</text><text class="note" x="16" y="242">Hold empty hole. Last stone drops. Game over.</text></g>
+</svg>

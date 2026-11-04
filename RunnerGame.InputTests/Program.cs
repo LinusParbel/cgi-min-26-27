@@ -3,6 +3,30 @@ using RunnerGame.Input;
 
 var tests = new (string, Action)[]
 {
+    ("van crash freezes world, pauses on focus loss, resumes without movement, resets", () => {
+        var run = new RunSimulation(); var controls = new RunnerControls(run);
+        run.PrepareVanCrashPreview();
+        for (int i=0;i<200 && run.VanCrash == null;i++) controls.Step(.02f,true);
+        Check(run.Phase == RunPhase.VanCrash);
+        var crash=run.VanCrash!; float distance=run.Distance; int score=run.Score;
+        var traffic=run.WorldObjects.Select(o=>o.Z).ToArray();
+        controls.Update(new(true, Right:true, Jump:true)); controls.Step(.5f,true);
+        Near(run.Distance,distance); Check(run.Score==score && run.WorldObjects.Select(o=>o.Z).SequenceEqual(traffic));
+        controls.Step(.5f,false); Near(crash.Time,.5f); Check(run.Phase==RunPhase.Paused);
+        controls.Step(.5f,true); Near(crash.Time,.5f);
+        controls.Update(new(true,Start:true)); controls.Step(.5f,true);
+        Check(run.Phase==RunPhase.VanCrash); Near(crash.Time,1);
+        controls.Step(10,true); Check(run.Phase==RunPhase.Caught); Near(crash.Time,6);
+        controls.Update(new(true,Restart:true)); Check(run.Phase==RunPhase.Ready && run.VanCrash==null && run.Distance==0);
+    }),
+    ("restart clears crash at every action beat", () => {
+        foreach(float t in new[]{0f,.5f,1.6f,2.8f,3.8f,5.5f}) {
+            var run=new RunSimulation(); var controls=new RunnerControls(run); run.PrepareVanCrashPreview();
+            while(run.VanCrash==null) controls.Step(.02f,true);
+            controls.Step(t,true); controls.Update(new(true,Restart:true)); controls.Step(.02f,true);
+            Check(run.Phase==RunPhase.Ready && run.VanCrash==null && run.ElapsedTime==0);
+        }
+    }),
     ("focus loss freezes before simulation and clears pending input", () => {
         var (run, controls) = Running();
         controls.Update(new(true, Right: true, Jump: true, Duck: true));

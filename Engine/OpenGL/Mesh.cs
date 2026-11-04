@@ -11,6 +11,7 @@ public sealed class Mesh : IDisposable
     private int _vertexArray;
     private int _vertexBuffer;
     private int _indexBuffer;
+    private readonly int _vertexCount;
 
     internal int VertexArray => _vertexArray;
     public int IndexCount { get; }
@@ -20,6 +21,7 @@ public sealed class Mesh : IDisposable
         ArgumentNullException.ThrowIfNull(data);
 
         IndexCount = data.Indices.Length;
+        _vertexCount = data.Vertices.Length;
         _vertexArray = GL.GenVertexArray();
         _vertexBuffer = GL.GenBuffer();
         _indexBuffer = GL.GenBuffer();
@@ -45,6 +47,16 @@ public sealed class Mesh : IDisposable
         int offset = (int)Marshal.OffsetOf<Vertex>(field);
         GL.VertexAttribPointer(location, components, VertexAttribPointerType.Float, false, stride, offset);
         GL.EnableVertexAttribArray(location);
+    }
+
+    /// <summary>Update a fixed-topology animated mesh without reallocating GPU resources.</summary>
+    public void UpdateVertices(Vertex[] vertices)
+    {
+        ObjectDisposedException.ThrowIf(_vertexBuffer == 0, this);
+        if (vertices.Length != _vertexCount) throw new ArgumentException("Vertex count must remain fixed.", nameof(vertices));
+        GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBuffer);
+        GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, vertices.Length * Marshal.SizeOf<Vertex>(), vertices);
+        GL.BindBuffer(BufferTarget.ArrayBuffer, 0);
     }
 
     public void Dispose()
