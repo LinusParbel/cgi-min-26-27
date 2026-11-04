@@ -1,202 +1,103 @@
-# Cone Hat Implementation Plan
+# Cone hat road cinematic implementation plan
 
-> **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:executing-plans
-> to implement this plan task-by-task. Steps use checkbox syntax for tracking.
+> Native execution, as selected by the user. Use the executing-plans workflow.
+> This revision supersedes the original 12-second / three-environment plan.
 
-**Goal:** Deliver the approved 12-second cone intro, with real character motion,
-sound, camera staging and a clean transition into the existing game.
+**Goal:** Replace the rejected cut with the road-only cinematic specified in
+[animation.md](animation.md), retaining its controls and clean gameplay handoff.
 
-**Architecture:** Author motion on the existing Blender rigs. Export a compact
-fixed-topology vertex clip, sample it through one dynamic mesh, and leave the
-existing gameplay meshes intact. A deterministic intro controller owns time,
-input and named cues; both renderers place the same sequence in their environment.
+**Architecture:** Author both character rigs with real deforming walk/run cycles,
+distance-driven phases, anatomical wrists and reachable prop targets. Stream
+VCL2 pose blocks into one dynamic mesh per character. Scene tracks own staging,
+camera, prop motion and cues. Maps do not instantiate the road opening.
 
-**Tech stack:** .NET 10, existing OpenTK 4.9.4/OpenGL 3.3, OpenAL, Blender 5.2,
-local ignored Python authoring/export scripts. No general skeletal engine rewrite.
+**Stack:** .NET 10 / OpenTK, existing OpenGL shadow pass, Blender 5.2, local
+ignored Python authoring; OpenAL runtime and PCM sound.
 
-**Spec:** [animation.md](animation.md), including AC01–AC14 and [storyboard.svg](storyboard.svg).
+## Constraints and interfaces
 
-## Global constraints
-
-- Duration 12 seconds, tolerance ±0.5 s; eye-contact silence at least 0.50 s.
-- Input, skip, pause, focus and restart follow the approved playback contract.
-- Intro does not advance distance, scoring, hazards or damage.
-- Visual officer following is independent of the second-hit pursuit timer.
-- Existing shared models/textures/clips stay in their current model folders.
-- Scene exports and audio belong here; editable sources/provenance belong in
-  `RunnerGame/Art/assets/cone_hat/`. Python stays ignored.
-- Street mode and both shipped maps must pass. Impact/beep sync within 100 ms.
-- Do not mark visual/audio acceptance from unit tests alone.
+- Working cut: 30 s, 11 shots; scene/controller/capture duration must agree.
+- Officer remains outside early framing and >=12 m away at reveal/handoff.
+- Preserve existing gameplay collision rules. No intro hazard/score progression.
+- `ConeIntroController` owns Ready/Playing/Paused/Complete, fresh-press skip,
+  cue crossing and exactly-once transition.
+- `ConeIntroScene.Sample(time)` supplies actor/prop transforms, camera, rider yaw
+  and officer frame/blend values.
+- `VertexClip` supports VCL1 and VCL2 (exact pose-block aliases), finite validated
+  data, bounded two-frame cache and linear pose interpolation.
+- `ConeIntroRenderer` updates both character meshes and references shared textures.
+- `OpeningSequence` coordinates the controller, audio and real RunSimulation.
+- Runtime files stay here; editable source/provenance under `Art/assets/cone_hat/`.
+  Local Python is ignored. Keep each compressed clip below GitHub's file limit.
 
 ## Review focus
 
-- Holding Start, or resuming with Enter, must not also skip; test in Task 1.
-- Pause/focus loss at cue boundaries must not duplicate sounds; test in Tasks 1/4.
-- Skip/restart during a compressed-frame load must not leak buffers; test in Task 3.
-- Tab/inspection and capture paths must not bypass intro input rules; test in Task 5.
-- Missing audio device must preserve playability and report the limitation; test
-  in Task 4 and verify actual audible playback before accepting AC09.
+Held start/resume cannot skip; paused/focus-lost time and cues remain frozen.
+Officer must never translate while using a static pose.
+Reachable knuckle targets do not substitute for checking visible hand contact.
+Head attachment must follow the evaluated cranium rather than an arbitrary bone offset.
+Sole clearance must be checked on evaluated boots, not just ankle targets.
+Camera cuts must be intentional, and the final acceleration must match gameplay.
 
-## Ownership and interfaces
+## Tasks
 
-New runtime code uses `RunnerGame/Animation/` for controller, clips and scene data;
-`RunnerGame/Audio/` for the small OpenAL playback adapter;
-`RunnerGame/Rendering/ConeIntroRenderer.cs` for scene draws.
-Tests use a console harness `RunnerGame.AnimationTests/`, matching existing tests.
-These are application source folders, not runtime asset folders.
+### 1. Diagnose and pin the rejected behaviour
 
-- `IntroInput(bool Focused, bool StartDown, bool PausePressed, bool RestartPressed)`.
-- `IntroPhase`: Ready, Playing, Paused, Complete.
-- `IntroTransition(bool Reset, bool Handoff, bool PauseChanged)`.
-- `ConeIntroController.HandleInput(IntroInput)` and `Advance(float seconds)` return
-  `IntroTransition`; expose `Phase`, `Time`, `ShotId`. Completion emits once.
-- Construct controller with `IReadOnlyList<IntroCue>` from scene.json; validate
-  finite times in [0,12], unique IDs and sorted order before playback.
-- `IntroCue(string Id, float Time, string Sound)`; controller drains newly crossed
-  events with `DrainCues()`. No skipped backlog is played.
-- `ConeIntroSample`: rider/officer/scooter/cone transforms, camera position/target,
-  cone visibility and wheel rotation in a shared local stage frame.
-- `ConeIntroScene.Sample(float seconds)` returns `ConeIntroSample` from scene data.
-- `VertexClip.Open(string path)`, `Sample(float seconds, Span<Vertex> destination)`,
-  `Dispose()`; two decoded sample frames retained at most.
-- `IntroAudio` consumes cue events and exposes `SetPaused`, `Reset`, `SetVolume`,
-  `Dispose`; inject `IIntroAudio` in tests rather than requiring a sound device.
+- [x] Confirm static officer translation and four-frame run stepping.
+- [x] Confirm the fixed wrist aim and short, obvious officer staging.
+- [x] Retain existing work; focus new cinematic work on the road.
+- [x] Add regression checks for frame aliases, longer timing and officer separation.
 
-### Task 1: Deterministic intro playback and input
+### 2. Re-author the scene and character motion
 
-**Files:** Create `RunnerGame/Animation/ConeIntroController.cs`,
-`IntroInput.cs`, `IntroCue.cs`; create `RunnerGame.AnimationTests/Program.cs`
-and `RunnerGame.AnimationTests.csproj` referencing RunnerGame.
+- [x] Stage approach / cone / late officer reveal / call / awkward hold.
+- [x] Add nervous walking before the sprint and a longer mount/takeoff.
+- [x] Derive gait phase from distance, solve legs and wrists without broken chains.
+- [x] Export full interpolated rider motion and officer walk/run/reaction poses.
+- [x] Correct evaluated boot-floor clearance and head/face contact regressions.
+- [x] Save a complete editable keyframed source and current provenance.
 
-- [ ] Write failing tests: Ready remains idle; start plays; held start never skips;
-  release/new press skips; 12 s completes once; invalid/nonfinite deltas reject.
-- [ ] Add failing tests: pause/focus freeze time, Enter resumes without skip,
-  focus return does not resume, R resets, each shot boundary has correct ShotId,
-  crossing several cues emits each once, skip discards backlog.
-- [ ] Run `dotnet run --project RunnerGame.AnimationTests`; confirm missing API failure.
-- [ ] Implement the interfaces above. Clamp time at 12; reject negative/NaN time.
-  Handle reset before other input, then focus, pause/resume, then start/skip.
-- [ ] Run tests to PASS and commit controller/harness.
+### 3. Runtime playback and road-only scope
 
-### Task 2: Rigged acting, staging data and export
+- [x] Implement VCL2 aliases with bounds and overlap validation.
+- [x] Extend controller, shot IDs, parser and recordings to 30 s.
+- [x] Render both actors with interpolated deformation.
+- [x] Exclude cinematic setup from map launches and preserve ordinary map controls.
+- [x] Extend road scenery behind the stage and reuse the existing shadow pass.
+- [x] Verify the cut and gameplay transition in the real renderer.
 
-**Files:** Local ignored `Art/assets/cone_hat/build.py`, `export.py`,
-`cone_hat.blend`; tracked scene files here: `scene.json`, `rider.vclip`,
-`officer_idle.obj`, `officer_react.obj`, `asset-validation.json`.
+### 4. Sound and timing
 
-**Consumes:** S01–S08, current rider rig and installed texture atlas; controller times.
-**Produces:** fixed-topology rider clip and named actor/prop/camera/cue tracks.
+- [x] Preserve pause/skip/reset cue ownership and continuous natural-handoff ambience.
+- [x] Produce the officer's German call locally and convert to PCM16.
+- [x] Update source records/hashes and review cue times against the 30-second cut.
+- [x] Generate a fixed-step recording and offline sound mix for review.
 
-- [ ] Author all eight beats on the civilian rig using planted-foot IK and
-  hand targets for cone/handlebar contacts. End exactly at the installed riding
-  pose; retain shared atlas UVs through the existing evaluated-mesh mapping.
-- [ ] Stage the cone broad opening around the head; select cone variant from
-  measured fit. Animate release/rocking and a cleared riding corridor.
-- [ ] Author officer idle/reaction on its rig, then join existing run-cycle motion.
-  Fit shared officer atlas UVs; do not duplicate existing run frames or textures.
-- [ ] Export rider at 24 samples/s (289 samples including both endpoints).
-  Use `VCL1`: little-endian counts/fps, static UV/index data, indexed offsets to
-  separately Deflate-compressed frames of float32 positions and normals.
-  Store byte layout/version and coordinate conversion in `asset-validation.json`.
-- [ ] Keep only adjacent decoded frames in runtime; do not create hundreds of OBJ
-  files/GPU meshes. Measure disk size and decode cost before finalising export.
-- [ ] Write and run local validators for fixed topology, atlas UV identity,
-  finite coordinates/normals, hand/foot contact landmarks, frame counts and
-  final-pose agreement. Record outputs and hashes in asset-validation.json.
-- [ ] Produce Blender contact-sheet/preview evidence for S01–S08 and contact
-  details. Correct visible clipping/sliding before accepting export; commit exports.
+### 5. Acceptance and delivery
 
-### Task 3: Bounded clip playback and drawing support
+- [x] Run animation/gameplay/input/rendering/map metadata/route harnesses and build.
+- [x] Inspect the final road sequence, contact closeups, gait and handoff.
+- [x] Keep review limitations explicit; never claim acting passes from unit tests.
+- [x] Update spec, storyboard, review record and runnable preview instructions.
+- [ ] Review the refreshed 30-second preview with the user before committing.
+- [ ] Push only after the user explicitly approves it.
 
-**Files:** Create `RunnerGame/Animation/VertexClip.cs`, `ConeIntroScene.cs`;
-modify `Engine/OpenGL/Mesh.cs`; extend animation harness with clip fixtures.
+## Verification commands
 
-**Consumes:** Task 2 format and scene.json. **Produces:** sampled mesh and scene state.
+Run from repository root:
 
-- [ ] Write failing tests for endpoints/interpolation, finite normalized normals,
-  wrong magic, truncated/oversized counts, invalid indices, unsafe paths, invalid
-  frame offsets and decompression size limits. Limit vertex count to 100,000,
-  index count to 600,000 and decoded frames to their exact declared size.
-- [ ] Test sampling after seek, repeated same time, skip/reset disposal and
-  adjacent-frame cache bound. Run harness and confirm failures before implementation.
-- [ ] Implement clip reader and static scene tracks. Sample independently of
-  render rate; interpolate positions and normalize interpolated normals.
-- [ ] Add `Mesh.UpdateVertices(Vertex[] vertices)` retaining topology and buffer
-  size; use buffer subdata and reject changed vertex count/disposed access.
-- [ ] Extend byte-preservation rule in `.gitattributes` to animation runtime
-  files. Validate export/readback with real clip, run tests, build and commit.
+```powershell
+dotnet run --project RunnerGame.AnimationTests --no-restore
+dotnet build CgiMin.sln --no-restore -p:NuGetAudit=false
+dotnet run --project RunnerGame.Tests --no-restore
+dotnet run --project RunnerGame.InputTests --no-restore
+dotnet run --project RunnerGame.Rendering.Tests --no-restore
+dotnet run --project RunnerGame.MapRenderTests --no-restore
+dotnet run --project RunnerGame.RouteTests --no-restore -- RunnerGame/Assets/Maps/HannoverPedestrianBlockout/route.json 714.276088
+dotnet run --project RunnerGame.RouteTests --no-restore -- RunnerGame/Assets/Maps/HannoverPublicRealm/route.json
+.\RunnerGame\bin\Debug\net10.0\RunnerGame.exe --record-intro docs/art/previews/cone-hat-road-v3.3 --mute
+```
 
-### Task 4: Named audio cues and playback
-
-**Files:** Create `RunnerGame/Audio/IIntroAudio.cs`, `IntroAudio.cs`,
-`PcmWave.cs`; add `audio/*.wav`, `audio-sources.md` here and sound mapping in scene.json.
-
-**Consumes:** Task 1 cue stream. **Produces:** pausable cue/ambience playback.
-
-- [ ] Write failing tests with fake audio output for event ordering, one-shot
-  deduplication, pause/resume, reset/skip cleanup, mute/volume and missing device.
-  Test WAV size/encoding rejection and invalid paths in a pure parser.
-- [ ] Produce original procedural sound effects for footsteps, plastic cone,
-  throat-clear-like interruption, beep, takeoff and quiet city-like ambience.
-  Record authorship, synthesis method and file hashes; no external recordings.
-  German speech remains optional and is not a required dependency.
-- [ ] Implement OpenAL playback with the already installed OpenTK binding;
-  verify exact API signatures against local package documentation. Decode PCM
-  WAV safely, dispose buffers/sources/context, and degrade cleanly without device.
-- [ ] Add command options `--mute` and `--volume 0..1`; test validation.
-  Check sound quality and timing in-engine, not just synthesized file existence.
-- [ ] Run harness and real-device listen/capture, correct cues and commit.
-
-### Task 5: Street and map integration, camera and gameplay handoff
-
-**Files:** Create `RunnerGame/Rendering/ConeIntroRenderer.cs`; modify
-`IRunnerScene.cs`, `SceneRenderer.cs`, `PedestrianMapRenderer.cs`, `Program.cs`;
-create `RunnerGame/Animation/OpeningSequence.cs`; extend harness/integration tests.
-
-**Consumes:** controller, sampled clip/tracks and audio adapter. **Produces:** playable intro.
-
-- [ ] Test orchestrator with fake scene/audio and real RunSimulation: every
-  shot-boundary skip equals natural completion, no score/distance/hazard/damage
-  advancement, handoff once, no stale movement input, restart clears all state.
-- [ ] Implement `OpeningSequence` as the owner of controller/audio. Keep
-  RunSimulation Ready until completion; start once and clear queued inputs.
-- [ ] Change scene render call to accept optional intro sample. Render environment
-  but hide normal rider/scooter/hazards while intro actors own the shot. Include
-  actors in map shadow draws and restore normal camera/material state afterwards.
-- [ ] Anchor street stage at local route start; map stages use route start,
-  tangent/right vectors and groundY. Verify real clearances, then save per-map
-  stage offsets in scene.json. Correct anchors if geometry obstructs action.
-- [ ] Show officer behind during subsequent play independent of pursuit timer,
-  retaining capture mechanics. Confirm clean escape does not remove visual officer.
-- [ ] Preserve Tab/overview/inspection outside intro; during playback Tab and
-  inspection must not bypass pause/input ownership. Extend tests for these paths.
-- [ ] Add deterministic capture options `--intro-time 0..12` with `--capture`,
-  and `--record-intro <folder>` for fixed-step frames plus cue log/offline WAV mix.
-  Preserve old `--advance` gameplay capture semantics and document option conflicts.
-- [ ] Run animation, gameplay, input, rendering, map-metadata and route harnesses;
-  capture S01–S08 and handoff in all three environments; correct defects and commit.
-
-### Task 6: Acceptance review and delivery
-
-**Files:** Update `animation.md`, `RunnerGame/README.md`, scene audio/provenance
-records and a criterion review record beside this plan. Evidence media stays ignored.
-
-- [ ] Run `dotnet build CgiMin.sln -p:NuGetAudit=false` and all existing harnesses;
-  run both actual route inputs. Record exact commands/results.
-- [ ] Record the entire sequence with audio in street and both maps. Inspect
-  silent readability, foot plants, cone/hand/head contacts, mount and camera blend.
-- [ ] Check required cue timings (impact/beep within 100 ms), absence of clipping,
-  pause/focus behaviour, and clean skip/restart on a real window/audio device.
-- [ ] Measure frame time and bounded clip memory; correct playback stalls rather
-  than hiding them behind the capture path.
-- [ ] Review AC01–AC14 individually; record pass/fail, evidence paths, reviewer/date
-  and limitations. Leave failed or unevidenced criteria open.
-- [ ] Request an independent whole-change review, address material findings,
-  then commit/push and report what was actually verified.
-
-## Plan self-review
-
-All eight shots and AC01–AC14 map to the tasks above. State/cue tests do not
-substitute for rig/contact/sound review. Audio device failure permits running
-the game, but does not pass the audible delivery criterion. Shared file paths,
-restart behaviour and capture compatibility are explicit integration checks.
+The recording contains 30 s of intro plus 1 s of gameplay at 24 fps, with a
+matching WAV mix and cue log. Encode those frames to a review video; raw media
+remains ignored. User review of acting and voice remains distinct from code tests.

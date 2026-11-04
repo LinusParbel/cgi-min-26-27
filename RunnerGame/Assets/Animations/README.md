@@ -18,9 +18,9 @@ live in [Art/ANIMATION_IDEAS.md](../../Art/ANIMATION_IDEAS.md).
 The terminal street-mode van collision is [VanCrash: The street gives up](VanCrash/animation.md).
 
 Future openings should share a defined transition into gameplay, so changing
-the opening does not require changing normal running gameplay. Playback,
-selection and skipping still require implementation; this folder convention
-does not add those features.
+the opening does not require changing normal running gameplay. ConeHat now
+implements start, pause, skip, reset and a single gameplay handoff. Selection
+between alternative openings remains future work.
 
 Existing character animation clips, such as the officer's run poses and
 manifest, remain with their character model. This directory groups scene

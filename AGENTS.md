@@ -2,6 +2,10 @@
 
 ## Assets and animation scenes
 
+- For animation scene work, follow
+  [RunnerGame/Art/ANIMATION_WORKFLOW.md](RunnerGame/Art/ANIMATION_WORKFLOW.md)
+  in addition to the scene-specific `animation.md`.
+
 - Shared runtime models, textures and character animation clips belong in
   `RunnerGame/Assets/Models/<Category>/<Asset>/`.
 - Complete runtime map packages belong in `RunnerGame/Assets/Maps/<Map>/`.

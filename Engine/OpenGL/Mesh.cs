@@ -49,11 +49,11 @@ public sealed class Mesh : IDisposable
         GL.EnableVertexAttribArray(location);
     }
 
-    /// <summary>Update a fixed-topology animated mesh without reallocating GPU resources.</summary>
     public void UpdateVertices(Vertex[] vertices)
     {
         ObjectDisposedException.ThrowIf(_vertexBuffer == 0, this);
-        if (vertices.Length != _vertexCount) throw new ArgumentException("Vertex count must remain fixed.", nameof(vertices));
+        ArgumentNullException.ThrowIfNull(vertices);
+        if (vertices.Length != _vertexCount) throw new ArgumentException("Dynamic updates must retain vertex count.", nameof(vertices));
         GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBuffer);
         GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, vertices.Length * Marshal.SizeOf<Vertex>(), vertices);
         GL.BindBuffer(BufferTarget.ArrayBuffer, 0);

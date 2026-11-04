@@ -1,10 +1,10 @@
 {
   "sample_rate": 44100,
   "channels": 1,
-  "duration": 6,
+  "duration": 11,
   "peak_dbfs": -1.7239686325804904,
   "clipped_samples": 0,
-  "sha256": "8ae2b95323fe4f7495a9e489ef95a36c65c0a15bc4500c04483ee064ecc60e65",
+  "sha256": "3ca036deac5ad5ec03fe3fc254417692aec7d1be950e086c79a31b2ee48081b9",
   "cues": [
     {
       "time": 0,
@@ -27,16 +27,43 @@
       "sound": "fall whistle"
     },
     {
-      "time": 3.58,
-      "sound": "scooter rattle"
+      "time": 3.31,
+      "sound": "shared-fall scooter rattle"
     },
     {
       "time": 4.45,
       "sound": "distant thump"
     },
     {
-      "time": 5.7,
-      "sound": "stone tick"
+      "time": 5.26,
+      "sound": "officer brake"
+    },
+    {
+      "time": 6.65,
+      "sound": "jacket rustle"
+    },
+    {
+      "time": 7.7,
+      "sound": "ticket release and flutter"
+    },
+    {
+      "time": 9.75,
+      "sound": "paper tap"
     }
+  ],
+  "footstep_times": [
+    2.6995652174111457,
+    2.899130433471873,
+    3.0986956522334363,
+    3.2982608682941645,
+    3.497826087055728,
+    3.697391303116457,
+    3.8969565218780193,
+    4.096521737938747,
+    4.296086956700312,
+    4.495652172761038,
+    4.6952173915226005,
+    4.894782607583331,
+    5.1092737720813615
   ]
 }

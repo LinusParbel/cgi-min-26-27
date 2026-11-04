@@ -5,6 +5,7 @@ using Engine.OpenGL;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 using RunnerGame.Gameplay;
+using RunnerGame.Animation;
 using RunnerGame.Materials.RunnerLit;
 
 namespace RunnerGame.Rendering;
@@ -29,8 +30,12 @@ public sealed class PedestrianMapRenderer : IRunnerScene
     private readonly IReadOnlyList<ExtraSceneManifest> extraManifests;
     private float? inspectionDistance;
     private bool disposed;
-    public int MeshCount => meshes.Count;
-    public int TextureCount => surfaces.Count;
+    private readonly string assetsRoot;
+    private readonly string mapKey;
+    private ConeIntroRenderer? introRenderer;
+    private Matrix4 introStage;
+    public int MeshCount => meshes.Count + (introRenderer?.MeshCount ?? 0);
+    public int TextureCount => surfaces.Count + (introRenderer?.TextureCount ?? 0);
     public int DrawCount { get; private set; }
     public string Title { get; }
     public float RouteLength => route.Length;
@@ -65,6 +70,8 @@ public sealed class PedestrianMapRenderer : IRunnerScene
 
     public PedestrianMapRenderer(string assetsRoot, string mapFolder)
     {
+        this.assetsRoot = assetsRoot;
+        mapKey = Path.GetFileName(Path.TrimEndingDirectorySeparator(Path.GetFullPath(mapFolder)));
         renderer = new OpenGlRenderer { LightPosition = new(-20, 145, 15) };
         try
         {
@@ -156,6 +163,7 @@ public sealed class PedestrianMapRenderer : IRunnerScene
     }
 
     public void Resize(int width, int height) => renderer.Resize(width, height);
+    public void PrepareIntro(ConeIntroScene scene) => introRenderer ??= new ConeIntroRenderer(assetsRoot, scene);
 
     private void Draw(string key, Vector3 position, float yaw = 0, float wheelAngle = 0, float scale = 1)
     {
@@ -172,12 +180,12 @@ public sealed class PedestrianMapRenderer : IRunnerScene
         new(sample.X + sample.RightX * lateral, groundY + elevation, sample.Z + sample.RightZ * lateral);
     private static float Yaw(RouteSample sample) => MathF.Atan2(-sample.ForwardX, -sample.ForwardZ);
 
-    public void Render(RunSimulation state)
+    public void Render(RunSimulation state, IntroRenderState? intro = null)
     {
         ObjectDisposedException.ThrowIf(disposed, this);
         DrawCount = 0;
         frameDraws.Clear();
-        bool inspecting = InspectionDistance.HasValue && state.Phase is RunPhase.Ready or RunPhase.Paused;
+        bool inspecting = intro == null && InspectionDistance.HasValue && state.Phase is RunPhase.Ready or RunPhase.Paused;
         float distance = inspecting ? InspectionDistance!.Value : state.Distance;
         var sample = route.Sample(distance);
         var behind = route.Sample(distance - 6);
@@ -215,6 +223,19 @@ public sealed class PedestrianMapRenderer : IRunnerScene
             camera.FarPlane = 800;
             camera.LookAt(Position(behind, elevation: 3), Position(ahead, elevation: 1.2f));
         }
+        var introSample = intro?.Scene.Sample(intro.Time);
+        var stage = Matrix4.Identity;
+        if (intro != null && introSample != null)
+        {
+            var start = route.Sample(0);
+            var offset = intro.Scene.StageOffset(mapKey);
+            stage = Matrix4.CreateTranslation(offset) * Matrix4.CreateRotationY(Yaw(start)) * Matrix4.CreateTranslation(Position(start));
+            introStage = stage;
+            var eye = Vector3.TransformPosition(introSample.CameraPosition, stage);
+            var target = Vector3.TransformPosition(introSample.CameraTarget, stage);
+            float blend = Math.Clamp((intro.Time - 10) / 2, 0, 1); blend = blend * blend * (3 - 2 * blend);
+            camera.LookAt(Vector3.Lerp(eye, camera.Position, blend), Vector3.Lerp(target, camera.Target, blend));
+        }
         foreach (var surface in surfaces.Values)
         {
             surface.Material.FogStart = Overview ? 2000 : 80;
@@ -228,7 +249,7 @@ public sealed class PedestrianMapRenderer : IRunnerScene
             Draw("prop:" + prop.Kind, new Vector3(prop.X, groundY + prop.Y, prop.Z),
                 MathHelper.DegreesToRadians(prop.YawDegrees), scale: prop.Scale);
         Draw("clock", clock);
-        foreach (var item in state.WorldObjects)
+        if (intro == null) foreach (var item in state.WorldObjects)
         {
             if (inspecting || !item.Active || item.Z > 8 || item.Z < -160) continue;
             string key = item.Kind.ToString();
@@ -238,26 +259,40 @@ public sealed class PedestrianMapRenderer : IRunnerScene
             Draw(key, Position(placement, item.X, coin ? 1 : 0),
                 coin ? state.ElapsedTime * 2.7f : Yaw(placement));
         }
+        if (intro != null && introSample != null)
+        {
+            introRenderer ??= new ConeIntroRenderer(assetsRoot, intro.Scene);
+            foreach (var draw in introRenderer.Build(introSample, stage))
+                frameDraws.Add((new Part("intro", draw.Mesh, draw.Material, Vector3.Zero), draw.Transform));
+        }
+        else
+        {
         var player = Position(sample, inspecting ? 0 : state.PlayerX, inspecting ? 0 : state.PlayerY);
         Draw("scooter", player, Yaw(sample), -distance / .127f);
         Draw(!inspecting && state.IsDucking ? "duck" : "ride", player, Yaw(sample));
-        if (!inspecting && (state.PursuitRemaining > 0 || state.Phase == RunPhase.Caught))
+        if (!inspecting && state.Phase != RunPhase.Ready)
         {
             var officer = route.Sample(state.Distance - 2);
             Draw($"officer{(int)(state.ElapsedTime * 5) % 4}",
                 Position(officer, state.PlayerX + .75f), Yaw(officer) + MathF.PI);
+        }
+        }
+        if (intro == null && introRenderer != null && state.Phase != RunPhase.Ready && distance < 10)
+        {
+            var cone = introRenderer.SettledCone(introStage);
+            frameDraws.Add((new Part("introCone", cone.Mesh, cone.Material, Vector3.Zero), cone.Transform));
         }
         if (!Overview && EnableShadows)
         {
             var focus = route.Sample(distance + 24);
             shadows!.Render(renderer, camera, Position(focus), frameDraws.Select(d => (d.Part.Mesh, d.Transform)));
         }
-        foreach (var surface in surfaces.Values)
+        foreach (var material in frameDraws.Select(d => d.Part.Material).Distinct())
         {
-            surface.Material.ShadowsEnabled = !Overview && EnableShadows;
-            surface.Material.ShadowTexture = shadows!.DepthTexture;
-            surface.Material.LightSpace = shadows.LightSpace;
-            surface.Material.SunDirection = MapShadowPass.SunDirection;
+            material.ShadowsEnabled = !Overview && EnableShadows;
+            material.ShadowTexture = shadows!.DepthTexture;
+            material.LightSpace = shadows.LightSpace;
+            material.SunDirection = MapShadowPass.SunDirection;
         }
         renderer.Clear();
         foreach (var draw in frameDraws)
@@ -271,6 +306,7 @@ public sealed class PedestrianMapRenderer : IRunnerScene
     {
         if (disposed) return;
         disposed = true;
+        introRenderer?.Dispose();
         shadows?.Dispose();
         foreach (var mesh in meshes.Values) mesh.Dispose();
         foreach (var surface in surfaces.Values) surface.Texture.Dispose();

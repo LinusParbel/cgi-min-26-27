@@ -23,3 +23,26 @@ exports and source/license records are delivered with this change.
 
 Requirements: [animation.md](../../../Assets/Animations/VanCrash/animation.md).
 Evidence and limitations: [review.md](../../../Assets/Animations/VanCrash/review.md).
+
+## Officer ticket revision — 2026-11-04
+
+`officer_ticket.blend` adds a separate baked action from the existing officer rig,
+frames 1–133 at 12 fps: run, brake, planted lean, pocket reach, ticket grip and
+release. It uses the installed shared `CHR_Ordnungsamt.png` atlas without copying
+or repainting it. Original officer attribution and source licences remain in
+`../ordnungsamt_pursuer_v2/` and `RunnerGame/CREDITS.md`.
+
+Exports are `officer-ticket.vclip` and `officer-ticket-hand.json`. The latter
+records the evaluated right-hand grip in the same local coordinates as the clip,
+so the ticket stays attached before release. `ticket-validation.json` and
+`ticket-provenance.json` record dimensions, measured joint gaps and hashes.
+The new fictional `ticket.png` is original code-drawn project art, CC0-1.0.
+
+Local ignored `build_ticket.py` loads only the character/tool definitions from
+the existing local cone authoring script; it does not execute or regenerate that
+scene. Its `repair_ticket_floor.py` finishing pass keeps measured sole clearance
+aligned in the runtime clip, baked source and grip track. `make_ticket.py` draws
+the paper design; `audio.py` generates the full new
+eleven-second mix. Editable Blender scenes and runtime exports remain usable
+without any local Python tooling. Both editable van-scene blend files have
+explicit exceptions in the Art ignore rules; generation/review Python remains local.

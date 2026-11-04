@@ -1,11 +1,13 @@
 using RunnerGame.Gameplay;
+using RunnerGame.Animation;
 
 namespace RunnerGame.Rendering;
 
 public interface IRunnerScene : IDisposable
 {
     void Resize(int width, int height);
-    void Render(RunSimulation state);
+    void PrepareIntro(ConeIntroScene scene);
+    void Render(RunSimulation state, IntroRenderState? intro = null);
     int MeshCount { get; }
     int TextureCount { get; }
     int DrawCount { get; }

@@ -5,7 +5,7 @@ public enum VanCrashPreviewContact { Rear, Side, Duck, Air }
 /// <summary>Contact snapshot and scene clock. World simulation stays frozen.</summary>
 public sealed class VanCrashState(float playerX, float playerY, bool ducking, float vanX, float vanZ)
 {
-    public const float Duration = 6;
+    public const float Duration = 11;
     public float PlayerX { get; } = playerX;
     public float PlayerY { get; } = playerY;
     public bool WasDucking { get; } = ducking;

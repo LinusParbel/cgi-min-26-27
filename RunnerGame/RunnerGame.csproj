@@ -16,5 +16,9 @@
     <None Update="CREDITS.md" CopyToOutputDirectory="PreserveNewest" />
     <None Update="README.md" CopyToOutputDirectory="PreserveNewest" />
     <EmbeddedResource Include="Materials\**\*.glsl" />
+    <None Update="Native\OpenALSoft\OpenAL32.dll" CopyToOutputDirectory="PreserveNewest" TargetPath="OpenAL32.dll" />
+    <None Update="Native\OpenALSoft\COPYING" CopyToOutputDirectory="PreserveNewest" TargetPath="ThirdParty\OpenALSoft\COPYING" />
+    <None Update="Native\OpenALSoft\openal-soft-1.25.2.tar.bz2" CopyToOutputDirectory="PreserveNewest" TargetPath="ThirdParty\OpenALSoft\openal-soft-1.25.2.tar.bz2" />
+    <None Update="Native\OpenALSoft\README.md" CopyToOutputDirectory="PreserveNewest" TargetPath="ThirdParty\OpenALSoft\README.md" />
   </ItemGroup>
 </Project>

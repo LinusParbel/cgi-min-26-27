@@ -7,6 +7,7 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 using RunnerGame.Gameplay;
 using RunnerGame.Input;
 using RunnerGame.Rendering;
+using RunnerGame.Animation;
 using RunnerGame.Audio;
 
 namespace RunnerGame;
@@ -15,44 +16,14 @@ internal static class Program
 {
     private static int Main(string[] args)
     {
-        string? capture = null;
-        string? mapFolder = null;
-        bool overview = false;
-        float? inspectionDistance = null;
-        bool duckCapture = false;
-        float advance = 0;
-        bool vanPreview=false, mute=false;
-        float crashTime=0;
-        string? crashFilm=null;
-        VanCrashPreviewContact crashContact=VanCrashPreviewContact.Rear;
-        for (int i = 0; i < args.Length; i++)
-        {
-            if (args[i] == "--capture" && i + 1 < args.Length) capture = Path.GetFullPath(args[++i]);
-            else if (args[i] == "--map" && i + 1 < args.Length) mapFolder = Path.GetFullPath(args[++i]);
-            else if (args[i] == "--overview") overview = true;
-            else if (args[i] == "--inspect" && i + 1 < args.Length &&
-                float.TryParse(args[++i], System.Globalization.NumberStyles.Float,
-                    System.Globalization.CultureInfo.InvariantCulture, out float position) &&
-                float.IsFinite(position) && position >= 0) inspectionDistance = position;
-            else if (args[i] == "--duck") duckCapture = true;
-            else if (args[i] == "--van-crash-preview") vanPreview=true;
-            else if (args[i] == "--mute") mute=true;
-            else if (args[i] == "--crash-contact" && i+1<args.Length && Enum.TryParse(args[++i],true,out VanCrashPreviewContact contact) && Enum.IsDefined(contact))crashContact=contact;
-            else if (args[i] == "--crash-film" && i+1<args.Length) crashFilm=Path.GetFullPath(args[++i]);
-            else if (args[i] == "--crash-time" && i+1<args.Length && float.TryParse(args[++i],System.Globalization.NumberStyles.Float,System.Globalization.CultureInfo.InvariantCulture,out float ct) && float.IsFinite(ct) && ct>=0 && ct<=6) crashTime=ct;
-            else if (args[i] == "--advance" && i + 1 < args.Length &&
-                float.TryParse(args[++i], System.Globalization.NumberStyles.Float,
-                    System.Globalization.CultureInfo.InvariantCulture, out float seconds) &&
-                float.IsFinite(seconds) && seconds >= 0 && seconds <= 60) advance = seconds;
-            else { Console.Error.WriteLine("Usage: RunnerGame [--map folder] [--overview] [--inspect metres] [--capture output.bmp] [--duck] [--advance seconds (0..60)] [--van-crash-preview] [--crash-contact Rear|Side|Duck|Air] [--crash-time 0..6] [--crash-film folder] [--mute]"); return 2; }
-        }
-        if (capture == null && (duckCapture || advance > 0))
-        { Console.Error.WriteLine("--duck and --advance require --capture."); return 2; }
-        if ((overview || inspectionDistance.HasValue) && mapFolder == null)
-        { Console.Error.WriteLine("--overview and --inspect require --map."); return 2; }
-        if ((vanPreview && mapFolder!=null) || (crashTime>0 && (!vanPreview || capture==null)) || (crashFilm!=null && (!vanPreview || capture!=null)))
-        {Console.Error.WriteLine("Crash preview requires street mode; crash-time requires preview + capture; crash-film requires preview without capture.");return 2;}
-        using var window = new RunnerGameWindow(capture, duckCapture, advance, mapFolder, overview, inspectionDistance, vanPreview, crashTime, crashFilm, mute, crashContact, GameWindowSettings.Default,
+        RunnerOptions options;
+        try { options = RunnerOptions.Parse(args); }
+        catch (ArgumentException error) { Console.Error.WriteLine(error.Message); return 2; }
+        string? capture = options.Capture, mapFolder = options.MapFolder;
+        bool overview = options.Overview, duckCapture = options.Duck;
+        float? inspectionDistance = options.Inspect;
+        float advance = options.Advance;
+        using var window = new RunnerGameWindow(capture, duckCapture, advance, mapFolder, overview, inspectionDistance, options, GameWindowSettings.Default,
             new NativeWindowSettings
             {
                 ClientSize = new Vector2i(1280, 800), StartVisible = true, StartFocused = true,
@@ -66,8 +37,7 @@ internal static class Program
 
 internal sealed class RunnerGameWindow(string? capturePath, bool duckCapture, float advanceSeconds,
     string? mapFolder, bool overview, float? inspectionDistance,
-    bool vanPreview, float crashTime, string? crashFilm, bool mute,
-    VanCrashPreviewContact crashContact,
+    RunnerOptions options,
     GameWindowSettings settings, NativeWindowSettings native) : Application(settings, native)
 {
     private readonly RunSimulation _run = new(pedestrian: mapFolder != null);
@@ -79,6 +49,9 @@ internal sealed class RunnerGameWindow(string? capturePath, bool duckCapture, fl
     private float _fps = 60;
     private Vector2 _lastInspectMouse;
     private bool _inspectLooking;
+    private ConeIntroScene? _introScene;
+    private OpeningSequence? _opening;
+    private int _recordFrame;
     private VanCrashAudio? _crashAudio;
     private int _filmFrame;
 
@@ -89,16 +62,33 @@ internal sealed class RunnerGameWindow(string? capturePath, bool duckCapture, fl
         string assets = Path.Combine(AppContext.BaseDirectory, "Assets");
         _scene = mapFolder == null ? new SceneRenderer(assets)
             : new PedestrianMapRenderer(assets, mapFolder) { Overview = overview, InspectionDistance = inspectionDistance };
-        if(mapFolder==null) _crashAudio=new VanCrashAudio(Path.Combine(assets,"Animations","VanCrash","crash.wav"),mute || capturePath!=null || crashFilm!=null);
-        if(vanPreview)
+        if (mapFolder == null && !options.VanCrashPreview)
         {
-            _run.PrepareVanCrashPreview(crashContact);
-            if(capturePath!=null || crashFilm!=null)
+        _introScene = ConeIntroScene.Load(Path.Combine(assets, "Animations/ConeHat"));
+        if (capturePath == null || options.IntroTime.HasValue) _scene.PrepareIntro(_introScene);
+        var audio = new IntroAudio(_introScene.Folder);
+        audio.SetVolume(options.Mute || options.RecordIntro != null ? 0 : options.Volume);
+        _opening = new OpeningSequence(_introScene.Cues, _run, audio);
+        }
+        if(mapFolder==null)
+            _crashAudio=new VanCrashAudio(Path.Combine(assets,"Animations","VanCrash","crash.wav"),options.Mute || capturePath!=null || options.CrashFilm!=null,options.Volume);
+        if(options.VanCrashPreview)
+        {
+            _run.PrepareVanCrashPreview(options.CrashContact);
+            if(capturePath!=null || options.CrashFilm!=null)
             {
                 for(int i=0;i<300 && _run.VanCrash==null;i++)_run.Step(.02f);
                 if(_run.VanCrash==null)throw new InvalidOperationException("Preview failed to collide with van");
-                if(crashTime>0)_run.Step(crashTime);
+                if(options.CrashTime>0)_run.Step(options.CrashTime);
             }
+        }
+        if (options.RecordIntro != null)
+        {
+            if (Directory.Exists(options.RecordIntro) && Directory.EnumerateFileSystemEntries(options.RecordIntro).Any())
+                throw new IOException("Recording directory must be empty to avoid replacing existing evidence.");
+            Directory.CreateDirectory(options.RecordIntro);
+            _opening!.HandleInput(new(true, true, false, false));
+            _opening.HandleInput(new(true, false, false, false));
         }
         if (capturePath != null && (duckCapture || advanceSeconds > 0))
         {
@@ -120,9 +110,12 @@ internal sealed class RunnerGameWindow(string? capturePath, bool duckCapture, fl
 
     protected override void FixedUpdate(float dt)
     {
-        if (capturePath != null || crashFilm!=null) return;
-        // Cinematic time follows real frame time (below), unlike catch-up-limited
-        // gameplay ticks, so a rendering stall cannot put the audio ahead.
+        if (capturePath != null || options.RecordIntro != null || options.CrashFilm != null) return;
+        if (_opening != null && _opening.Controller.Phase != IntroPhase.Complete)
+        { _opening.Advance(dt, IsFocused); return; }
+        _opening?.Advance(0, IsFocused);
+        // Live crash playback uses real frame time below, matching native audio
+        // even when the engine discards fixed-step catch-up time after a stall.
         _controls.Step(_run.Phase == RunPhase.VanCrash ? 0 : dt, IsFocused);
         _crashAudio?.Update(_run);
         if (_scene is PedestrianMapRenderer map && _run.Phase == RunPhase.Running && _run.Distance >= map.RouteLength - 2)
@@ -133,12 +126,30 @@ internal sealed class RunnerGameWindow(string? capturePath, bool duckCapture, fl
 
     protected override void Update(float dt)
     {
-        if (capturePath != null || crashFilm!=null) return;
+        if (capturePath != null || options.RecordIntro != null || options.CrashFilm != null) return;
         var keys = KeyboardState;
         if (!IsFocused) _inspectLooking = false;
         bool restart = keys.IsKeyPressed(Keys.R);
         bool start = keys.IsKeyPressed(Keys.Enter);
         bool jump = keys.IsKeyPressed(Keys.Space) || keys.IsKeyPressed(Keys.W) || keys.IsKeyPressed(Keys.Up);
+        bool introOwnedInput = _opening != null && _opening.Controller.Phase != IntroPhase.Complete;
+        _opening?.HandleInput(new IntroInput(IsFocused,
+            keys.IsKeyDown(Keys.Enter) || keys.IsKeyDown(Keys.Space),
+            keys.IsKeyPressed(Keys.Escape), restart));
+        if (introOwnedInput || restart)
+        {
+            if (restart)
+            {
+                _mapComplete = false; _controls.Update(new InputFrame(true, Restart: true));
+                _crashAudio?.Update(_run);
+                if (_scene is PedestrianMapRenderer resetMap) resetMap.InspectionDistance = null;
+            }
+            if (_scene is PedestrianMapRenderer introMap && _opening != null && _opening.Controller.Phase != IntroPhase.Ready)
+            { introMap.Overview = false; introMap.InspectionDistance = null; }
+            // Ready still permits map inspection; playing/paused owns all input.
+            if ((_opening != null && _opening.Controller.Phase != IntroPhase.Ready) || restart)
+            { UpdateTitle(); return; }
+        }
         if (IsFocused && _scene is PedestrianMapRenderer map)
         {
             var mouse = MouseState.Position;
@@ -170,6 +181,7 @@ internal sealed class RunnerGameWindow(string? capturePath, bool duckCapture, fl
             if ((_run.Phase == RunPhase.Ready && (start || jump)) || (_run.Phase == RunPhase.Paused && start))
             { map.Overview = false; map.InspectionDistance = null; }
         }
+        if (_opening != null && _opening.Controller.Phase != IntroPhase.Complete) return;
         _controls.Update(new InputFrame(IsFocused,
             Left: keys.IsKeyPressed(Keys.A) || keys.IsKeyPressed(Keys.Left),
             Right: keys.IsKeyPressed(Keys.D) || keys.IsKeyPressed(Keys.Right),
@@ -177,6 +189,7 @@ internal sealed class RunnerGameWindow(string? capturePath, bool duckCapture, fl
             Duck: keys.IsKeyPressed(Keys.S) || keys.IsKeyPressed(Keys.Down),
             Start: start, Pause: keys.IsKeyPressed(Keys.Escape), Restart: restart));
         if(_run.Phase==RunPhase.VanCrash && IsFocused)_run.Step(dt);
+        _opening?.Advance(0,IsFocused);
         _crashAudio?.Update(_run);
         if (dt > 0 && dt < .5f) _fps += (1 / dt - _fps) * .05f;
         _titleTimer += dt;
@@ -197,17 +210,40 @@ internal sealed class RunnerGameWindow(string? capturePath, bool duckCapture, fl
         else if (_scene is PedestrianMapRenderer map)
             status = (map.Overview ? "MAP OVERVIEW - Enter to ride; Tab view" :
                 map.InspectionDistance.HasValue ? $"INSPECT {map.InspectionDistance:0}m - PgUp/PgDn; Enter ride" : status + " - Tab map") + " [WORK IN PROGRESS]";
+        if (_opening != null && _opening.Controller.Phase is IntroPhase.Playing or IntroPhase.Paused)
+            status = $"CONE HAT {_opening.Controller.ShotId} {_opening.Controller.Time:0.0}/{ConeIntroController.Duration:0}s - " +
+                (_opening.Controller.Phase == IntroPhase.Paused ? "PAUSED: Enter/Esc resume" : "Enter/Space skip; Esc pause");
         Title = $"Hannover Rush Hour | {status} | {_run.Score} pts | {_run.Distance:0} m | {_run.CoinCount} coins | {_run.EffectiveSpeed:0} m/s | {_fps:0} FPS";
     }
 
     protected override void Render()
     {
-        _scene!.Render(_run);
-        if(crashFilm!=null)
+        IntroRenderState? intro = null;
+        if (options.IntroTime.HasValue && _introScene != null) intro = new(_introScene, options.IntroTime.Value);
+        else if (options.RecordIntro != null && _opening != null && _opening.Controller.Phase != IntroPhase.Complete) intro = new(_introScene!, Math.Min(ConeIntroController.Duration, _recordFrame / 24f));
+        else if (_opening != null && _opening.Controller.Phase is IntroPhase.Playing or IntroPhase.Paused) intro = new(_introScene!, _opening.Controller.Time);
+        _scene!.Render(_run, intro);
+        if(options.CrashFilm!=null)
         {
-            CaptureBitmap(Path.Combine(crashFilm,$"frame-{_filmFrame:0000}.bmp"));
-            if(++_filmFrame>=181){Console.WriteLine($"Captured {_filmFrame} crash frames at 30fps to {crashFilm}");Close();}
+            CaptureBitmap(Path.Combine(options.CrashFilm,$"frame-{_filmFrame:0000}.bmp"));
+            if(++_filmFrame>=(int)(VanCrashState.Duration*30)+1){Console.WriteLine($"Captured {_filmFrame} crash frames at 30fps to {options.CrashFilm}");Close();}
             else _run.Step(1f/30);
+            return;
+        }
+        if (options.RecordIntro != null)
+        {
+            CaptureBitmap(Path.Combine(options.RecordIntro, $"frame{_recordFrame:0000}.bmp"));
+            int totalFrames = (int)((ConeIntroController.Duration + 1) * 24);
+            if (_recordFrame++ >= totalFrames - 1)
+            {
+                IntroAudioMix.Write(_introScene!.Folder, _introScene.Cues, Path.Combine(options.RecordIntro, "audio.wav"));
+                File.WriteAllText(Path.Combine(options.RecordIntro, "cues.json"), System.Text.Json.JsonSerializer.Serialize(_introScene.Cues));
+                Console.WriteLine($"Recorded {totalFrames} frames at 24fps: {ConeIntroController.Duration}s intro + 1s gameplay, WAV mix and cue log in {options.RecordIntro}");
+                Close();
+            }
+            else if (_opening!.Controller.Phase != IntroPhase.Complete)
+                _opening.Advance(Math.Max(0, Math.Min(ConeIntroController.Duration, _recordFrame / 24f) - _opening.Controller.Time), true);
+            else _controls.Step(1f / 24, true);
             return;
         }
         if (capturePath == null || ++_frames < 5) return;
@@ -230,5 +266,5 @@ internal sealed class RunnerGameWindow(string? capturePath, bool duckCapture, fl
         writer.Write(pixels);
     }
 
-    protected override void Shutdown() { _crashAudio?.Dispose(); _scene?.Dispose(); }
+    protected override void Shutdown() { _crashAudio?.Dispose(); _opening?.Dispose(); _scene?.Dispose(); }
 }

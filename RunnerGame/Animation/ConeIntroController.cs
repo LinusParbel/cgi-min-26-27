@@ -3,8 +3,8 @@ namespace RunnerGame.Animation;
 /// <summary>Pure playback clock. Gameplay advances only after the single handoff.</summary>
 public sealed class ConeIntroController
 {
-    public const float Duration = 12;
-    private static readonly float[] Boundaries = [0, 1.5f, 3, 4.25f, 5, 6.5f, 8, 10];
+    public const float Duration = 30;
+    private static readonly float[] Boundaries = [0, 4, 7, 9, 11, 12.3f, 15, 17, 20, 24, 27];
     private readonly IntroCue[] cues;
     private readonly List<IntroCue> pending = [];
     private bool startWasDown;
@@ -23,7 +23,7 @@ public sealed class ConeIntroController
         {
             if (cue == null || string.IsNullOrWhiteSpace(cue.Id) || string.IsNullOrWhiteSpace(cue.Sound) ||
                 !ids.Add(cue.Id) || !float.IsFinite(cue.Time) || cue.Time < last || cue.Time < 0 || cue.Time > Duration)
-                throw new ArgumentException("Cues require unique IDs, sounds and sorted finite times in [0,12].", nameof(cues));
+                throw new ArgumentException("Cues require unique IDs, sounds and sorted finite times in [0,30].", nameof(cues));
             last = cue.Time;
         }
     }
@@ -69,7 +69,7 @@ public sealed class ConeIntroController
     {
         Time = Duration; Phase = IntroPhase.Complete; nextCue = cues.Length;
         if (clearCues) pending.Clear();
-        return new(Handoff: true);
+        return new(Handoff: true, Skipped: clearCues);
     }
     public IReadOnlyList<IntroCue> DrainCues()
     { var result = pending.ToArray(); pending.Clear(); return result; }

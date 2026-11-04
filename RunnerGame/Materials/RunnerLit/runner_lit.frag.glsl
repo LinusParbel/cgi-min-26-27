@@ -4,6 +4,7 @@ in vec2 uv;
 uniform sampler2D uTexture;
 uniform vec3 uCameraPosition, uLightPosition, uFogColor;
 uniform float uFogStart, uFogEnd;
+uniform float uOpacity;
 uniform sampler2D uShadowMap;
 uniform float uShadowsEnabled;
 uniform mat4 uLightSpace;
@@ -51,5 +52,5 @@ void main() {
     }
     float fog=smoothstep(uFogStart,uFogEnd,length(uCameraPosition-worldPosition));
     vec3 linearColor=mix(lit,pow(uFogColor,vec3(2.2)),fog);
-    outColor=vec4(pow(max(linearColor,vec3(0.0)),vec3(1.0/2.2)),1.0);
+    outColor=vec4(pow(max(linearColor,vec3(0.0)),vec3(1.0/2.2)),uOpacity*texture(uTexture,uv).a);
 }

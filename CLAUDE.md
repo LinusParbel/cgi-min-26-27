@@ -85,6 +85,9 @@ collision, scene/transform hierarchy, transparency, shadows, multiple lights.
 
 ## Game models and asset workflow
 
+- For game animation scenes, follow `RunnerGame/Art/ANIMATION_WORKFLOW.md` and
+  the scene's own `animation.md` before authoring or revising motion.
+
 - Finished models: `RunnerGame/Assets/Models/<Category>/<Asset>/` (`Baustelle/…`, `Mull/Tonne`), OBJ + one PNG each;
   `mounts.json` next to a carrier gives where the Warnleuchte lamp sits. Load with
   `Path.Combine(AppContext.BaseDirectory, "Assets", "Models", ...)`.
@@ -92,4 +95,4 @@ collision, scene/transform hierarchy, transparency, shadows, multiple lights.
   `python tools/asset-spike/publish_models.py`. Read `tools/asset-spike/WORKFLOW.md` before touching assets:
   it fixes the model per step (haiku for sorting, sonnet for builders/reviewers), the image budget (one engine sheet per
   iteration, ≤4 references per object), ≤3 parallel agents and max 3 iterations.
-- Do not edit `RunnerGame/Art/` or `tools/asset-viewer/` — they belong to the photo-to-model (Voi scooter) session.
+- Do not edit `tools/asset-viewer/` or photo-to-model sources unless that work is requested. Scene animation sources under `RunnerGame/Art/assets/<animation_id>/` are an intentional exception; follow the animation workflow above.

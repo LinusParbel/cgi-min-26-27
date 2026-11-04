@@ -3,3 +3,6 @@ RunnerGame/Assets/Models/** -text whitespace=cr-at-eol
 RunnerGame/Assets/Maps/** -text whitespace=cr-at-eol
 RunnerGame/Assets/Animations/** -text whitespace=cr-at-eol
 RunnerGame/Art/assets/** -text whitespace=cr-at-eol
+
+# Keep upstream licence text byte-for-byte, including its intentional spaces.
+RunnerGame/Native/OpenALSoft/COPYING -text whitespace=cr-at-eol,-blank-at-eol

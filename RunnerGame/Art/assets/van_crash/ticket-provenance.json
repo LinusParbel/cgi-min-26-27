@@ -1,0 +1,20 @@
+{
+  "file": "officer-ticket.vclip",
+  "vertices": 66454,
+  "indices": 221130,
+  "frames": 133,
+  "fps": 12,
+  "unique_frames": 71,
+  "bytes": 38590470,
+  "max_quantization_error": 0.00048828125,
+  "max_grip_target_error": 2.4620758953479386e-07,
+  "max_wrist_joint_gap": 4.308471767545033e-07,
+  "max_ankle_joint_gap": 2.6676824375939604e-07,
+  "min_floor_y": 0.0,
+  "source": "Existing officer rig and shared installed officer atlas; newly authored run/brake/peek/ticket action.",
+  "runtime_sha256": "1fcde5b87bd77623440515863b93ad767428ec27264711adaf53ea81af12cd4e",
+  "blend_sha256": "6e2f4f6f26fe03f2460486422bb476e9c3d5da711d4f4f04f178de41fd8ae9c0",
+  "hand_sha256": "daa528eca39bd2f6ea5429cbf9cb9bbd018fb3510d50df4dde31c72b22cd4580",
+  "unrepaired_min_floor_y": -0.007711553480476141,
+  "max_floor_correction": 0.00771331787109375
+}

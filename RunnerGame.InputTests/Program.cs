@@ -16,11 +16,15 @@ var tests = new (string, Action)[]
         controls.Step(.5f,true); Near(crash.Time,.5f);
         controls.Update(new(true,Start:true)); controls.Step(.5f,true);
         Check(run.Phase==RunPhase.VanCrash); Near(crash.Time,1);
-        controls.Step(10,true); Check(run.Phase==RunPhase.Caught); Near(crash.Time,6);
+        controls.Step(5,true); Check(run.Phase==RunPhase.VanCrash); Near(crash.Time,6);
+        controls.Step(2.2f,true); controls.Step(.3f,false); Near(crash.Time,8.2f);
+        controls.Step(.5f,true); Near(crash.Time,8.2f); Check(run.Phase==RunPhase.Paused);
+        controls.Update(new(true,Start:true)); controls.Step(.1f,true); Near(crash.Time,8.3f);
+        controls.Step(10,true); Check(run.Phase==RunPhase.Caught); Near(crash.Time,11);
         controls.Update(new(true,Restart:true)); Check(run.Phase==RunPhase.Ready && run.VanCrash==null && run.Distance==0);
     }),
     ("restart clears crash at every action beat", () => {
-        foreach(float t in new[]{0f,.5f,1.6f,2.8f,3.8f,5.5f}) {
+        foreach(float t in new[]{0f,.5f,1.6f,2.8f,3.8f,5.5f,6.8f,7.7f,9.5f}) {
             var run=new RunSimulation(); var controls=new RunnerControls(run); run.PrepareVanCrashPreview();
             while(run.VanCrash==null) controls.Step(.02f,true);
             controls.Step(t,true); controls.Update(new(true,Restart:true)); controls.Step(.02f,true);

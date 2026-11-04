@@ -14,6 +14,8 @@ assets/*/*.blend
 !assets/ordnungsamt_pursuer_v2/officer_v2.blend
 !assets/ordnungsamt_pursuer_v2/officer_v2_run_preview.blend
 !assets/cone_hat/cone_hat.blend
+!assets/van_crash/van_crash.blend
+!assets/van_crash/officer_ticket.blend
 assets/*/source/mpfb-user/logs/
 
 # Abandoned bicycle-base experiments; final bicycle is built from measurements.

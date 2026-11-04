@@ -2,8 +2,9 @@
 
 The chosen opening is specified in
 [Animations/ConeHat/animation.md](Assets/Animations/ConeHat/animation.md); other ideas
-live in [Art/ANIMATION_IDEAS.md](Art/ANIMATION_IDEAS.md). This is planned work;
-the current game still starts with the controls described below.
+live in [Art/ANIMATION_IDEAS.md](Art/ANIMATION_IDEAS.md). The road-only
+cone-hat opening plays before road-mode gameplay. Hannover map mode does not
+play it.
 
 Run from the repository root:
 
@@ -23,17 +24,42 @@ Click the game window and press **Enter** or **Space** to start. The initial vie
 | R | Reset to the ready state |
 | Window close button / Alt+F4 | Close |
 
-Collect tokens for ten points each. Jump or change lanes around low hazards; duck or change lanes around the overhead barrier; change lanes around cars and vans. The first hit slows the world and brings the officer behind you. A second hit within ten seconds ends the run; ten clean seconds clear pursuit. Losing focus pauses automatically, with explicit resume required. Window title shows state, points, distance, coins, effective speed and FPS.
+Collect tokens for ten points each. Jump or change lanes around low hazards; duck or change lanes around the overhead barrier; change lanes around cars and vans. A van contact immediately ends the run with the collapsing-road animation. For other hazards, the first hit slows the world and brings the officer behind you. A second hit within ten seconds ends the run; ten clean seconds clear pursuit. Losing focus pauses automatically, with explicit resume required. Window title shows state, points, distance, coins, effective speed and FPS.
 
-## Verification
+## Road opening animation
+
+The straight road features a stylized Hannover landmark district: Neues Rathaus
+overlooks a broad forecourt on the left, with Kröpcke Uhr in a separate square
+on the right. Benches, planters and trees furnish the openings in the shopfront
+rows. The district repeats every 420 m during a run; the Rathaus uses 55% scale
+to fit the street composition. These reuse the installed shared monument models.
+
+The 30-second cone-hat opening plays once before a road-mode run. A fresh key
+press after it starts skips; Esc pauses and Enter resumes. The scene uses the
+existing rider and officer rigs, continuous walk/run clips, shared model
+textures, contact shadows and sourced and authored sound. The specification,
+acceptance criteria and review record are in `Assets/Animations/ConeHat/`.
+
+Capture a deterministic muted review recording from the repository root:
+
+```powershell
+.\RunnerGame\bin\Debug\net10.0\RunnerGame.exe --record-intro docs/art/previews/cone-hat-road-v3.3 --mute
+```
+
+It writes 744 frames at 24 fps, an offline WAV mix and cue log. The preview
+folder is ignored; it is generated for local review and is not a runtime asset.
+
+## Van collision
 
 The street-mode [van crash](Assets/Animations/VanCrash/animation.md) is implemented:
-any van contact ends the run with a six-second collapsing-road gag. Other hazards
-keep the existing stumble/pursuit rules. The rider hangs above the hole, looks
-down, kicks, then drops before the scooter; a distant thump and final stone tick
-finish the scene. `R` returns to Ready; Esc/focus loss pause motion and sound.
+any van contact ends the run with an eleven-second collapsing-road and
+officer-ticket gag. The rider looks down, regains the scooter grip, and falls
+with it as one unit. The officer then brakes at the hole, peers down and drops
+a ticket into it. The late stone cube and its tick have been removed.
+Other hazards currently keep the stumble/pursuit rules; their selected one-hit
+ending is subsequent work. `R` resets; Esc/focus loss pause motion and sound.
 
-From the van-crash worktree root:
+From the repository root:
 
 ```powershell
 dotnet run --project RunnerGame -- --van-crash-preview
@@ -51,16 +77,18 @@ Repeatable renderer evidence (after building):
 .\RunnerGame\bin\Debug\net10.0\RunnerGame.exe --van-crash-preview --crash-contact Side --capture docs/art/previews/van-crash-side.bmp --crash-time 2.8 --mute
 .\RunnerGame\bin\Debug\net10.0\RunnerGame.exe --van-crash-preview --crash-contact Duck --capture docs/art/previews/van-crash-duck.bmp --mute
 .\RunnerGame\bin\Debug\net10.0\RunnerGame.exe --van-crash-preview --crash-contact Air --capture docs/art/previews/van-crash-air.bmp --mute
-.\RunnerGame\bin\Debug\net10.0\RunnerGame.exe --van-crash-preview --crash-film docs/art/previews/van-crash-frames --mute
-ffmpeg -y -framerate 30 -i docs/art/previews/van-crash-frames/frame-%04d.bmp -i RunnerGame/Assets/Animations/VanCrash/crash.wav -c:v libx264 -crf 19 -pix_fmt yuv420p -c:a aac -shortest docs/art/previews/van-crash.mp4
+.\RunnerGame\bin\Debug\net10.0\RunnerGame.exe --van-crash-preview --crash-film docs/art/previews/van-ticket-sync-frames --mute
+ffmpeg -y -framerate 30 -i docs/art/previews/van-ticket-sync-frames/frame-%04d.bmp -i RunnerGame/Assets/Animations/VanCrash/crash.wav -c:v libx264 -crf 19 -pix_fmt yuv420p -c:a aac -shortest docs/art/previews/van-ticket-sync.mp4
 ```
 
-`--crash-time` selects 0–6 scene seconds after a real collision. Contact variants
+`--crash-time` selects 0–11 scene seconds after a real collision. Contact variants
 use actual movement/jump/duck and the normal collision path. Film export writes
-181 renderer BMP frames at 30 fps and stays silent; the encoding command muxes
+331 renderer BMP frames at 30 fps and stays silent; the encoding command muxes
 the authored sound at the same scene origin. It does not record device loopback.
 [Review notes](Assets/Animations/VanCrash/review.md) separate transport tests,
 renderer checks and subjective acceptance.
+
+## Verification
 
 These console harnesses require no external test framework; a failed check returns a nonzero exit code:
 
@@ -69,9 +97,9 @@ dotnet run --project RunnerGame.Tests
 dotnet run --project RunnerGame.InputTests
 dotnet run --project RunnerGame.Rendering.Tests
 dotnet run --project RunnerGame.AnimationTests
+dotnet run --project RunnerGame.AudioTests
 dotnet run --project RunnerGame.RouteTests
 dotnet run --project RunnerGame.MapRenderTests
-dotnet run --project RunnerGame.AudioTests
 dotnet build CgiMin.sln
 ```
 
@@ -89,9 +117,18 @@ Capture advance uses the real simulation and input controller with fixed .02-sec
 
 Gameplay is independent of OpenGL. The first traffic generator changes the safe route between adjacent lanes in rows 24 m apart, with deterministic restart and a speed cap of 30 m/s. This deliberately conservative pattern set should be tuned after playtesting; it is not a complete difficulty system. Coins currently form straight lines and spin; arcs/bobbing and richer patterns remain future work.
 
-The renderer reuses installed meshes and textures, draws one rider pose at a time, and samples four officer animation poses to limit startup memory. A representative first view uses 37 cached meshes, 16 textures and about 212 draws. This is a workload count, not a benchmark of sustained frame rate. The title exposes FPS for the user's machine.
+The renderer reuses installed meshes and textures. Intro playback streams
+sampled rider and officer deformation through one dynamic mesh each; versioned
+clips alias repeated poses to reduce storage. A representative gameplay view
+uses 37 cached meshes, 16 textures and about 212 draws. This is a workload count,
+not a benchmark of sustained frame rate. The title exposes FPS for the user's
+machine.
 
-First visual priorities for the original street mode are ground/contact shadows and reducing visible facade repetition. That mode has gamma-correct lighting and distance fog, with a flat sky. Daylight shadow maps are implemented in the Hannover map mode. Normal maps, general gameplay audio and an on-screen HUD remain future work. Van-crash audio is implemented on Windows. Gameplay collider bounds intentionally simplify detailed meshes. The crash adds a fixed-topology vertex upload method to the engine Mesh; existing shared art bytes remain unchanged.
+First visual priorities for the original street mode remain hit feedback and
+reducing visible facade repetition. That mode has gamma-correct lighting,
+distance fog, a flat sky and contact shadows. Daylight shadow maps are
+implemented in Hannover map mode. Gameplay collider bounds intentionally
+simplify detailed meshes.
 
 ## Geographic Hannover map candidate
 
@@ -103,7 +140,7 @@ dotnet run --project RunnerGame -- --map RunnerGame/Assets/Maps/HannoverPedestri
 
 **Enter** starts riding from Hauptbahnhof and switches to the chase camera. **Tab** switches between chase and overview; opening the overview pauses an active run. **Enter** resumes riding, **R** resets. The finite route ends at Steintor. The other runner controls remain unchanged. Run without `--map` to see the original street mode.
 
-This is a grey geographic blockout, not finished facade art. It follows the upper south-east side of the promenade and turns through Kröpcke toward Steintor. Three steering positions are provisional and spaced 1.5 m apart; the pedestrian paving has no painted lanes. Cars, vans and asphalt damage are excluded from the pedestrian profile. The existing first-hit/second-hit pursuit mechanics remain; the proposed offence/introduction sequence is not implemented yet.
+This is a grey geographic blockout, not finished facade art. It follows the upper south-east side of the promenade and turns through Kröpcke toward Steintor. Three steering positions are provisional and spaced 1.5 m apart; the pedestrian paving has no painted lanes. Cars, vans and asphalt damage are excluded from the pedestrian profile. The existing first-hit/second-hit pursuit mechanics remain in this map mode; the implemented cone opening and van ending currently belong to street mode.
 
 Professor-facing sources, licensing, method, AI assistance and accuracy limits: `docs/art/HANNOVER_MAP_SOURCES_AND_METHOD.md` and its self-contained printable HTML companion. Central and map-folder credits accompany the derivative. Imported city buildings are CC BY4.0 material, not manually authored project buildings.
 

@@ -1,13 +1,32 @@
 {
-  "created": "2026-11-02",
+  "created": "2026-11-03",
+  "revision": "road-cinematic-v3.3",
   "authorship": "Original cone-hat scene animation on existing project character rigs; existing model/texture provenance remains authoritative.",
   "sources_unchanged": true,
   "sha256": {
     "RunnerGame/Art/assets/scooter_rider/rider_export.blend": "e277e66e87006238e8ddacc7791ca1f2227844d88d4ef41a60277ddf06cb0bd1",
     "RunnerGame/Art/assets/ordnungsamt_pursuer_v2/officer_v2_export_preview.blend": "145bfb42088b6b7a894f478e69f367d0ee3855f586f61612593ac322779679a0",
-    "RunnerGame/Art/assets/cone_hat/cone_hat.blend": "f361c5733e5169e99856afdab3f0aca1a9db280f3bb68516ccbc8e89cf78bf95",
-    "RunnerGame/Assets/Animations/ConeHat/rider.vclip": "c3d2a9715a0330a0cfbb5f36b0434c498c5b1a72fa98011b753f48ff4dc9cf59",
-    "RunnerGame/Assets/Animations/ConeHat/officer_idle.obj": "480a567c41f997b61d3700ee3c4439b920bc77cc46f2581aae01f93129ac0494",
-    "RunnerGame/Assets/Animations/ConeHat/officer_react.obj": "ca55875d85f7b1c0b8b920dba1b9d1d0ae721fbb41d043ac1cecb77600c152eb"
+    "RunnerGame/Art/assets/cone_hat/cone_hat.blend": "16980962113b359220efb922dbefd5a240b405e963cb5a462591ae4c03a35d7e",
+    "RunnerGame/Assets/Animations/ConeHat/rider.vclip": "5171db0705806f9bb994b1f735176482438de99334c7abde12a408c7f974f3cc",
+    "RunnerGame/Assets/Animations/ConeHat/officer_motion.vclip": "dbe515a0338a5fc258100d961075332263f71fb14145608b5f54887a7ef721d2",
+    "RunnerGame/Assets/Animations/ConeHat/scene.json": "ab2bf59a21c73166551803f56d48072234e11180f877f65f34d398aa7f6a6b26",
+    "RunnerGame/Assets/Animations/ConeHat/cone_hat.obj": "ed590ce56229cf486bbc2ea17910647b89fa92ffee66b1839ce4a9cfbe1edb7d",
+    "RunnerGame/Assets/Animations/ConeHat/asset-validation.json": "a318a26c7c2cd7bc325d3b871f3aebf8f837321a6411be7e18ec25c392f60b87",
+    "RunnerGame/Assets/Animations/ConeHat/audio/step.wav": "4f443047aeacb6a150516df9073e400af12b31ea7246748f7ad9366795c777d0",
+    "RunnerGame/Assets/Animations/ConeHat/audio/walk_short.wav": "5c8dd507df185347fc5aaf400b1b67a1ab9ab7f6dbcc0f0553ca8f3026738c8d",
+    "RunnerGame/Assets/Animations/ConeHat/audio/mount_step.wav": "6c6a2e01290a3a986c3a54ba927874a1d9547c45978bed69473a72f35c25a42a",
+    "RunnerGame/Assets/Animations/ConeHat/audio/run.wav": "6bbe18977b631731c73d5298b57c379ba5b042f3a65f1b651879a5c4bee53173",
+    "RunnerGame/Assets/Animations/ConeHat/audio/handling.wav": "5c6c9b4ad19123142e6854238d22c1cc66a39ce97c7e7ff366b448f99ddb0fd0",
+    "RunnerGame/Assets/Animations/ConeHat/audio/kickstand.wav": "cf3c06b887c9e75f341816e4689be0c34a0c323f15f4b315dca0c7a8f6cfc141",
+    "RunnerGame/Assets/Animations/ConeHat/audio/call.wav": "b1863bf8ae3ed49afd8bcefbee4956c7972b9a409a9cc301efc8655ffa0e24ee",
+    "RunnerGame/Assets/Animations/ConeHat/audio/hey.wav": "1acbde6a3e6bebb6581f7496e5dddb507f19f64f227eb1a24fc05bfe30391b91",
+    "RunnerGame/Assets/Animations/ConeHat/audio/stop.wav": "e9065debab4c29f3862f3e80e4288cd79fe16ee88b7d1497a54feedb312218c4",
+    "RunnerGame/Assets/Animations/ConeHat/audio/stop_firm.wav": "31320716aa12bcb2fbcfc2fe0f6a6f66485446fe34c15201f875fa486213705c",
+    "RunnerGame/Assets/Animations/ConeHat/audio/stop_angry.wav": "c75d781a332a8937222a4584b2b2fd3cefa461381491564bac332d3aed7d3516",
+    "RunnerGame/Assets/Animations/ConeHat/audio/pursuit.wav": "22a167232cbd463ee8a8f8d04ee004b23956df0b3903a9b6a4416892a2f88467",
+    "RunnerGame/Assets/Animations/ConeHat/audio/impact.wav": "153a74892ca6d26cb38e0f51657dff167dd2f623288be05ce115e74b5fe4b822",
+    "RunnerGame/Assets/Animations/ConeHat/audio/beep.wav": "f1f37700a4bf0d94545f5e1296890c4d1fff6c1493a1f2fe379782e9754e30dd",
+    "RunnerGame/Assets/Animations/ConeHat/audio/takeoff.wav": "f33350282cf255b54082a0cf05a47074ec71f41449714ef9c46ef869bcf9c8d5",
+    "RunnerGame/Assets/Animations/ConeHat/audio/ambience.wav": "49c65916ee408cae561c4409206012e9da2c3a103fbfdf42945b50fc0e76a828"
   }
 }

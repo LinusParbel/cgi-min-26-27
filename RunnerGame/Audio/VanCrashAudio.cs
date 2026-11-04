@@ -9,6 +9,7 @@ internal sealed class VanCrashAudio : IDisposable
     readonly byte[] pcm;
     readonly int rate;
     readonly bool muted;
+    readonly float volume;
     IntPtr device,header;
     GCHandle pinned;
     VanCrashState? active;
@@ -28,6 +29,7 @@ internal sealed class VanCrashAudio : IDisposable
     [DllImport("winmm.dll")] static extern uint waveOutReset(IntPtr h);
     [DllImport("winmm.dll")] static extern uint waveOutUnprepareHeader(IntPtr h,IntPtr p,uint n);
     [DllImport("winmm.dll")] static extern uint waveOutClose(IntPtr h);
+    [DllImport("winmm.dll")] static extern uint waveOutSetVolume(IntPtr h,uint volume);
     [DllImport("winmm.dll")] static extern uint waveOutGetPosition(IntPtr h,ref Position position,uint size);
     internal float PlaybackTime
     {
@@ -38,9 +40,10 @@ internal sealed class VanCrashAudio : IDisposable
             return waveOutGetPosition(device,ref position,12)==0 && position.Type==2 ? bufferStart+position.Samples/(float)rate : float.NaN;
         }
     }
-    public VanCrashAudio(string path,bool muted)
+    public VanCrashAudio(string path,bool muted,float volume=1)
     {
-        this.muted=muted;
+        if(!float.IsFinite(volume)||volume<0||volume>1)throw new ArgumentOutOfRangeException(nameof(volume));
+        this.muted=muted||volume==0;this.volume=volume;
         using var r=new BinaryReader(File.OpenRead(path));
         if(new string(r.ReadChars(4))!="RIFF")throw new InvalidDataException("Expected scene WAV");
         r.ReadUInt32();if(new string(r.ReadChars(4))!="WAVE")throw new InvalidDataException("Expected WAVE");
@@ -52,7 +55,7 @@ internal sealed class VanCrashAudio : IDisposable
             if(id=="data")data=r.ReadBytes(size);
             r.BaseStream.Position=next;
         }
-        if(!valid||data==null||data.Length!=rate*2*6)throw new InvalidDataException("Expected six-second mono PCM scene mix");
+        if(!valid||data==null||data.Length!=(int)(rate*2*VanCrashState.Duration))throw new InvalidDataException("Scene PCM mix duration must match van-crash playback");
         pcm=data;
     }
     public void Update(RunSimulation run)
@@ -73,6 +76,7 @@ internal sealed class VanCrashAudio : IDisposable
     {
         var format=new Format {Tag=1,Channels=1,Rate=(uint)rate,BytesPerSecond=(uint)rate*2,Align=2,Bits=16};
         if(waveOutOpen(out device,uint.MaxValue,ref format,IntPtr.Zero,IntPtr.Zero,0)!=0) {device=IntPtr.Zero;unavailable=true;Console.Error.WriteLine("Van crash audio device unavailable; scene remains playable.");return;}
+        uint level=(uint)MathF.Round(volume*ushort.MaxValue);waveOutSetVolume(device,level|(level<<16));
         int offset=Math.Clamp((int)(seconds*rate)*2,0,pcm.Length-2);
         bufferStart=offset/(2f*rate);
         pinned=GCHandle.Alloc(pcm,GCHandleType.Pinned);
