@@ -14,7 +14,9 @@ public sealed class RunnerOptions
     public bool Mute {get;private set;}
     public float Volume {get;private set;}=1;
     public bool VanCrashPreview {get;private set;}
+    public bool ConeCrashPreview {get;private set;}
     public float CrashTime {get;private set;}
+    public float CrashDistance {get;private set;}
     public string? CrashFilm {get;private set;}
     public Gameplay.VanCrashPreviewContact CrashContact {get;private set;}
     public static RunnerOptions Parse(string[] args)
@@ -37,8 +39,10 @@ public sealed class RunnerOptions
                 case "--record-intro":o.RecordIntro=Path.GetFullPath(Value());break;
                 case "--mute":o.Mute=true;break;
                 case "--volume":o.Volume=Number(1);break;
+                case "--cone-crash-preview":o.ConeCrashPreview=true;break;
                 case "--van-crash-preview":o.VanCrashPreview=true;break;
-                case "--crash-time":o.CrashTime=Number(Gameplay.VanCrashState.Duration);break;
+                case "--crash-distance":o.CrashDistance=Number(100000);break;
+                case "--crash-time":o.CrashTime=Number(Gameplay.ConeCrashState.Duration);break;
                 case "--crash-film":o.CrashFilm=Path.GetFullPath(Value());break;
                 case "--crash-contact":
                     if(!Enum.TryParse(Value(),true,out Gameplay.VanCrashPreviewContact contact)||!Enum.IsDefined(contact))throw new ArgumentException("Invalid crash contact.");
@@ -51,9 +55,12 @@ public sealed class RunnerOptions
         if(o.IntroTime.HasValue&&(o.Duck||o.Advance>0||o.Overview||o.Inspect.HasValue))throw new ArgumentException("Intro captures cannot combine gameplay/inspection options.");
         if(o.RecordIntro!=null&&(o.Capture!=null||o.Overview||o.Inspect.HasValue))throw new ArgumentException("Recording cannot combine capture/inspection options.");
         if(o.MapFolder!=null&&(o.IntroTime.HasValue||o.RecordIntro!=null))throw new ArgumentException("The cinematic intro currently supports road mode only.");
-        if(o.VanCrashPreview&&(o.MapFolder!=null||o.IntroTime.HasValue||o.RecordIntro!=null||o.Duck||o.Advance>0))throw new ArgumentException("Van crash preview requires street mode without intro or gameplay capture options.");
-        if(o.CrashTime>0&&(!o.VanCrashPreview||o.Capture==null))throw new ArgumentException("--crash-time requires --van-crash-preview and --capture.");
-        if(o.CrashFilm!=null&&(!o.VanCrashPreview||o.Capture!=null))throw new ArgumentException("--crash-film requires --van-crash-preview without --capture.");
+        if(o.VanCrashPreview && o.ConeCrashPreview)throw new ArgumentException("Choose one crash preview.");
+        if((o.VanCrashPreview||o.ConeCrashPreview)&&(o.MapFolder!=null||o.IntroTime.HasValue||o.RecordIntro!=null||o.Duck||o.Advance>0))throw new ArgumentException("Crash previews require street mode without intro or gameplay capture options.");
+        if(o.CrashDistance>0 && !(o.ConeCrashPreview||o.VanCrashPreview))throw new ArgumentException("--crash-distance requires a crash preview.");
+        if(o.CrashTime>0&&(!(o.VanCrashPreview||o.ConeCrashPreview)||o.Capture==null))throw new ArgumentException("--crash-time requires a crash preview and --capture.");
+        if(o.CrashFilm!=null&&(!(o.VanCrashPreview||o.ConeCrashPreview)||o.Capture!=null))throw new ArgumentException("--crash-film requires a crash preview without --capture.");
+        if(!o.ConeCrashPreview && o.CrashTime>Gameplay.VanCrashState.Duration)throw new ArgumentException("Van crash timestamp exceeds duration.");
         return o;
     }
     private const float ConeIntroDuration=Animation.ConeIntroController.Duration;

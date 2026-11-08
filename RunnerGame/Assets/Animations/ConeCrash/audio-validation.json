@@ -1,0 +1,14 @@
+{
+  "revision": "flight-air-v2",
+  "durationSeconds": 17,
+  "rate": 44100,
+  "channels": 1,
+  "bits": 16,
+  "mix": {
+    "peakDbFS": -8.69,
+    "clippedSamples": 0,
+    "samples": 749700
+  },
+  "preservation": "Exact reconstruction of the original non-flight stems; original WAV reproduced byte-for-byte before flight replacement.",
+  "wavSha256": "bfcddbc6ffd368797b211915fa86e57da2cbde59e569caeec5a829084185a99e"
+}

@@ -162,3 +162,11 @@ No photo pixels copied; used as historical architecture reference.
 
 Architectural fact sources (not geometry/images): https://www.hofmann-naturstein.com/de/referenz/kroepcke-center/ (six storeys, Trosselfels beige limestone); https://www.zwp.de/de/projekte/einkaufszentren/kroepcke-center-hannover/ (redevelopment2009?2013).
 Procedural atlas and additional geometry original project work. Official source footprint geometry remains CC BY4.0 derivative.
+
+### Aerial street backdrop (7 November 2026)
+
+Code-native closed building volumes, roof details, paving and surrounding street
+blocks reuse the existing project ShopfrontKit meshes/atlas and StreetKit atlas.
+No new external model, photo or texture is introduced. Canonical generation source:
+RunnerGame/Rendering/StreetCityGeometry.cs; source/provenance notes:
+RunnerGame/Art/assets/street_city/. Original shared asset attribution remains above.

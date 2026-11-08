@@ -17,6 +17,8 @@ live in [Art/ANIMATION_IDEAS.md](../../Art/ANIMATION_IDEAS.md).
 
 The terminal street-mode van collision is [VanCrash: The street gives up](VanCrash/animation.md).
 
+The terminal street-mode cone collision is [ConeCrash: Special delivery](ConeCrash/animation.md).
+
 Future openings should share a defined transition into gameplay, so changing
 the opening does not require changing normal running gameplay. ConeHat now
 implements start, pause, skip, reset and a single gameplay handoff. Selection

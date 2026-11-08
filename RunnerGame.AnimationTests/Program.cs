@@ -7,6 +7,12 @@ static ConeIntroController Controller() => new(new[] { new IntroCue("a", .5f, "s
 try
 {
 RunnerGame.RunnerOptions.Parse(new[]{"--van-crash-preview","--crash-contact","Side","--capture","preview.bmp","--crash-time","2.8","--mute"});
+RunnerGame.RunnerOptions.Parse(new[]{"--cone-crash-preview","--capture","preview.bmp","--crash-time","16.5"});
+Reject(()=>RunnerGame.RunnerOptions.Parse(new[]{"--cone-crash-preview","--van-crash-preview"}));
+Reject(()=>RunnerGame.RunnerOptions.Parse(new[]{"--cone-crash-preview","--map","x"}));
+Reject(()=>RunnerGame.RunnerOptions.Parse(new[]{"--van-crash-preview","--capture","preview.bmp","--crash-time","12"}));
+RunnerGame.RunnerOptions.Parse(new[]{"--cone-crash-preview","--crash-distance","250"});
+Reject(()=>RunnerGame.RunnerOptions.Parse(new[]{"--crash-distance","250"}));
 var c = Controller();
 c.Advance(2); Check(c.Phase == IntroPhase.Ready && c.Time == 0, "Ready must not advance");
 c.HandleInput(Key(true)); c.Advance(1); c.HandleInput(Key(true));
@@ -82,5 +88,6 @@ using(var realClip=VertexClip.Open(Path.Combine(introAssets,"rider.vclip")))
 }
 Console.WriteLine("PASS real cone scene tracks, handoff endpoint and exported clip readback");
 VanCrashChecks.Run();
+ConeCrashChecks.Run();
 }
 catch(Exception error) { Console.Error.WriteLine(error); Environment.ExitCode=1; }

@@ -24,7 +24,7 @@ Click the game window and press **Enter** or **Space** to start. The initial vie
 | R | Reset to the ready state |
 | Window close button / Alt+F4 | Close |
 
-Collect tokens for ten points each. Jump or change lanes around low hazards; duck or change lanes around the overhead barrier; change lanes around cars and vans. A van contact immediately ends the run with the collapsing-road animation. For other hazards, the first hit slows the world and brings the officer behind you. A second hit within ten seconds ends the run; ten clean seconds clear pursuit. Losing focus pauses automatically, with explicit resume required. Window title shows state, points, distance, coins, effective speed and FPS.
+Collect tokens for ten points each. Jump or change lanes around low hazards; duck or change lanes around the overhead barrier; change lanes around cars and vans. A van contact immediately ends the run with the collapsing-road animation. A street-mode cone contact triggers the seventeen-second airborne ticket ending. For other hazards, the first hit slows the world and brings the officer behind you. A second hit within ten seconds ends the run; ten clean seconds clear pursuit. Losing focus pauses automatically, with explicit resume required. Window title shows state, points, distance, coins, effective speed and FPS.
 
 ## Road opening animation
 
@@ -56,8 +56,8 @@ any van contact ends the run with an eleven-second collapsing-road and
 officer-ticket gag. The rider looks down, regains the scooter grip, and falls
 with it as one unit. The officer then brakes at the hole, peers down and drops
 a ticket into it. The late stone cube and its tick have been removed.
-Other hazards currently keep the stumble/pursuit rules; their selected one-hit
-ending is subsequent work. `R` resets; Esc/focus loss pause motion and sound.
+Cones now have their own airborne ticket ending. The remaining hazards keep the
+stumble/pursuit rules; their selected one-hit endings are subsequent work. `R` resets; Esc/focus loss pause motion and sound.
 
 From the repository root:
 
@@ -87,6 +87,41 @@ use actual movement/jump/duck and the normal collision path. Film export writes
 the authored sound at the same scene origin. It does not record device loopback.
 [Review notes](Assets/Animations/VanCrash/review.md) separate transport tests,
 renderer checks and subjective acceptance.
+
+## Cone collision: Special delivery
+
+The street-mode [cone ending](Assets/Animations/ConeCrash/animation.md) is implemented.
+On the first accepted cone contact the front wheel catches its base, the scooter
+flips and throws the rider skyward. The camera follows that launch, then moves
+to the officer running up and jumping after the already rising rider. One passing
+slap sticks a ticket to the upper back. The officer falls away while the camera
+follows the rider's continuous flight to a twinkle. There is no mid-air hold or
+street-return cut; the scene ends at seventeen seconds.
+Jumping cleanly above a cone avoids the scene. Pedestrian maps keep two-hit cones.
+
+```powershell
+dotnet run --project RunnerGame -- --cone-crash-preview
+```
+
+Esc / focus loss pauses scene and audio; Enter / Esc resumes; R resets. The preview
+uses real swept contacts and bypasses the opening. R returns to ordinary seeded
+Ready gameplay; rerun the command to repeat the isolated collision.
+
+After building, use the installed executable or the .NET 10 host:
+
+```powershell
+.\RunnerGame\bin\Debug\net10.0\RunnerGame.exe --cone-crash-preview --capture docs/art/previews/cone-ticket.bmp --crash-time 7.3 --mute
+.\RunnerGame\bin\Debug\net10.0\RunnerGame.exe --cone-crash-preview --crash-contact Side --capture docs/art/previews/cone-ticket-side.bmp --crash-time 7.3 --mute
+.\RunnerGame\bin\Debug\net10.0\RunnerGame.exe --cone-crash-preview --crash-film docs/art/previews/cone-film --mute
+```
+
+`--crash-contact` accepts Rear, Side, Duck and Air. Air is an early low jump that
+still contacts the cone; a sufficiently high jump clears it. `--crash-time`
+accepts 0-17 seconds for this scene. Film capture writes 511 frames at 30 fps,
+including the terminal frame; mux with `Assets/Animations/ConeCrash/crash.wav`.
+`--crash-distance metres` stages either crash preview at a later street district
+without altering normal gameplay. The current local review video is `docs/art/previews/cone-crash-v12.mp4`; current
+keyframes and limits are listed in [review.md](Assets/Animations/ConeCrash/review.md).
 
 ## Verification
 
@@ -161,3 +196,15 @@ dotnet run --project RunnerGame -- --map RunnerGame/Assets/Maps/HannoverPublicRe
 This opens near Kröpcke for architectural inspection. While ready/paused: **PageUp/PageDown** moves100m along the route; **right mouse drag** orbits; **mouse wheel** zooms. **Tab** shows the entire area. **Enter** returns to normal riding; **R** restarts. Capture a particular location with `--inspect metres --capture output.bmp`.
 
 V2 contains full public-space paving, contextual ground, revised promenade openings and a718.405m route. Forty-one trees and two first-pass architectural facades are included. Much of the city is still grey massing. It has project-owned daylight shadows; the original street rendering defaults remain unchanged. The revised lower floors/walls and route are checked independently. Attribution and unverified details are recorded in the professor-facing note, not presented as a finished realistic city.
+
+### Aerial street environment
+
+The procedural street now has closed building depth, roofs, parapets and roof
+fixtures behind its existing shopfronts. A batched district adds complete nearby
+blocks and paving outside the Rathaus and clock plazas. Broad ground and the
+extended cinematic road prevent the street appearing as a floating strip.
+Fog follows the active sky color, including the blue cone-flight sky, so distant
+landmarks fade into the background instead of becoming gray silhouettes.
+All geometry reuses the existing shared shopfront and street atlases. The accepted
+actor motion and approved audio are retained. Geometry is code-authored in
+Rendering/StreetCityGeometry.cs; source notes are in Art/assets/street_city/.

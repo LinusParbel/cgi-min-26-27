@@ -23,12 +23,14 @@ public sealed class SceneRenderer : IRunnerScene
     private readonly string _assetsRoot;
     private ConeIntroRenderer? _intro;
     private readonly VanCrashRenderer _vanCrash;
+    private ConeCrashRenderer? _coneCrash;
     private bool _crashDrawing;
+    private Vector3 _skyColor=new(.55f,.62f,.70f);
     private MapShadowPass? _shadows;
     private readonly List<IntroDraw> _frameDraws = [];
     public string ShadowDiagnostics => _shadows?.Diagnostics ?? "Road shadows not prepared";
-    public int MeshCount => _meshes.Count + (_intro?.MeshCount ?? 0) + _vanCrash.MeshCount;
-    public int TextureCount => _textures.Count + (_intro?.TextureCount ?? 0) + _vanCrash.TextureCount;
+    public int MeshCount => _meshes.Count + (_intro?.MeshCount ?? 0) + _vanCrash.MeshCount + (_coneCrash?.MeshCount ?? 0);
+    public int TextureCount => _textures.Count + (_intro?.TextureCount ?? 0) + _vanCrash.TextureCount + (_coneCrash?.TextureCount ?? 0);
     public int DrawCount { get; private set; }
 
     /// <param name="assetsRoot">The installed Assets directory containing Models.</param>
@@ -58,6 +60,23 @@ public sealed class SceneRenderer : IRunnerScene
             Manifest("shop", "Gebaeude/ShopfrontKit/AR_Shopfront_parts.json", "shop_ground");
             Manifest("sandstone", "Gebaeude/ShopfrontKit/AR_Shopfront_parts.json", "sandstone_upper");
             Manifest("brick", "Gebaeude/ShopfrontKit/AR_Shopfront_parts.json", "brick_upper");
+            void Geometry(string key,Engine.Geometry.MeshData data,string texture)
+            {
+                var mesh=new Mesh(data);_meshes.Add("generated:"+key,mesh);
+                string path=ModelManifest.Resolve(root,texture);
+                if(!_textures.TryGetValue(path,out var surface)) {
+                    var atlas=Texture.FromFile(path);surface=(atlas,new RunnerLitMaterial(atlas));_textures.Add(path,surface);
+                }
+                _models.Add(key,[new Part(key,mesh,surface.Material,Vector3.Zero)]);
+            }
+            var shopData=ObjLoader.Load(ModelManifest.Resolve(root,"Gebaeude/ShopfrontKit/AR_Shopfront_shop_ground.obj"));
+            var sandstoneData=ObjLoader.Load(ModelManifest.Resolve(root,"Gebaeude/ShopfrontKit/AR_Shopfront_sandstone_upper.obj"));
+            var brickData=ObjLoader.Load(ModelManifest.Resolve(root,"Gebaeude/ShopfrontKit/AR_Shopfront_brick_upper.obj"));
+            Geometry("sandstoneBuilding",StreetCityGeometry.CreateStreetBuilding(shopData,sandstoneData),"Gebaeude/ShopfrontKit/AR_Shopfront.png");
+            Geometry("brickBuilding",StreetCityGeometry.CreateStreetBuilding(shopData,brickData),"Gebaeude/ShopfrontKit/AR_Shopfront.png");
+            Geometry("neighbourhood",StreetCityGeometry.CreateNeighbourhood(shopData,sandstoneData,brickData),"Gebaeude/ShopfrontKit/AR_Shopfront.png");
+            Geometry("neighbourhoodPaving",StreetCityGeometry.CreateNeighbourhoodPaving(),"Umgebung/StreetKit/ST_Street.png");
+            Geometry("cityGround",StreetCityGeometry.CreateGround(),"Umgebung/StreetKit/ST_Street.png");
             Manifest("scooter", "Fahrzeug/ScooterVoi/VEH_ScooterVoi_parts.json");
             Manifest("ride", "Charakter/ScooterRider/CHR_ScooterRider_ride_parts.json");
             Manifest("duck", "Charakter/ScooterRider/CHR_ScooterRider_duck_parts.json");
@@ -107,9 +126,7 @@ public sealed class SceneRenderer : IRunnerScene
     private void SquareFacade(Vector3 position, float yaw, bool brick = false, float width = 6)
     {
         var dimensions = new Vector3(width / 6, 1, 1);
-        Draw("shop", position, yaw, dimensions: dimensions);
-        Draw(brick ? "brick" : "sandstone", position + new Vector3(0, 3.2f, 0), yaw,
-            dimensions: dimensions);
+        Draw(brick?"brickBuilding":"sandstoneBuilding",position,yaw,dimensions:dimensions);
     }
 
     private void Draw(string key, Vector3 position, float yaw = 0, float wheelAngle = 0, float scale = 1,
@@ -137,11 +154,15 @@ public sealed class SceneRenderer : IRunnerScene
     {
         ObjectDisposedException.ThrowIf(_disposed, this);
         DrawCount = 0;
+        float sky = state.ConeCrash is {} skyScene ? ConeCrashMotion.Smooth((skyScene.Time-1.4f)/2) : 0;
+        _skyColor=new(.55f-.25f*sky,.62f+.04f*sky,.70f+.20f*sky);
+        GL.ClearColor(_skyColor.X,_skyColor.Y,_skyColor.Z,1);
         _frameDraws.Clear();
         _crashDrawing=intro==null && state.VanCrash!=null;
         ConeIntroSample? introSample = intro?.Scene.Sample(intro.Time);
         var stageOffset = intro?.Scene.StageOffset("street") ?? Vector3.Zero;
         if (introSample != null) _camera.LookAt(introSample.CameraPosition + stageOffset, introSample.CameraTarget + stageOffset);
+        else if(state.ConeCrash is {} coneCrash) { _coneCrash ??= new(_assetsRoot); _coneCrash.SetCamera(coneCrash,_camera); }
         else if(state.VanCrash is {} crash)_vanCrash.SetCamera(crash,_camera);
         else _camera.LookAt(new(0, 2.8f, 5.5f), new(0, 1, -10));
         float distance = (float)state.Distance;
@@ -154,27 +175,32 @@ public sealed class SceneRenderer : IRunnerScene
         if (clockZ > 70) clockZ -= 420;
         float rathausZ = districtOffset - 6;
         if (rathausZ > 115) rathausZ -= 420;
-        for (int i = intro != null ? -2 : 0; i < 10; i++)
+        Draw("cityGround",Vector3.Zero);
+        for(int district=-1;district<=1;district++) {
+            var offset=new Vector3(0,0,districtOffset-district*420);
+            if(offset.Z<_camera.Position.Z-160 || offset.Z-420>_camera.Position.Z+160)continue;
+            Draw("neighbourhoodPaving",offset);Draw("neighbourhood",offset);
+        }
+        bool aerial=state.ConeCrash!=null;
+        for (int i = aerial ? -5 : intro != null ? -2 : 0; i < (aerial?25:10); i++)
         {
             float z = 20 - i * 20 + streetOffset;
-            if (z <= (intro != null ? 60 : 20)) Draw("street", new Vector3(0, 0, z));
+            if (z <= (aerial?120:intro != null ? 60 : 20)) Draw("street", new Vector3(0, 0, z));
         }
         // A facade bay is exactly six metres wide. Rotate it onto each pavement edge.
-        int firstBay = (int)MathF.Floor((distance - (intro != null ? 60 : 0)) / 6);
-        for (int i = 0; i < (intro != null ? 35 : 25); i++)
+        int firstBay = (int)MathF.Floor((distance - (_camera.Position.Z+150)) / 6);
+        for (int i = 0; i < 53; i++)
         {
             int bay = firstBay + i;
             float z = distance - bay * 6;
-            if (z > (intro != null ? 60 : 5) || z < -140) continue;
+            if(Math.Abs(z-_camera.Position.Z)>155)continue;
             foreach (int side in new[] { -1, 1 })
             {
                 // Open the shopfront rows around both landmark squares.
                 if ((side == 1 && MathF.Abs(z - clockZ) < 18) ||
                     (side == -1 && MathF.Abs(z - rathausZ) < 48)) continue;
                 float yaw = -side * MathF.PI / 2;
-                Draw("shop", new Vector3(side * 6.15f, .16f, z), yaw);
-                Draw((bay + (side == 1 ? 1 : 0)) % 3 == 0 ? "brick" : "sandstone",
-                    new Vector3(side * 6.15f, 3.36f, z), yaw);
+                SquareFacade(new Vector3(side*6.15f,.16f,z),yaw,(bay+(side==1?1:0))%3!=0);
             }
         }
         int firstProp = (int)MathF.Floor((distance - (intro != null ? 60 : 0)) / 24);
@@ -252,6 +278,13 @@ public sealed class SceneRenderer : IRunnerScene
             bool coin = item.Kind == ObjectKind.Coin;
             Draw(item.Kind.ToString(), new Vector3(item.X, coin ? 1.0f : 0, item.Z), coin ? time * 2.7f : 0);
         }
+        if(state.ConeCrash is {} activeConeCrash)
+        {
+            _coneCrash ??= new(_assetsRoot);
+            foreach(var draw in _coneCrash.Build(activeConeCrash,(key,matrix)=>DrawTransform(key,matrix)))
+            { _frameDraws.Add(draw);DrawCount++; }
+            Flush();return;
+        }
         var player = new Vector3(state.PlayerX, state.PlayerY, 0);
         if(state.VanCrash is {} activeCrash)
         {
@@ -293,6 +326,7 @@ public sealed class SceneRenderer : IRunnerScene
         _shadows.Render(_renderer, _camera, focus, _frameDraws.Select(d => (d.Mesh, d.Transform)));
         foreach (var material in _frameDraws.Select(d => d.Material).Distinct())
         {
+            material.FogColor=_skyColor;
             material.ShadowsEnabled = true;
             material.ShadowTexture = _shadows.DepthTexture;
             material.LightSpace = _shadows.LightSpace;
@@ -318,6 +352,7 @@ public sealed class SceneRenderer : IRunnerScene
     {
         if (_disposed) return;
         _disposed = true;
+        _coneCrash?.Dispose();
         _vanCrash.Dispose();
         _intro?.Dispose();
         _shadows?.Dispose();

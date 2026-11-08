@@ -23,3 +23,14 @@ Check(float.IsNaN(audio.PlaybackTime),"Completion left audio playing");
 using var muted=new VanCrashAudio(path,true);run.PrepareVanCrashPreview();while(run.VanCrash==null)run.Step(.02f);muted.Update(run);
 Check(float.IsNaN(muted.PlaybackTime),"Mute opened the audio device");
 Console.WriteLine("PASS native scene audio: seek, pause, resume, restart, completion and mute");
+
+using var coneAudio=new VanCrashAudio(Path.Combine("RunnerGame","Assets","Animations","ConeCrash","crash.wav"),false,1,ConeCrashState.Duration);
+run.PrepareConeCrashPreview();while(run.ConeCrash==null)run.Step(.02f);coneAudio.UpdateCone(run);
+Check(float.IsFinite(coneAudio.PlaybackTime),"Cone audio device did not start");
+run.Step(8.4f);coneAudio.UpdateCone(run);Check(Math.Abs(coneAudio.PlaybackTime-8.4f)<.075f,"Cone ticket seek failed");
+run.TogglePause();coneAudio.UpdateCone(run);Thread.Sleep(80);float conePaused=coneAudio.PlaybackTime;Thread.Sleep(100);
+Check(Math.Abs(coneAudio.PlaybackTime-conePaused)<.025f,"Cone pause advanced");
+run.TogglePause();coneAudio.UpdateCone(run);Thread.Sleep(100);Check(coneAudio.PlaybackTime>conePaused+.04f,"Cone resume failed");
+run.Step(9);coneAudio.UpdateCone(run);Check(float.IsNaN(coneAudio.PlaybackTime),"Cone completion left audio playing");
+run.Restart();coneAudio.UpdateCone(run);Check(float.IsNaN(coneAudio.PlaybackTime),"Cone reset left audio playing");
+Console.WriteLine("PASS native cone audio: 17-second mix, late ticket seek, pause, resume, completion and reset");

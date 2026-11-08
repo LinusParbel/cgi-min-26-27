@@ -28,6 +28,20 @@ try
     Reject(() => ModelManifest.EnginePivot(huge.RootElement), "Nonfinite pivot accepted.");
     File.WriteAllText(manifest, """{"texture":"texture.png","parts":[{"name":"bad","obj":"../mesh.obj","pivot":[0,0,0]}]}""");
     Reject(() => ModelManifest.Read(manifest), "Manifest traversal accepted.");
+    var core=StreetCityGeometry.CreateFacadeCore();
+    Check(core.Vertices.Min(v=>v.Position.Z)<-8 && core.Vertices.Max(v=>v.Position.Y)>6.4f,"Street facade has no depth or roof volume.");
+    Check(core.Vertices.Any(v=>v.Normal.Y>.99f && Math.Abs(v.Position.Y-6.4f)<.001f),"Street facade has no closed top.");
+    var ground=StreetCityGeometry.CreateGround();
+    for(int i=0;i<ground.Indices.Length;i+=3) {
+        var x=ground.Indices.Skip(i).Take(3).Select(index=>ground.Vertices[index].Position.X).ToArray();
+        Check(x.Max()<=-3.75f || x.Min()>=3.75f,"City terrain caps the van road opening.");
+    }
+    Check(StreetCityGeometry.Buildings().Count>100,"Surrounding district is empty.");
+    foreach(var building in StreetCityGeometry.Buildings()) {
+        bool left=building.Centre.X<0 && StreetCityGeometry.WrappedDistance(building.Centre.Z,-6)<58+building.Size.Z*.5f;
+        bool right=building.Centre.X>0 && building.Centre.X-building.Size.X*.5f<28 && StreetCityGeometry.WrappedDistance(building.Centre.Z,18)<25+building.Size.Z*.5f;
+        Check(!left&&!right,"Backdrop building overlaps a protected landmark plaza.");
+    }
     Console.WriteLine($"PASS {passed} manifest contracts (no graphics context).");
 }
 finally

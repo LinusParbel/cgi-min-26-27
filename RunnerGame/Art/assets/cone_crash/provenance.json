@@ -1,0 +1,114 @@
+{
+  "scene": "cone_crash",
+  "date": "2026-11-07",
+  "method": "Existing character skeletons and exact installed atlas topology; new connected actions and evaluated hand/back tracks. Shared distance-driven officer run. C# integrated flight/camera staging, lower single interception with push-off, full-mesh scooter ground support. Original ticket artwork and synchronized synthesized foley.",
+  "sourceReferences": [
+    "RunnerGame/Art/assets/van_crash/van_crash.blend",
+    "RunnerGame/Art/assets/van_crash/officer_ticket.blend",
+    "RunnerGame/Art/assets/scooter_rider/provenance.json",
+    "RunnerGame/Art/assets/ordnungsamt_pursuer_v2/",
+    "RunnerGame/CREDITS.md"
+  ],
+  "licence": "Existing character source licences/attributions continue to apply; newly authored ticket, white texture and foley are CC0-1.0.",
+  "files": {
+    "RunnerGame/Art/assets/cone_crash/rider.blend": {
+      "bytes": 1287212,
+      "sha256": "2238b7467871d1e28c85c001ad91cd4b1f47fccb49f0c0696d0d0bd3f6bbe687"
+    },
+    "RunnerGame/Art/assets/cone_crash/officer.blend": {
+      "bytes": 3490850,
+      "sha256": "e39f6501126a26cb589c862789ec8b0ac93d70380c732ffe47595c77f33d7077"
+    },
+    "RunnerGame/Art/assets/cone_crash/README.md": {
+      "bytes": 4460,
+      "sha256": "f3b50792c829bfdcec57abc0dc73f545bac5194130d753c182fb732094f688e4"
+    },
+    "RunnerGame/Animation/ConeCrashMotion.cs": {
+      "bytes": 9419,
+      "sha256": "0d7dcaa76cceaed8f1abb123ec688a194d27000d27ba2b5b60d77c5eb738267e"
+    },
+    "RunnerGame/Rendering/ConeCrashRenderer.cs": {
+      "bytes": 7692,
+      "sha256": "af50a9452eb385e4a7749072b684a00f3a0d0fc0933dd85d04b78a416c4ef22b"
+    },
+    "RunnerGame/Assets/Animations/ConeCrash/animation.md": {
+      "bytes": 7509,
+      "sha256": "5b97b6bd7204d285c4076c9aa53653dd395f30660a3e7339a3ac4c424ef6fc5c"
+    },
+    "RunnerGame/Assets/Animations/ConeCrash/audio-cues.json": {
+      "bytes": 2305,
+      "sha256": "37b4c5b8066279b8b979726fcc0c6cd348d58db996a95024e3d415fd58c9ad6e"
+    },
+    "RunnerGame/Assets/Animations/ConeCrash/audio-sources.md": {
+      "bytes": 1725,
+      "sha256": "3680b25960048e72db8c6416894b915414dc5cbe301b9d2205260d540d7e0430"
+    },
+    "RunnerGame/Assets/Animations/ConeCrash/audio-validation.json": {
+      "bytes": 429,
+      "sha256": "bc5eee24d30f49640e40e3f83c891a3b52664f0f7fc9948372b17b6f4bc23f82"
+    },
+    "RunnerGame/Assets/Animations/ConeCrash/crash.wav": {
+      "bytes": 1499444,
+      "sha256": "bfcddbc6ffd368797b211915fa86e57da2cbde59e569caeec5a829084185a99e"
+    },
+    "RunnerGame/Assets/Animations/ConeCrash/officer-contact.json": {
+      "bytes": 12007,
+      "sha256": "763ca6a8cf78f1e9af20214fa47397c1c596726bdf056fca058dcdac408fe19a"
+    },
+    "RunnerGame/Assets/Animations/ConeCrash/officer.vclip": {
+      "bytes": 101684047,
+      "sha256": "9f47d66cd16323ffad16dabfddea8602fcd5fd62fecff13a88f880b7ec76c2e1"
+    },
+    "RunnerGame/Assets/Animations/ConeCrash/review.md": {
+      "bytes": 12586,
+      "sha256": "0675a52765a727caa0e3dbb5dc97f1b2a548af5237295f6129a9c7442438c55f"
+    },
+    "RunnerGame/Assets/Animations/ConeCrash/rider-contact.json": {
+      "bytes": 24642,
+      "sha256": "17ec55bf0ecaa29ea755c7f1ade7aedf887a6aa11aa6c5810f2e84dcd52176bf"
+    },
+    "RunnerGame/Assets/Animations/ConeCrash/rider.vclip": {
+      "bytes": 44169342,
+      "sha256": "a0c277539cece5200ae2ce3e76d4d429ccf02e6776940193109047a02d2743bb"
+    },
+    "RunnerGame/Assets/Animations/ConeCrash/storyboard.svg": {
+      "bytes": 4504,
+      "sha256": "d05d9718592feccdea4ea6cdd7139b9804c2b5a42cf4f3ed87d1da39a18acd41"
+    },
+    "RunnerGame/Assets/Animations/ConeCrash/ticket.png": {
+      "bytes": 982,
+      "sha256": "87480a00ece30097f2c65a240e05da6fd2fc3af57116c81fedfcd4794b3b13c5"
+    },
+    "RunnerGame/Assets/Animations/ConeCrash/validation.json": {
+      "bytes": 868,
+      "sha256": "892d15e8b2dabab2b275c289bd9586bd82d27b9e69a79692b47d56e2b3ce8115"
+    },
+    "RunnerGame/Assets/Animations/ConeCrash/white.png": {
+      "bytes": 73,
+      "sha256": "754bd46db60f1fb760979699303a14db27388de21111941aaecb03d08a1c3e33"
+    },
+    "RunnerGame/Rendering/StreetCityGeometry.cs": {
+      "bytes": 5312,
+      "sha256": "3d437dc8154007d6223dc149972c023dd80c29a5bd758cfcae5b53edbe68b76a"
+    },
+    "RunnerGame/Rendering/SceneRenderer.cs": {
+      "bytes": 20252,
+      "sha256": "de02b506ed2a6f70f1854b20265ce76d8d8fb9dbe2b5f5586bc9061d4ce5f0aa"
+    },
+    "RunnerGame/Materials/RunnerLit/RunnerLitMaterial.cs": {
+      "bytes": 1712,
+      "sha256": "12b06ead8cf2f3b05f3c033b4d2cc0301c09a6aaa3ec38c3dda1a35436aec695"
+    },
+    "RunnerGame/Art/assets/street_city/README.md": {
+      "bytes": 2305,
+      "sha256": "487be9361cb1e4e28d3cd86336cbe08e30db5cda9f803ec8c0683c866280770d"
+    },
+    "RunnerGame/Art/assets/street_city/provenance.json": {
+      "bytes": 2385,
+      "sha256": "e81e71913f17d67f031d9182d67abfe65ae0431ea9d1d599ad7eec53b52025a9"
+    }
+  },
+  "revision": "v12: accepted motion/audio with aerial city and fog revision",
+  "acceptance": "Actor motion and soft-air flight sound approved 2026-11-07. City revision awaiting final user visual review.",
+  "legacyAudioSha256": "ac2ad81d112228ba6a0abc8c0636007a941284d6bfa5551a09cef425d7f5ded9"
+}

@@ -53,6 +53,7 @@ internal sealed class RunnerGameWindow(string? capturePath, bool duckCapture, fl
     private OpeningSequence? _opening;
     private int _recordFrame;
     private VanCrashAudio? _crashAudio;
+    private VanCrashAudio? _coneAudio;
     private int _filmFrame;
 
     protected override void Initialize()
@@ -62,7 +63,7 @@ internal sealed class RunnerGameWindow(string? capturePath, bool duckCapture, fl
         string assets = Path.Combine(AppContext.BaseDirectory, "Assets");
         _scene = mapFolder == null ? new SceneRenderer(assets)
             : new PedestrianMapRenderer(assets, mapFolder) { Overview = overview, InspectionDistance = inspectionDistance };
-        if (mapFolder == null && !options.VanCrashPreview)
+        if (mapFolder == null && !options.VanCrashPreview && !options.ConeCrashPreview)
         {
         _introScene = ConeIntroScene.Load(Path.Combine(assets, "Animations/ConeHat"));
         if (capturePath == null || options.IntroTime.HasValue) _scene.PrepareIntro(_introScene);
@@ -72,9 +73,21 @@ internal sealed class RunnerGameWindow(string? capturePath, bool duckCapture, fl
         }
         if(mapFolder==null)
             _crashAudio=new VanCrashAudio(Path.Combine(assets,"Animations","VanCrash","crash.wav"),options.Mute || capturePath!=null || options.CrashFilm!=null,options.Volume);
+        if(mapFolder==null)
+            _coneAudio=new VanCrashAudio(Path.Combine(assets,"Animations","ConeCrash","crash.wav"),options.Mute || capturePath!=null || options.CrashFilm!=null,options.Volume,ConeCrashState.Duration);
+        if(options.ConeCrashPreview)
+        {
+            _run.PrepareConeCrashPreview(options.CrashContact,options.CrashDistance);
+            if(capturePath!=null || options.CrashFilm!=null)
+            {
+                for(int i=0;i<300 && _run.ConeCrash==null;i++)_run.Step(.02f);
+                if(_run.ConeCrash==null)throw new InvalidOperationException("Preview failed to collide with cone");
+                if(options.CrashTime>0)_run.Step(options.CrashTime);
+            }
+        }
         if(options.VanCrashPreview)
         {
-            _run.PrepareVanCrashPreview(options.CrashContact);
+            _run.PrepareVanCrashPreview(options.CrashContact,options.CrashDistance);
             if(capturePath!=null || options.CrashFilm!=null)
             {
                 for(int i=0;i<300 && _run.VanCrash==null;i++)_run.Step(.02f);
@@ -116,8 +129,9 @@ internal sealed class RunnerGameWindow(string? capturePath, bool duckCapture, fl
         _opening?.Advance(0, IsFocused);
         // Live crash playback uses real frame time below, matching native audio
         // even when the engine discards fixed-step catch-up time after a stall.
-        _controls.Step(_run.Phase == RunPhase.VanCrash ? 0 : dt, IsFocused);
+        _controls.Step(_run.Phase is RunPhase.VanCrash or RunPhase.ConeCrash ? 0 : dt, IsFocused);
         _crashAudio?.Update(_run);
+        _coneAudio?.UpdateCone(_run);
         if (_scene is PedestrianMapRenderer map && _run.Phase == RunPhase.Running && _run.Distance >= map.RouteLength - 2)
         {
             _run.TogglePause(); _mapComplete = true; UpdateTitle();
@@ -142,6 +156,7 @@ internal sealed class RunnerGameWindow(string? capturePath, bool duckCapture, fl
             {
                 _mapComplete = false; _controls.Update(new InputFrame(true, Restart: true));
                 _crashAudio?.Update(_run);
+                _coneAudio?.UpdateCone(_run);
                 if (_scene is PedestrianMapRenderer resetMap) resetMap.InspectionDistance = null;
             }
             if (_scene is PedestrianMapRenderer introMap && _opening != null && _opening.Controller.Phase != IntroPhase.Ready)
@@ -188,9 +203,10 @@ internal sealed class RunnerGameWindow(string? capturePath, bool duckCapture, fl
             Jump: jump,
             Duck: keys.IsKeyPressed(Keys.S) || keys.IsKeyPressed(Keys.Down),
             Start: start, Pause: keys.IsKeyPressed(Keys.Escape), Restart: restart));
-        if(_run.Phase==RunPhase.VanCrash && IsFocused)_run.Step(dt);
+        if((_run.Phase is RunPhase.VanCrash or RunPhase.ConeCrash) && IsFocused)_run.Step(dt);
         _opening?.Advance(0,IsFocused);
         _crashAudio?.Update(_run);
+        _coneAudio?.UpdateCone(_run);
         if (dt > 0 && dt < .5f) _fps += (1 / dt - _fps) * .05f;
         _titleTimer += dt;
         if (_titleTimer >= .15f) { _titleTimer = 0; UpdateTitle(); }
@@ -202,7 +218,8 @@ internal sealed class RunnerGameWindow(string? capturePath, bool duckCapture, fl
         {
             RunPhase.Ready => "READY - Enter / Space to start",
             RunPhase.Paused => "PAUSED - Enter / Esc to resume",
-            RunPhase.Caught => _run.VanCrash!=null ? "THE STREET GAVE UP! R to restart" : "CAUGHT! R to restart",
+            RunPhase.Caught => _run.ConeCrash!=null ? "SPECIAL DELIVERY! R to restart" : _run.VanCrash!=null ? "THE STREET GAVE UP! R to restart" : "CAUGHT! R to restart",
+            RunPhase.ConeCrash => "SPECIAL DELIVERY... Esc pause / R restart",
             RunPhase.VanCrash => "THE STREET IS GIVING UP... Esc pause / R restart",
             _ => _run.PursuitRemaining > 0 ? "PURSUIT - avoid another hit!" : "RUNNING"
         };
@@ -226,7 +243,7 @@ internal sealed class RunnerGameWindow(string? capturePath, bool duckCapture, fl
         if(options.CrashFilm!=null)
         {
             CaptureBitmap(Path.Combine(options.CrashFilm,$"frame-{_filmFrame:0000}.bmp"));
-            if(++_filmFrame>=(int)(VanCrashState.Duration*30)+1){Console.WriteLine($"Captured {_filmFrame} crash frames at 30fps to {options.CrashFilm}");Close();}
+            if(++_filmFrame>=(int)((options.ConeCrashPreview?ConeCrashState.Duration:VanCrashState.Duration)*30)+1){Console.WriteLine($"Captured {_filmFrame} crash frames at 30fps to {options.CrashFilm}");Close();}
             else _run.Step(1f/30);
             return;
         }
@@ -266,5 +283,5 @@ internal sealed class RunnerGameWindow(string? capturePath, bool duckCapture, fl
         writer.Write(pixels);
     }
 
-    protected override void Shutdown() { _crashAudio?.Dispose(); _opening?.Dispose(); _scene?.Dispose(); }
+    protected override void Shutdown() { _coneAudio?.Dispose(); _crashAudio?.Dispose(); _opening?.Dispose(); _scene?.Dispose(); }
 }

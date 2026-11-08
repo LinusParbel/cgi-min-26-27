@@ -1,0 +1,30 @@
+[
+  {
+    "actor": "rider",
+    "vertices": 21807,
+    "frames": 205,
+    "maxJointGapM": 2.669762502188819e-07,
+    "weightTransferMeanM": 0.0001953937873967812,
+    "weightTransferMaxM": 0.0004949235008098185,
+    "clipSha256": "a0c277539cece5200ae2ce3e76d4d429ccf02e6776940193109047a02d2743bb",
+    "backVertex": 17978
+  },
+  {
+    "actor": "officer",
+    "vertices": 66454,
+    "frames": 205,
+    "maxJointGapM": 2.5561029908669655e-07,
+    "weightTransferMeanM": 0.01704146820029848,
+    "weightTransferMaxM": 0.08577793091535568,
+    "clipSha256": "9f47d66cd16323ffad16dabfddea8602fcd5fd62fecff13a88f880b7ec76c2e1",
+    "backVertex": null,
+    "hipSkinBindingRepairVertices": [
+      38268,
+      38269,
+      38335,
+      38392
+    ],
+    "storageFormat": "VCL2 lossless identical-frame aliases",
+    "uniqueStoredFrames": 162
+  }
+]

@@ -3,6 +3,20 @@ using RunnerGame.Input;
 
 var tests = new (string, Action)[]
 {
+    ("cone cinematic pauses on focus loss, clears input and resets at every beat", () => {
+        foreach(float t in new[]{0f,1.4f,3.4f,7.9f,8f,10.5f,12f,14.5f,16.9f}) {
+            var run=new RunSimulation();var controls=new RunnerControls(run);run.PrepareConeCrashPreview();
+            while(run.ConeCrash==null)controls.Step(.02f,true);
+            controls.Step(t,true);float time=run.ConeCrash.Time,distance=run.Distance;
+            controls.Update(new(true,Right:true,Jump:true));controls.Step(.1f,false);
+            Check(run.Phase==RunPhase.Paused);Near(run.ConeCrash.Time,time);Near(run.Distance,distance);
+            controls.Step(.1f,true);Check(run.Phase==RunPhase.Paused);
+            controls.Update(new(true,Start:true));Check(run.Phase==RunPhase.ConeCrash);
+            controls.Step(.01f,true);Near(run.PlayerX,0);Near(run.Distance,distance);
+            controls.Update(new(true,Restart:true));controls.Step(.02f,true);
+            Check(run.Phase==RunPhase.Ready&&run.ConeCrash==null&&run.ElapsedTime==0);
+        }
+    }),
     ("van crash freezes world, pauses on focus loss, resumes without movement, resets", () => {
         var run = new RunSimulation(); var controls = new RunnerControls(run);
         run.PrepareVanCrashPreview();

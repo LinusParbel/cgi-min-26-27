@@ -1,0 +1,52 @@
+{
+  "id": "street_city",
+  "date": "2026-11-07",
+  "method": "Code-native closed volumes and batched four-sided buildings derived from unchanged project facade meshes and existing atlases. Canonical source is runtime C#; no external download or Blender dependency.",
+  "licence": "Original shared asset attribution and licences remain in RunnerGame/CREDITS.md.",
+  "files": {
+    "RunnerGame/Rendering/StreetCityGeometry.cs": {
+      "bytes": 5312,
+      "sha256": "3d437dc8154007d6223dc149972c023dd80c29a5bd758cfcae5b53edbe68b76a"
+    },
+    "RunnerGame/Rendering/SceneRenderer.cs": {
+      "bytes": 20252,
+      "sha256": "de02b506ed2a6f70f1854b20265ce76d8d8fb9dbe2b5f5586bc9061d4ce5f0aa"
+    },
+    "RunnerGame/Materials/RunnerLit/RunnerLitMaterial.cs": {
+      "bytes": 1712,
+      "sha256": "12b06ead8cf2f3b05f3c033b4d2cc0301c09a6aaa3ec38c3dda1a35436aec695"
+    },
+    "RunnerGame/Art/assets/street_city/README.md": {
+      "bytes": 2305,
+      "sha256": "487be9361cb1e4e28d3cd86336cbe08e30db5cda9f803ec8c0683c866280770d"
+    },
+    "RunnerGame/CREDITS.md": {
+      "bytes": 23606,
+      "sha256": "abb3a987798dec93f10b5ed7792943453376e40270583b32362030273aba1f43"
+    },
+    "RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront.png": {
+      "bytes": 4139845,
+      "sha256": "375e28058dcef97d350fc94113e7b6f09e1e4534b5ff4d313243261d44ff7c98"
+    },
+    "RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_brick_upper.obj": {
+      "bytes": 54875,
+      "sha256": "13413c3792e0454c2c956437e808933ed0d9626a23460a3ae328d3b07e402cc0"
+    },
+    "RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_parts.json": {
+      "bytes": 523,
+      "sha256": "2f502f1612fe1993e28167e7d2b5ba68b47e60f7dea3cafd95bf66006cb60b4b"
+    },
+    "RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_sandstone_upper.obj": {
+      "bytes": 54879,
+      "sha256": "126d8f20dd0445a85f2614bf4c26e17871ab7a03c09daa3e29eb9bb9eb4a422a"
+    },
+    "RunnerGame/Assets/Models/Gebaeude/ShopfrontKit/AR_Shopfront_shop_ground.obj": {
+      "bytes": 54871,
+      "sha256": "5d5bc9a01190bdc92102f174eef01c01c019de04b2539a1ce1b68dad384fa843"
+    },
+    "RunnerGame/Assets/Models/Umgebung/StreetKit/ST_Street.png": {
+      "bytes": 3211290,
+      "sha256": "aaae560ab0aede75cbe11039346837e044155b21d620c4ab6caf52a32e7d400c"
+    }
+  }
+}

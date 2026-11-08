@@ -8,6 +8,7 @@ namespace RunnerGame.Materials.RunnerLit;
 public sealed class RunnerLitMaterial(Texture texture) : Material
 {
     public float Opacity { get; set; } = 1f;
+    public Vector3 FogColor { get; set; } = new(.55f, .62f, .70f);
     public float FogStart { get; set; } = 45;
     public float FogEnd { get; set; } = 135;
     public bool ShadowsEnabled { get; set; }
@@ -20,7 +21,7 @@ public sealed class RunnerLitMaterial(Texture texture) : Material
     protected override void ApplyUniforms(ShaderProgram shader)
     {
         shader.SetTexture("uTexture", texture, 0);
-        shader.SetVector3("uFogColor", new Vector3(.55f, .62f, .70f));
+        shader.SetVector3("uFogColor", FogColor);
         shader.SetFloat("uFogStart", FogStart);
         shader.SetFloat("uFogEnd", FogEnd);
         shader.SetFloat("uOpacity", Opacity);

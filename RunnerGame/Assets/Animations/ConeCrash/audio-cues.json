@@ -1,0 +1,134 @@
+[
+  {
+    "id": "cone-clack",
+    "time": 0.35,
+    "duration": 0.22,
+    "kind": "impact"
+  },
+  {
+    "id": "scooter-rattle",
+    "time": 0.55,
+    "duration": 0.38,
+    "kind": "impact"
+  },
+  {
+    "id": "launch-air",
+    "time": 1.1,
+    "duration": 1.25,
+    "kind": "filtered-air-sweep"
+  },
+  {
+    "id": "run-step-00",
+    "time": 2.182,
+    "duration": 0.075,
+    "kind": "impact"
+  },
+  {
+    "id": "run-step-01",
+    "time": 2.366,
+    "duration": 0.075,
+    "kind": "impact"
+  },
+  {
+    "id": "run-step-02",
+    "time": 2.521,
+    "duration": 0.075,
+    "kind": "impact"
+  },
+  {
+    "id": "scooter-settle",
+    "time": 2.62,
+    "duration": 0.3,
+    "kind": "impact"
+  },
+  {
+    "id": "run-step-03",
+    "time": 2.676,
+    "duration": 0.075,
+    "kind": "impact"
+  },
+  {
+    "id": "run-step-04",
+    "time": 2.83,
+    "duration": 0.075,
+    "kind": "impact"
+  },
+  {
+    "id": "run-step-05",
+    "time": 2.985,
+    "duration": 0.075,
+    "kind": "impact"
+  },
+  {
+    "id": "run-step-06",
+    "time": 3.139,
+    "duration": 0.075,
+    "kind": "impact"
+  },
+  {
+    "id": "run-step-07",
+    "time": 3.294,
+    "duration": 0.075,
+    "kind": "impact"
+  },
+  {
+    "id": "run-step-08",
+    "time": 3.448,
+    "duration": 0.075,
+    "kind": "impact"
+  },
+  {
+    "id": "run-step-09",
+    "time": 3.603,
+    "duration": 0.075,
+    "kind": "impact"
+  },
+  {
+    "id": "run-step-10",
+    "time": 3.757,
+    "duration": 0.075,
+    "kind": "impact"
+  },
+  {
+    "id": "run-step-11",
+    "time": 3.916,
+    "duration": 0.075,
+    "kind": "impact"
+  },
+  {
+    "id": "officer-jump-air",
+    "time": 4.1,
+    "duration": 0.8,
+    "kind": "filtered-air-sweep"
+  },
+  {
+    "id": "flight-air-bed",
+    "time": 4.1,
+    "duration": 12.0,
+    "kind": "quiet-filtered-air"
+  },
+  {
+    "id": "ticket-press",
+    "time": 7.3,
+    "duration": 0.12,
+    "kind": "slap"
+  },
+  {
+    "id": "officer-fall-air",
+    "time": 8.4,
+    "duration": 0.85,
+    "kind": "soft-falling-air"
+  },
+  {
+    "id": "departure-air",
+    "time": 10,
+    "duration": 5.9,
+    "kind": "distant-air-fade"
+  },
+  {
+    "id": "twinkle",
+    "time": 16.2,
+    "duration": 0.6,
+    "kind": "bell"
+  }
+]

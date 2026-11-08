@@ -20,9 +20,32 @@ static class Checks
     }
     public static int Main()
     {
+        Test("first street cone hit launches once and freezes the run",()=>{
+            var s=Empty();Add(s,ObjectKind.Cone,-.9f);s.Step(.02f);
+            Assert(s.Phase==RunPhase.ConeCrash && s.ConeCrash!=null,"cone did not launch");
+            var scene=s.ConeCrash;float distance=s.Distance;int score=s.Score;var world=Objects(s).Select(o=>o.Z).ToArray();
+            s.Move(1);s.Jump();s.Duck();s.Step(9);
+            Assert(ReferenceEquals(scene,s.ConeCrash)&&s.Distance==distance&&s.Score==score&&world.SequenceEqual(Objects(s).Select(o=>o.Z)),"cinematic mutated world");
+            s.Step(100);Assert(s.Phase==RunPhase.Caught&&scene!.Time==17,"cone ending did not finish");
+            s.Restart();Assert(s.ConeCrash==null&&s.Phase==RunPhase.Ready,"cone ending not reset");
+        });
+        Test("street cone remains terminal during immunity; pedestrian cone still stumbles",()=>{
+            var s=Empty();Set(s,"InvulnerabilityRemaining",1);Add(s,ObjectKind.Cone,-.9f);s.Step(.02f);Assert(s.Phase==RunPhase.ConeCrash,"immunity bypassed cone");
+            var p=Pedestrian();p.Start();Objects(p).Clear();Add(p,ObjectKind.Cone,-.9f);p.Step(.02f);Assert(p.Phase==RunPhase.Running&&p.PursuitRemaining>0&&p.ConeCrash==null,"map cone changed");
+        });
+        Test("cone preview preserves real side duck and low-air contacts",()=>{
+            foreach(var contact in Enum.GetValues<VanCrashPreviewContact>()) {
+                var s=new RunSimulation();s.PrepareConeCrashPreview(contact);
+                for(int i=0;i<300&&s.ConeCrash==null;i++)s.Step(.02f);
+                Assert(s.ConeCrash!=null,"cone preview missed "+contact);
+                if(contact==VanCrashPreviewContact.Duck)Assert(s.ConeCrash!.WasDucking,"duck state lost");
+                if(contact==VanCrashPreviewContact.Air)Assert(s.ConeCrash!.PlayerY>0,"air state lost");
+            }
+        });
+        Test("jumping above cone avoids launch",()=>{var s=Empty();s.Jump();Advance(s,.3f);Add(s,ObjectKind.Cone,-.9f);s.Step(.02f);Assert(s.Phase==RunPhase.Running&&s.ConeCrash==null,"clear jump launched");});
         Test("first van collision is immediately terminal",()=>{var s=Empty();Add(s,ObjectKind.Van,-3.5f);s.Step(.02f);Assert(s.Phase.ToString()=="VanCrash","van only stumbled");});
         Test("side hit rebounds behind van before the street opens",()=>{var s=Empty();Add(s,ObjectKind.Van,-.1f);s.Step(.02f);Assert(s.VanCrash!=null && s.VanCrash.OpeningFrontZ>s.VanCrash.VanZ+2.7f,"hole intersects the van footprint");});
-        Test("van remains terminal during obstacle immunity",()=>{var s=Empty();Add(s,ObjectKind.Cone,-.9f);s.Step(.02f);Objects(s).Clear();Add(s,ObjectKind.Van,-3.5f);s.Step(.02f);Assert(s.Phase.ToString()=="VanCrash","immunity bypassed van");});
+        Test("van remains terminal during obstacle immunity",()=>{var s=Empty();Add(s,ObjectKind.Bin,-.9f);s.Step(.02f);Objects(s).Clear();Add(s,ObjectKind.Van,-3.5f);s.Step(.02f);Assert(s.Phase.ToString()=="VanCrash","immunity bypassed van");});
         Test("preview contacts preserve side, duck and airborne states",()=>{
             foreach(var contact in new[]{VanCrashPreviewContact.Side,VanCrashPreviewContact.Duck,VanCrashPreviewContact.Air}) {
                 var s=new RunSimulation();s.PrepareVanCrashPreview(contact);for(int i=0;i<300&&s.VanCrash==null;i++)s.Step(.02f);
@@ -36,13 +59,13 @@ static class Checks
         Test("lane motion interpolates and clamps",()=>{var s=Empty();s.Move(1);s.Step(.02f);Assert(s.PlayerX>0&&s.PlayerX<2.5f,"teleported");Advance(s,.2f);Assert(MathF.Abs(s.PlayerX-2.5f)<.001f,"missed lane");s.Move(1);Advance(s,.2f);Assert(s.PlayerX==2.5f,"escaped lanes");});
         Test("jump has physical apex and lands",()=>{var s=Empty();s.Jump();Advance(s,.34f);Assert(s.PlayerY>1.39f&&s.PlayerY<=1.401f,"wrong apex");Advance(s,.38f);Assert(s.PlayerY==0,"did not land");});
         Test("duck expires and fast falls",()=>{var s=Empty();s.Jump();Advance(s,.2f);s.Duck();Advance(s,.2f);Assert(s.PlayerY==0&&s.IsDucking,"no fastfall");Advance(s,.62f);Assert(!s.IsDucking,"duck never expires");});
-        Test("swept collision at speed cap",()=>{var s=Empty();Set(s,"Speed",30);Add(s,ObjectKind.Cone,-1.1f);s.Step(.1f);Assert(s.PursuitRemaining>0,"tunnelled");});
+        Test("swept collision at speed cap",()=>{var s=Empty();Set(s,"Speed",30);Add(s,ObjectKind.Bin,-1.1f);s.Step(.1f);Assert(s.PursuitRemaining>0,"tunnelled");});
         Test("switch uses actual position",()=>{var s=Empty();Add(s,ObjectKind.Car,-2.5f);s.Move(1);s.Step(.02f);Assert(s.PursuitRemaining>0,"target lane bypassed car");});
         Test("jump clears bin only at sufficient height",()=>{var s=Empty();s.Jump();Advance(s,.3f);Add(s,ObjectKind.Bin,-.9f);s.Step(.02f);Assert(s.PursuitRemaining==0,"apex hit bin");var low=Empty();low.Jump();Add(low,ObjectKind.Bin,-.9f);low.Step(.02f);Assert(low.PursuitRemaining>0,"early jump magically cleared bin");});
         Test("duck fits barrier but hair standing hits",()=>{var s=Empty();s.Duck();Add(s,ObjectKind.HighBarrier,-.9f);s.Step(.02f);Assert(s.PursuitRemaining==0,"duck hit opening");var standing=Empty();Add(standing,ObjectKind.HighBarrier,-.9f);standing.Step(.02f);Assert(standing.PursuitRemaining>0,"standing cleared barrier");});
         Test("coins collected once for ten points",()=>{var s=Empty();Add(s,ObjectKind.Coin,-.8f);s.Step(.02f);s.Step(.02f);Assert(s.CoinCount==1&&s.Score==(int)s.Distance+10,"coin double count or wrong score");});
-        Test("immunity then second hit catches",()=>{var s=Empty();Add(s,ObjectKind.Cone,-.9f);s.Step(.02f);Add(s,ObjectKind.Cone,-.9f);s.Step(.02f);Assert(s.Phase==RunPhase.Running,"no immunity");Objects(s).Clear();Advance(s,1.1f);Add(s,ObjectKind.Cone,-.9f);s.Step(.02f);Assert(s.Phase==RunPhase.Caught,"second hit not caught");});
-        Test("ten clean seconds recovers",()=>{var s=Empty();Add(s,ObjectKind.Cone,-.9f);s.Step(.02f);Objects(s).Clear();for(int i=0;i<510;i++){s.Step(.02f);Objects(s).Clear();}Assert(s.PursuitRemaining==0,"pursuit did not recover");Add(s,ObjectKind.Cone,-.9f);s.Step(.02f);Assert(s.Phase==RunPhase.Running&&s.PursuitRemaining>0,"recovered hit caught");});
+        Test("immunity then second hit catches",()=>{var s=Empty();Add(s,ObjectKind.Bin,-.9f);s.Step(.02f);Add(s,ObjectKind.Bin,-.9f);s.Step(.02f);Assert(s.Phase==RunPhase.Running,"no immunity");Objects(s).Clear();Advance(s,1.1f);Add(s,ObjectKind.Bin,-.9f);s.Step(.02f);Assert(s.Phase==RunPhase.Caught,"second hit not caught");});
+        Test("ten clean seconds recovers",()=>{var s=Empty();Add(s,ObjectKind.Bin,-.9f);s.Step(.02f);Objects(s).Clear();for(int i=0;i<510;i++){s.Step(.02f);Objects(s).Clear();}Assert(s.PursuitRemaining==0,"pursuit did not recover");Add(s,ObjectKind.Bin,-.9f);s.Step(.02f);Assert(s.Phase==RunPhase.Running&&s.PursuitRemaining>0,"recovered hit caught");});
         Test("pause freezes all time",()=>{var s=Empty();s.Jump();s.TogglePause();s.Step(1);Assert(s.Distance==0&&s.PlayerY==0&&s.ElapsedTime==0,"paused mutation");s.TogglePause();s.Step(.02f);Assert(s.Distance>0,"resume broken");});
         Test("restart restores seeded ready world",()=>{var s=new RunSimulation(42);var before=string.Join(';',s.WorldObjects.Select(o=>$"{o.Id}:{o.Kind}:{o.X}:{o.Z}"));s.Start();Advance(s,2);s.Restart();Assert(s.Phase==RunPhase.Ready&&s.Distance==0&&before==string.Join(';',s.WorldObjects.Select(o=>$"{o.Id}:{o.Kind}:{o.X}:{o.Z}")),"restart mismatch");});
         Test("generated route changes lanes and rejects stationary camping",()=>
@@ -86,7 +109,7 @@ static class Checks
         });
         Test("effective speed reflects impact then recovers",()=>
         {
-            var s=Empty();Set(s,"Speed",30);Add(s,ObjectKind.Cone,-.9f);s.Step(.02f);
+            var s=Empty();Set(s,"Speed",30);Add(s,ObjectKind.Bin,-.9f);s.Step(.02f);
             var property=typeof(RunSimulation).GetProperty("EffectiveSpeed");
             Assert(property!=null,"effective speed missing");
             Assert(MathF.Abs((float)property!.GetValue(s)!-16.5f)<.01f,"impact speed not reflected");
@@ -101,14 +124,14 @@ static class Checks
             Assert(a.Distance==b.Distance&&a.Phase==b.Phase&&a.Score==b.Score,"grouped ticks differ");
             Assert(a.WorldObjects.Zip(b.WorldObjects).All(p=>p.First.Id==p.Second.Id&&p.First.Z==p.Second.Z&&p.First.Kind==p.Second.Kind),"seeded traffic differs");
         });
-        Test("high speed crossing into occupied lane hits",()=>{var s=Empty();Set(s,"Speed",30);s.Move(1);Add(s,ObjectKind.Cone,-2.5f,1.2f);s.Step(.1f);Assert(s.PursuitRemaining>0,"lateral crossing missed");});
+        Test("high speed crossing into occupied lane hits",()=>{var s=Empty();Set(s,"Speed",30);s.Move(1);Add(s,ObjectKind.Bin,-2.5f,1.2f);s.Step(.1f);Assert(s.PursuitRemaining>0,"lateral crossing missed");});
         Test("hit obstacle remains visible until recycled",()=>{var s=Empty();Add(s,ObjectKind.Car,-.9f);s.Step(.02f);Assert(s.PursuitRemaining>0&&Objects(s).Single().Active,"hit obstacle hidden");});
         Test("same contact cannot hit twice after immunity but distinct contact catches",()=>
         {
             var s=Empty();Set(s,"Speed",.1f);Add(s,ObjectKind.Car,-.9f);s.Step(.02f);
             Advance(s,1.1f);
             Assert(s.Phase==RunPhase.Running&&s.InvulnerabilityRemaining==0,"same obstacle hit twice");
-            Add(s,ObjectKind.Cone,-.9f);s.Step(.02f);
+            Add(s,ObjectKind.Bin,-.9f);s.Step(.02f);
             Assert(s.Phase==RunPhase.Caught,"distinct obstacle ignored");
         });
         Test("pedestrian rows replace traffic while preserving classic seeded layout",()=>

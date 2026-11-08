@@ -24,3 +24,6 @@ assets/bike_commuter/pybullet/
 assets/bike_commuter/assemble_pybullet.py
 assets/hannover_pedestrian_blockout/checkpoint-tight-bend/
 assets/*/source/mpfb-user/config/
+
+!assets/cone_crash/rider.blend
+!assets/cone_crash/officer.blend

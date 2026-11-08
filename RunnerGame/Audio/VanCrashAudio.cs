@@ -12,7 +12,7 @@ internal sealed class VanCrashAudio : IDisposable
     readonly float volume;
     IntPtr device,header;
     GCHandle pinned;
-    VanCrashState? active;
+    object? active;
     bool paused,unavailable;
     float bufferStart;
     [StructLayout(LayoutKind.Explicit,Size=12)]
@@ -40,7 +40,7 @@ internal sealed class VanCrashAudio : IDisposable
             return waveOutGetPosition(device,ref position,12)==0 && position.Type==2 ? bufferStart+position.Samples/(float)rate : float.NaN;
         }
     }
-    public VanCrashAudio(string path,bool muted,float volume=1)
+    public VanCrashAudio(string path,bool muted,float volume=1,float duration=VanCrashState.Duration)
     {
         if(!float.IsFinite(volume)||volume<0||volume>1)throw new ArgumentOutOfRangeException(nameof(volume));
         this.muted=muted||volume==0;this.volume=volume;
@@ -55,18 +55,26 @@ internal sealed class VanCrashAudio : IDisposable
             if(id=="data")data=r.ReadBytes(size);
             r.BaseStream.Position=next;
         }
-        if(!valid||data==null||data.Length!=(int)(rate*2*VanCrashState.Duration))throw new InvalidDataException("Scene PCM mix duration must match van-crash playback");
+        if(!valid||data==null||data.Length!=(int)(rate*2*duration))throw new InvalidDataException("Scene PCM mix duration must match scene playback");
         pcm=data;
     }
     public void Update(RunSimulation run)
     {
         var scene=run.VanCrash;
+        UpdateScene(scene,scene?.Time ?? 0,scene?.Complete ?? true,run.Phase==RunPhase.VanCrash);
+    }
+    public void UpdateCone(RunSimulation run)
+    {
+        var scene=run.ConeCrash;
+        UpdateScene(scene,scene?.Time ?? 0,scene?.Complete ?? true,run.Phase==RunPhase.ConeCrash);
+    }
+    void UpdateScene(object? scene,float time,bool complete,bool playing)
+    {
         if(!ReferenceEquals(scene,active)) {Stop();active=scene;}
-        if(scene==null||scene.Complete) {Stop();return;}
-        bool playing=run.Phase==RunPhase.VanCrash;
+        if(scene==null||complete) {Stop();return;}
         if(muted||unavailable||!OperatingSystem.IsWindows())return;
-        if(device!=IntPtr.Zero && playing && !paused && Math.Abs(PlaybackTime-scene.Time)>.075f)Stop();
-        if(device==IntPtr.Zero && playing)Start(scene.Time);
+        if(device!=IntPtr.Zero && playing && !paused && Math.Abs(PlaybackTime-time)>.075f)Stop();
+        if(device==IntPtr.Zero && playing)Start(time);
         if(device!=IntPtr.Zero && paused==playing) {
             if(playing)waveOutRestart(device);else waveOutPause(device);
             paused=!playing;

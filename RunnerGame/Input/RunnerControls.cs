@@ -49,7 +49,7 @@ public sealed class RunnerControls(RunSimulation run)
 
     void LoseFocus()
     {
-        if (run.Phase is RunPhase.Running or RunPhase.VanCrash) run.TogglePause();
+        if (run.Phase is RunPhase.Running or RunPhase.VanCrash or RunPhase.ConeCrash) run.TogglePause();
         Clear();
     }
 
