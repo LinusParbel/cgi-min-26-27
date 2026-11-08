@@ -57,6 +57,7 @@ public sealed class PedestrianMapRenderer : IRunnerScene
         set => inspectionZoom = float.IsFinite(value) ? Math.Clamp(value, 3, 80) : throw new ArgumentOutOfRangeException(nameof(value));
     }
     public bool EnableShadows { get; set; } = true;
+    public bool EnableCulling { get; set; } = true;
     public float? InspectionDistance
     {
         get => inspectionDistance;
@@ -162,7 +163,12 @@ public sealed class PedestrianMapRenderer : IRunnerScene
         return new(part.Name, mesh, surface.Material, part.Pivot);
     }
 
-    public void Resize(int width, int height) => renderer.Resize(width, height);
+    private float aspect = 1;
+    public void Resize(int width, int height)
+    {
+        if(width>0 && height>0)aspect=(float)width/height;
+        renderer.Resize(width,height);
+    }
     public void PrepareIntro(ConeIntroScene scene) => introRenderer ??= new ConeIntroRenderer(assetsRoot, scene);
 
     private void Draw(string key, Vector3 position, float yaw = 0, float wheelAngle = 0, float scale = 1)
@@ -285,6 +291,7 @@ public sealed class PedestrianMapRenderer : IRunnerScene
         if (!Overview && EnableShadows)
         {
             var focus = route.Sample(distance + 24);
+            shadows!.EnableCulling=EnableCulling;
             shadows!.Render(renderer, camera, Position(focus), frameDraws.Select(d => (d.Part.Mesh, d.Transform)));
         }
         foreach (var material in frameDraws.Select(d => d.Part.Material).Distinct())
@@ -295,8 +302,10 @@ public sealed class PedestrianMapRenderer : IRunnerScene
             material.SunDirection = MapShadowPass.SunDirection;
         }
         renderer.Clear();
+        var visibility=new Engine.Geometry.ViewFrustum(camera.ViewMatrix*camera.GetProjectionMatrix(aspect));
         foreach (var draw in frameDraws)
         {
+            if(EnableCulling && !visibility.Intersects(draw.Part.Mesh.LocalBounds.Transform(draw.Transform)))continue;
             renderer.Draw(draw.Part.Mesh, draw.Part.Material, draw.Transform, camera);
             DrawCount++;
         }

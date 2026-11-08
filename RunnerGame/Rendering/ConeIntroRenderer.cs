@@ -88,8 +88,7 @@ public sealed class ConeIntroRenderer : IDisposable
     public IntroDraw Pursuer(float elapsed,float distance,float playerX,bool close)
     {
         SampleOfficer(35+((28+elapsed*3.37f)/1.7f%1)*40,0,0);
-        float gap=close?2:14+Math.Max(0,distance-elapsed*3.37f);
-        return new(officerMesh,officerMaterial,Matrix4.CreateRotationY(MathF.PI)*Matrix4.CreateTranslation(playerX+.75f,0,gap));
+        return new(officerMesh,officerMaterial,PursuerVisibility.Transform(elapsed,distance,playerX,close));
     }
     public void Dispose()
     {clip.Dispose();officerClip.Dispose();rider.Dispose();officerMesh.Dispose();foreach(var p in parts.Values)p.Mesh.Dispose();foreach(var t in textures.Values)t.Dispose();parts.Clear();textures.Clear();}

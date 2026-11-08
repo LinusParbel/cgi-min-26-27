@@ -1,24 +1,24 @@
 {
   "id": "street_city",
-  "date": "2026-11-07",
-  "method": "Code-native closed volumes and batched four-sided buildings derived from unchanged project facade meshes and existing atlases. Canonical source is runtime C#; no external download or Blender dependency.",
+  "date": "2026-11-08",
+  "method": "Code-native closed volumes and spatially batched four-sided buildings derived from unchanged project facade meshes and existing atlases. Conservative camera/light visibility; canonical sources are runtime C#. No external download or Blender dependency.",
   "licence": "Original shared asset attribution and licences remain in RunnerGame/CREDITS.md.",
   "files": {
     "RunnerGame/Rendering/StreetCityGeometry.cs": {
-      "bytes": 5312,
-      "sha256": "3d437dc8154007d6223dc149972c023dd80c29a5bd758cfcae5b53edbe68b76a"
+      "bytes": 5825,
+      "sha256": "39b99e49819242176ad20be7df7084aa4251a1e41d9ba73ec74ee18c29c3f5f1"
     },
     "RunnerGame/Rendering/SceneRenderer.cs": {
-      "bytes": 20252,
-      "sha256": "de02b506ed2a6f70f1854b20265ce76d8d8fb9dbe2b5f5586bc9061d4ce5f0aa"
+      "bytes": 22159,
+      "sha256": "7b25902bceca385ac9f73b0b78fbf33e7ccfef9eb8a5e12a18abde4935b3e193"
     },
     "RunnerGame/Materials/RunnerLit/RunnerLitMaterial.cs": {
       "bytes": 1712,
       "sha256": "12b06ead8cf2f3b05f3c033b4d2cc0301c09a6aaa3ec38c3dda1a35436aec695"
     },
     "RunnerGame/Art/assets/street_city/README.md": {
-      "bytes": 2305,
-      "sha256": "487be9361cb1e4e28d3cd86336cbe08e30db5cda9f803ec8c0683c866280770d"
+      "bytes": 2863,
+      "sha256": "bf3a9883d48b1e0e78ab3e888c0aa79d2ad4097c1fa380932d3a0b9ac086d06c"
     },
     "RunnerGame/CREDITS.md": {
       "bytes": 23606,
@@ -47,6 +47,18 @@
     "RunnerGame/Assets/Models/Umgebung/StreetKit/ST_Street.png": {
       "bytes": 3211290,
       "sha256": "aaae560ab0aede75cbe11039346837e044155b21d620c4ab6caf52a32e7d400c"
+    },
+    "Engine/Geometry/Bounds3.cs": {
+      "bytes": 1291,
+      "sha256": "7cc6aea8ff17e45d8b7a552900dbcac107ee78f497b529055a61033c72aababd"
+    },
+    "Engine/Geometry/ViewFrustum.cs": {
+      "bytes": 1120,
+      "sha256": "cf8c5282a17bd6605fbe4229bce2dbb1a3b408c745187341ab34f074d3029b1e"
+    },
+    "RunnerGame/Rendering/PursuerVisibility.cs": {
+      "bytes": 1378,
+      "sha256": "cc121cbb53f484d262974f1e7bb96e5dd27b591e4d65ec95647ad5bb53f6bff3"
     }
   }
 }

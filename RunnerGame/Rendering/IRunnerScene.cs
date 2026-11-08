@@ -5,6 +5,7 @@ namespace RunnerGame.Rendering;
 
 public interface IRunnerScene : IDisposable
 {
+    bool EnableCulling { get; set; }
     void Resize(int width, int height);
     void PrepareIntro(ConeIntroScene scene);
     void Render(RunSimulation state, IntroRenderState? intro = null);

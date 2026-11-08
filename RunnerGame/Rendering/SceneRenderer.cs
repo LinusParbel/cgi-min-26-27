@@ -1,4 +1,5 @@
 using Engine;
+using Engine.Geometry;
 using Engine.Geometry.Loaders;
 using Engine.OpenGL;
 using OpenTK.Graphics.OpenGL4;
@@ -28,6 +29,14 @@ public sealed class SceneRenderer : IRunnerScene
     private Vector3 _skyColor=new(.55f,.62f,.70f);
     private MapShadowPass? _shadows;
     private readonly List<IntroDraw> _frameDraws = [];
+    private readonly List<string> _cityChunks = [];
+    private ViewFrustum _view, _lightView;
+    private float _aspect = 1;
+    public bool EnableCulling { get; set; } = true;
+    public int PursuerSamples { get; private set; }
+    public int PursuerSkipped { get; private set; }
+    public long ColourTriangles { get; private set; }
+    public long ShadowTriangles => _shadows?.TriangleCount ?? 0;
     public string ShadowDiagnostics => _shadows?.Diagnostics ?? "Road shadows not prepared";
     public int MeshCount => _meshes.Count + (_intro?.MeshCount ?? 0) + _vanCrash.MeshCount + (_coneCrash?.MeshCount ?? 0);
     public int TextureCount => _textures.Count + (_intro?.TextureCount ?? 0) + _vanCrash.TextureCount + (_coneCrash?.TextureCount ?? 0);
@@ -74,7 +83,10 @@ public sealed class SceneRenderer : IRunnerScene
             var brickData=ObjLoader.Load(ModelManifest.Resolve(root,"Gebaeude/ShopfrontKit/AR_Shopfront_brick_upper.obj"));
             Geometry("sandstoneBuilding",StreetCityGeometry.CreateStreetBuilding(shopData,sandstoneData),"Gebaeude/ShopfrontKit/AR_Shopfront.png");
             Geometry("brickBuilding",StreetCityGeometry.CreateStreetBuilding(shopData,brickData),"Gebaeude/ShopfrontKit/AR_Shopfront.png");
-            Geometry("neighbourhood",StreetCityGeometry.CreateNeighbourhood(shopData,sandstoneData,brickData),"Gebaeude/ShopfrontKit/AR_Shopfront.png");
+            foreach(var chunk in StreetCityGeometry.CreateNeighbourhoodChunks(shopData,sandstoneData,brickData)) {
+                string key="neighbourhood:"+_cityChunks.Count;
+                Geometry(key,chunk,"Gebaeude/ShopfrontKit/AR_Shopfront.png");_cityChunks.Add(key);
+            }
             Geometry("neighbourhoodPaving",StreetCityGeometry.CreateNeighbourhoodPaving(),"Umgebung/StreetKit/ST_Street.png");
             Geometry("cityGround",StreetCityGeometry.CreateGround(),"Umgebung/StreetKit/ST_Street.png");
             Manifest("scooter", "Fahrzeug/ScooterVoi/VEH_ScooterVoi_parts.json");
@@ -120,7 +132,11 @@ public sealed class SceneRenderer : IRunnerScene
         return new Part(name, mesh, surface.Material, pivot);
     }
 
-    public void Resize(int w, int h) => _renderer.Resize(w, h);
+    public void Resize(int w, int h)
+    {
+        if(w>0 && h>0)_aspect=(float)w/h;
+        _renderer.Resize(w,h);
+    }
     public void PrepareIntro(ConeIntroScene scene) => _intro ??= new ConeIntroRenderer(_assetsRoot, scene);
 
     private void SquareFacade(Vector3 position, float yaw, bool brick = false, float width = 6)
@@ -144,6 +160,9 @@ public sealed class SceneRenderer : IRunnerScene
             var rotation = part.Name.StartsWith("wheel", StringComparison.Ordinal)
                 ? Matrix4.CreateRotationX(wheelAngle) : Matrix4.Identity;
             var model=rotation * Matrix4.CreateTranslation(part.Pivot) * transform;
+            var bounds=part.Mesh.LocalBounds.Transform(model);
+            bool needed = _view.Intersects(bounds) || (!immediate && _lightView.Intersects(bounds));
+            if(EnableCulling && !needed)continue;
             if(immediate)_renderer.Draw(part.Mesh,part.Material,model,_camera);
             else _frameDraws.Add(new(part.Mesh,part.Material,model));
             DrawCount++;
@@ -154,6 +173,8 @@ public sealed class SceneRenderer : IRunnerScene
     {
         ObjectDisposedException.ThrowIf(_disposed, this);
         DrawCount = 0;
+        _vanCrash.EnableCulling=EnableCulling;
+        ColourTriangles=0;PursuerSamples=0;PursuerSkipped=0;
         float sky = state.ConeCrash is {} skyScene ? ConeCrashMotion.Smooth((skyScene.Time-1.4f)/2) : 0;
         _skyColor=new(.55f-.25f*sky,.62f+.04f*sky,.70f+.20f*sky);
         GL.ClearColor(_skyColor.X,_skyColor.Y,_skyColor.Z,1);
@@ -165,6 +186,8 @@ public sealed class SceneRenderer : IRunnerScene
         else if(state.ConeCrash is {} coneCrash) { _coneCrash ??= new(_assetsRoot); _coneCrash.SetCamera(coneCrash,_camera); }
         else if(state.VanCrash is {} crash)_vanCrash.SetCamera(crash,_camera);
         else _camera.LookAt(new(0, 2.8f, 5.5f), new(0, 1, -10));
+        _view=new(_camera.ViewMatrix*_camera.GetProjectionMatrix(_aspect));
+        _lightView=new(MapShadowPass.CreateLightSpace(new(0,0,_camera.Target.Z+10)));
         float distance = (float)state.Distance;
         float time = (float)state.ElapsedTime;
         float streetOffset = distance % 20;
@@ -179,7 +202,8 @@ public sealed class SceneRenderer : IRunnerScene
         for(int district=-1;district<=1;district++) {
             var offset=new Vector3(0,0,districtOffset-district*420);
             if(offset.Z<_camera.Position.Z-160 || offset.Z-420>_camera.Position.Z+160)continue;
-            Draw("neighbourhoodPaving",offset);Draw("neighbourhood",offset);
+            Draw("neighbourhoodPaving",offset);
+            foreach(string chunk in _cityChunks)Draw(chunk,offset);
         }
         bool aerial=state.ConeCrash!=null;
         for (int i = aerial ? -5 : intro != null ? -2 : 0; i < (aerial?25:10); i++)
@@ -302,8 +326,13 @@ public sealed class SceneRenderer : IRunnerScene
         {
             if (_intro != null)
             {
-                var draw = _intro.Pursuer(time, distance, state.PlayerX, state.PursuitRemaining > 0 || state.Phase == RunPhase.Caught);
-                _frameDraws.Add(draw); DrawCount++;
+                bool close=state.PursuitRemaining>0 || state.Phase==RunPhase.Caught;
+                var transform=PursuerVisibility.Transform(time,distance,state.PlayerX,close);
+                if(!EnableCulling || PursuerVisibility.IsNeeded(PursuerVisibility.RunBounds.Transform(transform),_view,_lightView)) {
+                    var draw = _intro.Pursuer(time, distance, state.PlayerX, close);
+                    _frameDraws.Add(draw);PursuerSamples++;
+                }
+                else PursuerSkipped++;
             }
             else
             {
@@ -322,6 +351,7 @@ public sealed class SceneRenderer : IRunnerScene
     private void Flush()
     {
         _shadows ??= new MapShadowPass();
+        _shadows.EnableCulling=EnableCulling;
         var focus = new Vector3(0, 0, _camera.Target.Z + 10);
         _shadows.Render(_renderer, _camera, focus, _frameDraws.Select(d => (d.Mesh, d.Transform)));
         foreach (var material in _frameDraws.Select(d => d.Material).Distinct())
@@ -333,16 +363,24 @@ public sealed class SceneRenderer : IRunnerScene
             material.SunDirection = MapShadowPass.SunDirection;
         }
         _renderer.Clear();
-        var opaque=_frameDraws.Where(d=>d.Material.Opacity>=.999f).ToArray();
-        foreach (var draw in opaque) _renderer.Draw(draw.Mesh, draw.Material, draw.Transform, _camera);
-        var transparent=_frameDraws.Where(d=>d.Material.Opacity<.999f)
+        bool Visible(IntroDraw draw)=>!EnableCulling || _view.Intersects(draw.Mesh.LocalBounds.Transform(draw.Transform));
+        DrawCount=0;
+        var opaque=_frameDraws.Where(d=>d.Material.Opacity>=.999f && Visible(d));
+        foreach (var draw in opaque) {
+            _renderer.Draw(draw.Mesh, draw.Material, draw.Transform, _camera);
+            DrawCount++;ColourTriangles+=draw.Mesh.IndexCount/3;
+        }
+        var transparent=_frameDraws.Where(d=>d.Material.Opacity<.999f && Visible(d))
             .OrderByDescending(d=>Vector3.DistanceSquared(d.Transform.ExtractTranslation(),_camera.Position)).ToArray();
         if(transparent.Length>0)
         {
             GL.Enable(EnableCap.Blend);
             GL.BlendFunc(BlendingFactor.SrcAlpha,BlendingFactor.OneMinusSrcAlpha);
             GL.DepthMask(false);
-            foreach(var draw in transparent)_renderer.Draw(draw.Mesh,draw.Material,draw.Transform,_camera);
+            foreach(var draw in transparent) {
+                _renderer.Draw(draw.Mesh,draw.Material,draw.Transform,_camera);
+                DrawCount++;ColourTriangles+=draw.Mesh.IndexCount/3;
+            }
             GL.DepthMask(true);
             GL.Disable(EnableCap.Blend);
         }

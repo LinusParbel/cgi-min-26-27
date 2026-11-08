@@ -200,3 +200,16 @@ and installed SHA256 are BFCDDBC6FFD368797B211915FA86E57DA2CBDE59E569CAEEC5A8290
 Build passes with zero warnings/errors. A normal street-mode game was launched
 with sound enabled, without capture, mute or crash-preview flags, for user playtesting.
 Live gameplay feedback remains pending.
+## 2026-11-08 visibility optimization
+
+Camera/light visibility and 48-metre city groups are implemented. The full
+17-second cone sequence was compared with culling enabled/disabled: all 511
+frames at 30 Hz are pixel-identical, including shadows. Real-game matched shots
+cover launch, officer run, ticket, departure and district wrap at 419/421 m.
+The contact sheet was inspected; closed rooftops and the aerial city remain.
+Actor clips, contact/camera timing and audio bytes are unchanged. Cinematic
+animation still samples normally; only its draw submissions are filtered.
+Release ticket-shot synchronized render median improved from 59.54 to 27.62 ms
+in the paired local diagnostic; this is not measured live-game FPS.
+See [visibility specification and validation](../../../../docs/superpowers/specs/2026-11-08-render-visibility.md).
+User normal-speed playtest acceptance of this optimization is pending.

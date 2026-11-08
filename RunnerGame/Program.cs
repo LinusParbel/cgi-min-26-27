@@ -63,6 +63,7 @@ internal sealed class RunnerGameWindow(string? capturePath, bool duckCapture, fl
         string assets = Path.Combine(AppContext.BaseDirectory, "Assets");
         _scene = mapFolder == null ? new SceneRenderer(assets)
             : new PedestrianMapRenderer(assets, mapFolder) { Overview = overview, InspectionDistance = inspectionDistance };
+        _scene.EnableCulling=!options.DisableCulling;
         if (mapFolder == null && !options.VanCrashPreview && !options.ConeCrashPreview)
         {
         _introScene = ConeIntroScene.Load(Path.Combine(assets, "Animations/ConeHat"));

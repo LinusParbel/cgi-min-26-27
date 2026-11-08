@@ -14,6 +14,13 @@ Previous recordings retain their historical motion/audio versions.
 
 [Current storyboard](storyboard.svg) | [Review](review.md) | [Audio sources](audio-sources.md)
 
+Rendering revision 2026-11-08: the full city stays loaded, with spatial building
+groups selected independently for the moving camera and shadow light. Actor
+animation still samples the authored cinematic timeline; draw visibility uses
+current deformed bounds. No change to motion, camera, audio or contact timing.
+See [visibility specification](../../../../docs/superpowers/specs/2026-11-08-render-visibility.md)
+for implementation tasks and validation evidence.
+
 ## Current timed storyboard - continuous pursuit revision
 
 Feedback 2026-11-07: previous cut hovered and felt unnatural. Follow-up: reduce

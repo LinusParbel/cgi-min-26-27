@@ -66,9 +66,16 @@ public static class StreetCityGeometry
         return result;
     }
     public static MeshData CreateNeighbourhood(MeshData shop,MeshData sandstone,MeshData brick)
+        => CreateNeighbourhood(shop,sandstone,brick,Buildings());
+
+    public static IReadOnlyList<MeshData> CreateNeighbourhoodChunks(MeshData shop,MeshData sandstone,MeshData brick)
+        => Buildings().GroupBy(b=>((int)MathF.Floor(b.Centre.X/48),(int)MathF.Floor(b.Centre.Z/48)))
+            .Select(group=>CreateNeighbourhood(shop,sandstone,brick,group)).ToArray();
+
+    static MeshData CreateNeighbourhood(MeshData shop,MeshData sandstone,MeshData brick,IEnumerable<StreetBackdropBuilding> buildings)
     {
         var b=new Builder();var core=CreateFacadeCore();
-        foreach(var building in Buildings()) {
+        foreach(var building in buildings) {
             var scale=building.Size/new Vector3(6,6.4f,8.4f);
             var world=Matrix4.CreateScale(scale)*Matrix4.CreateTranslation(building.Centre+new Vector3(0,0,4*scale.Z));
             void Facade(Matrix4 local) {

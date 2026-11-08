@@ -1,4 +1,5 @@
 using Engine;
+using Engine.Geometry;
 using Engine.OpenGL;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
@@ -16,6 +17,8 @@ public sealed class MapShadowPass : IDisposable
     public Matrix4 LightSpace { get; private set; }
     public string Diagnostics => $"depth {Resolution}x{Resolution}, FBO complete, {DrawCount} shadow draws";
     public int DrawCount { get; private set; }
+    public long TriangleCount { get; private set; }
+    public bool EnableCulling { get; set; } = true;
 
     public MapShadowPass()
     {
@@ -60,6 +63,8 @@ public sealed class MapShadowPass : IDisposable
         int[] viewport = new int[4]; GL.GetInteger(GetPName.Viewport, viewport);
         bool culling = GL.IsEnabled(EnableCap.CullFace);
         DrawCount = 0;
+        TriangleCount = 0;
+        var visibility = new ViewFrustum(LightSpace);
         try
         {
             // Unit one may still reference this texture from the previous colour pass.
@@ -70,7 +75,12 @@ public sealed class MapShadowPass : IDisposable
             GL.Clear(ClearBufferMask.DepthBufferBit);
             // Two-sided casters retain thin facade/foliage geometry.
             GL.Disable(EnableCap.CullFace);
-            foreach (var draw in draws) { renderer.Draw(draw.Mesh, material, draw.Transform, camera); DrawCount++; }
+            foreach (var draw in draws)
+            {
+                if (EnableCulling && !visibility.Intersects(draw.Mesh.LocalBounds.Transform(draw.Transform))) continue;
+                renderer.Draw(draw.Mesh, material, draw.Transform, camera);
+                DrawCount++; TriangleCount += draw.Mesh.IndexCount / 3;
+            }
         }
         finally
         {

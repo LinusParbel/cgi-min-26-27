@@ -3,6 +3,7 @@ using RunnerGame.Rendering;
 using OpenTK.Mathematics;
 
 int passed = 0;
+VisibilityChecks.Run();
 void Check(bool value, string message) { if (!value) throw new Exception(message); passed++; }
 void Reject(Action action, string message)
 {

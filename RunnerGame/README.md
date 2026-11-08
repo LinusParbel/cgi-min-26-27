@@ -208,3 +208,16 @@ landmarks fade into the background instead of becoming gray silhouettes.
 All geometry reuses the existing shared shopfront and street atlases. The accepted
 actor motion and approved audio are retained. Geometry is code-authored in
 Rendering/StreetCityGeometry.cs; source notes are in Art/assets/street_city/.
+## Render visibility diagnostics
+
+Camera and shadow culling are enabled by default in street and map modes.
+Street district buildings use smaller spatial batches. The normal street
+pursuer skips clip decoding and GPU updates when neither the camera nor its
+visible shadow needs the actor; gameplay pursuit continues independently.
+Authored cinematic actors still sample their animation, with current deformed
+bounds used to filter draw submissions.
+
+Use `--no-culling` for an otherwise identical comparison capture or playtest.
+It disables colour, shadow and pursuer visibility rejection, without changing
+the gameplay clock or geometry detail. Compare Release builds on the same
+machine. See [specification and validation](../docs/superpowers/specs/2026-11-08-render-visibility.md).

@@ -32,6 +32,7 @@ internal sealed class VanCrashRenderer : IDisposable
     public int MeshCount => 9;
     public int TextureCount => 5;
     public int DrawCount { get; private set; }
+    public bool EnableCulling { get; set; } = true;
     public VanCrashRenderer(string assets)
     {
         string scene=Path.Combine(assets,"Animations","VanCrash");
@@ -94,7 +95,7 @@ internal sealed class VanCrashRenderer : IDisposable
         });
     }
     void Draw(OpenGlRenderer renderer,Mesh mesh,RunnerLitMaterial material,Matrix4 transform,Camera camera)
-    {renderer.Draw(mesh,material,transform,camera);DrawCount++;}
+    {if(!EnableCulling || renderer.IsVisible(mesh,transform,camera)){renderer.Draw(mesh,material,transform,camera);DrawCount++;}}
     public void SetCamera(VanCrashState state,Camera camera)
     {
         float blend=S(state.Time/.65f);

@@ -12,6 +12,7 @@ public sealed class RunnerOptions
     public float? IntroTime {get;private set;}
     public string? RecordIntro {get;private set;}
     public bool Mute {get;private set;}
+    public bool DisableCulling {get;private set;}
     public float Volume {get;private set;}=1;
     public bool VanCrashPreview {get;private set;}
     public bool ConeCrashPreview {get;private set;}
@@ -38,6 +39,7 @@ public sealed class RunnerOptions
                 case "--intro-time":o.IntroTime=Number(ConeIntroDuration);break;
                 case "--record-intro":o.RecordIntro=Path.GetFullPath(Value());break;
                 case "--mute":o.Mute=true;break;
+                case "--no-culling":o.DisableCulling=true;break;
                 case "--volume":o.Volume=Number(1);break;
                 case "--cone-crash-preview":o.ConeCrashPreview=true;break;
                 case "--van-crash-preview":o.VanCrashPreview=true;break;

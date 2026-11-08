@@ -15,12 +15,14 @@ public sealed class Mesh : IDisposable
 
     internal int VertexArray => _vertexArray;
     public int IndexCount { get; }
+    public Bounds3 LocalBounds { get; private set; }
 
     public Mesh(MeshData data)
     {
         ArgumentNullException.ThrowIfNull(data);
 
         IndexCount = data.Indices.Length;
+        LocalBounds = Bounds3.FromVertices(data.Vertices);
         _vertexCount = data.Vertices.Length;
         _vertexArray = GL.GenVertexArray();
         _vertexBuffer = GL.GenBuffer();
@@ -54,6 +56,7 @@ public sealed class Mesh : IDisposable
         ObjectDisposedException.ThrowIf(_vertexBuffer == 0, this);
         ArgumentNullException.ThrowIfNull(vertices);
         if (vertices.Length != _vertexCount) throw new ArgumentException("Dynamic updates must retain vertex count.", nameof(vertices));
+        LocalBounds = Bounds3.FromVertices(vertices);
         GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBuffer);
         GL.BufferSubData(BufferTarget.ArrayBuffer, IntPtr.Zero, vertices.Length * Marshal.SizeOf<Vertex>(), vertices);
         GL.BindBuffer(BufferTarget.ArrayBuffer, 0);

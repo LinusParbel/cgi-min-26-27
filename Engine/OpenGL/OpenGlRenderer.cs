@@ -1,4 +1,5 @@
 using Engine.Materials;
+using Engine.Geometry;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
@@ -30,6 +31,10 @@ public sealed class OpenGlRenderer : IDisposable
     }
 
     public void Clear() => GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+
+    public bool IsVisible(Mesh mesh, Matrix4 modelMatrix, Camera camera) =>
+        new ViewFrustum(camera.ViewMatrix * camera.GetProjectionMatrix(_aspectRatio))
+            .Intersects(mesh.LocalBounds.Transform(modelMatrix));
 
     public void Draw(Mesh mesh, Material material, Matrix4 modelMatrix, Camera camera)
     {
