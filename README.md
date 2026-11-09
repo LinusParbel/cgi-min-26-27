@@ -1,9 +1,10 @@
 # CGI-MIN 26/27
 
-A small starting point for computer graphics with C# and OpenTK: 200 rotating
-objects with normal mapping and cube mapping, a fly camera and frustum culling.
-The engine also contains materials for plain texturing, wave distortion,
-reflection mapping and Blinn-Phong lighting.
+A small starting point for computer graphics with C# and OpenTK: deferred
+rendering of a wall with 200 objects and 200 moving point lights, a fly camera
+and frustum culling. The engine also contains forward materials for plain
+texturing, wave distortion, reflection mapping, Blinn-Phong lighting, normal
+mapping and cube mapping.
 
 ## Structure
 
@@ -29,11 +30,18 @@ reflection mapping and Blinn-Phong lighting.
   the cube map reflection as specular part) and `LitTexture/` (texture with Phong
   lighting using the reflection vector, contributed by a student). The shaders are embedded into
   `Engine.dll` as `EmbeddedResource`.
+- `Engine/Deferred/` contains deferred rendering: `GBuffer` (framebuffer with
+  three textures: color, world position, normal + shininess, and a depth buffer)
+  and `DeferredRendering` (geometry pass into the G-buffer, then the light pass on
+  the screen: the directional light on a fullscreen quad, every point light on a
+  sphere as light volume with additive blending). The matching materials are in
+  `Engine/Materials/Deferred/`: `GBufferMaterial` (color texture, normal map and
+  shininess for the geometry pass) and the internal light pass materials.
 - `Engine/Geometry/` contains geometry in main memory, without OpenGL: `Vertex`
   (position, normal, texture coordinate, tangent, bitangent), `MeshData` (vertices
   and triangle indices; it calculates the tangents and bitangents from positions
   and UVs and averages them at shared vertices, plus a bounding radius for
-  frustum culling) and `Primitives` (e.g. `CreateCube()`). `Loaders/ObjLoader` reads the
+  frustum culling) and `Primitives` (`CreateCube()`, `CreateFullscreenQuad()`, `CreateSphere()`). `Loaders/ObjLoader` reads the
   geometry from Wavefront .obj files (`v`, `vt`, `vn`, `f`, including polygons and
   faces without UVs or normals) and also returns `MeshData`; `.mtl` files are ignored.
 - `Engine/OpenGL/` contains `Mesh` (vertex and index buffer on the GPU),
@@ -46,12 +54,26 @@ reflection mapping and Blinn-Phong lighting.
   during the build.
 - `CgiMin.sln` loads both projects together.
 
-The example places 200 rotating objects (cube, stone, torus) at random positions.
-In `Update` the fly camera is moved, the frustum is calculated and every object is
-tested with `frustum.IsVisible(mesh, model)`; `Render` only draws the visible ones.
-The window title shows how many objects are visible. Keys: arrows = fly camera,
-W/S = up/down, 1/2/3 = `NormalMapping`, `CubeReflection`,
-`NormalMappingCubeSpecular`, Escape = quit. Every mesh is drawn with
+The example uses deferred rendering: a wall with 200 objects (cube, stone, torus)
+in front of it, lit by a directional light and 200 moving point lights. In `Update`
+the fly camera is moved, the frustum is calculated and objects
+(`frustum.IsVisible(mesh, model)`) and point lights (`frustum.SphereInFrustum`) are
+tested; `Render` only draws the visible ones:
+
+```csharp
+_deferred.BeginGeometryPass();                    // 1. geometry pass into the G-buffer
+foreach (... in _visibleObjects)
+    _renderer.Draw(mesh, gBufferMaterial, model, camera);
+_deferred.DrawDirectionalLight(camera);           // 2. light pass on the screen
+foreach (PointLight light in _visibleLights)
+    _deferred.DrawPointLight(light, camera);
+```
+
+The window title shows how many objects and lights are visible. Keys: arrows = fly
+camera, W/S = up/down, 1 = final image, 2/3/4 = color, normal and position texture
+of the G-buffer, Escape = quit. The forward rendering example (200 rotating objects
+with three materials) is still available in the tag `lecture-06`; the forward
+materials remain in the engine. Every mesh is drawn with
 `renderer.Draw(mesh, material, modelMatrix, camera)`. The animation only changes
 the model matrix; the camera is not a global static class. Materials and cameras
 do not draw themselves. A scene model will follow in a later step.
@@ -59,8 +81,9 @@ do not draw themselves. A scene model will follow in a later step.
 A material only holds surface values and refers to its `ShaderSource`. It only
 references textures; whoever created a texture has to dispose of it. The renderer
 compiles each material shader once on the first `Draw` and releases it in
-`Dispose`. Every material shader must use `uModel`, `uView` and `uProjection`;
-`uCameraPosition` and the light uniforms are optional.
+`Dispose`. The renderer sets `uModel`, `uView`, `uProjection`, `uCameraPosition`
+and the light uniforms only if the shader uses them (a fullscreen quad needs no
+matrices).
 
 The light of the scene is a `DirectionalLight` (`Engine/Lighting/`): a direction
 towards the light and an ambient, diffuse and specular color. It is set on the

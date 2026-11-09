@@ -60,6 +60,9 @@ public sealed class ShaderProgram : IDisposable
         GL.UniformMatrix4(GetUniformLocation(name), true, ref value);
     }
 
+    public void SetVector2(string name, Vector2 value) =>
+        GL.Uniform2(GetUniformLocation(name), value.X, value.Y);
+
     public void SetVector3(string name, Vector3 value) =>
         GL.Uniform3(GetUniformLocation(name), value.X, value.Y, value.Z);
 

@@ -56,9 +56,10 @@ public sealed class OpenGlRenderer : IDisposable
         ShaderProgram shader = GetShader(material.ShaderSource);
         shader.Use();
         material.ApplyUniforms(shader);
-        shader.SetMatrix4("uModel", modelMatrix);
-        shader.SetMatrix4("uView", camera.ViewMatrix);
-        shader.SetMatrix4("uProjection", camera.GetProjectionMatrix(_aspectRatio));
+        // shaders that draw directly in screen coordinates (e.g. a fullscreen quad) do not use the matrices
+        if (shader.HasUniform("uModel")) shader.SetMatrix4("uModel", modelMatrix);
+        if (shader.HasUniform("uView")) shader.SetMatrix4("uView", camera.ViewMatrix);
+        if (shader.HasUniform("uProjection")) shader.SetMatrix4("uProjection", camera.GetProjectionMatrix(_aspectRatio));
         if (shader.HasUniform("uCameraPosition")) shader.SetVector3("uCameraPosition", camera.Position);
         SetLightUniforms(shader);
 

@@ -37,6 +37,29 @@ public sealed class Texture : IDisposable
         GL.BindTexture(TextureTarget.Texture2D, 0);
     }
 
+    // An empty texture that is rendered into (e.g. a G-buffer of the deferred rendering).
+    // Nearest filtering: every pixel of the screen reads exactly its own texel.
+    internal static Texture CreateRenderTarget(int width, int height, PixelInternalFormat internalFormat,
+                                               PixelFormat format, PixelType type)
+    {
+        var texture = new Texture(width, height);
+        GL.BindTexture(TextureTarget.Texture2D, texture._handle);
+        GL.TexImage2D(TextureTarget.Texture2D, 0, internalFormat, width, height, 0, format, type, IntPtr.Zero);
+        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Nearest);
+        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMagFilter.Nearest);
+        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
+        GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
+        GL.BindTexture(TextureTarget.Texture2D, 0);
+        return texture;
+    }
+
+    private Texture(int width, int height)
+    {
+        Width = width;
+        Height = height;
+        _handle = GL.GenTexture();
+    }
+
     // Loads PNG, JPG, BMP, TGA and more. Image files start at the top left, OpenGL expects
     // the first row at the bottom – that is why the image is flipped vertically on load.
     public static Texture FromFile(string path)

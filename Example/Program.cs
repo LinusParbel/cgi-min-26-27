@@ -1,11 +1,9 @@
 using Engine;
+using Engine.Deferred;
 using Engine.Geometry;
 using Engine.Geometry.Loaders;
 using Engine.Lighting;
-using Engine.Materials;
-using Engine.Materials.CubeReflection;
-using Engine.Materials.NormalMapping;
-using Engine.Materials.NormalMappingCubeSpecular;
+using Engine.Materials.Deferred;
 using Engine.OpenGL;
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Common;
@@ -21,7 +19,7 @@ internal static class Program
         var windowSettings = new NativeWindowSettings
         {
             ClientSize = new Vector2i(1280, 720),
-            Title = "OpenTK — frustum culling and cube mapping",
+            Title = "OpenTK — deferred rendering",
             APIVersion = new Version(3, 3),
             Profile = ContextProfile.Core
         };
@@ -31,36 +29,48 @@ internal static class Program
     }
 }
 
-// 200 rotating objects, randomly placed. Only the objects inside the view frustum are drawn.
-// Keys: arrows = fly camera, W/S = up/down, 1/2/3 = switch material, Escape = quit.
+// Deferred rendering: a wall with 200 objects in front of it, lit by one directional light
+// and 200 moving point lights. Frustum culling is used for the objects and for the lights.
+// Keys: arrows = fly camera, W/S = up/down, 1 = final image, 2/3/4 = color/normal/position G-buffer,
+// Escape = quit.
 internal sealed class ExampleWindow : Application
 {
     private const int NumberOfObjects = 200;
+    private const int NumberOfLights = 200;
 
     private OpenGlRenderer? _renderer;
+    private DeferredRendering? _deferred;
     private FlyCamera? _flyCamera;
 
-    // three meshes; they are drawn with different scales
+    // meshes
+    private Mesh? _wall;
     private Mesh? _cube;
     private Mesh? _stone;
     private Mesh? _torus;
 
-    // color textures, normal maps and cube maps
+    // textures
     private Texture? _checkerTexture;
     private Texture? _marbleTexture;
     private Texture? _brickNormalMap;
     private Texture? _stoneNormalMap;
-    private CubeTexture? _environmentCubeTexture;
-    private CubeTexture? _darkerEnvironmentCubeTexture;
 
-    // the materials that can be switched with the keys 1, 2 and 3
-    private Material[] _materials = [];
-    private int _materialIndex;
+    // G-buffer materials: color texture, normal map and shininess
+    private GBufferMaterial? _wallMaterial;
+    private GBufferMaterial? _cubeMaterial;
+    private GBufferMaterial? _stoneMaterial;
+    private GBufferMaterial? _torusMaterial;
 
-    // random positions of the objects, and the objects found visible in Update
+    // the scene: object positions and point lights
     private readonly List<Vector3> _positions = new();
-    private readonly List<(Mesh Mesh, Matrix4 Model)> _visibleObjects = new();
+    private readonly List<Vector3> _lightBasePositions = new();
+    private readonly List<PointLight> _pointLights = new();
 
+    // filled in Update by the frustum culling, drawn in Render
+    private readonly List<(Mesh Mesh, GBufferMaterial Material, Matrix4 Model)> _visibleObjects = new();
+    private readonly List<PointLight> _visibleLights = new();
+
+    // 0 = final image, 1 = color buffer, 2 = normal buffer, 3 = position buffer
+    private int _displayMode;
     private float _elapsedTime;
 
     public ExampleWindow(GameWindowSettings gameSettings, NativeWindowSettings windowSettings)
@@ -70,18 +80,21 @@ internal sealed class ExampleWindow : Application
     {
         VSync = VSyncMode.On;
         _renderer = new OpenGlRenderer();
+        _deferred = new DeferredRendering(_renderer, FramebufferSize.X, FramebufferSize.Y);
         _flyCamera = new FlyCamera(new Vector3(0, 0, 3));
         _flyCamera.Camera.FieldOfViewDegrees = 60.0f;
 
+        // the directional light is drawn in the light pass on a fullscreen quad
         _renderer.DirectionalLight = new DirectionalLight
         {
-            Direction = new Vector3(1.0f, -1.0f, 2.0f),
+            Direction = new Vector3(1.0f, -1.0f, 0.2f),
             AmbientColor = new Vector3(0.3f, 0.3f, 0.3f),
             DiffuseColor = new Vector3(0.8f, 0.8f, 0.8f),
             SpecularColor = new Vector3(1.0f, 1.0f, 1.0f)
         };
 
         // meshes
+        _wall = new Mesh(ObjLoader.Load(Asset("thin_wall.obj")));
         _cube = new Mesh(Primitives.CreateCube());
         _stone = new Mesh(ObjLoader.Load(Asset("round_stone.obj")));
         _torus = new Mesh(ObjLoader.Load(Asset("torus_smooth.obj")));
@@ -92,81 +105,123 @@ internal sealed class ExampleWindow : Application
         _brickNormalMap = Texture.FromFile(Asset("brick_normal.png"));
         _stoneNormalMap = Texture.FromFile(Asset("stone_normal.png"));
 
-        // cube maps: the six sides in the order +X, -X, +Y, -Y, +Z, -Z
-        _environmentCubeTexture = CubeTexture.FromFiles(
-            Asset("cube/env_reflect_left.png"), Asset("cube/env_reflect_right.png"),
-            Asset("cube/env_reflect_top.png"), Asset("cube/env_reflect_bottom.png"),
-            Asset("cube/env_reflect_back.png"), Asset("cube/env_reflect_front.png"));
-        _darkerEnvironmentCubeTexture = CubeTexture.FromFiles(
-            Asset("cube/cmap2_left.png"), Asset("cube/cmap2_right.png"),
-            Asset("cube/cmap2_top.png"), Asset("cube/cmap2_bottom.png"),
-            Asset("cube/cmap2_back.png"), Asset("cube/cmap2_front.png"));
+        // materials for the geometry pass
+        _wallMaterial = new GBufferMaterial(_marbleTexture, _stoneNormalMap) { Shininess = 6.0f };
+        _cubeMaterial = new GBufferMaterial(_checkerTexture, _brickNormalMap) { Shininess = 126.0f };
+        _stoneMaterial = new GBufferMaterial(_marbleTexture, _stoneNormalMap) { Shininess = 120.0f };
+        _torusMaterial = new GBufferMaterial(_checkerTexture, _brickNormalMap) { Shininess = 120.0f };
 
-        _materials =
-        [
-            new NormalMappingMaterial(_checkerTexture, _brickNormalMap) { Shininess = 15.0f },
-            new CubeReflectionMaterial(_brickNormalMap, _environmentCubeTexture),
-            new NormalMappingCubeSpecularMaterial(_marbleTexture, _stoneNormalMap, _darkerEnvironmentCubeTexture)
-        ];
-
-        // random positions between -10 and 10 on every axis
+        // random object positions in front of the wall
         var random = new Random();
         for (int i = 0; i < NumberOfObjects; i++)
-            _positions.Add(new Vector3(random.Next(-100, 100) / 10.0f, random.Next(-100, 100) / 10.0f, random.Next(-100, 100) / 10.0f));
+            _positions.Add(new Vector3(random.Next(-200, 200) / 10.0f, random.Next(-200, 200) / 10.0f, 1.0f));
+
+        // point lights with some predefined colors
+        Vector3[] lightColors =
+        [
+            new(1, 0, 0), new(0, 1, 0), new(0, 0, 1),
+            new(1, 1, 0), new(0, 1, 1), new(1, 0, 1)
+        ];
+        for (int i = 0; i < NumberOfLights; i++)
+        {
+            _lightBasePositions.Add(new Vector3(random.Next(-200, 200) / 10.0f, random.Next(-200, 200) / 10.0f, 1.0f));
+            Vector3 color = lightColors[i % lightColors.Length];
+            _pointLights.Add(new PointLight { AmbientColor = color, DiffuseColor = color, SpecularColor = Vector3.One, Radius = 3.0f });
+        }
     }
 
     private static string Asset(string fileName) => Path.Combine(AppContext.BaseDirectory, "Assets", fileName);
 
-    protected override void FramebufferResized(int width, int height) => _renderer!.Resize(width, height);
+    protected override void FramebufferResized(int width, int height)
+    {
+        _renderer!.Resize(width, height);
+        _deferred!.Resize(width, height);
+    }
 
-    // The animation, the camera and the visibility test change the state; Render only draws.
+    // Camera, lights and the visibility test change the state; Render only draws.
     protected override void Update(float deltaTime)
     {
         _elapsedTime += deltaTime;
 
         if (KeyboardState.IsKeyPressed(Keys.Escape)) Close();
-        if (KeyboardState.IsKeyPressed(Keys.D1)) _materialIndex = 0;
-        if (KeyboardState.IsKeyPressed(Keys.D2)) _materialIndex = 1;
-        if (KeyboardState.IsKeyPressed(Keys.D3)) _materialIndex = 2;
+        if (KeyboardState.IsKeyPressed(Keys.D1)) _displayMode = 0;
+        if (KeyboardState.IsKeyPressed(Keys.D2)) _displayMode = 1;
+        if (KeyboardState.IsKeyPressed(Keys.D3)) _displayMode = 2;
+        if (KeyboardState.IsKeyPressed(Keys.D4)) _displayMode = 3;
 
         _flyCamera!.Update(KeyboardState, deltaTime);
-
-        // the frustum has to be recalculated after every camera movement
         Frustum frustum = _renderer!.GetFrustum(_flyCamera.Camera);
 
+        // objects: the wall plus the objects in front of it, only the visible ones
         _visibleObjects.Clear();
+        Matrix4 wallModel = Matrix4.CreateScale(20.0f);
+        if (frustum.IsVisible(_wall!, wallModel))
+            _visibleObjects.Add((_wall!, _wallMaterial!, wallModel));
+
         for (int i = 0; i < NumberOfObjects; i++)
         {
-            (Mesh mesh, float scale) = (i % 3) switch
+            (Mesh mesh, GBufferMaterial material, float scale) = (i % 3) switch
             {
-                0 => (_cube!, 0.8f),
-                1 => (_stone!, 0.3f),
-                _ => (_torus!, 0.8f)
+                0 => (_cube!, _cubeMaterial!, 0.8f),
+                1 => (_stone!, _stoneMaterial!, 0.3f),
+                _ => (_torus!, _torusMaterial!, 0.8f)
             };
-
-            Matrix4 model = Matrix4.CreateScale(scale)
-                          * Matrix4.CreateRotationX(_elapsedTime * 0.5f)
-                          * Matrix4.CreateRotationY(_elapsedTime * 0.25f)
-                          * Matrix4.CreateRotationZ(_elapsedTime * 0.25f)
-                          * Matrix4.CreateTranslation(_positions[i]);
-
-            // frustum culling: only objects whose sphere lies (partly) inside the frustum are drawn
+            Matrix4 model = Matrix4.CreateScale(scale) * Matrix4.CreateTranslation(_positions[i]);
             if (frustum.IsVisible(mesh, model))
-                _visibleObjects.Add((mesh, model));
+                _visibleObjects.Add((mesh, material, model));
         }
 
-        Title = $"Frustum culling — visible objects: {_visibleObjects.Count} / {NumberOfObjects} — material {_materialIndex + 1} (keys 1-3)";
+        // point lights move around their base position; lights outside the frustum are not drawn
+        _visibleLights.Clear();
+        for (int i = 0; i < NumberOfLights; i++)
+        {
+            float t = _elapsedTime;
+            var offset = new Vector3(
+                (MathF.Sin(t * 1.2f + i * 20) + MathF.Cos(t * 3.12f + i * 31)) * 2.0f,
+                (MathF.Sin(t * 2.04f + i * 20) + MathF.Cos(t * 2.76f + i * 30)) * 2.0f,
+                0.0f);
+            PointLight light = _pointLights[i];
+            light.Position = _lightBasePositions[i] + offset;
+            if (frustum.SphereInFrustum(light.Position, light.Radius))
+                _visibleLights.Add(light);
+        }
+
+        string[] modes = ["final image", "color buffer", "normal buffer", "position buffer"];
+        Title = $"Deferred rendering — {modes[_displayMode]} (keys 1-4) — objects: {_visibleObjects.Count}, point lights: {_visibleLights.Count}";
     }
 
     protected override void Render()
     {
-        _renderer!.Clear();
-        foreach ((Mesh mesh, Matrix4 model) in _visibleObjects)
-            _renderer.Draw(mesh, _materials[_materialIndex], model, _flyCamera!.Camera);
+        Camera camera = _flyCamera!.Camera;
+
+        // 1. geometry pass: all objects into the G-buffer
+        _deferred!.BeginGeometryPass();
+        foreach ((Mesh mesh, GBufferMaterial material, Matrix4 model) in _visibleObjects)
+            _renderer!.Draw(mesh, material, model, camera);
+
+        // 2. light pass, or one of the G-buffer textures as debug view
+        switch (_displayMode)
+        {
+            case 0:
+                _deferred.DrawDirectionalLight(camera);
+                foreach (PointLight light in _visibleLights)
+                    _deferred.DrawPointLight(light, camera);
+                break;
+            case 1:
+                _deferred.ShowGBufferTexture(_deferred.GBuffer.ColorTexture, camera);
+                break;
+            case 2:
+                _deferred.ShowGBufferTexture(_deferred.GBuffer.NormalShininessTexture, camera);
+                break;
+            default:
+                _deferred.ShowGBufferTexture(_deferred.GBuffer.PositionTexture, camera);
+                break;
+        }
     }
 
     protected override void Shutdown()
     {
+        _wall?.Dispose();
         _cube?.Dispose();
         _stone?.Dispose();
         _torus?.Dispose();
@@ -174,8 +229,7 @@ internal sealed class ExampleWindow : Application
         _marbleTexture?.Dispose();
         _brickNormalMap?.Dispose();
         _stoneNormalMap?.Dispose();
-        _environmentCubeTexture?.Dispose();
-        _darkerEnvironmentCubeTexture?.Dispose();
+        _deferred?.Dispose();
         _renderer?.Dispose();
     }
 }

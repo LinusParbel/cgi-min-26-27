@@ -4,6 +4,23 @@ Each lecture state is tagged in Git. Update your own project with
 `git fetch upstream --tags` and `git merge --no-edit lecture-XX`.
 Changes that can break your own code are marked with **Breaking**.
 
+## lecture-07
+
+- New: deferred rendering (`Engine/Deferred/`): `GBuffer` (color, position,
+  normal + shininess, depth) and `DeferredRendering` with `BeginGeometryPass()`,
+  `DrawDirectionalLight(camera)`, `DrawPointLight(light, camera)`,
+  `ShowGBufferTexture(texture, camera)` (debug view) and `Resize(width, height)`.
+- New: `GBufferMaterial` (`Engine/Materials/Deferred/`) – color texture, normal map and
+  shininess for the geometry pass.
+- New: `PointLight` (`Engine/Lighting/`) with position, colors and radius.
+- New: `Primitives.CreateFullscreenQuad()` and `Primitives.CreateSphere()`,
+  `ShaderProgram.SetVector2`.
+- The renderer sets `uModel`, `uView` and `uProjection` only if the shader uses them.
+  Existing materials are not affected.
+- Example: replaced by the deferred scene (wall, 200 objects, 200 point lights, keys 1–4);
+  the forward example of lecture 6 is still available in the tag `lecture-06`.
+  New asset `thin_wall.obj`.
+
 ## lecture-06
 
 - New: `CubeTexture` (cube map from six images, +X, -X, +Y, -Y, +Z, -Z) and
