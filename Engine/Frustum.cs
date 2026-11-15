@@ -104,6 +104,24 @@ public sealed class Frustum
         return true;
     }
 
+    // Is the axis-aligned box completely or partly inside the frustum? For every plane only the corner
+    // of the box that lies farthest in the direction of the plane normal is tested: if even this corner
+    // is outside, the whole box is outside. (Used for the areas of the octree.)
+    public bool BoxInFrustum(Vector3 min, Vector3 max)
+    {
+        for (int i = 0; i < _planes.Length; i++)
+        {
+            Vector3 normal = _planes[i].Normal;
+            var corner = new Vector3(
+                normal.X >= 0 ? max.X : min.X,
+                normal.Y >= 0 ? max.Y : min.Y,
+                normal.Z >= 0 ? max.Z : min.Z);
+            if (SignedDistanceToPoint(i, corner) < 0)
+                return false;
+        }
+        return true;
+    }
+
     // Sphere test for a mesh drawn with the given model matrix: the position is in the last row of the
     // matrix, the radius was calculated while loading and grows with the scale of the matrix.
     public bool IsVisible(Mesh mesh, Matrix4 modelMatrix)

@@ -12,6 +12,7 @@ namespace Engine.Deferred;
 //     Nothing is lit yet; color, position and normal of every pixel end up in the G-buffer.
 //  2. Light pass: DrawDirectionalLight() draws a fullscreen quad that lights every pixel,
 //     then DrawPointLight() adds each point light (a sphere as light volume, additive blending).
+//  3. Transparent objects: BeginTransparentPass(), then draw them forward, sorted from back to front.
 // Effort: number of objects + number of lights (instead of objects * lights in forward rendering).
 // The draw calls go through the OpenGlRenderer, so the camera and the directional light are taken from there.
 public sealed class DeferredRendering : IDisposable
@@ -83,6 +84,20 @@ public sealed class DeferredRendering : IDisposable
         _pointLightMaterial.Light = light;
         Matrix4 model = Matrix4.CreateScale(light.Radius) * Matrix4.CreateTranslation(light.Position);
         _renderer.Draw(_lightVolume, _pointLightMaterial, model, camera);
+    }
+
+    // 3. Transparent objects (forward, after the light pass): the depth of the opaque objects is copied
+    //    from the G-buffer to the screen, so that transparent objects behind opaque ones are hidden.
+    //    Then draw the transparent objects from back to front with the renderer (RenderList.Transparent);
+    //    the renderer enables blending for transparent materials.
+    public void BeginTransparentPass()
+    {
+        GBuffer.CopyDepthToScreen();
+
+        GL.Disable(EnableCap.Blend);
+        GL.Enable(EnableCap.DepthTest);
+        GL.Enable(EnableCap.CullFace);
+        GL.CullFace(TriangleFace.Back);
     }
 
     // Debug view: shows one G-buffer texture instead of the lit image.

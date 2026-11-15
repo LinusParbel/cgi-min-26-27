@@ -12,6 +12,13 @@ public abstract class Material
 {
     protected internal abstract ShaderSource ShaderSource { get; }
 
+    // Opaque by default. With AlphaBlend or Additive the renderer enables blending for this material
+    // and does not write the depth. With deferred rendering, transparent objects are drawn after the
+    // light pass with a forward material (not with a GBufferMaterial).
+    public BlendMode BlendMode { get; set; } = BlendMode.Opaque;
+
+    public bool IsTransparent => BlendMode != BlendMode.Opaque;
+
     // Called while the shader is already active.
     protected internal abstract void ApplyUniforms(ShaderProgram shader);
 }

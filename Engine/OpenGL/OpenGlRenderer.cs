@@ -1,5 +1,6 @@
 using Engine.Lighting;
 using Engine.Materials;
+using Engine.Scenes;
 using OpenTK.Graphics.OpenGL4;
 using OpenTK.Mathematics;
 
@@ -63,12 +64,40 @@ public sealed class OpenGlRenderer : IDisposable
         if (shader.HasUniform("uCameraPosition")) shader.SetVector3("uCameraPosition", camera.Position);
         SetLightUniforms(shader);
 
+        // Transparent materials: blending on and no depth writes, so that objects behind them
+        // (drawn later) are not hidden by the z-buffer. Opaque materials leave the blend state as it is.
+        if (material.IsTransparent)
+        {
+            GL.Enable(EnableCap.Blend);
+            if (material.BlendMode == BlendMode.Additive)
+                GL.BlendFunc(BlendingFactor.One, BlendingFactor.One);
+            else
+                GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
+            GL.DepthMask(false);
+        }
+
         GL.BindVertexArray(mesh.VertexArray);
         GL.DrawElements(PrimitiveType.Triangles, mesh.IndexCount, DrawElementsType.UnsignedInt, 0);
         GL.BindVertexArray(0);
 
+        // never forget to disable blending when transparent rendering is done
+        if (material.IsTransparent)
+        {
+            GL.DepthMask(true);
+            GL.Disable(EnableCap.Blend);
+        }
+
         // Materials with several textures switch the active texture unit; reset it for the next draw call.
         GL.ActiveTexture(TextureUnit.Texture0);
+    }
+
+    // Draws a node of the scene graph with its mesh, material and world matrix.
+    public void Draw(SceneNode node, Camera camera)
+    {
+        ArgumentNullException.ThrowIfNull(node);
+        if (node.Mesh is null || node.Material is null)
+            throw new ArgumentException("The node has no mesh or no material.", nameof(node));
+        Draw(node.Mesh, node.Material, node.WorldMatrix, camera);
     }
 
     // Only shaders that use lighting declare these uniforms; all others are left untouched.

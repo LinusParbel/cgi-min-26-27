@@ -4,6 +4,28 @@ Each lecture state is tagged in Git. Update your own project with
 `git fetch upstream --tags` and `git merge --no-edit lecture-XX`.
 Changes that can break your own code are marked with **Breaking**.
 
+## lecture-08
+
+- New: scene graph (`Engine/Scenes/`): `SceneNode` (transformation relative to the
+  parent, children, `WorldMatrix`, `IsStatic`), `Scene` (`Update()`, `CollectVisible`,
+  `BuildOctree`, `UseOctree`), `RenderList` (opaque / transparent, sorted back to front)
+  and `Octree<T>` (spatial index for the visibility test).
+- New: `renderer.Draw(node, camera)` draws a scene node with its world matrix.
+- New: transparency. `Material.BlendMode` (`Opaque`, `AlphaBlend`, `Additive`) and
+  `Material.IsTransparent`; the renderer enables blending and disables depth writes for
+  transparent materials. New materials `TransparentTextureMaterial` and
+  `TransparentLitTextureMaterial` (lit by the directional light).
+- New: `DeferredRendering.BeginTransparentPass()` copies the depth buffer of the
+  G-buffer to the screen; transparent objects are drawn after the light pass.
+  The depth buffer of the `GBuffer` is now `Depth24Stencil8` (needed for the copy).
+- New: `Frustum.BoxInFrustum(min, max)`.
+- New: `MouseCamera` – right mouse button + mouse = look around, WASD = move,
+  Q/E = down/up, Shift = faster. `FlyCamera` is unchanged.
+- Example: replaced by the scene graph scene (1000 static objects in an octree,
+  transparent pyramids, a carousel with planets and moons, 800 point lights, key O
+  switches the octree on/off); the example of lecture 7 is still available in the tag
+  `lecture-07`. New assets `pyramid.obj` and `orange.png`.
+
 ## lecture-07
 
 - New: deferred rendering (`Engine/Deferred/`): `GBuffer` (color, position,
