@@ -1,10 +1,11 @@
 # CGI-MIN 26/27
 
-A small starting point for computer graphics with C# and OpenTK: deferred
-rendering of a wall with 200 objects and 200 moving point lights, a fly camera
-and frustum culling. The engine also contains forward materials for plain
-texturing, wave distortion, reflection mapping, Blinn-Phong lighting, normal
-mapping and cube mapping.
+A small starting point for computer graphics with C# and OpenTK: a scene graph
+with deferred rendering of a wall with 1000 objects (some of them transparent) and
+800 moving point lights, a mouse camera and frustum culling with an octree. The
+engine also contains forward materials for plain texturing, wave distortion,
+reflection mapping, Blinn-Phong lighting, normal mapping, cube mapping and
+transparency.
 
 ## Structure
 
@@ -12,10 +13,20 @@ mapping and cube mapping.
   and drawing, similar to Unity (see below).
 - `Engine/Camera.cs` describes a view by position, target and projection.
   Multiple camera instances can exist independently of each other.
-  `Engine/FlyCamera.cs` steers a camera with the keyboard (arrow keys, W/S).
+  `Engine/MouseCamera.cs` steers a camera with mouse and keyboard (right mouse
+  button + mouse = look around, WASD = move, Q/E = down/up, Shift = faster),
+  `Engine/FlyCamera.cs` with the keyboard only (arrow keys, W/S).
 - `Engine/Frustum.cs` contains the six clipping planes of a camera's view frustum
-  (Hessian normal form) and the sphere-in-frustum test for frustum culling;
-  `renderer.GetFrustum(camera)` creates it with the current aspect ratio.
+  (Hessian normal form), the sphere-in-frustum test for frustum culling and the
+  box-in-frustum test for the octree; `renderer.GetFrustum(camera)` creates it with
+  the current aspect ratio.
+- `Engine/Scenes/` contains the scene graph: `SceneNode` (name, optional mesh and
+  material, position, rotation, scale relative to the parent, children, world
+  matrix), `Scene` (root node, `Update()` calculates all world matrices,
+  `CollectVisible` fills a `RenderList`, `BuildOctree` sorts the static nodes into an
+  octree), `RenderList` (visible opaque nodes and transparent nodes sorted from back
+  to front) and `Octree<T>` (spatial index: elements are sorted by their bounding
+  sphere into areas; the query skips every area outside the frustum).
 - `Engine/Materials/` contains the abstract base class `Material` and one
   subfolder per material type with its class and GLSL files: `UnlitTexture/`
   (texture without lighting), `WaveDistortion/` (texture without lighting,
@@ -28,13 +39,18 @@ mapping and cube mapping.
   tangent space), `CubeReflection/` (mirror: the reflected view direction picks
   the color from a cube map), `NormalMappingCubeSpecular/` (normal mapping with
   the cube map reflection as specular part) and `LitTexture/` (texture with Phong
-  lighting using the reflection vector, contributed by a student). The shaders are embedded into
-  `Engine.dll` as `EmbeddedResource`.
+  lighting using the reflection vector, contributed by a student),
+  `TransparentTexture/` (texture with an alpha value, without lighting) and
+  `TransparentLitTexture/` (texture with an alpha value, lit by the directional
+  light). Every material has a `BlendMode` (`Opaque`, `AlphaBlend`, `Additive`); for
+  transparent materials the renderer enables blending and disables depth writes.
+  The shaders are embedded into `Engine.dll` as `EmbeddedResource`.
 - `Engine/Deferred/` contains deferred rendering: `GBuffer` (framebuffer with
   three textures: color, world position, normal + shininess, and a depth buffer)
   and `DeferredRendering` (geometry pass into the G-buffer, then the light pass on
   the screen: the directional light on a fullscreen quad, every point light on a
-  sphere as light volume with additive blending). The matching materials are in
+  sphere as light volume with additive blending; `BeginTransparentPass()` copies
+  the depth buffer to the screen for transparent objects drawn afterwards). The matching materials are in
   `Engine/Materials/Deferred/`: `GBufferMaterial` (color texture, normal map and
   shininess for the geometry pass) and the internal light pass materials.
 - `Engine/Geometry/` contains geometry in main memory, without OpenGL: `Vertex`
@@ -54,29 +70,36 @@ mapping and cube mapping.
   during the build.
 - `CgiMin.sln` loads both projects together.
 
-The example uses deferred rendering: a wall with 200 objects (cube, stone, torus)
-in front of it, lit by a directional light and 200 moving point lights. In `Update`
-the fly camera is moved, the frustum is calculated and objects
-(`frustum.IsVisible(mesh, model)`) and point lights (`frustum.SphereInFrustum`) are
-tested; `Render` only draws the visible ones:
+The example builds a scene graph: a wall with 1000 static objects (cube, stone,
+torus and transparent pyramids) in front of it and a rotating carousel whose planets
+carry moons. The static nodes are sorted into an octree once. The scene is lit by a
+directional light and 800 moving point lights. In `Update` the nodes are moved, the
+world matrices are calculated, and the visible nodes are collected in a render list
+(static nodes via the octree, moving nodes one by one); `Render` only draws them:
 
 ```csharp
-_deferred.BeginGeometryPass();                    // 1. geometry pass into the G-buffer
-foreach (... in _visibleObjects)
-    _renderer.Draw(mesh, gBufferMaterial, model, camera);
-_deferred.DrawDirectionalLight(camera);           // 2. light pass on the screen
+_scene.Update();                                   // in Update: world matrices
+_scene.CollectVisible(frustum, camera.Position, _renderList);
+
+_deferred.BeginGeometryPass();                     // in Render: 1. geometry pass
+foreach (SceneNode node in _renderList.Opaque)
+    _renderer.Draw(node, camera);
+_deferred.DrawDirectionalLight(camera);            // 2. light pass on the screen
 foreach (PointLight light in _visibleLights)
     _deferred.DrawPointLight(light, camera);
+_deferred.BeginTransparentPass();                  // 3. transparent objects, back to front
+foreach (SceneNode node in _renderList.Transparent)
+    _renderer.Draw(node, camera);
 ```
 
-The window title shows how many objects and lights are visible. Keys: arrows = fly
-camera, W/S = up/down, 1 = final image, 2/3/4 = color, normal and position texture
-of the G-buffer, Escape = quit. The forward rendering example (200 rotating objects
-with three materials) is still available in the tag `lecture-06`; the forward
-materials remain in the engine. Every mesh is drawn with
-`renderer.Draw(mesh, material, modelMatrix, camera)`. The animation only changes
-the model matrix; the camera is not a global static class. Materials and cameras
-do not draw themselves. A scene model will follow in a later step.
+The window title shows how many nodes and lights are visible and how many visibility
+tests were needed. Keys: right mouse button + mouse = look around, WASD = move,
+Q/E = down/up, Shift = faster, O = octree on/off, 1 = final image, 2/3/4 = color,
+normal and position texture of the G-buffer, Escape = quit. The example of lecture 7
+without scene graph is still available in the tag `lecture-07`, the forward rendering
+example in the tag `lecture-06`. A single mesh can still be drawn with
+`renderer.Draw(mesh, material, modelMatrix, camera)`; the camera is not a global
+static class, and materials and cameras do not draw themselves.
 
 A material only holds surface values and refers to its `ShaderSource`. It only
 references textures; whoever created a texture has to dispose of it. The renderer

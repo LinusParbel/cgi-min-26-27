@@ -45,16 +45,27 @@ public sealed class GBuffer : IDisposable
         // the fragment shader writes into these three attachments (layout(location = 0/1/2) out ...)
         GL.DrawBuffers(DrawBuffers.Length, DrawBuffers);
 
-        // depth buffer, so that near objects cover far ones also in the G-buffer
+        // depth buffer, so that near objects cover far ones also in the G-buffer.
+        // Same format as the screen (24 bit depth + 8 bit stencil), so that it can be copied to the screen
+        // for the transparent objects (DeferredRendering.BeginTransparentPass).
         _depthBuffer = GL.GenRenderbuffer();
         GL.BindRenderbuffer(RenderbufferTarget.Renderbuffer, _depthBuffer);
-        GL.RenderbufferStorage(RenderbufferTarget.Renderbuffer, RenderbufferStorage.DepthComponent24, width, height);
-        GL.FramebufferRenderbuffer(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthAttachment, RenderbufferTarget.Renderbuffer, _depthBuffer);
+        GL.RenderbufferStorage(RenderbufferTarget.Renderbuffer, RenderbufferStorage.Depth24Stencil8, width, height);
+        GL.FramebufferRenderbuffer(FramebufferTarget.Framebuffer, FramebufferAttachment.DepthStencilAttachment, RenderbufferTarget.Renderbuffer, _depthBuffer);
 
         FramebufferErrorCode status = GL.CheckFramebufferStatus(FramebufferTarget.Framebuffer);
         GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
         if (status != FramebufferErrorCode.FramebufferComplete)
             throw new InvalidOperationException($"The G-buffer could not be created: {status}");
+    }
+
+    // Copies the depth of the G-buffer into the depth buffer of the screen (framebuffer 0).
+    internal void CopyDepthToScreen()
+    {
+        GL.BindFramebuffer(FramebufferTarget.ReadFramebuffer, _framebuffer);
+        GL.BindFramebuffer(FramebufferTarget.DrawFramebuffer, 0);
+        GL.BlitFramebuffer(0, 0, Width, Height, 0, 0, Width, Height, ClearBufferMask.DepthBufferBit, BlitFramebufferFilter.Nearest);
+        GL.BindFramebuffer(FramebufferTarget.Framebuffer, 0);
     }
 
     // All following draw calls render into the G-buffer instead of the screen.
